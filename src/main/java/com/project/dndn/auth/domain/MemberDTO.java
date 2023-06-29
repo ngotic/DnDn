@@ -11,9 +11,10 @@ public class MemberDTO {
 	private String name;
 	private String tel;
 	private String email; 
+	private String birth;
 	private String gender;
 	private String address;
-	private String addressD;
+	private String addressdetail;
 	private String regdate;
 	private String enabled;
 	private String point;

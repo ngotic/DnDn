@@ -68,10 +68,16 @@
 				<input class="form-control" type="text" id="sample4_roadAddress" name="address" placeholder="도로명주소" readonly>
 				<span id="guide" style="color:#999;display:none"></span>
 				
-				<label class="control-label" for="addressD">상세주소</label>
-				<input class="form-control" type="text" id="sample4_detailAddress" name="addressD" placeholder="상세주소" >
+				<label class="control-label" for="addressdetail">상세주소</label>
+				<input class="form-control" type="text" id="sample4_detailAddress" name="addressdetail" placeholder="상세주소" >
 				
 			</div>
+			
+			<div>
+				<label class="control-label" for="birth">생년월일</label>
+				<input class="form-control" type="text" name="birth" id="birth" maxlength="10" placeholder="2000-01-01"/>
+			</div>			
+						
 						
 			<div>
 				<label class="control-label" for="email">이메일</label>
@@ -79,7 +85,7 @@
 				<div class="invalid-feedback">이메일 형식에 맞게 입력하세요.</div>
 				
 			</div>
-				<div>
+			<div>
 				<label class="control-label" for="tel">휴대폰번호</label>
 				<input class="form-control" type="tel" name="tel" id="tel" maxlength="13" placeholder="핸드폰번호"/>
 				<div class="invalid-feedback">번호 확인</div>
@@ -107,6 +113,21 @@ $('#tel').keydown(function(event) {
     }
     return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));           
 });
+
+$('#birth').keydown(function(event) {
+    var key = event.charCode || event.keyCode || 0;
+    $text = $(this); 
+    if (key !== 8 && key !== 9) {
+        if ($text.val().length === 4) {
+            $text.val($text.val() + '-');
+        }
+        if ($text.val().length === 7) {
+            $text.val($text.val() + '-');
+        }
+    }
+    return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));           
+});
+
 
 /* 다음 주소 api */
   function sample4_execDaumPostcode() {

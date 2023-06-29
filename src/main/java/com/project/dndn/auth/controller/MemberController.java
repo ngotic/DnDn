@@ -40,7 +40,6 @@ public class MemberController {
 	public String registerok(Model model, MemberDTO dto) {
 		
 		dto.setPw(encoder.encode(dto.getPw()));
-		dto.setAddress(dto.getAddress()+" "+dto.getAddressD());
 		int result = mapper.register(dto);
 
 		AuthDTO adto = new AuthDTO();

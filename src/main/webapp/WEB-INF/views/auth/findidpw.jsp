@@ -269,7 +269,11 @@
 	        success:function(data){	
 	        	$('#mail-Check-Btn').trigger("click");
 	        	$('.mail-check-input').show();
-				$('#findpw').prop('disabled','true');
+	        	$('#idInput').prop('readonly',true);
+	        	$('#emailInput').prop('readonly',true);
+	        	$('#findpw').text('인증 메일 발송중');
+				$('#findpw').prop('disabled',true);
+		
 	        },
 	        error: function (XMLHttpRequest, textStatus, errorThrown){
 	

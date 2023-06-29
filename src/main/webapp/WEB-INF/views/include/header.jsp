@@ -58,7 +58,7 @@
 			<div class="navbar-menu" id="menu">
 				<div class="nav-item"><a href = "#" class="nav-link" >고객지원</a></div>
 				<sec:authorize access="isAnonymous()">
-				<div class="nav-item"><a href = "#" class="nav-link" >회원가입</a></div>
+				<div class="nav-item"><a href = "/dndn/auth/register.do" class="nav-link" >회원가입</a></div>
 				</sec:authorize>
 				<div class="nav-item"><a href = "#" class="nav-link" >장바구니</a></div> 
 				<sec:authorize access="isAnonymous()">
