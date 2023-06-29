@@ -1,0 +1,328 @@
+-- 1. drop table 구문
+--DROP TABLE tblMember CASCADE CONSTRAINTS;
+--DROP TABLE tblStore CASCADE CONSTRAINTS;
+--DROP TABLE tblWishList CASCADE CONSTRAINTS;
+--DROP TABLE tblLunchBox CASCADE CONSTRAINTS;
+--DROP TABLE tblAuth CASCADE CONSTRAINTS;
+--DROP TABLE tblReview CASCADE CONSTRAINTS;
+--DROP TABLE tblAddress CASCADE CONSTRAINTS;
+--DROP TABLE tblReviewReply CASCADE CONSTRAINTS;
+--DROP TABLE tblNotice CASCADE CONSTRAINTS;
+--DROP TABLE tblReviewLike CASCADE CONSTRAINTS;
+--DROP TABLE tblOrder CASCADE CONSTRAINTS;
+--DROP TABLE tblSellBoard CASCADE CONSTRAINTS;
+--DROP TABLE tblStoreManager CASCADE CONSTRAINTS;
+--DROP TABLE tblPeriodShip CASCADE CONSTRAINTS;
+--DROP TABLE tblSuggest CASCADE CONSTRAINTS;
+--DROP TABLE tblCouponMember CASCADE CONSTRAINTS;
+--DROP TABLE tblCoupon CASCADE CONSTRAINTS;
+--DROP TABLE tblSuggestCategory CASCADE CONSTRAINTS;
+--DROP TABLE tblCart CASCADE CONSTRAINTS;
+--DROP TABLE tblLunchboxSet CASCADE CONSTRAINTS;
+--DROP TABLE tblEvent CASCADE CONSTRAINTS;
+
+-- 2. sequence drop
+--drop sequence storeseq;
+--drop sequence wishlistseq;
+--drop sequence lunchboxseq;
+--drop sequence reviewseq;
+--drop sequence addressseq;
+--drop sequence reviewreplyseq;
+--drop sequence noticeseq;
+--drop sequence reviewlikeseq;
+--drop sequence orderseq;
+--drop sequence sellboardseq;
+--drop sequence storemanagerseq;
+--drop sequence periodshipseq;
+--drop sequence suggestseq;
+--drop sequence suggestcategoryseq;
+--drop sequence couponmemberseq;
+--drop sequence couponseq;
+--drop sequence eventseq;
+--drop sequence lunchboxsetseq;
+--drop sequence cartseq;
+
+
+-- 3. sequence create
+create sequence storeseq;
+create sequence wishlistseq;
+create sequence lunchboxseq;
+create sequence reviewseq;
+create sequence addressseq;
+create sequence reviewreplyseq;
+create sequence noticeseq;
+create sequence reviewlikeseq;
+create sequence orderseq;
+create sequence sellboardseq;
+create sequence storemanagerseq;
+create sequence periodshipseq;
+create sequence suggestseq;
+create sequence suggestcategoryseq;
+create sequence couponmemberseq;
+create sequence couponseq;
+create sequence eventseq;
+create sequence lunchboxsetseq;
+create sequence cartseq;
+
+-- * 존재하는 테이블명 검색
+select * from tabs;
+
+-- * 시퀀스명 검색
+SELECT * FROM all_sequences WHERE sequence_owner = 'TEAM2';
+
+-- 4. table Create
+
+CREATE TABLE tblMember (
+	id	varchar2(100)		NOT NULL,
+	name	varchar2(30)		NOT NULL,
+	pw	    varchar2(100)		NOT NULL,
+	tel	    varchar2(20)		NOT NULL,
+    birth   varchar2(10)        NOT NULL,
+	email	varchar2(100)		NOT NULL,
+	gender	char(2)		        NOT NULL,
+	address	varchar2(255)		NOT NULL,
+	addressdetail	varchar2(200)		NOT NULL,
+	regdate	date	DEFAULT sysdate	NOT NULL,
+	enabled	char(1)	DEFAULT '1'	NOT NULL,
+	point	number	DEFAULT 0	NOT NULL,
+    constraint tblMember_pk1 primary key(id),
+    constraint tblMember_uq1 unique(email)
+);
+
+
+CREATE TABLE tblStore (
+	storeseq	number		NOT NULL,
+	name	varchar2(100)		NOT NULL,
+	address	varchar2(200)		NOT NULL,
+	tel	varchar2(20)		NOT NULL,
+	lat	number		NULL,
+	lng	number		NULL,
+    constraint tblStore_pk1 primary key(storeseq)
+);
+
+
+CREATE TABLE tblWishList (
+	wishlistseq	number		NOT NULL,
+	id	varchar2(100)		NOT NULL,
+	sellboardseq	number		NOT NULL,
+	regdate	date	DEFAULT sysdate	NOT NULL,
+    constraint tblWishList_pk1 primary key(wishlistseq),
+    constraint tblWishList_fk1 foreign key(sellboardseq) references tblSellBoard(sellboardseq),
+    constraint tblWishList_fk2 foreign key(id) references tblMember(id)
+);
+
+
+CREATE TABLE tblLunchBox (
+	lunchboxseq	number		NOT NULL,
+	name	varchar2(500)		NOT NULL,
+	category	varchar2(100)		NOT NULL,
+	price	  number		NOT NULL,
+	pic	varchar2(500)		NOT NULL,
+	picdesc	varchar2(500)		NULL,
+    constraint tblLunchBox_pk1 primary key(lunchboxseq)
+);
+
+CREATE TABLE tblAuth (
+	id	varchar2(30)		NOT NULL,
+	auth	varchar2(50)		NOT NULL,
+    constraint tblAuth_fk1 foreign key(id) references tblMember(id)
+);
+
+
+CREATE TABLE tblReview (
+	reviewseq	    number		NOT NULL,
+	sellboardseq	number		NOT NULL,
+	regdate	date	DEFAULT sysdate	NULL,
+	content	varchar2(1000)		NOT NULL,
+	star	number	DEFAULT 5	NOT NULL,
+	orderseq	number		NOT NULL,
+	id	varchar2(100)		NOT NULL,
+	image	varchar2(500)		NULL,
+    constraint tblReview_pk1 primary key(reviewseq),
+    constraint tblReview_fk1 foreign key(sellboardseq) references tblSellBoard(sellboardseq),
+    constraint tblReview_fk2 foreign key(orderseq) references tblOrder(orderseq),
+    constraint tblReview_fk3 foreign key(id) references tblMember(id)
+);
+
+
+CREATE TABLE tblAddress (
+	addressseq	number		NOT NULL,
+	id	varchar2(100)		NOT NULL,
+	addressname	varchar2(100)		NOT NULL,
+	tel	varchar2(20)		NOT NULL,
+	zipcode	varchar2(30)		NOT NULL,
+	address	varchar2(255)		NOT NULL,
+	addressdetail	varchar2(200)		NOT NULL,
+    
+    constraint tblAddress_pk1 primary key(addressseq),
+    constraint tblAddress_fk1 foreign key(id) references tblMember(id)
+);
+
+
+CREATE TABLE tblReviewReply (
+	reviewreplyseq	number		NOT NULL,
+	reviewseq	number		NOT NULL,
+	id	varchar2(100)		NOT NULL,
+	regdate	date	DEFAULT sysdate	NOT NULL,
+	content	varchar2(1000)		NOT NULL,
+    constraint tblReviewReply_pk1 primary key(reviewreplyseq),
+    constraint tblReviewReply_fk1 foreign key(reviewseq) references tblReview(reviewseq),
+    constraint tblReviewReply_fk2 foreign key(id) references tblMember(id)
+);
+
+
+
+
+CREATE TABLE tblNotice (
+	noticeseq	number		NOT NULL,
+	title	varchar2(100)		NOT NULL,
+	content	varchar2(1000)		NOT NULL,
+	regdate	date	DEFAULT sysdate	NOT NULL,
+	views	number	DEFAULT 0	NOT NULL,
+	id	varchar2(100)		NOT NULL,
+    constraint tblNotice_pk1 primary key(noticeseq),
+    constraint tblNotice_fk2 foreign key(id) references tblMember(id)
+);
+
+
+CREATE TABLE tblReviewLike (
+	reviewlikeseq	number		NOT NULL,
+	reviewseq	number		NOT NULL,
+	id	varchar2(100)		NOT NULL,
+	likenum	number	DEFAULT 0	NOT NULL,
+    
+    constraint tblReviewLike_pk1 primary key(reviewlikeseq),
+    constraint tblReviewLike_fk1 foreign key(reviewseq) references tblReview(reviewseq),
+    constraint tblReviewLike_fk2 foreign key(id) references tblMember(id)
+);
+
+
+CREATE TABLE tblOrder (
+	orderseq	number		NOT NULL,
+	id	varchar2(100)		NOT NULL,
+	price	number		NOT NULL,
+	orderdate	date	DEFAULT sysdate	NOT NULL,
+	request	varchar2(100)		NULL,
+	couponseq	number		NOT NULL,
+	cartseq	number		NOT NULL,
+	payment	varchar2(30)		NULL,
+	ispay	char(1)	DEFAULT 'F'	NULL,
+	addressseq	number		NOT NULL,
+    constraint tblOrder_pk1 primary key(orderseq),
+    constraint tblOrder_fk1 foreign key(id) references tblMember(id),
+    constraint tblOrder_fk2 foreign key(couponseq) references tblCoupon(couponseq),
+    constraint tblOrder_fk3 foreign key(cartseq) references tblCart(cartseq),
+    constraint tblOrder_fk4 foreign key(addressseq) references tblAddress(addressseq)
+);
+
+CREATE TABLE tblSellBoard (
+	sellboardseq	number		NOT NULL,
+	content	varchar2(2000)		NOT NULL,
+	sale	   number	DEFAULT 0	NULL,
+	regdate	   date	DEFAULT sysdate	NOT NULL,
+	eventseq	number		NOT NULL,
+	periodic	char(1)	DEFAULT 'F'	NULL,
+    constraint tblSellBoard_pk1 primary key(sellboardseq),
+    constraint tblSellBoard_fk1 foreign key(eventseq) references tblEvent(eventseq)
+);
+
+
+CREATE TABLE tblStoreManager (
+	storemanagerseq	number		NOT NULL,
+	id	varchar2(100)		NOT NULL,
+	storeseq	number		NOT NULL,
+    constraint tblStoreManager_pk1 primary key(storemanagerseq),
+    constraint tblStoreManager_fk1 foreign key(id) references tblMember(id)
+);
+
+
+CREATE TABLE tblPeriodShip (
+	periodshipseq	number		NOT NULL,
+	shipdate	date		NOT NULL,
+	shiptime	char(1)	DEFAULT '0'	NOT NULL,
+	shipperiod	number		NOT NULL,
+	dayperweek	number	default 5 NOT NULL,
+    constraint tblPeriodShip_pk1 primary key(periodshipseq)
+);
+
+
+CREATE TABLE tblSuggest (
+	suggestseq	number		NOT NULL,
+	title	varchar2(100)		NOT NULL,
+	content	varchar2(1000)		NOT NULL,
+	regdate	date	DEFAULT sysdate	NOT NULL,
+	views	number	DEFAULT 0	NOT NULL,
+	thread	number		NOT NULL,
+	depth	number		NOT NULL,
+	id	varchar2(100)		NOT NULL,
+	suggestcategoryseq	number		NOT NULL,
+    constraint tblSuggest_pk1 primary key(suggestseq),
+    constraint tblSuggest_fk1 foreign key(id) references tblMember(id),
+    constraint tblSuggest_fk2 foreign key(suggestcategoryseq) references tblSuggestCategory(suggestcategoryseq)
+);
+
+
+
+CREATE TABLE tblCouponMember (
+	couponmemberseq	number		NOT NULL,
+	id	varchar2(100)		NOT NULL,
+	couponseq	number		NOT NULL,
+	getdate	date		NULL,
+	isuse	char(1)	DEFAULT 'F'	NOT NULL,
+    constraint tblCouponMember_pk1 primary key(couponmemberseq),
+    constraint tblCouponMember_fk1 foreign key(id) references tblMember(id),
+    constraint tblCouponMember_fk2 foreign key(couponseq) references tblCoupon(couponseq)
+);
+
+
+CREATE TABLE tblCoupon (
+	couponseq	number		NOT NULL,
+	name	varchar2(100)		NULL,
+	sale	number		NULL,
+	period	number		NULL,
+    constraint tblCoupon_pk1 primary key(couponseq)
+);
+
+
+
+
+CREATE TABLE tblSuggestCategory (
+	suggestcategoryseq	number		NOT NULL,
+	category	varchar2(30)		NOT NULL,
+    constraint tblSuggestCategory_pk1 primary key(suggestcategoryseq)
+);
+
+
+
+CREATE TABLE tblCart (
+	cartseq	number		NOT NULL,
+	id	varchar2(100)		NOT NULL,
+	sellboardseq	number		NOT NULL,
+	periodshipseq	number		NULL,
+	cnt	number	DEFAULT 1	NULL,
+	storeseq	number		NOT NULL,
+    constraint tblCart_pk1 primary key(cartseq),
+    constraint tblCart_fk1 foreign key(id) references tblMember(id),
+    constraint tblCart_fk2 foreign key(sellboardseq) references tblSellBoard(sellboardseq),
+    constraint tblCart_fk3 foreign key(periodshipseq) references tblPeriodShip(periodshipseq),
+    constraint tblCart_fk4 foreign key(storeseq) references tblStore(storeseq)
+);
+
+CREATE TABLE tblLunchboxSet (
+	lunchboxsetseq	number		NOT NULL,
+	sellboardseq	number		NOT NULL,
+	lunchboxseq	number		NOT NULL,
+    constraint tblLunchboxSet_pk1 primary key(lunchboxsetseq),
+    constraint tblLunchboxSet_fk1 foreign key(sellboardseq) references tblSellBoard(sellboardseq),
+    constraint tblLunchboxSet_fk2 foreign key(lunchboxseq) references tblLunchBox(lunchboxseq)
+);
+
+CREATE TABLE tblEvent (
+	eventseq	number		NOT NULL,
+	title	varchar2(100)		NULL,
+	startdate	date	DEFAULT sysdate	NULL,
+	enddate	date		NULL,
+	sale	number	DEFAULT 0	NOT NULL,
+	pic	varchar2(200)		NOT NULL,
+    constraint tblEvent_pk1 primary key(eventseq)
+);

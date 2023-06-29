@@ -49,7 +49,7 @@
 			<div class="navbar-menu">
 				<div class="nav-item"><a href = "#" class="nav-link" >메뉴소개</a></div>
 				<div class="nav-item"><a href = "#" class="nav-link" >매장찾기</a></div>
-				<div class="nav-item"><a href = "#" class="nav-link" >이벤트</a></div>
+				<div class="nav-item"><a href = "/dndn/order/event.do" class="nav-link" >이벤트</a></div>
 			</div>
 			<a class="navbar-toggler" id="toggleBtn"><i class="fa fa-bars"></i></a>
 			
