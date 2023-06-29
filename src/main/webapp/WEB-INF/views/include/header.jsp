@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 <link rel="stylesheet" href="/dndn/resources/css/headerstyle.css">
 
 <style>
@@ -39,6 +40,7 @@
 </style>
 <body>
 <header class="header-area navbar-fade" id="header">
+
 		<nav id="navbar">
 			
 			<div id="brand-logo" style="margin-right:20px;">
@@ -54,19 +56,28 @@
 			<a class="navbar-toggler" id="toggleBtn"><i class="fa fa-bars"></i></a>
 			
 			<div class="navbar-menu" id="menu">
-				<div class="nav-item"><a href = "#" class="nav-link" >고객지원</a></div> 
+				<div class="nav-item"><a href = "#" class="nav-link" >고객지원</a></div>
+				<sec:authorize access="isAnonymous()">
 				<div class="nav-item"><a href = "#" class="nav-link" >회원가입</a></div>
+				</sec:authorize>
 				<div class="nav-item"><a href = "#" class="nav-link" >장바구니</a></div> 
-				<!-- <div class="nav-item"><a href = "#" class="nav-link" >로그인</a></div> -->
-				<div class="nav-item dropdown">
-                    <a href = "" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-            			로그인
-                    </a>
+				<sec:authorize access="isAnonymous()">
+				<div class="nav-item"><a href = "/dndn/auth/login.do" class="nav-link" >로그인</a></div>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+				<div class="nav-item dropdown" >
+                    <span class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+            			<sec:authentication property="principal.username"/>
+                    </span>
                     <ul class="dropdown-menu">
-                    	<li><div class="nav-item"><a href = "#" class="nav-link" style="margin-left:20px;">로그아웃</a></div></li>
+                    <form method="POST" action="/dndn/auth/logout.do">
+                    	<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">로그아웃</button></div></li>
+                    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+					</form>	
 						<li><div class="nav-item"><a href = "#" class="nav-link" style="margin-left:20px;">마이페이지</a></div></li>
                     </ul>
                 </div>
+                </sec:authorize>
 			</div>
 		</nav>
 </header>

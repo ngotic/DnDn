@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dndn.auth.mapper.MemberMapper">
+
+	<resultMap type= "com.project.dndn.auth.domain.MemberDTO" id="mMap">
+		<id property="id" column="id"/>
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="pw" column="pw"/>
+		<result property="tel" column="tel"/>
+		<result property="email" column="email"/>
+		<result property="gender" column="gender"/>
+		<result property="address" column="address"/>
+		<result property="regdate" column="regdate"/>
+		<result property="enabled" column="enabled"/>
+		<result property="point" column="point"/>
+		<collection property="authlist" resultMap="aMap"></collection>
+	</resultMap>
+	
+	<resultMap type= "com.project.dndn.auth.domain.AuthDTO" id="aMap">
+		<result property="id" column="id"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+
+
+	<select id="read" resultMap="mMap">
+		select m.id,m.name,m.pw,m.tel,m.email,m.gender,m.address,m.regdate,m.enabled,m.point,a.auth from tblAuthMember m left outer join tblAuthAuth a on m.id = a.id where m.id = #{id}
+	</select>
+	<select id="findId" resultType ="String">
+		select id from tblAuthMember where name = #{name} and email = #{email}
+	</select>
+	<insert id="register">
+      insert into tblAuthMember(id, name, pw,tel,email,gender,address,regdate,enabled,point) 
+         values (#{id}, #{name}, #{pw},#{tel},#{email},#{gender},#{address},default,'1'	,default)
+   </insert>
+   
+   <insert id="registerAuth">
+      insert into tblAuthAuth(id, auth) values (#{id}, #{auth})
+   </insert>
+   
+
+</mapper>
