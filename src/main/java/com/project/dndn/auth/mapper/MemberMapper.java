@@ -13,5 +13,9 @@ public interface MemberMapper {
 
 	String findId(MemberDTO vo);
 
+	String findPw(MemberDTO vo);
+
+	int updatepw(MemberDTO vo);
+
 
 }

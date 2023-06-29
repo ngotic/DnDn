@@ -31,10 +31,18 @@
 	<select id="findId" resultType ="String">
 		select id from tblAuthMember where name = #{name} and email = #{email}
 	</select>
+	<select id="findPw" resultType ="String">
+		select enabled from tblAuthMember where id = #{id} and email = #{email}
+	</select>
+	
+	<update id="updatepw" >
+		update tblAuthMember set pw = #{pw} where id = #{id}
+	</update>
+	
 	<insert id="register">
       insert into tblAuthMember(id, name, pw,tel,email,gender,address,regdate,enabled,point) 
          values (#{id}, #{name}, #{pw},#{tel},#{email},#{gender},#{address},default,'1'	,default)
-   </insert>
+   	</insert>
    
    <insert id="registerAuth">
       insert into tblAuthAuth(id, auth) values (#{id}, #{auth})
