@@ -18,14 +18,14 @@
 }
 #cartboxcontent{
 	display: grid;
-	grid-template-columns: 1fr 2fr 5fr 2fr 4fr 3fr 2fr;
+	grid-template-columns: 1fr 2.2fr 5fr 2fr 4fr 3fr 2fr;
 	text-align: center;
 }
 #cartbox {
 	margin: 15px 0;
 	height: 1;
 	display: grid;
-	grid-template-columns: 1fr 2fr 5fr 2fr 4fr 3fr 2fr;
+	grid-template-columns: 1fr 2.2fr 5fr 2fr 4fr 3fr 2fr;
 	font-size: 1rem;
 	font-weight: bold;
 }
@@ -41,7 +41,7 @@ input[type=button] {
 	font-size: 1.2rem;
 	border: .5px #777 solid;
 	margin: 5px;
-	padding: 2.5px;
+	padding: 1.5px;
 	border-radius: 5px;
 }
 
@@ -69,11 +69,15 @@ button {
 #orderbtn {
 	text-align: center;
 }
-
-input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
-	{
+input[type="number"]{
+	width: 80%;
+}
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button{
 	-webkit-appearance: none;
 	margin: 0;
+}
+input[type="number"]:focus {
+	outline: none;
 }
 #bc{
 	background-color: white;
@@ -82,6 +86,16 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 #delbtn{
 	margin: 0px;
 	font-size: 0.7rem;
+}
+#up,
+#down{
+	border-radius: 100%;
+	background-color: blue;
+	float: right;
+	width: 20px;
+}
+#cartsal{
+	width: 30px;
 }
 </style>
 </head>
@@ -103,11 +117,12 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
         </div>
         <div id="cartboxcontent">
             <div><input type="checkbox" name="" id=""></div>
-            <div><img src="" alt=""></div>
+            <div><img src="/dndn/resources/img/mypage/cart.png" id="cartsal"></div>
             <div>맛있는 샐러드</div>
             <div>20,000원</div>
             <div><input type="number" name="" id="">
-                <img src="" alt=""><img src="" alt="">
+                <img src="/dndn/resources/img/mypage/arrow.png" id="up">
+                <img src="/dndn/resources/img/mypage/arrow.png" id="down">
             </div>
             <div>100,000원</div>
             <div><input type="button" value="삭제" id="delbtn"></div>
