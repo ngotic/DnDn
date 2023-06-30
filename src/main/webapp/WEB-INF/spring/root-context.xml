@@ -31,5 +31,6 @@
  
    <!-- namespace에서 mybatis 체크해야함 여기 mapper만 넣어야 한다. -->
    <mybatis-spring:scan base-package="com.project.dndn.main.mapper"/>
+   <mybatis-spring:scan base-package="com.project.dndn.lunchdetail.mapper"/>
  	 	
 </beans>
