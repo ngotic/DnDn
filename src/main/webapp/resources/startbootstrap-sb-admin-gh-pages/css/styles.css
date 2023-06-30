@@ -4545,9 +4545,9 @@ textarea.form-control-lg {
   display: block;
   padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
   font-size: var(--bs-pagination-font-size);
-  color: var(--bs-pagination-color);
+  color: #1f79e0;
   text-decoration: none;
-  background-color: var(--bs-pagination-bg);
+  background-color: #f2f2f2;
   border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -11162,13 +11162,13 @@ body {
 .datatable-table > tfoot > tr > th,
 .datatable-table > thead > tr > td,
 .datatable-table > thead > tr > th {
-  vertical-align: top;
+  vertical-align: middle;
   padding: 0.5rem 0.5rem;
 }
 
 .datatable-table > thead > tr > th {
   vertical-align: bottom;
-  text-align: left;
+  text-align: center;
   border-bottom: none;
 }
 
