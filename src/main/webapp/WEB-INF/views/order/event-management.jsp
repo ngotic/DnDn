@@ -10,7 +10,79 @@
 <link rel="stylesheet" href="/dndn/resources/css/order.css">
 <style>
 
+	.screen-width-88{
+		width: 88%;
+	}
+	
+	.event-screen3{
+	}
+		.event-screen3 > div{
 
+	    display: inline-flex;
+		height: 100%;
+    	width: 100%;
+		
+	}	
+	.event-screen3 > div div:first-child{
+
+	    display: inline-flex;
+		height: 100%;
+    	width: 45%;
+		
+	}	
+
+	.event-screen3 > div div:nth-child(1){
+	    display: inline-block;
+	    height: 100%;
+	       width: 20%;
+		text-align: center;
+	}	
+		.event-screen3 > div div:nth-child(1) input{
+	   	height: 100%;
+    width: auto;
+		
+	}	
+		.event-screen3 > div div:nth-child(2){
+	 	display: inline-block;
+		height: 100%;
+		width: 100%;
+		padding: 10px;
+	}
+	
+	.event-screen3 > div div:nth-child(2) table{
+	    width: 100%;
+    height: 100%;
+
+	}
+		 .event-screen3 > div div:nth-child(2) table tr td{
+
+		border: 1px solid black;
+	}
+		
+	.event-screen3 > div div:nth-child(2) table tr:first-child{
+	    width: 100%;
+    	height: 30%;
+	
+		}
+	 
+	.event-screen3 > div div:nth-child(2) table tr:last-child{
+	    width: 100%;
+  	 	 height: 70%;
+	
+	}
+		
+	.event-screen5 div:first-child {
+	        display: flex;
+    		justify-content: right;
+	}
+	
+	.event-screen5 div:first-child button{
+		
+		padding-left: 10px;
+		
+	}
+
+	
 
 </style>
 </head>
@@ -61,153 +133,86 @@
 				
 			</div>
 		
-				<div  class= " screen2 screenAll"   >
-					
-					<div>
-						
-						<input type="text"   placeholder="회원 검색"><input type="submit" value="검색" >
-						
-					</div>
-					<table>
-						<tr>
-							<th colspan="3">
-								점주리스트
-							</th>
-						</tr>
-				
-						<tr>
-							<th>아이디</th>
-							<th>이름</th>
-							<th>연락처</th>
-
-						</tr>
-					
-						<c:forEach var="user"  items="${userlist}">
-						
-							<tr onclick="location.href='http://localhost:8092/dndn/order/user.do?user_id=${user.id}?store_seq=${user.storeseq }'">
-								<td>${user.id}</td>
-								<td>${user.name}</td>
-								<td>${user.tel }</td>
-						
-							</tr>
-						
-						</c:forEach>
-						
-					</table>
-
-				</div>
 		
-<!-- 				<div  class= " screen3" >
-				 
+		
+			<div  class= " screen3 screen-width-88 event-screen3" >
+				
+				<div >
+					<div>
+						<input type="image">
+					</div>
+					
 					<div >
-						
-					</div>
-							<div>아이디</div>
-							<div>
-								<div>성별</div>
-								<div>생년월일</div>
-							</div>
-					</div>
-				</div> 
-	 -->
-	
-			<div  class= " screen4 screenAll">
-				<table>
-						<tr>
-							<th>회원명</th>
-							<th>아이디</th>
-							
-							<th>연락처</th>
-							<th>성별</th>
-							<th>생년월일</th>
-							<th colspan="4">이메일</th>
-						
-						</tr>			
-						<c:choose>
-						<c:when test="${ userdto ne null}">
-						<tr>
-							<td>${ userdto.name}</td>
-							<td>${ userdto.id}</td>
-							<td>${ userdto.tel}</td>
-							<td>${ userdto.gender}</td>
-							<td>${ userdto.birth}</td>
-							<td colspan="4">${ userdto.email}</td>
-						
-						</tr>
-						</c:when>
-						<c:when test="${ userdto eq null}">
-							<tr>
-								<td hidden="이름"> </td>
-								<td>회원명 </td>
-								<td>아이디 </td>
-								<td> 연락처 </td>
-								<td> 성별 </td>
-								<td> 생년월일</td>
-								<td colspan="4"> 이메일 </td>
-							</c:when>
-						</c:choose>
+					
+						<table>
 
-				
 						<tr>
-							<th colspan="5">주소</th>
-							<th colspan="2">상세주소</th>
-							<th>등급</th>
-							<th>가입일</th>
-				
+						
+								<th>이벤트 이름</th>
+								<th>등록일</th>
+								<th>시작날짜</th>
+								<th>종료날짜</th>
+								
+						</tr>
+						
+						
+						<tr>
+								<td>이벤트 이름</td>
+								<td>등록일</td>
+								<td>시작날짜</td>
+								<td>종료날짜</td>
+						</tr>
+						
+						<tr>
+							<td colspan="4" style=" height: 10px;"></td>
+						</tr>
+						
+						<tr>
+						
+								<th>할인율</th>
+								<th colspan="3">이벤트 사진 경로</th>
+					
 						</tr>
 					
-						<c:choose>
-						<c:when test="${ userdto ne null}">
 						<tr>
-								<td colspan="5">${ userdto.address}</td>
-							<td colspan="2">${ userdto.addressdetail}</td>
-							<td>${ userdto.enabled}</td>
-							<td>${ userdto.regdate}</td>
-				
-						</tr>
-						</c:when>
-						<c:when test="${ userdto eq null}">
-							<tr>
-								<td colspan="5"> 주소 </td>
-								<td colspan="2"> 상세 주소 </td>
-								<td> 등급 </td>
-								<td> 가입일 </td>
-							</c:when>
-						</c:choose>
 						
+								<td>할인율</td>
+								<td colspan="3">이벤트 사진 경로</td>
+						
+						</tr>
+						
+					 </table>
+
+					</div>
+					
+				</div>	
 				
-				</table>
-			</div>
-			
+				
+			</div> 
+
+	
+	
 		
-		
-			<div   class= " screen5 screenAll">
-					<span>주문 리스트</span> 
+			<div   class= " screen5 screenAll screen-width-88 event-screen5">
+					<span>이벤트 리스트</span> 
 					<div>
-						<span></span> 
-						<div class="dropdown">
+
 						<span> 정렬 </span>
-						 <button class=" dropdown-toggle"  type="button" data-bs-toggle="dropdown"  aria-expanded="false">
-						    	주문번호
+						 <button class=" "  type="button" >
+						    	이벤트명
 						  </button>
-						  <ul class="dropdown-menu">
-							    <li><a class="dropdown-item" href="#">주문번호</a></li>
-							    <li><a class="dropdown-item" href="#">정기배송</a></li>
-							    <li><a class="dropdown-item" href="#">일반배송</a></li>
-							    <li><a class="dropdown-item" href="#">결제금액</a></li>
-							</ul>
-							
-							<button class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-						    	배송기간
+						   <button class=" "  type="button" >
+						    	시작날짜
 						  </button>
-							<ul class="dropdown-menu">
-							    <li><a class="dropdown-item" href="#"></a></li>
-							    <li><a class="dropdown-item" href="#">주문날짜</a></li>
-							    <li><a class="dropdown-item" href="#">정기배송</a></li>
-							    <li><a class="dropdown-item" href="#">일반배송</a></li>
-							    <li><a class="dropdown-item" href="#">일반배송</a></li>
-							</ul>
-						</div>
+						 <button class=" "  type="button" >
+						    	등록일
+						  </button>
+					
+						 <button class=" "  type="button">
+						    	종료일
+						  </button>
+					
+
 						<div>
 							<input type="text" >
 							<input type="button"  value="검색">
@@ -217,15 +222,14 @@
 					<table> 
 					
 						<tr>
-							<th>주문번호</th>
-							<th>상품명</th>
-							<th>결제금액</th>
-							<th>주문날짜</th>
-							<th>배송요일</th>
+							<th>이벤트이름</th>
+							<th>등록일</th>
+							<th>시작날짜</th>
+							<th>종료날짜</th>
+							<th>할인률</th>
 							
-							<th>정기배송여부</th>
-							<th>정기배송기간</th>
-							<th>정기배송날짜</th>
+							<th>이벤트 사진</th>
+		
 							
 						</tr>
 						
@@ -238,8 +242,7 @@
 							<td>${order.shipdate}</td><!-- 요일  -->
 							
 							<td>${order.periodshipseq }</td>
-							<td>${order.shipperiod}</td>
-							<td>${order.shipdate}</td> <!-- 날짜  -->
+
 						</tr>
 					</c:forEach>	
 						

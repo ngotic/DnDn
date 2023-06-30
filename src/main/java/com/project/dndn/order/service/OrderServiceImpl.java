@@ -13,21 +13,20 @@ import com.project.dndn.order.mapper.OrderMapper;
 public class OrderServiceImpl implements OrderService{
 
 	@Autowired
-	@Qualifier("orderMapper")
-	private OrderMapper ordermapper;
+	private OrderMapper orderMapper;
 	
 	
 	@Override
 	public ArrayList<OrderDTO> userlist() {
 		
-		return ordermapper.userlist();
+		return orderMapper.userlist();
 	}
 	
 	
 	@Override
 	public OrderDTO user(String user_id) {
 		
-		OrderDTO dto =  ordermapper.user(user_id);
+		OrderDTO dto =  orderMapper.user(user_id);
 		
 		return dto;
 	}
@@ -35,7 +34,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public ArrayList<OrderDTO> order(String user_id) {
 		
-		ArrayList<OrderDTO>  dto = ordermapper.order(user_id);
+		ArrayList<OrderDTO>  dto = orderMapper.order(user_id);
 		
 		return dto;
 	}
@@ -43,12 +42,12 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public ArrayList<OrderDTO> storeuserlist() {
 		
-		return ordermapper.storeuserlist();
+		return orderMapper.storeuserlist();
 	}
 
 	@Override
 	public OrderDTO storeuser(String user_id) {
-		OrderDTO dto =  ordermapper.storeuser(user_id);
+		OrderDTO dto =  orderMapper.storeuser(user_id);
 		
 		return dto;
 	}
@@ -56,7 +55,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public ArrayList<OrderDTO> storeorder(String store_seq) {
 		
-		ArrayList<OrderDTO>  dto = ordermapper.storeorder(store_seq);
+		ArrayList<OrderDTO>  dto = orderMapper.storeorder(store_seq);
 		
 		return dto;
 	}
