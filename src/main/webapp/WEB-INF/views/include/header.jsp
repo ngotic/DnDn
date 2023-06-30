@@ -43,7 +43,7 @@
 			
 			<div id="brand-logo" style="margin-right:20px;">
 				<a class="navbar-brand" id="navbarBrand" href="/dndn/main.do">
-					<img src="/dndn/resources/img/logo_short.png" class="mt-1 mb-2" style="width:40px;">			
+					<img src="/dndn/resources/img/logo_edit.png" class="mt-1 mb-2" style="width:40px;">			
 				</a>
 			</div>
 			<div class="navbar-menu">
