@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>오늘은 든든</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
 <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 
@@ -317,10 +317,11 @@ section {
 					<!-- Slides -->
 					
 					<c:forEach items="${list}" var="dto" >
-					
 					<div class="swiper-slide">
 						<div class="lunchbox-list-img">
-							<img src="${dto.pic}" height=200px>
+							<a href="<c:url value='/lunchdetail/detail.do?seq=${dto.sellboardseq}' />">
+								<img src="${dto.pic}" height=200px>
+							</a>
 						</div>
 						<div class="listInfo">
 							<p style="font-size:14px;">${dto.content}</p>

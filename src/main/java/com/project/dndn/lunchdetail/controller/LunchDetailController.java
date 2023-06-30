@@ -14,17 +14,9 @@ public class LunchDetailController {
 	@Autowired
 	private LunchDetailService service;
 
-	@GetMapping("/lunchdetail/lunchdetail.do")
+	@GetMapping("/lunchdetail/detail.do")
 	public String lunchdetail() {
 		return "lunchdetail/lunchdetail";
 	}
-
-	
-
-	
-	
-	
-	
-	
 
 }
