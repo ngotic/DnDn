@@ -5,6 +5,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/views/include/asset.jsp" %>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"
+/>
 <style>
 	body {
 		font-family: pretendard;
@@ -331,7 +335,51 @@
 	    letter-spacing: -1px;
         background: #EE8035;
 	}
-	
+	.review-list-detail{
+		padding: 20px 20px;
+	    font-size: 16px;
+    	font-family: pretendard-regular;
+    	border-bottom: 1px solid #dadada;
+	}
+	.review-detail-star {
+		margin: 14px 0;
+	}
+	.review-detail-content {
+		margin: 14px 0 30px 0;
+	}
+	.review-detail-info {
+		float:right;
+        margin: 0 11px 0 31px;
+	}
+	.review-detail-img {
+	    width: 120px;
+	    height: 120px;
+	    object-fit: cover;
+	}
+	.review-detail-under {
+		margin: 20px 0 10px 0;
+	}
+	.review-comment-btn {
+	    width: 60px;
+	    padding: 2px 0 0 0;
+	    margin-right: 20px;
+	    background-color: #fff;
+    	border: 1px solid #dadada;
+	}
+	.review-comment-btn > span {
+		color: #EE8035;
+	}
+	.review-like-btn {
+		border: 1px solid #dadada;
+	    width: 60px;
+	    height: 26px;
+	    display: inline-block;
+	    text-align: center;
+	    cursor: pointer;
+	    padding: 1px;
+	    margin-left: 10px;
+	    color: #EE8035;
+	}
 
 </style>
 </head>
@@ -355,7 +403,7 @@
 					
 					<!--  주문 form ajax list로	-->
 					<div class="info">
-						<h3 class="tit-prd">[정기배송]인기샐러드 5종 하루 한끼</h3>
+						<h3 class="tit-prd">[정기배송]</h3>
 						<div class="price_div">
 							<div class="price sell_price">
 								<div class="tb-left">
@@ -442,7 +490,7 @@
 						
 						<!-- 찜, 장바구니, 구매하기 버튼 -->
 						<div class="order-btn-div">
-							<button class="btn-wish"><span>♡</span></button>
+							<button class="btn-wish"><span class="btn-wish-heart">♡</span></button>
 							<button class="btn-cart">장바구니</button>
 							<button class="btn-buy">구매하기</button>
                         </div>
@@ -478,35 +526,61 @@
                 <!-- 댓글 -->
 				<div style="width: 960px; margin: 0 auto;">
 					<div id="powerReview">
+					
+						<!-- 평균 별점, 5,4,3,2,1점 댓글개수, 등.. 시간 남으면 구현 -->
 						<div class="info" style="padding-right: 349px;">
-							
-					</div>
-					<div style="padding-top: 10px;">
-						<select id="review-star">
-							<option value="5">★★★★★ 아주만족</option>
-							<option value="4">★★★★ 만족</option>
-							<option value="3">★★★ 보통</option>
-							<option value="2">★★ 미흡</option>
-							<option value="1">★ 불만족</option>
-						</select>
-					</div>
-					<div class="write">
-                        <form name="prw_form" id="prw_form" action="" method="post" autocomplete="off">
-	                        <textarea name="content" placeholder="도시락은 어떠셨나요? 평가를 남겨주세요."></textarea>
-	                        <div class="pr-file-wrap">
-	                            <div class="file-attach">
-		                            <a class="btn-h38 camera file btn-file" href="#none">
-		                            	<input type="file" id="fileupload" name="file" class="file-trick">
-		                            </a>
-	                            </div>                        
-                            </div>
-                            <div class="btn-r">
-                            	<button type="submit" class="btn-h35">리뷰등록</button>
-                            </div>
-                        </form> 
-                    </div>
-				</div>
-				
+						</div>
+												
+						<!-- 댓글쓰기 -->
+						<div class="write">
+	                        <form name="prw_form" id="prw_form" action="" method="post" autocomplete="off">
+		                        <div style="padding-top: 10px;">
+									<select id="review-star">
+										<option value="5">★★★★★ 아주만족</option>
+										<option value="4">★★★★ 만족</option>
+										<option value="3">★★★ 보통</option>
+										<option value="2">★★ 미흡</option>
+										<option value="1">★ 불만족</option>
+									</select>
+								</div>
+		                        <textarea name="content" placeholder="도시락은 어떠셨나요? 평가를 남겨주세요."></textarea>
+		                        <div class="pr-file-wrap">
+		                            <div class="file-attach">
+			                            <a class="btn-h38 camera file btn-file" href="#none">
+			                            	<input type="file" id="fileupload" name="file" class="file-trick">
+			                            </a>
+		                            </div>                        
+	                            </div>
+	                            <div class="btn-r">
+	                            	<button type="submit" class="btn-h35">리뷰등록</button>
+	                            </div>
+	                        </form> 
+	                    </div>
+	                    
+	                    <!-- 리뷰 목록 -->
+	                    <div class="review-list">
+	                    
+	                    	<!-- 반복문 돌리는 부분 -->
+	                    	<div class="review-list-detail">
+	                    		<div class="review-detail-star">★★★★★ 아주만족</div>
+	                    		<div class="review-detail-info">
+	                    			작성자: 박**<br>
+	                    			등록일: 2023-06-01<br>
+	                    		</div>
+	                    		<div class="review-detail-content">
+	                    			안전하게 잘 왔어요.그린샐러드만 먹다가 주문해봤는데 기대되네요.
+	                    		</div>
+	                    		<div>
+	                    			<a href="/dndn/resources/img/lunchboximg/도시락상세1.jpg" data-fancybox><img src="/dndn/resources/img/lunchboximg/도시락상세1.jpg" alt="리뷰이미지" class="review-detail-img"></a>
+	                    		</div>
+	                    		<div class="review-detail-under">
+	                    			<button class="review-comment-btn"><span class="material-symbols-outlined">chat</span> 1</button>
+	                    			리뷰가 도움이 되셨나요? <span class="review-like-btn">♡</span>
+	                    		</div>
+	                    	</div>
+	                    </div> <!-- .review-list -->
+					</div> <!-- .powerReview -->
+				</div> <!-- 댓글 -->
 				
 				
 				<!-- 배송/교환/반품 고지 탭 + 이미지-->
@@ -521,13 +595,42 @@
                 <div style="text-align:center;">
                 	<img src="/dndn/resources/img/lunchboximg/배송교환반품.png" alt="배송,교환,반품" style="width: 960px;">
                 </div>
-			</div>
-		</div>
-	</div>
+                
+			</div> <!-- .page-body -->
+		</div> <!-- #productDetail -->
+	</div> <!-- #content -->
 	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 <script>
+
+	//찜 버튼 토클
+	const WishButton = document.querySelector('.btn-wish-heart');
+	
+	function toggleHeart() {
+	  if (WishButton.textContent === '♡') {
+		  WishButton.textContent = '♥';
+	  } else {
+		  WishButton.textContent = '♡';
+	  }
+	}
+	WishButton.addEventListener('click', toggleHeart);
+	
+	//좋아요 버튼 토클
+	const likeButton = document.querySelector('.review-like-btn');
+	
+	function toggleHeart2() {
+	  if (likeButton.textContent === '♡') {
+	    likeButton.textContent = '♥';
+	  } else {
+	    likeButton.textContent = '♡';
+	  }
+	}
+	likeButton.addEventListener('click', toggleHeart2);
+	
+	
+
 </script>
 </body>
 </html>
