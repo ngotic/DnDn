@@ -46,11 +46,11 @@ public class MemberController {
 		adto.setId(dto.getId());
 		adto.setAuth("ROLE_MEMBER");
 		mapper.registerAuth(adto);
-	
+		 // JavaScript를 사용하여 alert 창 띄우기
+	    String script = "<script>alert('완료');</script>";
+	    model.addAttribute("script", script);
 		
-		model.addAttribute("result",result);
-		
-		return "auth/registerok";
+		return "redirect:/dndn/auth/login.do";
 		
 	}
 	@GetMapping("/auth/findidpw.do")
@@ -58,6 +58,7 @@ public class MemberController {
 		return "auth/findidpw";
 	}
 
+	//아이디 찾기 
 	@PostMapping(value="/auth/findidpw.do" ,produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, String> findingId(@RequestBody MemberDTO vo)throws Exception {

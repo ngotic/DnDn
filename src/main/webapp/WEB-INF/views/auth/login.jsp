@@ -9,6 +9,18 @@
 <title>Document</title>
 <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 <style>
+		
+*{
+	font-weight:bold;
+}
+.btn-light{
+	font-weight:bold;
+	color:gray;
+}
+.btn{
+	font-weight:bold;
+}
+	
         body{
             align-items: center;
         }
