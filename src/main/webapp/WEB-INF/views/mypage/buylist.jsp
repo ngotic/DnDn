@@ -94,6 +94,9 @@ input[type="number"]:focus {
 	float: right;
 	width: 20px;
 }
+#down{
+	transform: rotateX(180deg);
+}
 #cartsal{
 	width: 30px;
 }
