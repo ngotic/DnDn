@@ -11,7 +11,7 @@
 <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
 	#address{
 		width: 270px;
@@ -23,28 +23,28 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>	
     <div class="container mt-3">
 		<h3><strong>회원가입</strong></h3>
-		<form action="/dndn/auth/registerok.do" method="post" id="signupForm">
+		<form action="/dndn/auth/registerok.do" method="post" id="signupForm" >
 			
 			<div>
 				<label class="control-label" for="name">이름</label>
 				<input class="form-control" type="text" name="name" id="name" maxlength="4"/>
-				<div class="invalid-feedback">비밀 번호를 확인하세요.</div>
 			</div>   
 			
 			<div class="mt-3">
 				<label class="control-label" for="id">아이디</label>
-				<input class="form-control" type="text" name="id" id="id"/>
+				<input class="form-control" type="text" name="id" id="id" onchange="characterCheck(this);"/>
 				<div class="valid-feedback">사용 가능한 아이디 입니다.</div>
-				<div class="invalid-feedback">사용할 수 없는 아이디입니다.</div>
+				<div class="invalid-feedback">사용 불가능한 아이디입니다.</div>
 			</div>
 			<div>
 				<label class="control-label" for="pw">비밀번호</label>
 				<input class="form-control" type="password" name="pw" id="pw"/>
-				<div class="invalid-feedback">비밀 번호를 확인하세요.</div>
 			</div>
 			<div>
 				<label for="pwd2" class="control-label">비밀번호 확인</label>
-				<input type="password" class="form-control" name="pwd2" id="pwd2"/>
+				<input type="password" class="form-control" name="pwd2" id="pwd2" onkeyup="pwcheck();"/>
+				<div class="valid-feedback">비밀번호가 같습니다.</div>
+				<div class="invalid-feedback">비밀번호가 다릅니다.</div>
 			</div>
 			
 			<div>
@@ -100,6 +100,61 @@
 	
 
 <script>
+//허용하고 싶은 특수문자가 있다면 여기서 삭제하면 됨
+var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+function characterCheck(obj) {
+  	if (regExp.test(obj.value) || obj.value.trim() === "") {
+	    alert("특수문자 또는 공백은 입력하실 수 없습니다.");
+	    obj.value = "";
+	    $('#id').removeClass("is-valid");
+	    $('#id').addClass("is-invalid");
+	    return;
+  	}
+
+	//아이디 유효성 검사
+  	var postData = {'id':$('#id').val(), '${_csrf.parameterName}': '${_csrf.token}' };
+  	$.ajax({
+        url:'/dndn/idvalidcheck',
+        type:'POST',
+        data: JSON.stringify(postData),
+        dataType : "text",
+        contentType: 'application/json', 
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}'); // CSRF 토큰 헤더에 추가
+        },
+        success:function(data){
+        	
+        	if(data==null||data===''){
+	        	$('#id').addClass("is-valid");
+	        	$('#id').removeClass("is-invalid");
+	        }else{
+	        	$('#id').removeClass("is-valid");
+	        	$('#id').addClass("is-invalid");
+	        }
+        	
+        	
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown){
+        	alert('error');
+        }
+    });
+};
+
+
+//비밀번호 확인
+function pwcheck(){
+	if($('#pw').val() == $('#pwd2').val()){
+		$('#pwd2').addClass("is-valid");
+    	$('#pwd2').removeClass("is-invalid");
+	}
+	else{
+		$('#pwd2').removeClass("is-valid");
+    	$('#pwd2').addClass("is-invalid");
+	}
+}
+
+
+
 $('#tel').keydown(function(event) {
     var key = event.charCode || event.keyCode || 0;
     $text = $(this); 

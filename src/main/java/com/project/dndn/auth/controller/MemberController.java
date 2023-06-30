@@ -114,4 +114,21 @@ public class MemberController {
 		return mailService.joinEmail(emailInput);
 	}
 
+	//아이디 유효성 검사
+	@PostMapping(value="/idvalidcheck" ,produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String idvalidcheck(@RequestBody MemberDTO dto)throws Exception {
+		System.out.println(dto.toString());
+		
+		String id = mapper.idvalidcheck(dto);
+		System.out.println(id);
+		
+		if(id!=null) {
+			return id;
+		}
+		
+		
+		return null;
+	}
+	
 }

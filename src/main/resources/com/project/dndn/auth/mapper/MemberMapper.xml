@@ -33,6 +33,9 @@
 	<select id="findId" resultType ="String">
 		select id from tblMember where name = #{name} and email = #{email}
 	</select>
+	<select id="idvalidcheck" resultType ="String">
+		select id from tblMember where id = #{id}
+	</select>
 	<select id="findPw" resultType ="String">
 		select enabled from tblMember where id = #{id} and email = #{email}
 	</select>
@@ -49,6 +52,7 @@
    <insert id="registerAuth">
       insert into tblAuth(id, auth) values (#{id}, #{auth})
    </insert>
+   
    
 
 </mapper>

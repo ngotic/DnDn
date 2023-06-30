@@ -114,7 +114,7 @@
                     <td><button id="loginSubmit" class="btn btn-warning">로그인</button></td>
                 </tr>
                 <tr>
-                    <td> <input type="checkbox">아이디 저장</td>
+                    <td> <input type="checkbox" name="remember-me">자동 로그인</td>
                 </tr>
             </tbody>
         </table>

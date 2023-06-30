@@ -21,6 +21,10 @@
 		
 		<!-- 로그아웃 -->
 		 <security:logout logout-url="/auth/logout.do" invalidate-session="true" logout-success-url="/main.do" 	/>
+		 
+		 <!-- remember-me -->
+		 <security:remember-me data-source-ref="dataSource" token-validity-seconds="8640000"/>
+		 
 	</security:http>	
 	
 	<security:authentication-manager>

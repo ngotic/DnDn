@@ -17,5 +17,7 @@ public interface MemberMapper {
 
 	int updatepw(MemberDTO vo);
 
+	String idvalidcheck(MemberDTO dto);
+
 
 }
