@@ -312,15 +312,16 @@
 	.screen2 table tr:nth-child(2) th:nth-child(3){
     width: 145px;
 	}
-/* 		.screen3{
-		border: 1px solid black;
-		width:18%;
-		float: left;
-			height: 35%;
-		margin-right: 10px;
-		margin-bottom: 10px;
-		
-	} */
+
+		.screen3{
+			border: 1px solid black;
+			width:18%;
+			float: left;
+				height: 35%;
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}		
+
 		.screen4{
 	
 		width:64%;

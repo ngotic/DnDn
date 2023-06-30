@@ -19,8 +19,7 @@ public class OrderController {
 
 	
 	@Autowired
-	@Qualifier("orderService")
-	private OrderService orderservice;
+	private OrderService orderService;
 	
 	
 	@GetMapping("/order/main.do")
@@ -59,12 +58,12 @@ public class OrderController {
 			
 		
 	
-		  ArrayList<OrderDTO> userlist = orderservice.userlist();
+		  ArrayList<OrderDTO> userlist = orderService.userlist();
 		  
 		  if( user_id != null) {
 			
-			 OrderDTO userdto = orderservice.user(user_id);
-			  ArrayList<OrderDTO>  orderlist = orderservice.order(user_id);
+			 OrderDTO userdto = orderService.user(user_id);
+			  ArrayList<OrderDTO>  orderlist = orderService.order(user_id);
 			  
 			 model.addAttribute("userdto",userdto);
 			 model.addAttribute("orderlist",orderlist);
@@ -88,13 +87,13 @@ public class OrderController {
 	public String store(Model model ,String user_id,String store_seq) {
 	
 
-		  ArrayList<OrderDTO> userlist = orderservice.storeuserlist();
+		  ArrayList<OrderDTO> userlist = orderService.storeuserlist();
 		  
 		  if( user_id != null) {
 			
-			 OrderDTO userdto = orderservice.storeuser(user_id);
+			 OrderDTO userdto = orderService.storeuser(user_id);
 			 if(store_seq != null) {
-			 	ArrayList<OrderDTO>  orderlist = orderservice.storeorder(store_seq);
+			 	ArrayList<OrderDTO>  orderlist = orderService.storeorder(store_seq);
 			 	
 			 }
 			 model.addAttribute("userdto",userdto);
