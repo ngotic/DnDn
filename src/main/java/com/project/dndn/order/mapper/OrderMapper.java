@@ -1,12 +1,10 @@
-package com.project.dndn.order.service;
+package com.project.dndn.order.mapper;
 
 import java.util.ArrayList;
 
 import com.project.dndn.order.domain.OrderDTO;
 
-public interface OrderService {
-
-	
+public interface OrderMapper {
 
 	ArrayList<OrderDTO> userlist();
 
@@ -18,6 +16,6 @@ public interface OrderService {
 
 	OrderDTO storeuser(String user_id);
 
-	ArrayList<OrderDTO> storeorder(String user_id);
-
+	ArrayList<OrderDTO> storeorder(String store_seq);
+		
 }

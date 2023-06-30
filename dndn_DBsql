@@ -129,6 +129,7 @@ CREATE TABLE tblAuth (
 );
 
 
+
 CREATE TABLE tblReview (
 	reviewseq	    number		NOT NULL,
 	sellboardseq	number		NOT NULL,
@@ -317,6 +318,7 @@ CREATE TABLE tblLunchboxSet (
     constraint tblLunchboxSet_fk2 foreign key(lunchboxseq) references tblLunchBox(lunchboxseq)
 );
 
+
 CREATE TABLE tblEvent (
 	eventseq	number		NOT NULL,
 	title	varchar2(100)		NULL,
@@ -326,3 +328,5 @@ CREATE TABLE tblEvent (
 	pic	varchar2(200)		NOT NULL,
     constraint tblEvent_pk1 primary key(eventseq)
 );
+
+

@@ -1,14 +1,42 @@
--- INSERT INTO tblMember (id, name, pw, tel, birth, email, gender, address, addressdetail) 
--- VALUES('john123', '홍길동', 'password1', '01012345678', '19900101', 'johndoe@example.com', 'M', '서울시 강남구', '아파트 101동');
--- 
--- INSERT INTO tblMember (id, name, pw, tel, birth, email, gender, address, addressdetail) 
--- VALUES   ('jane456', '김영희', 'password2', '01098765432', '19950515', 'janesmith@example.com', 'F', '서울시 종로구', '빌딩 2층');
--- 
---  INSERT INTO tblMember (id, name, pw, tel, birth, email, gender, address, addressdetail) 
--- VALUES  ('robert789', '이철수', 'password3', '01055556666', '19850930', 'robertjohnson@example.com', 'M', '서울시 마포구', '상가 3호');
--- 
--- 
 
 select * from tblmember;
+select * from tblauth;
 
 commit;
+select * from tblPromise;
+select od.id,shipdate,shiptime,shipperiod,dayperweek,price,orderdate,payment from tblOrder od inner join tblCart ca on ca.cartseq = od.cartseq inner join tblPeriodShip ps on ca.periodshipseq = ps.periodshipseq where od.id = '1';
+
+	select 
+	tblOrder.id , shipdate , shiptime , shipperiod , dayperweek , tblLunchBox.price , orderdate , payment ,orderseq ,tblLunchBox.name, tblPeriodShip.periodshipseq
+		from tblOrder 
+			inner join tblCart 
+				on tblCart.cartseq = tblOrder.cartseq 
+					inner join tblPeriodShip
+						on tblCart.periodshipseq = tblPeriodShip.periodshipseq 
+                            inner join tblSellBoard
+                                on tblCart.sellboardseq = tblSellBoard.sellboardseq 
+                                    inner join tblLunchboxSet
+                                        on  tblSellBoard.sellboardseq =tblLunchboxSet.sellboardseq  
+                                            inner join tblLunchBox
+                                                on tblLunchBox.lunchboxseq = tblLunchBox.lunchboxseq
+                                                     where tblOrder.id = '1';
+                                                
+                                                
+                                                
+ select * from tblAuth;
+                                                
+  	select 
+        * 
+        from tblmember  
+         inner join tblAuth
+          on tblmember.id = tblAuth.id
+            where tblAuth.AUTH = 'ROLE_MEMBER';
+       
+       
+       			  	select 
+				        * 
+				        from tblmember  
+				         inner join tblAuth
+				          on tblmember.id = tblAuth.id
+				            where tblAuth.AUTH = 'ROLE_ADMIN'                                         
+                     

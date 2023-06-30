@@ -9,221 +9,7 @@
 <link rel="stylesheet" href="/dndn/resources/css/headerstyle.css">
 <link rel="stylesheet" href="/dndn/resources/css/order.css">
 <style>
-	.screen{
-	    border-top: 11px solid #7c7c7c;
-	    height: 480px;;
-	    border-right: 8px solid #cacaca;
-	    border-left: 8px solid #cacaca;
-	    border-bottom: 11px solid #7c7c7c;
-	}
 
-	.screen1{
-	
-		display: inline;
-		width: 10%;
-		height: 95%;
-		float: left;
-		margin-right: 10px;
-		margin-left: 10px;
-	}
-	.screen2{
-		
-		width:23%;
-		display: inline;
-		height: 95%;
-
-		float: left;
-		margin-right: 10px;
-		
-		
-	}
-	.screen2 div:first-child{
-		    text-align: center;
-		    margin-top: 15px;
-	}
-
-	.screen2 table{
-		    width: 95%;
-    		margin: 15px 9px;
-    		
-	}
-	.screen2 table  tr:nth-child(2) th{
-		    background-color: #6b6b6b;
-    		color: white;
-	}
-	
-	.screen2 table tr td , .screen2 table tr th{
-	padding-left: 5px;
-	border: 1px solid black;
-	
-	}
-	
-	.screen2 table tr:first-child th{
-		text-align: center;
-		border: 0px;
-		margin-top:4px;
-		font-size: 30px;
-		
-	}
-	.screen2 table tr:nth-child(2) th:nth-child(1){
-	width: 185px;
-	}
-	.screen2 table tr:nth-child(2) th:nth-child(2){
-    width: 90px;
-	}
-	.screen2 table tr:nth-child(2) th:nth-child(3){
-    width: 145px;
-	}
-/* 		.screen3{
-		border: 1px solid black;
-		width:18%;
-		float: left;
-			height: 35%;
-		margin-right: 10px;
-		margin-bottom: 10px;
-		
-	} */
-		.screen4{
-	
-		width:64%;
-		display: flex;
-		float: left;
-		height: 31%;
-			margin-bottom: 10px;
-	}
-	
-	.screen4 table{
-		    width: 100%;
-    		margin: 15px 9px;
-    		
-	}
-	.screen4 table tr:first-child th:nth-child(1){
-	width: 80px;
-	}
-	.screen4 table tr:first-child th:nth-child(2){
-	width: 80px;
-	}
-	.screen4 table tr:first-child th:nth-child(3){
-	width: 150px;
-	}
-	.screen4 table tr:first-child th:nth-child(4){
-	width: 80px;
-	}
-	.screen4 table tr:first-child th:nth-child(5){
-	width: 150px;
-	}
-
-	.screen4 table tr:first-child th:nth-child(6){
-	width: 300px;
-	}
-
-	.screen4 table tr:nth-child(3) th:nth-child(2){
-	width: 225px;
-	}
-		.screen4 table tr:nth-child(3) th:nth-child(3){
-	width: 100px;
-	}
-	.screen4 table tr td {
-		font-size: 13px;
-	}
- 
-	.screen4 table tr th,.screen4 table tr td{
-	border: 1px solid black;
-	padding-left: 5px;
-	}
-		.screen4 table tr th{
-		border-bottom:0px;
-		padding-left: 5px;
-	}
-			.screen4 table tr td{
-	
-	padding-left: 5px;
-	}
-		.screen5{
-
-		width:64%;
-		    height: 64%;
-		display: block;
-		float: left ;
-		
-		
-	}
-	form{
-		margin-top:20px;
-	}
-	
-	.admin-page{
-		
-		height: 100%;
-	}
-	.screen{
-		height: 100%;
-	}
-
-	.screen3 div{
-		border: 1px solid black;
-		display: block;
-	} 
-
-
-
-	
-	
-	.screen5 table{
-		    width: 95%;
-    		margin: 15px auto;
-    		
-    		}
-    		
-	.screen5 table th, .screen5 table td{
-		border: 1px solid black;
-		
-	}    		
-    		.screen5 table th{
-				background-color: #6b6b6b;
-	    		color: white;
-	    		text-align: center;
-    		}
-    		
-    		.screen5 table td:nth-child(2){
-    		width:200px;
-    		text-align: left;
-    		}
-    		.screen5 table td:nth-child(1)
-    		,.screen5 table td:nth-child(2){
-    		padding-left: 5px;
-    		}
-    		
-    		.screen5 table td:nth-child(3)
-    		,.screen5 table td:nth-child(4) 
-    		,.screen5 table td:nth-child(5)
-    		,.screen5 table td:nth-child(6)
-    		,.screen5 table td:nth-child(7)
-    		,.screen5 table td:nth-child(8){
-			text-align: right;
-			padding-right: 5px;
-}
-
-	.screen5>span{
-		   display: flex;
-		    justify-content: center;
-		    font-size: 30px;
-		    font-weight: 600;
-		    margin: 10px 0px;
-	}
-
-	.screen5>div {
-		display: flex;
-		width: 95%;
-		margin: 0px auto;
-}
-
-	.screenAll{
-		
-		border: 2px solid black;
-		border-radius: 5px;
-		
-	}}
 
 
 </style>
@@ -240,8 +26,8 @@
 				</ol>
 				이용자관리
 				<ol>
-				    <li >회원관리</li>
-				    <li>점주관리</li>
+				    <li  onclick="location.href='http://localhost:8092/dndn/order/user.do'" >회원관리</li>
+				    <li  onclick="location.href='http://localhost:8092/dndn/order/store-user.do'" >점주관리</li>
 				   
 				</ol>
 				가맹점관리
@@ -256,9 +42,9 @@
 				</ol>
 				이벤트관리
 				<ol>
-					 <li>이벤트등록</li>
-					 <li>이벤트수정</li>
-					 <li>이벤트삭제</li>
+					 <li  onclick="location.href='http://localhost:8092/dndn/order/event-management.do'" >이벤트등록</li>
+					 <li  onclick="location.href='http://localhost:8092/dndn/order/event-management.do'" >이벤트수정</li>
+					 <li  onclick="location.href='http://localhost:8092/dndn/order/event-management.do'" >이벤트삭제</li>
 				</ol>
 				쿠폰 관리
 				<ol>
@@ -274,9 +60,13 @@
 
 				
 			</div>
+		
 				<div  class= " screen2 screenAll"   >
+					
 					<div>
-						<input type="text"   placeholder="회원 검색"><input type="button" value="검색" >
+						
+						<input type="text"   placeholder="회원 검색"><input type="submit" value="검색" >
+						
 					</div>
 					<table>
 						<tr>
@@ -284,46 +74,29 @@
 								회원리스트
 							</th>
 						</tr>
-						
+				
 						<tr>
 							<th>아이디</th>
 							<th>이름</th>
 							<th>연락처</th>
 
 						</tr>
-						
-						
-						<tr>
-							<td>gsdg</td>
-							<td>홍길동</td>
-							<td>010-1263-1263</td>
 					
-						</tr>
+						<c:forEach var="user"  items="${userlist}">
 						
-							<tr>
-							<td>gq3usk3</td>
-							<td>아무개</td>
-							<td>010-1243-1243</td>
-					
-						</tr>
+							<tr onclick="location.href='http://localhost:8092/dndn/order/user.do?user_id=${user.id}'">
+								<td>${user.id}</td>
+								<td>${user.name}</td>
+								<td>${user.tel }</td>
 						
-							<tr>
-							<td>1365drxfdg</td>
-							<td>강아지</td>
-							<td>010-1213-1213</td>
-					
-						</tr>
+							</tr>
 						
-							<tr>
-							<td>64375urjgf</td>
-							<td>홍길동</td>
-							<td>010-123-123</td>
-					
-						</tr>
+						</c:forEach>
 						
 					</table>
+
 				</div>
-				
+		
 <!-- 				<div  class= " screen3" >
 				 
 					<div >
@@ -349,16 +122,32 @@
 							<th>생년월일</th>
 							<th colspan="4">이메일</th>
 						
-						</tr>				
+						</tr>			
+						<c:choose>
+						<c:when test="${ userdto ne null}">
 						<tr>
-							<td>홍길동</td>
-							<td>hong</td>
-							<td>010-123-123</td>
-							<td>남</td>
-							<td>1999-11-11</td>
-							<td colspan="4">hong@gmail.co</td>
+							<td>${ userdto.name}</td>
+							<td>${ userdto.id}</td>
+							<td>${ userdto.tel}</td>
+							<td>${ userdto.gender}</td>
+							<td>${ userdto.birth}</td>
+							<td colspan="4">${ userdto.email}</td>
 						
 						</tr>
+						</c:when>
+						<c:when test="${ userdto eq null}">
+							<tr>
+								<td hidden="이름"> </td>
+								<td>회원명 </td>
+								<td>아이디 </td>
+								<td> 연락처 </td>
+								<td> 성별 </td>
+								<td> 생년월일</td>
+								<td colspan="4"> 이메일 </td>
+							</c:when>
+						</c:choose>
+
+				
 						<tr>
 							<th colspan="5">주소</th>
 							<th colspan="2">상세주소</th>
@@ -366,13 +155,27 @@
 							<th>가입일</th>
 				
 						</tr>
+					
+						<c:choose>
+						<c:when test="${ userdto ne null}">
 						<tr>
-							<td colspan="5">서울시 강동구 천호동</td>
-							<td colspan="2">OO아파트 101호</td>
-							<td>일반등급</td>
-							<td>2023-05-15</td>
+								<td colspan="5">${ userdto.address}</td>
+							<td colspan="2">${ userdto.addressdetail}</td>
+							<td id ="td-auth">${ userdto.auth}</td>
+							<td>${ userdto.regdate}</td>
 				
 						</tr>
+						</c:when>
+						<c:when test="${ userdto eq null}">
+							<tr>
+								<td colspan="5"> 주소 </td>
+								<td colspan="2"> 상세 주소 </td>
+								<td> 등급 </td>
+								<td> 가입일 </td>
+							</c:when>
+						</c:choose>
+						
+				
 				</table>
 			</div>
 			
@@ -426,44 +229,20 @@
 							
 						</tr>
 						
-						
+					<c:forEach var="order"  items="${orderlist}">
 						<tr>
-							<td>1</td>
-							<td>도시락</td>
-							<td>10000</td>
-							<td>2023-06-05</td>
-							<td>수요일</td>
+							<td>${order. orderseq}</td>
+							<td>${order.name}</td>
+							<td>${order.price}</td>
+							<td>${order.orderdate}</td>
+							<td>${order.shipdate}</td><!-- 요일  -->
 							
-							<td>정기배송</td>
-							<td>2023-07-01~2023-08-01</td>
-							<td>2023-07-01</td>
+							<td>${order.periodshipseq }</td>
+							<td>${order.shipperiod}</td>
+							<td>${order.shipdate}</td> <!-- 날짜  -->
 						</tr>
+					</c:forEach>	
 						
-						
-						<tr>
-							<td>2</td>
-							<td>도시락</td>
-							<td>10000</td>
-							<td>2023-06-05</td>
-							<td>수요일</td>
-							
-							<td>정기배송</td>
-							<td>2023-07-01~2023-08-01</td>
-							<td>2023-07-01</td>
-						</tr>
-												
-						<tr>
-							<td>3</td>
-							<td>도시락</td>
-							<td>10000</td>
-							<td>2023-06-05</td>
-							<td>수요일</td>
-							
-							<td>정기배송</td>
-							<td>2023-07-01~2023-08-01</td>
-							<td>2023-07-01</td>
-						</tr>
-												
 					</table>
 					
 					 
@@ -486,6 +265,24 @@
 </body>
 
 <script>
-
+/* 	const auth = document.getElementById("td-auth");
+	auth.authname( function() {
+		  if (auth.innerText === "ROLE_MEMBER") {
+		    auth.innerText = "일반 회원";
+		  } else {
+		    mode.innerText = "바뀌기 전 text";
+		  }
+		});
+	}); */
+		if(document.getElementById("td-auth").innerText === "ROLE_MEMBER"){
+		document.getElementById("td-auth").innerText='일반 회원';
+		}
+	
+	/* 
+	function changeAuth() {
+		   let auth = document.getElementById("td-auth");
+		   auth.innerText="일반 회원"; 
+		   
+		} */
 </script>
 </html>

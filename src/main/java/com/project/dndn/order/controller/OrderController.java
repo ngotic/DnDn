@@ -1,19 +1,26 @@
 package com.project.dndn.order.controller;
 
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.project.dndn.order.domain.OrderDTO;
 import com.project.dndn.order.service.OrderService;
+
+
 
 @Controller
 public class OrderController {
 
 	
-	 @Autowired 
-	 private OrderService service;
+	@Autowired
+	@Qualifier("orderService")
+	private OrderService orderservice;
 	
 	
 	@GetMapping("/order/main.do")
@@ -34,6 +41,12 @@ public class OrderController {
 		return "order/event-page";
 	}
 
+	@GetMapping("/order/event-management.do")
+	public String event_manegement() {
+		
+		return "order/event-management";
+	} 
+	
 	@GetMapping("/order/stat.do")
 	public String stat() {
 		
@@ -41,19 +54,57 @@ public class OrderController {
 	}
 	
 	@GetMapping("/order/user.do")
-	public String user(Model model) {
+	public String user(Model model ,String user_id) {
+	
+			
 		
-		
-		
-		
+	
+		  ArrayList<OrderDTO> userlist = orderservice.userlist();
+		  
+		  if( user_id != null) {
+			
+			 OrderDTO userdto = orderservice.user(user_id);
+			  ArrayList<OrderDTO>  orderlist = orderservice.order(user_id);
+			  
+			 model.addAttribute("userdto",userdto);
+			 model.addAttribute("orderlist",orderlist);
+		  }
+		  
+		  //System.out.println(userlist);
+		  
+		  model.addAttribute("userlist", userlist);
+		  
+		  
+		  
+		 
 		return  "order/user-management";
 	}
 	
-	@GetMapping("/order/store.do")
-	public String store() {
-		
-		
-		
+	
+
+
+
+	@GetMapping("/order/store-user.do")
+	public String store(Model model ,String user_id,String store_seq) {
+	
+
+		  ArrayList<OrderDTO> userlist = orderservice.storeuserlist();
+		  
+		  if( user_id != null) {
+			
+			 OrderDTO userdto = orderservice.storeuser(user_id);
+			 if(store_seq != null) {
+			 	ArrayList<OrderDTO>  orderlist = orderservice.storeorder(store_seq);
+			 	
+			 }
+			 model.addAttribute("userdto",userdto);
+			 
+		  }
+		  
+		  //System.out.println(userlist);
+		  
+		  model.addAttribute("userlist", userlist);
+		  
 		
 		
 		return  "order/store-management";
@@ -61,8 +112,6 @@ public class OrderController {
 	
 	
 	
-	
-
 	
 	@GetMapping("/order/template.do")
 	public String template() {
