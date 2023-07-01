@@ -1,0 +1,13 @@
+jdbc.driverClassName=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+jdbc.url=jdbc:log4jdbc:oracle:thin:@13.124.238.159:1521:xe
+jdbc.username=team2
+jdbc.password=java1234
+
+
+jdbc.driverClassName=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+jdbc.url=jdbc:log4jdbc:oracle:thin:@localhost:1521:xe
+jdbc.username=team
+jdbc.password=java1234
+
+
+

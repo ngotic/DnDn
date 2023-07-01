@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dndn.order.mapper.OrderMapper">
+
+	
+	<select id="userlist"  resultType ="com.project.dndn.order.domain.OrderDTO"> 
+			  	select 
+				        * 
+				        from tblmember  
+				         inner join tblAuth
+				          on tblmember.id = tblAuth.id
+				            where tblAuth.AUTH = 'ROLE_MEMBER'
+	</select>
+
+	<select id="user" resultType ="com.project.dndn.order.domain.OrderDTO">
+			select 
+					* 
+					from tblmember
+						inner join tblAuth
+		          			on tblmember.id = tblAuth.id
+		          				where tblmember.id= #{user_id}
+	</select>	
+
+
+	<select id="order" resultType ="com.project.dndn.order.domain.OrderDTO">
+	
+	select 
+	tblOrder.id , shipdate , shiptime , shipperiod , dayperweek , tblLunchBox.price , orderdate , payment ,orderseq ,tblLunchBox.name, tblPeriodShip.periodshipseq
+		from tblOrder 
+			inner join tblCart 
+				on tblCart.cartseq = tblOrder.cartseq 
+					inner join tblPeriodShip
+						on tblCart.periodshipseq = tblPeriodShip.periodshipseq 
+                            inner join tblSellBoard
+                                on tblCart.sellboardseq = tblSellBoard.sellboardseq 
+                                    inner join tblLunchboxSet
+                                        on  tblSellBoard.sellboardseq =tblLunchboxSet.sellboardseq  
+                                            inner join tblLunchBox
+                                                on tblLunchBox.lunchboxseq = tblLunchBox.lunchboxseq
+                                                     where tblOrder.id =  #{user_id}
+                                                     
+	</select>	
+	
+	
+	<select id="storeuserlist"  resultType ="com.project.dndn.order.domain.OrderDTO"> 
+		select 
+		        * 
+		        from tblmember  
+		         inner join tblAuth
+		          on tblmember.id = tblAuth.id
+		            inner join tblStoreManager
+		             on tblStoreManager.id = tblmember.id
+		                where tblAuth.AUTH = 'ROLE_ADMIN'
+	</select>
+
+	<select id="storeuser" resultType ="com.project.dndn.order.domain.OrderDTO">
+		select 
+				* 
+				from tblmember
+				    inner join tblAuth
+				        on tblmember.id = tblAuth.id
+				            inner join tblStoreManager
+				             on tblStoreManager.id = tblmember.id
+				                where tblmember.id= #{user_id}
+	</select>	
+	
+		<select id="storeorder" resultType ="com.project.dndn.order.domain.OrderDTO">
+	
+			select 
+			tblOrder.id , shipdate , shiptime , shipperiod , dayperweek , tblLunchBox.price , orderdate , payment ,orderseq ,tblLunchBox.name, tblPeriodShip.periodshipseq
+				from tblOrder 
+					inner join tblCart 
+						on tblCart.cartseq = tblOrder.cartseq 
+							inner join tblPeriodShip
+								on tblCart.periodshipseq = tblPeriodShip.periodshipseq 
+		                            inner join tblSellBoard
+		                                on tblCart.sellboardseq = tblSellBoard.sellboardseq 
+		                                    inner join tblLunchboxSet
+		                                        on  tblSellBoard.sellboardseq =tblLunchboxSet.sellboardseq  
+		                                            inner join tblLunchBox
+		                                                on tblLunchBox.lunchboxseq = tblLunchBox.lunchboxseq
+		                                                     where tblOrder.id =  #{user_id}
+                                                     
+	</select>	
+	
+	
+
+</mapper>
