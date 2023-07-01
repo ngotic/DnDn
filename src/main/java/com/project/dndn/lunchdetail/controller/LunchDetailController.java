@@ -11,8 +11,8 @@ import com.project.dndn.lunchdetail.service.LunchDetailService;
 @Controller
 public class LunchDetailController {
 
-	@Autowired
-	private LunchDetailService service;
+//	@Autowired
+//	private LunchDetailService service;
 
 	@GetMapping("/lunchdetail/detail.do")
 	public String lunchdetail() {

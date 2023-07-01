@@ -9,8 +9,8 @@ import com.project.dndn.lunchdetail.mapper.LunchDetailMapper;
 @Service
 public class LunchDetailServiceImpl implements LunchDetailService {
 
-	@Autowired
-	private LunchDetailMapper mapper;
+//	@Autowired
+//	private LunchDetailMapper mapper;
 
 
 	
