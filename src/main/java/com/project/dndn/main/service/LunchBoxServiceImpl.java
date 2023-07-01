@@ -13,7 +13,7 @@ import com.project.dndn.main.domain.LunchBoardDTO;
 public class LunchBoxServiceImpl implements LunchBoxService{
 
 	@Autowired
-	private LunchMapper mapper;
+	private LunchMapper mapper; // 인텔리제이가 얘 인식을 못함..
 	
 	@Override
 	public List<LunchBoardDTO> getRecentLunchServce() {
