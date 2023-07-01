@@ -4,7 +4,7 @@
 .settings
 .springBeans
 .classpath
-.DB연결.txt
+DB연결.txt
 src/main/resources/config/*.properties
 
 
