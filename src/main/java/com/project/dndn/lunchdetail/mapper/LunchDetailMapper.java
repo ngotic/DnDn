@@ -1,5 +1,6 @@
 package com.project.dndn.lunchdetail.mapper;
 
+import com.project.dndn.lunchdetail.domain.CartDTO;
 import com.project.dndn.lunchdetail.domain.LunchBoxDTO;
 import com.project.dndn.lunchdetail.domain.StoreLocationDTO;
 import org.apache.ibatis.annotations.Param;
@@ -11,4 +12,11 @@ public interface LunchDetailMapper {
     List<String> lunchBoxDetailList(String seq);
 
     List<StoreLocationDTO> getStoreLocations();
+
+    // 다수의 인자인 경우 파람으로 표기해주기
+    int readUserWishList(@Param("id") String id ,@Param("sellboardseq") int sellboardseq );
+    void deleteUserWishList(@Param("id") String id , @Param("sellboardseq") int sellboardseq );
+    void insertUserWishList(@Param("id")String id , @Param("sellboardseq") int sellboardseq );
+
+    int addCart(CartDTO cartdto);
 }

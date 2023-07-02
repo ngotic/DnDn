@@ -24,4 +24,20 @@
         select * from tblStore
     </select>
 
+
+    <select id="readUserWishList" resultType="int">
+        select count(*) from tblWishList where id = #{id} and sellboardseq = #{sellboardseq}
+    </select>
+
+    <delete id="deleteUserWishList">
+        delete from tblWishList where id = #{id} and sellboardseq = #{sellboardseq}
+    </delete>
+
+    <insert id="insertUserWishList">
+        insert into tblWishList values(wishlistseq.nextVal, #{id}, #{sellboardseq}, sysdate)
+    </insert>
+
+    <insert id="addCart">
+
+    </insert>
 </mapper>

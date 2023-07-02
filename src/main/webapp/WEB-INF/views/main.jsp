@@ -343,7 +343,7 @@ section {
 
 		<div class="lunchbox-list">
 			<div class="lunchbox-list-title">이번달 정기배송 BEST
-				<img src="	https://www.slimcook.co.kr/design/slimcook/renewal/icon/review.png" alt="정기" width=16px>
+				<img src="https://www.slimcook.co.kr/design/slimcook/renewal/icon/review.png" alt="정기" width=16px>
 			</div>
 			<!-- 서버에서 많이 팔린 제품순으로 뿌려준다. -->
 			<div class="swiper">

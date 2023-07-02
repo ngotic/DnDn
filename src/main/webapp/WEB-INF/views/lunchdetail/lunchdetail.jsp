@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -423,13 +424,16 @@
 	<div id="content">
 		<div id="productDetail">
 			<div class="page-body">
+				<form id="form1" method="POST" action="/dndn/userorder/usercart.do?right=true">
 				<div class="thumb-info">
 					<div class="thumb-wrap">
 						<div class="thumb">
 							<img src="${ldto.pic}" class="detail_image" alt="상품이미지">
+							<input type="hidden" name="pic" value="${ldto.pic}">
+							<input type="hidden" name="content" value="${ldto.content}">
 						</div>
 					</div> <!-- thumb-wrap -->
-					
+
 					<!--  주문 form ajax list로	-->
 					<div class="info">
 						<h3 class="tit-prd">${ldto.content} </h3>
@@ -448,6 +452,8 @@
 							<c:if test="${ldto.sale!=0}">
 							<span class="price">
 								<strike class="price_del">${ldto.price}</strike>원
+								<input type="hidden" name="sale" value="${ldto.sale}">
+								<input type="hidden" name="price" value="${ldto.price}">
 							</span>
 							</c:if>
 						</div>
@@ -457,8 +463,8 @@
 									<tr>
 										<td>지점</td>
 										<td>
-											<select id="sellLocation">
-												<option value="" selected>옵션 선택</option>
+											<select id="sellLocation" name="storeseq">
+												<option value="0" selected>지점 선택</option>
 												<c:if test="${locations!=null}">
 													<c:forEach items="${locations}" var="location">
 														<option value="${location.storeseq}">${location.name}</option>
@@ -538,9 +544,9 @@
 												<button class="order-close"><span class="material-symbols-outlined">close</span></button>
 												<div>[ 수량선택 ]</div>
 												<div class="order-div-left align-middle">
-													<input type="text" value=1 class="order-count">
-													<button class="order-btn-plus"><span class="material-symbols-outlined">add</span></button>
-													<button class="order-btn-minus"><span class="material-symbols-outlined">remove</span></button>
+													<input type="text" value=1 class="order-count" name="cnt">
+													<button class="order-btn-plus" type="button"><span class="material-symbols-outlined">add</span></button>
+													<button class="order-btn-minus" type="button" ><span class="material-symbols-outlined" >remove</span></button>
 												</div>
 												<!--이건 클래스 -->
 												<div class="order-div-right"><fmt:formatNumber value="${ldto.price * (1-(ldto.sale/100))}" pattern="#,###"></fmt:formatNumber>원</div>
@@ -564,14 +570,29 @@
 						
 						<!-- 찜, 장바구니, 구매하기 버튼 -->
 						<div class="order-btn-div">
-							<button class="btn-wish"><span class="btn-wish-heart">♡</span></button>
+							<button class="btn-wish"><span class="btn-wish-heart">
+							<c:if test="${boardlike == null}">
+								♡
+							</c:if>
+							<c:if test="${boardlike != null}">
+								<c:if test="${boardlike > 0}">
+									♥
+								</c:if>
+								<c:if test="${boardlike == 0}">
+									♡
+								</c:if>
+							</c:if>
+							</span></button>
 							<button class="btn-cart">장바구니</button>
-							<button class="btn-buy">구매하기</button>
-                        </div>
-                        
+<%--							<button class="btn-buy" onclick="location.href='<c:url value='/userorder/usercart.do?right=true'/>';">바로 구매하기</button>--%>
+							<button class="btn-buy" type="button" onclick="formcheck();"/>바로 구매하기</button>
+							<input type="hidden" id ="storename" name="storename" value="">
+							<input type="hidden" name="sellboardseq" value="${ldto.sellboardseq}">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+						</div>
 					</div>
 				</div> <!-- thumb-info 결제 칸까지 -->
-				
+				</form>
 				<!-- 도시락탭 -->
 				<a id="detailGoodsInfo"></a>
 				<div class="detailTab">
@@ -631,12 +652,11 @@
 	                            <div class="btn-r">
 	                            	<button type="submit" class="btn-h35">리뷰등록</button>
 	                            </div>
-	                        </form> 
+	                        </form>
 	                    </div>
 	                    
 	                    <!-- 리뷰 목록 -->
 	                    <div class="review-list">
-	                    
 	                    	<!-- 반복문 돌리는 부분 -->
 	                    	<div class="review-list-detail">
 								<div class="review-detail-star"><span style="color:#EBC334;">★★★★★</span> <b>아주만족</b></div>
@@ -680,41 +700,116 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+
 <script>
 	$(document).ready(function(){
 
 
+		$("#sellLocation").on("change", function(){
+			$('#storename').val($("#sellLocation option:checked").text());
+		});
+
+		// TODO : 지점선택 예외처리 하기
+		var csrfHeaderName = "${_csrf.headerName}";
+		var csrfTokenValue = "${_csrf.token}"
+		const WishButton = document.querySelector('.btn-wish-heart');
+		$('#total_price').text($('#price').text()+"원");
+
 	//
 	$('.btn-wish').click(function(){
+		let sellboardseq ='${ldto.sellboardseq}';
 		$.ajax({
-
+			type: 'PUT',
+			url: '/dndn/wish/addorDeleteWish',
+			headers: {"content-type" : "application/json"}, // 보내는 데이터
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			data : JSON.stringify({sellboardseq : sellboardseq, id:"xxxx"}),
+			success : function(result) {
+				toggleHeart();
+			} ,
+			error : function (a, b, c){
+				console.log(a ,b, c)
+				if(b == 'error') {
+					new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+						location.href='/dndn/auth/login.do';
+					});
+				}
+			}
 		});
 	});
 
-    //
-	$('.btn-buy').click(function(){
-
-	});
-
-	//
-	$('.btn-cart').click(function(){
-
-	});
-
-	$('#total_price').text($('#price').text()+"원");
-
-	//찜 버튼 토클
-	const WishButton = document.querySelector('.btn-wish-heart');
-	
 	function toggleHeart() {
-	  if (WishButton.textContent === '♡') {
-		  WishButton.textContent = '♥';
-	  } else {
-		  WishButton.textContent = '♡';
-	  }
+		if (WishButton.textContent.trim() == '♡') {
+			WishButton.textContent = '♥';
+		} else {
+			WishButton.textContent = '♡';
+		}
 	}
 
-	WishButton.addEventListener('click', toggleHeart);
+	$('.btn-buy').click(function(){
+		if( $("#sellLocation option:checked").val() =='0'){
+			alert('지점을 선택하세요.');
+			return false;
+		}
+		else {
+			$('#form1').submit();
+		}
+	});
+
+	// function formcheck(){
+	//
+	// 	alert($("#sellLocation option:checked").text());
+	//
+	// 	if( $("#sellLocation option:checked").val() =='0')
+	// 		return false;
+	// 	else
+	// 		return true;
+	// }
+    //
+	<%--$('.btn-buy').click(function(){--%>
+
+	<%--	let sellboardseq ='${ldto.sellboardseq}';--%>
+
+	<%--	alert('여기는 직구 ');--%>
+	<%--	e.preventDefault();--%>
+	<%--	return false;--%>
+
+	<%--});--%>
+
+
+	$('.btn-cart').click(function(){
+		//
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: '/dndn/cart/addCart',
+		// 	headers: {"content-type" : "application/json"}, // 보내는 데이터
+		// 	beforeSend: function(xhr) {
+		// 		xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		// 	},
+		//
+		// 	data : JSON.stringify({
+		// 		sellboardseq : sellboardseq,
+		// 		id:"xxxx"}
+		// 	),
+		// 	success : function(result) {
+		//
+		// 		new Swal('이동', '바로 구매 페이지로 이동합니다.','success').then(function() {
+		// 			location.href='/dndn/auth/login.do';
+		// 		});
+		// 	} ,
+		// 	error : function (a, b, c){
+		// 		console.log(a ,b, c)
+		// 		if(b == 'error') {
+		// 			new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+		// 				location.href='/dndn/auth/login.do';
+		// 			});
+		// 		}
+		// 	}
+		// });
+	});
 	
 	//좋아요 버튼 토클
 	const likeButton = document.querySelector('.review-like-btn');
@@ -762,7 +857,6 @@
 	}
 
 	$(".order-btn-plus").click(function(){
-
 		let ordercnt = $(this).prev();
 		$(this).parent().next().text(convertNumToPrice(parseInt(ordercnt.val())*parseInt($('#price').text().replaceAll(',',''))));
 		if(parseInt(ordercnt.val()) > 99){
@@ -771,6 +865,7 @@
 		}
 		ordercnt.val( parseInt(ordercnt.val())+1);
 		updatePrice();
+
 	});
 
 

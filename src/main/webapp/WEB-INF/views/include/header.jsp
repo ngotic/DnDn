@@ -83,7 +83,7 @@
 		</nav>
 </header>
 <div class="main_logo">
-	<img src="/dndn/resources/img/logo_long.png" class="mt-1 mb-2" style="height:110px;">
+	<img src="/dndn/resources/img/logo_long.png" class="mt-3 mb-4" style="height:130px;">
 </div>
 <hr class="mb-0">
 
