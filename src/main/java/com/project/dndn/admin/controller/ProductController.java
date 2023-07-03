@@ -23,6 +23,14 @@ public class ProductController {
 	}
 	
 	
+	@GetMapping("/admin/product-add.do")
+	public String add(Model model) {
+		
+		
+		return "admin/product-add";
+	}
+	
+	
 	@GetMapping("/admin/admin-main.do")
 	public String main(Model model) {
 		
