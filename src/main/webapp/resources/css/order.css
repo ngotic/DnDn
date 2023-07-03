@@ -1,0 +1,467 @@
+
+/*----------------------------------------------------------------------------------------------------------------------------------------
+	File : order.css
+    CSS 적용순서 : 아이디 > 태그와 클래스 > 클래스 > 태그
+    CSS 선택자 선언순서 : Type Selector, Layout Selector, Class Selector, Etc
+    CSS 속성 선언순서 : display, position, float/clear, overflow, width/height, margin/padding, border, background, font/color, align, etc
+------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+/* 
+	
+	 header.jsp  
+
+ */
+	.navbar-menu .nav-item:hover{
+        background-color: #eee;
+    }
+
+	.dropdown-menu.show {
+    	width:95%;
+		border-radius: 0px;
+	}
+	#navbar {
+		display: flex;
+		justify-content: space-between;
+	}
+	a .icon-color:hover {
+        color : #FF5B5B;
+    }
+    .icon-color {
+        color : #FF5B5B;
+    }
+	
+	.btn-close{
+		font-size:12px;
+	}
+	span.material-symbols-outlined {
+	    margin-top: 1px;
+	    color: tomato;
+	}
+	
+	
+
+/* 
+	
+	 main.jsp
+
+ */
+	.L-R-padding{
+	    padding: 0% 10% 0% 10%;
+	    }	
+
+	h2::before{
+	display: inline-block;
+    width: 6px;
+    height: 19px;
+    background: #1a4e99;
+    content: '';
+    margin-right: 9px;
+    }
+    
+    #chart{
+    
+    	width: 300px;
+    	height: 300px;
+    	
+    }
+
+/*
+		
+	event.jsp
+	
+ */
+ 
+ 	.order-container{
+
+        font-size: 14px; 
+    height: 100px;
+	max-width: 1454px;
+	margin: 0 auto;
+    margin-top: 30px;
+    font-family: var(--main-content-font-family);
+    text-align: center;
+      
+    
+    }
+	.event-content{
+	display: flex;
+    flex-wrap: wrap;
+	margin: 0 24px;
+	}
+	
+	.event-box{
+	width:  400px;
+		height: 500px;
+		 padding: 50px;
+		    text-align: center;
+		
+		border: 1px solid black;
+		margin: 15px 0px;
+	border: 1mm ridge rgb(255 225 226 / 60%);
+
+	}
+	
+
+		.event-box  a  img{
+		width:  100%;
+		height: 285px;
+}
+		
+	}
+	
+	.event-title{
+		display: block;
+		
+		font-size: 20px;
+	}
+	.event-txt {
+		display: inline-block;
+
+		font-size: 14px;
+    	font-weight: 500;
+	}
+	.event-text-box{
+				text-align: center;
+			
+			margin: 0 auto;
+	}
+	.event-state{
+		padding-right: 5px;
+		font-size: 20px;
+		color: red;	
+	}
+	
+	.event-btn-box{
+			  display: flex;
+   			 justify-content: center;
+   
+		}
+		
+		.event-btn{	
+			width: 372px;
+			    height: 40px;
+	  padding: 10px 25px;
+	      margin: 0px 0px;	
+	  border: 2px solid #000;
+	  font-family: 'Lato', sans-serif;
+	  font-weight: 500;
+	  background: transparent;
+	  cursor: pointer;
+	  transition: all 0.3s ease;
+	  position: relative;
+	      text-align: center;
+	  display: inline-block;
+	  	transition: all 0.3s ease;
+	  }
+	  .event-btn:hover {
+   box-shadow:
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+}
+	  
+		#evt-btn1{
+	
+		border-right: 0px;
+	}
+
+	.event-page-title{
+	    margin-right: 29px;
+	}
+
+	
+/*
+		
+	event-page.jsp
+	
+ */
+	.evt-page-sp:before{
+			display: inline-block;
+	    width: 3px;
+	    height: 30px;
+	    background: #1a4e99;
+	    content: '';
+	    margin-right: 12px;
+	    margin-left: 12px;
+	}
+	.event-page-title{
+		font-size: 40px;
+	}
+	.event-page-table{
+		height: 80px;
+		    text-align: left;
+		width: 100%;
+		font-size: 15px;
+	}
+	.event-page-table  tr  td:first-child{
+		 width:  80px;
+		 padding:0px 15px;
+		   text-align: center;
+		    
+	}
+	.event-page-table tr {
+		 align-content: center;	
+		 border-bottom: 1px solid black; 
+		 	    height: 50px;
+		 	    
+	}
+	
+	
+	
+	.event-page-table tr:first-child{
+		 border-top: 1px solid black; 
+	
+		 
+	}
+	
+	border-bottom: 1px solid black;
+	.event-page-table  tr  td:last-child{
+    	text-align: left;
+	}
+	.event-page-img{
+	    display: flex;
+    	justify-content: center;
+    }
+    
+    .event-page-table-box{
+	    padding-top: 15px;
+	    padding-bottom: 20px;
+    }
+    
+    .event-page_padding{
+    padding: 0px 70px;
+    margin-top: 25px;
+    }
+    
+    .event-Slider{
+    	
+    	height: 300px;
+    
+    }
+    
+    
+    /*
+    
+    user-management.jsp
+    
+    */
+    
+    
+    	.screen{
+	    border-top: 11px solid #7c7c7c;
+	    height: 100%;
+	    width:100%;
+	    border-right: 8px solid #cacaca;
+	    border-left: 8px solid #cacaca;
+	    border-bottom: 11px solid #7c7c7c;
+	}
+
+	.screen1{
+	
+		display: inline;
+		width: 10%;
+		height: 95%;
+		float: left;
+		margin-right: 10px;
+		margin-left: 10px;
+	}
+	.screen2{
+		
+		width:23%;
+		display: inline;
+		height: 95%;
+
+		float: left;
+		margin-right: 10px;
+		
+		
+	}
+	.screen2 div:first-child{
+		    text-align: center;
+		    margin-top: 15px;
+	}
+
+	.screen2 table{
+		    width: 95%;
+    		margin: 15px 9px;
+    		
+	}
+	.screen2 table  tr:nth-child(2) th{
+		    background-color: #6b6b6b;
+    		color: white;
+	}
+	
+	.screen2 table tr td , .screen2 table tr th{
+	padding-left: 5px;
+	border: 1px solid black;
+	
+	}
+	
+	.screen2 table tr:first-child th{
+		text-align: center;
+		border: 0px;
+		margin-top:4px;
+		font-size: 30px;
+		
+	}
+	.screen2 table tr:nth-child(2) th:nth-child(1){
+	width: 185px;
+	}
+	.screen2 table tr:nth-child(2) th:nth-child(2){
+    width: 90px;
+	}
+	.screen2 table tr:nth-child(2) th:nth-child(3){
+    width: 145px;
+	}
+
+		.screen3{
+			border: 1px solid black;
+			width:18%;
+			float: left;
+				height: 35%;
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}		
+
+		.screen4{
+	
+		width:64%;
+		display: flex;
+		float: left;
+		height: 31%;
+			margin-bottom: 10px;
+	}
+	
+	.screen4 table{
+		    width: 100%;
+    		margin: 15px 9px;
+    		
+	}
+	.screen4 table tr:first-child th:nth-child(1){
+	width: 80px;
+	}
+	.screen4 table tr:first-child th:nth-child(2){
+	width: 80px;
+	}
+	.screen4 table tr:first-child th:nth-child(3){
+	width: 150px;
+	}
+	.screen4 table tr:first-child th:nth-child(4){
+	width: 80px;
+	}
+	.screen4 table tr:first-child th:nth-child(5){
+	width: 150px;
+	}
+
+	.screen4 table tr:first-child th:nth-child(6){
+	width: 300px;
+	}
+
+	.screen4 table tr:nth-child(3) th:nth-child(2){
+	width: 225px;
+	}
+		.screen4 table tr:nth-child(3) th:nth-child(3){
+	width: 100px;
+	}
+	.screen4 table tr td {
+		font-size: 13px;
+	}
+ 
+	.screen4 table tr th,.screen4 table tr td{
+	border: 1px solid black;
+	padding-left: 5px;
+	}
+		.screen4 table tr th{
+		border-bottom:0px;
+		padding-left: 5px;
+	}
+			.screen4 table tr td{
+	
+	padding-left: 5px;
+	}
+		.screen5{
+
+		width:64%;
+		    height: 64%;
+		display: block;
+		float: left ;
+		
+		
+	}
+	form{
+		margin-top:20px;
+	}
+	
+	.admin-page{
+		
+		height: 100%;
+	}
+	.screen{
+		height: 100%;
+	}
+
+	.screen3 div{
+		border: 1px solid black;
+		display: block;
+	} 
+
+
+
+	
+	
+	.screen5 table{
+		    width: 95%;
+    		margin: 15px auto;
+    		
+    		}
+    		
+	.screen5 table th, .screen5 table td{
+		border: 1px solid black;
+		
+	}    		
+    		.screen5 table th{
+				background-color: #6b6b6b;
+	    		color: white;
+	    		text-align: center;
+    		}
+    		
+    		.screen5 table td:nth-child(2){
+    		width:200px;
+    		text-align: left;
+    		}
+    		.screen5 table td:nth-child(1)
+    		,.screen5 table td:nth-child(2){
+    		padding-left: 5px;
+    		}
+    		
+    		.screen5 table td:nth-child(3)
+    		,.screen5 table td:nth-child(4) 
+    		,.screen5 table td:nth-child(5)
+    		,.screen5 table td:nth-child(6)
+    		,.screen5 table td:nth-child(7)
+    		,.screen5 table td:nth-child(8){
+			text-align: right;
+			padding-right: 5px;
+}
+
+	.screen5>span{
+		   display: flex;
+		    justify-content: center;
+		    font-size: 30px;
+		    font-weight: 600;
+		    margin: 10px 0px;
+	}
+
+	.screen5>div {
+		display: flex;
+		width: 95%;
+		margin: 0px auto;
+}
+
+	.screenAll{
+		
+		border: 2px solid black;
+		border-radius: 5px;
+		
+	}

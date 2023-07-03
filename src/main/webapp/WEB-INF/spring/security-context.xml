@@ -7,11 +7,30 @@
 		http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+   <bean id="customAccessDenied"
+         class="com.project.dndn.auth.CustomAccessDeniedHandler"></bean>
+   <!-- 유저 정보 객체  --> 
+   <bean id = "customUserDetailsService" class="com.project.dndn.security.CustomUserDetailsService"></bean>
+	 <bean id="customLoginSuccess" class="com.project.dndn.auth.CustomLoginSuccessHandler"></bean>
 	<security:http>
-		<security:form-login/>
-	</security:http>
+		<!-- 로그인 -->
+		<security:form-login login-page="/auth/login.do" authentication-success-handler-ref="customLoginSuccess"/>
+		
+		<security:access-denied-handler ref="customAccessDenied"></security:access-denied-handler>
+		
+		<!-- 로그아웃 -->
+		 <security:logout logout-url="/auth/logout.do" invalidate-session="true" logout-success-url="/main.do" 	/>
+		 
+		 <!-- remember-me -->
+		 <security:remember-me data-source-ref="dataSource" token-validity-seconds="8640000"/>
+		 
+	</security:http>	
 	
 	<security:authentication-manager>
-	</security:authentication-manager>
+      <security:authentication-provider user-service-ref="customUserDetailsService">
+         <security:password-encoder ref="bcryptPasswordEncoder"/>
+      </security:authentication-provider>
+   </security:authentication-manager>
 	
 </beans>
