@@ -33,11 +33,15 @@
 	<select id="findId" resultType ="String">
 		select id from tblMember where name = #{name} and email = #{email}
 	</select>
+
 	<select id="idvalidcheck" resultType ="String">
 		select id from tblMember where id = #{id}
 	</select>
+	<select id="emailvalidcheck" resultType ="String">
+		select email from tblMember where email = #{email}
+	</select>
 	<select id="findPw" resultType ="String">
-		select enabled from tblMember where id = #{id} and email = #{email}
+		select pw from tblMember where id = #{id} and email = #{email}
 	</select>
 	
 	<update id="updatepw" >

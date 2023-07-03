@@ -22,25 +22,32 @@
 	*{
 	font-weight:bold;
 }
-
-
+	#pwd2{
+		margin-bottom:15px;
+	}
+	#sample4_postcode{
+		width:10%;
+		display:inline;
+		margin-top:15px;
+	}
 </style>
 
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>	
+	<sec:authorize access="isAnonymous()">
     <div class="container mt-3">
 		<h3><strong>회원가입</strong></h3>
 		<form action="/dndn/auth/registerok.do" method="post" id="signupForm" >
 			
 			<div>
 				<label class="control-label" for="name">이름</label>
-				<input class="form-control" type="text" name="name" id="name" maxlength="4" onchange="nameCheck(this);" required/>
+				<input class="form-control" type="text" name="name" id="name" maxlength="4" required/>
 				<div class="valid-feedback"></div>
-				<div class="invalid-feedback">특수문자나 공백이 포함될 수 없습니다.</div>
+				<div class="invalid-feedback">숫자, 특수문자, 공백이 포함될 수 없습니다.</div>
 			</div>   
 			
-			<div class="mt-3">
+			<div>
 				<label class="control-label" for="id">아이디</label>
 				<input class="form-control" type="text" name="id" id="id" onchange="characterCheck(this);" required/>
 				<div class="valid-feedback">사용 가능한 아이디 입니다.</div>
@@ -49,12 +56,13 @@
 			<div>
 				<label class="control-label" for="pw">비밀번호</label>
 				<input class="form-control" type="password" name="pw" id="pw" required/>
+				<div class="valid-feedback">사용 가능합니다</div>
+				<div class="invalid-feedback">비밀번호를 확인해주세요</div>
 			</div>
 			<div>
 				<label for="pwd2" class="control-label">비밀번호 확인</label>
 				<input type="password" class="form-control" name="pwd2" id="pwd2" onkeyup="pwcheck();" required/>
-				<div class="valid-feedback">비밀번호가 같습니다.</div>
-				<div class="invalid-feedback">비밀번호가 다릅니다.</div>
+				<div class="invalid-feedback">입력하신 비밀번호가 다릅니다.</div>
 			</div>
 			
 			<div>
@@ -72,7 +80,7 @@
 			<div>
 				<label class="control-label" for="address">우편번호</label>
 				<input class="form-control" type="text" id="sample4_postcode" placeholder="우편번호" required>
-				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required><br>
+				<input type="button" class="btn btn-outline-warning" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required><br>
 				<div class="valid-feedback"></div>
 				
 				<label class="control-label" for="address">주소</label>
@@ -81,14 +89,14 @@
 				<span id="guide" style="color:#999;display:none"></span>
 				
 				<label class="control-label" for="addressdetail">상세주소</label>
-				<input class="form-control" type="text" id="sample4_detailAddress" name="addressdetail" placeholder="상세주소" onchange="nameCheck(this);" required>
+				<input class="form-control" type="text" id="sample4_detailAddress" name="addressdetail" placeholder="상세주소" onchange="forisvalid(this);" required>
 				<div class="valid-feedback"></div>
 				
 			</div>
 			
 			<div>
 				<label class="control-label" for="birth">생년월일</label>
-				<input class="form-control" type="text" name="birth" id="birth" maxlength="10" placeholder="2000-01-01" onchange="forisvalid(this);" required/>
+				<input class="form-control" type="text" name="birth" id="birth" maxlength="10" placeholder="ex)2000-01-01" onchange="forisvalid(this);" required/>
 				<div class="valid-feedback"></div>
 			</div>			
 						
@@ -97,14 +105,14 @@
 				<label class="control-label" for="email">이메일</label>
 				<input class="form-control" type="email" name="email" id="email" required/>
 				<div class="valid-feedback"></div>
-				<div class="invalid-feedback">이메일 형식에 맞게 입력하세요.</div>
+				<div class="invalid-feedback">이메일 형식이 올바르지 않거나 이미 등록된 이메일입니다.</div>
 				
 			</div>
 			<div>
 				<label class="control-label" for="tel">휴대폰번호</label>
-				<input class="form-control" type="tel" name="tel" id="tel" maxlength="13" placeholder="핸드폰번호" required/>
+				<input class="form-control" type="tel" name="tel" id="tel" maxlength="13" placeholder="ex)010-1234-1234" required/>
 				<div class="valid-feedback"></div>
-				<div class="invalid-feedback">번호 확인</div>
+				<div class="invalid-feedback">휴대폰 번호를 확인해주세요</div>
 			</div>
 			
 			<button class="btn btn-dark mt-3" type="submit">가입하기</button>
@@ -114,13 +122,12 @@
 	
 	
 	
-
+	</sec:authorize>
 <script>
 //허용하고 싶은 특수문자가 있다면 여기서 삭제하면 됨
 var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
 function characterCheck(obj) {
   	if (regExp.test(obj.value) || obj.value.trim() === "") {
-	    alert("특수문자 또는 공백은 입력하실 수 없습니다.");
 	    obj.value = "";
 	    $(obj).removeClass("is-valid");
 	    $(obj).addClass("is-invalid");
@@ -155,9 +162,20 @@ function characterCheck(obj) {
         }
     });
 };
+
+$('#name').on("focusout", function() {
+	var regExps = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=0-9]/gi;
+	if (regExps.test(this.value) || this.value.trim() === "") {
+	    $(this).removeClass("is-valid");
+	    $(this).addClass("is-invalid");
+  	}
+  	else{
+  		$(this).addClass("is-valid");
+	    $(this).removeClass("is-invalid");
+  	}
+});
 function nameCheck(obj) {
   	if (regExp.test(obj.value) || obj.value.trim() === "") {
-	    alert("특수문자 또는 공백은 입력하실 수 없습니다.");
 	    obj.value = "";
 	    $(obj).removeClass("is-valid");
 	    $(obj).addClass("is-invalid");
@@ -178,13 +196,15 @@ function forisinvalid(obj) {
 }
 //비밀번호 확인
 function pwcheck(){
-	if($('#pw').val() == $('#pwd2').val()){
-		$('#pwd2').addClass("is-valid");
-    	$('#pwd2').removeClass("is-invalid");
-	}
-	else{
-		$('#pwd2').removeClass("is-valid");
-    	$('#pwd2').addClass("is-invalid");
+	if($('#pw').val().length!=0){
+		if($('#pw').val() == $('#pwd2').val()){
+			$('#pwd2').addClass("is-valid");
+	    	$('#pwd2').removeClass("is-invalid");
+		}
+		else{
+			$('#pwd2').removeClass("is-valid");
+	    	$('#pwd2').addClass("is-invalid");
+		}
 	}
 }
 
@@ -222,18 +242,52 @@ $('#tel').on("focusout", function() {
     	$('#tel').removeClass("is-invalid");
     }
 });
-var emailValue = $('#email').val();
+
+//이메일 체크 
 $('#email').on("focusout", function() {
     if (!$('#email').val().includes('.')||!$('#email').val().includes('@')) {
     	$('#email').removeClass("is-valid");
     	$('#email').addClass("is-invalid");
-    } else {
-    	$('#email').addClass("is-valid");
-    	$('#email').removeClass("is-invalid");
+    } 
+    else{
+		var emailData = {'email':$('#email').val(), '${_csrf.parameterName}': '${_csrf.token}' };
+		console.log(emailData);
+	  	$.ajax({
+	        url:'/dndn/emailvalidcheck',
+	        type:'POST',
+	        data: JSON.stringify(emailData),
+	        dataType : "text",
+	        contentType: 'application/json', 
+	        beforeSend: function(xhr) {
+	            xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}'); // CSRF 토큰 헤더에 추가
+	        },
+	        success:function(data){
+	        	
+	        	if(data==null||data===''){
+		        	$('#email').addClass("is-valid");
+		        	$('#email').removeClass("is-invalid");
+		        }else{
+		        	$('#email').removeClass("is-valid");
+		        	$('#email').addClass("is-invalid");
+		        }
+	        	
+	        	
+	        },
+	        error: function (XMLHttpRequest, textStatus, errorThrown){
+	        	alert('error');
+	        }
+	    });
     }
 });
 $('#pw').on("focusout", function() {
-   	$('#pw').addClass("is-valid");
+	if($('#pw').val().length===0){
+		$('#pw').removeClass("is-valid");
+		$('#pw').addClass("is-invalid");
+	}
+	else{
+   		$('#pw').addClass("is-valid");
+   		$('#pw').removeClass("is-invalid");
+	}
 });
 
 

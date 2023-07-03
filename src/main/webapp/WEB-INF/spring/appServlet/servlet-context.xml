@@ -24,7 +24,7 @@
 	<context:component-scan base-package="com.project.dndn" />
 	
    <!-- Load email properties -->
-	<context:property-placeholder location="classpath:/db-config/email.properties" />
+	<context:property-placeholder location="classpath:config/email.properties"/>
 
 	<!-- 이메일 인증 관련 빈 등록 -->
 	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

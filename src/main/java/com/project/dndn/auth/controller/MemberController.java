@@ -110,7 +110,6 @@ public class MemberController {
 		System.out.println("이메일 인증 요청이 들어옴!");
 		System.out.println("이메일 인증 이메일 : " + emailInput);
 		System.out.println("아이디 : " + id);
-		System.out.println(mailService.joinEmail(emailInput));
 
 		return mailService.joinEmail(emailInput);
 	}
@@ -131,5 +130,22 @@ public class MemberController {
 		
 		return null;
 	}
+	
+	//이메일 유효성 검사
+	@PostMapping(value="/emailvalidcheck" ,produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String emailvalidcheck(@RequestBody MemberDTO dto)throws Exception {
+		System.out.println(dto.toString());
+		String email = mapper.emailvalidcheck(dto);
+		System.out.println(email);
+		
+		if(email!=null) {
+			return email;
+		}
+		
+		
+		return null;
+	}
+	
 	
 }

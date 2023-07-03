@@ -217,7 +217,7 @@
                     <td>변경하실 비밀번호를 입력해주세요. <br>비밀번호는 대소문자를 구분합니다. </td>
                 </tr>    
                 <tr>
-                    <td><input type="text" placeholder="변경할 비밀번호" name="inputPw" id="inputPw" class="form-control" required> <span id="pwok"></span> </td>
+                    <td><input type="password" placeholder="변경할 비밀번호" name="inputPw" id="inputPw" class="form-control" required> <span id="pwok"></span> </td>
                 </tr>    	
                 <tr>
                     <td><button id="updatepw" class="btn btn-outline-warning">비밀번호 변경</button></td>
@@ -274,7 +274,7 @@
 	        url:'/dndn/findpw',
 	        type:'POST',
 	        data: JSON.stringify(pwData),
-	        dataType : "json",
+	        dataType : "text",
 	        contentType: 'application/json', 
 	        beforeSend: function(xhr) {
 	            xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}'); // CSRF 토큰 헤더에 추가
