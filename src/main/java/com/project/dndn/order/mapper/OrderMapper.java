@@ -1,8 +1,10 @@
 package com.project.dndn.order.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.project.dndn.order.domain.OrderDTO;
+import com.project.dndn.order.domain.OrderEventDTO;
 
 public interface OrderMapper {
 
@@ -17,5 +19,26 @@ public interface OrderMapper {
 	OrderDTO storeuser(String user_id);
 
 	ArrayList<OrderDTO> storeorder(String store_seq);
+
+	ArrayList<OrderEventDTO> eventlist();
+
+	OrderEventDTO eventdto(String event_seq);
+
+	void updatecount(String event_seq);
+
+
+
+	OrderEventDTO eventnulldto();
+
+
+
+	OrderDTO usernull();
+
+	List<OrderEventDTO> eventpage(String event_seq);
+
+	ArrayList<OrderEventDTO> eventopenlist();
+
+	ArrayList<OrderEventDTO> eventcloselist();
 		
+	
 }
