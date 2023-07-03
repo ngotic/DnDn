@@ -9,15 +9,46 @@
 <link rel="stylesheet"  href="/dndn/resources/css/headerstyle.css">
 <link rel="stylesheet"  href="/dndn/resources/css/order.css">
 <style>
+		.event-page_padding ul li{
+		 list-style-type: none;
+		 }
+		 .event-page-table tr td:nth-child(1) ,.event-page-table tr td:nth-child(3){
+		 	width: 120px;
+			 	
+		 }
 
-
+		.event-page-table tr:last-child td:nth-child(3){
+				text-align: right;
+		}
+		.event-page-table tr:last-child td:nth-child(4){
+				text-align: left;
+				padding-left: 12px;
+		}
+		 .event-page-table tr:last-child td:nth-child(2){
+		 		width: 1000px;
+		 	
+		 }
+		  .event-page-table tr td:nth-child(2){
+		 	padding-left: 10px;
+		 	}
+		  .event-page-table-box{
+		    text-align: left;
+		    }
+		    
+		      .event-page-table tr  th:nth-child(2) {
+			padding-left: 10px;
+			}
+		        .event-page-img > img{
+		        width: 80%;
+		        }
+		    
 </style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>
 	
 	<section class="order-container">
-
+	
 	
 		<div>
 			<div class="event-page-title">
@@ -28,17 +59,19 @@
 				<table class="event-page-table">
 						<tr>
 							<td>제목</td>
-							<td>**제목****제목****제목****제목**</td>
+							<td colspan="3">${eventdto.title}</td>
 						</tr>
 						<tr>
+							<td>이벤트 기간</td>
+							<td>${eventdto.startdate.substring(0,10)} ~ ${eventdto.enddate.substring(0,10)}</td>
 							<td>조회수</td>
-							<td>1000 </td>
+							<td>${eventdto.count } </td>
 						</tr>		
 				</table>
 			</div> 
 				
 			<div class="event-page-img">
-				<img alt="" src="/dndn/resources/img/event/event-content_1.jpg">
+				<img alt="" src="/dndn/resources/img/event/${eventdto.pic }">
 			</div>
 			<div>
 				<div class="event-page_padding">
@@ -61,9 +94,56 @@
                     </ul>
                 </div>
 			</div>
+			
+			<div class="order-container">
+				<table class= "event-page-table">
+		
+						<c:forEach var="eventpage" items="${eventpage }">
+						
+						<c:if test="${eventpage.eventseq eq eventdto.eventseq  -1}">
+						<tr onclick="location.href='./event-page.do?event_seq=${eventpage.eventseq }'">
+						
+							<td>이전글   <span style="margin-left: 5px;">▲</span></td>			
+							<td>${eventpage.title}</td>
+
+						</tr>
+						</c:if>
+					
+					
+						
+						<c:if test="${eventpage.eventseq eq eventdto.eventseq  +1}">
+						<tr onclick="location.href='./event-page.do?event_seq=${eventpage.eventseq }'">
+							<td>다음글  <span style="margin-left: 5px;">▼</span></td>
+							<td>${eventpage.title}</td>
+						</tr>
+						</c:if>
+						
+	<%-- 						<% int eventnum = ${eventpage.eventseq};%> --%>
+							
+		
+							<c:if test="${eventdto.eventseq  -1 eq 0}">
+							<tr style="border: none">
+								<td></td>
+								<td></td>
+							<tr>
+	
+								</c:if>
+					<%-- 
+									<%if(eventnum != %>${eventpage.eventseq} <%+1 ){%>
+									
+									<tr style="border: none">
+										<td></td>
+										<td></td>
+									</tr>
+									<%}%>
+					 --%>			
+						</c:forEach>
+						
+					</table>
+			</div>
+			
 			<div class="event-page_padding">
-				<input type="button" value="목록으로" >
-				<input type="button" value="목록으로" >
+				<input type="button" value="목록으로"  onclick="location.href='http://localhost:8092/dndn/order/event.do'">
 			</div>
 			
 		</div>
@@ -76,6 +156,8 @@
 </body>
 
 <script>
+	
+
 
 </script>
 </html>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dndn.admin.mapper.ProductMapper">
+
+	<select id="list" resultType="com.project.dndn.admin.domain.ProductDTO">
+		select lunchboxseq, name, category, price, pic, to_char(regdate, 'YYYY-MM-DD') as regdate, to_char(modidate, 'YYYY-MM-DD') as modidate from tbllunchbox
+	</select>
+
+</mapper>
