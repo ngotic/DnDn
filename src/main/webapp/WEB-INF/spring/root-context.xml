@@ -30,6 +30,7 @@
    </bean>
  
    <!-- namespace에서 mybatis 체크해야함 -->
+   <mybatis-spring:scan base-package="com.project.dndn.mypage.mapper"/>
    <mybatis-spring:scan base-package="com.project.dndn.auth.mapper"/>
    <mybatis-spring:scan base-package="com.project.dndn"/>
  	 	

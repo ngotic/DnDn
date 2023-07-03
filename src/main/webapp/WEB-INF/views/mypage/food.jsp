@@ -33,8 +33,9 @@
 </style>
 </head>
 <body>
+		<%@ include file="/WEB-INF/views/include/header.jsp" %>
 	<div id="box">
-		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
+		<%@ include file="/WEB-INF/views/include/mypage-header.jsp" %>
 		<section class="container">
 		<h1>식단 관리</h1>
 			<div id="contentbox">

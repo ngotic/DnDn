@@ -42,62 +42,74 @@ input,
 </style>
 </head>
 <body>
+		<%@ include file="/WEB-INF/views/include/header.jsp" %>
 	<div id="box">
-		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
+		<%@ include file="/WEB-INF/views/include/mypage-header.jsp" %>
 		<section class="container">
 			<h1 id="mypage">My Page</h1>
-
-			<div class="input-group mb-3">
-				<span class="input-group-text" id="basic-addon1">아이디</span> <input
-					type="text" class="form-control" placeholder="Username"
-					aria-label="Username" aria-describedby="basic-addon1" disabled>
-			</div>
-			<div class="input-group mb-3">
-				<span class="input-group-text" id="basic-addon1">비밀번호</span> <input
-					type="number" class="form-control" placeholder="Userpassword"
-					aria-label="Userpassword" aria-describedby="basic-addon1">
-			</div>
-			<div class="input-group mb-3">
-				<span class="input-group-text" id="basic-addon1">전화번호</span> <input
-					type="number" class="form-control" placeholder="Usertel"
-					value="010" aria-label="Usertel1" aria-describedby="basic-addon1"
-					disabled><span class="dash">&nbsp;-&nbsp;</span> <input
-					type="number" class="form-control" placeholder="Usertel"
-					aria-label="Usertel2" aria-describedby="basic-addon1" value="0000"><span
-					class="dash">&nbsp;-&nbsp;</span><input type="number"
-					class="form-control" placeholder="Usertel" aria-label="Usertel3"
-					aria-describedby="basic-addon1" value="0000">
-			</div>
-			<div class="input-group mb-3">
-				<input type="text" class="form-control" placeholder="UserEmail"
-					aria-label="UserEmail"> <span class="input-group-text">@</span>
-				<input type="text" class="form-control" placeholder="Email.com"
-					aria-label="Email.com">
-			</div>
-			<div class="input-group mb-3">
-				<span class="input-group-text" id="basic-addon1">우편번호</span> <input
-					type="text" id="sample4_postcode" class="form-control"
-					placeholder="우편번호"> &nbsp; <input type="button"
-					onclick="sample4_execDaumPostcode()" value="우편번호 찾기"
-					class="btn btn-primary" id="postnum">
-			</div>
-			<div class="input-group mb-3">
-				<input type="text" id="sample4_roadAddress" placeholder="도로명주소"
-					class="form-control"> <input type="text"
-					id="sample4_jibunAddress" placeholder="지번주소" class="form-control">
-			</div>
-			<div class="input-group mb-3">
-				<span id="guide" style="color: #999; display: none"></span> <input
-					type="text" id="sample4_detailAddress" placeholder="상세주소"
-					class="form-control"> <input type="text"
-					id="sample4_extraAddress" placeholder="참고항목" class="form-control">
-			</div>
-			<div class="input-group mb-3">
-				<span class="input-group-text" id="basic-addon1">내 포인트 조회</span> <input
-					type="text" class="form-control" placeholder="Userpoint"
-					aria-label="Userpoint" aria-describedby="basic-addon1" disabled>
-				<span style="font-size: 24px;">&nbsp;점</span>
-			</div>
+			<div> ${list}</div>
+			
+			<form method="POST" action="/dndn/mypage/editok.do">
+			<c:forEach var="user" items="${list }">
+				<div class="input-group mb-3">
+					<span class="input-group-text" id="basic-addon1">아이디</span> <input
+						type="text" class="form-control" value="${user.id }"
+						aria-label="Username" aria-describedby="basic-addon1" readonly name="id">
+				</div>
+				<div class="input-group mb-3">
+					<span class="input-group-text" id="basic-addon1">비밀번호</span> <input
+						type="number" class="form-control" placeholder="Userpassword"
+						aria-label="Userpassword" aria-describedby="basic-addon1" name="pw">
+				</div>
+				<div class="input-group mb-3">
+					<span class="input-group-text" id="basic-addon1">전화번호</span> <input
+						type="number" class="form-control"
+						value="010" aria-label="Usertel1" aria-describedby="basic-addon1"
+						disabled><span class="dash">&nbsp;-&nbsp;</span> <input
+						type="number" class="form-control" placeholder="${user.tel.substring(tFidx,tLidx-1) }"
+						aria-label="Usertel2" aria-describedby="basic-addon1" name="telList"><span
+						class="dash">&nbsp;-&nbsp;</span><input type="number"
+						class="form-control" placeholder="${user.tel.substring(tLidx)}" aria-label="Usertel3"
+						aria-describedby="basic-addon1"  name="telList">
+				</div>
+				<div class="input-group mb-3">
+					<input type="text" class="form-control" placeholder="${user.email.substring(0,eidx) }"
+						aria-label="UserEmail"  name="emailList"> <span class="input-group-text">@</span>
+					<input type="text" class="form-control" placeholder="${user.email.substring(eidx+1) }"
+						aria-label="Email.com" name="emailList">
+				</div>
+				<div class="input-group mb-3">
+					<span class="input-group-text" id="basic-addon1">우편번호</span> <input
+						type="text" id="sample4_postcode" class="form-control"
+						placeholder="우편번호"> &nbsp; <input type="button"
+						onclick="sample4_execDaumPostcode()" value="우편번호 찾기"
+						class="btn btn-primary" id="postnum">
+				</div>
+				<div id="test">${user.address }</div>
+				06235
+				<div class="input-group mb-3">
+					<input type="text" id="sample4_roadAddress" placeholder="${user.address }" name="address"
+						class="form-control"> <input type="text"
+						id="sample4_jibunAddress" placeholder="지번주소" class="form-control">
+				</div>
+				
+				
+				<div class="input-group mb-3">
+					<span id="guide" style="color: #999; display: none"></span> <input
+						type="text" id="sample4_detailAddress" placeholder="${user.addressdetail } "
+						class="form-control" name="addressdetail"><input type="text"
+						id="sample4_extraAddress" placeholder="참고항목" class="form-control">
+				</div>
+				<div class="input-group mb-3">
+					<span class="input-group-text" id="basic-addon1">내 포인트 조회</span> <input
+						type="text" class="form-control" placeholder="${user.point }"
+						aria-label="Userpoint" aria-describedby="basic-addon1" disabled>
+					<span style="font-size: 24px;">&nbsp;점</span>
+				</div>
+				<div><input type="submit" value="변경하기"></div>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
+				</c:forEach>
+			</form>
 		</section>
 	</div>
 	<script
@@ -107,7 +119,6 @@ input,
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
-		//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 		function sample4_execDaumPostcode() {
 			new daum.Postcode(
 					{
@@ -159,9 +170,9 @@ input,
 
 							} else if (data.autoJibunAddress) {
 								var expJibunAddr = data.autoJibunAddress;
-								guideTextBox.innerHTML = '(예상 지번 주소 : '
-										+ expJibunAddr + ')';
+								guideTextBox.innerHTML = 'expJibunAddr';
 								guideTextBox.style.display = 'block';
+								$('#sample4_jibunAddress').attr('placeholder', expJibunAddr);
 							} else {
 								guideTextBox.innerHTML = '';
 								guideTextBox.style.display = 'none';

@@ -9,6 +9,7 @@
 </style>
 </head>
 <body>
+		<%@ include file="/WEB-INF/views/include/header.jsp" %>
 	<div id="box">
 		<%@ include file="/WEB-INF/views/include/mypage-header.jsp" %>
 		<section class="container">
