@@ -3,8 +3,7 @@ package com.project.dndn.lunchdetail.service;
 import com.project.dndn.lunchdetail.domain.CartDTO;
 import com.project.dndn.lunchdetail.domain.LunchBoxDTO;
 import com.project.dndn.lunchdetail.domain.StoreLocationDTO;
-import com.project.dndn.lunchdetail.mapper.LunchDetailMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.project.dndn.lunchdetail.domain.AddCartDTO;
 
 import java.util.List;
 
@@ -21,5 +20,10 @@ public interface LunchDetailService {
 
     int checkBoardWishList(String name, int parseInt);
 
-    int addCart(CartDTO cartdto);
+    int addCart(AddCartDTO cartdto);
+
+    List<CartDTO> listCart();
+
+    int delCart(List<String> cartseqList);
+
 }

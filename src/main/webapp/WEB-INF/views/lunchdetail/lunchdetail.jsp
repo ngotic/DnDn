@@ -463,7 +463,7 @@
 									<tr>
 										<td>지점</td>
 										<td>
-											<select id="sellLocation" name="storeseq">
+											<select id="sellLocation" name="storeseq" id="storeseq">
 												<option value="0" selected>지점 선택</option>
 												<c:if test="${locations!=null}">
 													<c:forEach items="${locations}" var="location">
@@ -541,10 +541,10 @@
 										<td colspan="2" id="order">
 
 											<div class="order-sec MK_optAddWrap">
-												<button class="order-close"><span class="material-symbols-outlined">close</span></button>
+												<button class="order-close" type="button"><span class="material-symbols-outlined">close</span></button>
 												<div>[ 수량선택 ]</div>
 												<div class="order-div-left align-middle">
-													<input type="text" value=1 class="order-count" name="cnt">
+													<input id="cnt" type="text" value=1 class="order-count" name="cnt">
 													<button class="order-btn-plus" type="button"><span class="material-symbols-outlined">add</span></button>
 													<button class="order-btn-minus" type="button" ><span class="material-symbols-outlined" >remove</span></button>
 												</div>
@@ -570,7 +570,7 @@
 						
 						<!-- 찜, 장바구니, 구매하기 버튼 -->
 						<div class="order-btn-div">
-							<button class="btn-wish"><span class="btn-wish-heart">
+							<button class="btn-wish" type="button"><span class="btn-wish-heart">
 							<c:if test="${boardlike == null}">
 								♡
 							</c:if>
@@ -583,11 +583,11 @@
 								</c:if>
 							</c:if>
 							</span></button>
-							<button class="btn-cart">장바구니</button>
+							<button class="btn-cart" type="button">장바구니</button>
 <%--							<button class="btn-buy" onclick="location.href='<c:url value='/userorder/usercart.do?right=true'/>';">바로 구매하기</button>--%>
 							<button class="btn-buy" type="button" onclick="formcheck();"/>바로 구매하기</button>
 							<input type="hidden" id ="storename" name="storename" value="">
-							<input type="hidden" name="sellboardseq" value="${ldto.sellboardseq}">
+							<input type="hidden" id="sellboardseq" name="sellboardseq" value="${ldto.sellboardseq}">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 						</div>
 					</div>
@@ -710,9 +710,8 @@
 			$('#storename').val($("#sellLocation option:checked").text());
 		});
 
-		// TODO : 지점선택 예외처리 하기
 		var csrfHeaderName = "${_csrf.headerName}";
-		var csrfTokenValue = "${_csrf.token}"
+		var csrfTokenValue = "${_csrf.token}";
 		const WishButton = document.querySelector('.btn-wish-heart');
 		$('#total_price').text($('#price').text()+"원");
 
@@ -781,34 +780,41 @@
 
 
 	$('.btn-cart').click(function(){
-		//
-		// $.ajax({
-		// 	type: 'POST',
-		// 	url: '/dndn/cart/addCart',
-		// 	headers: {"content-type" : "application/json"}, // 보내는 데이터
-		// 	beforeSend: function(xhr) {
-		// 		xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-		// 	},
-		//
-		// 	data : JSON.stringify({
-		// 		sellboardseq : sellboardseq,
-		// 		id:"xxxx"}
-		// 	),
-		// 	success : function(result) {
-		//
-		// 		new Swal('이동', '바로 구매 페이지로 이동합니다.','success').then(function() {
-		// 			location.href='/dndn/auth/login.do';
-		// 		});
-		// 	} ,
-		// 	error : function (a, b, c){
-		// 		console.log(a ,b, c)
-		// 		if(b == 'error') {
-		// 			new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
-		// 				location.href='/dndn/auth/login.do';
-		// 			});
-		// 		}
-		// 	}
-		// });
+
+		if( $("#sellLocation option:checked").val() =='0'){
+			alert('지점을 선택하세요.');
+			return false;
+		}
+
+		let sellboardseq = $('#sellboardseq').val();
+		let cnt = $('#cnt').val();
+		let storeseq = $("#sellLocation option:checked").val();
+
+		$.ajax({
+			type: 'POST',
+			url: '/dndn/cart/addCart',
+			headers: {"content-type" : "application/json"}, // 보내는 데이터
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			data : JSON.stringify({
+				id : 'xxxx',
+				sellboardseq : sellboardseq,
+				cnt : cnt,
+				storeseq : storeseq
+			}),
+			success : function(result) {
+				new Swal('장바구니', '장바구니에 추가하였습니다.','success');
+			} ,
+			error : function (a, b, c){
+				console.log(a ,b, c)
+				if(b == 'error') {
+					new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+						location.href='/dndn/auth/login.do';
+					});
+				}
+			}
+		});
 	});
 	
 	//좋아요 버튼 토클
@@ -858,22 +864,23 @@
 
 	$(".order-btn-plus").click(function(){
 		let ordercnt = $(this).prev();
+		ordercnt.val( parseInt(ordercnt.val())+1);
 		$(this).parent().next().text(convertNumToPrice(parseInt(ordercnt.val())*parseInt($('#price').text().replaceAll(',',''))));
 		if(parseInt(ordercnt.val()) > 99){
 			alert('최대 100개까지 주문이 가능합니다.');
 			return;
 		}
-		ordercnt.val( parseInt(ordercnt.val())+1);
 		updatePrice();
-
 	});
 
 
 	$(".order-btn-minus").click(function(){
 		let ordercnt = $(this).prev().prev();
-		$(this).parent().next().text(convertNumToPrice(parseInt(ordercnt.val())*parseInt($('#price').text().replaceAll(',',''))));
 		if(parseInt(ordercnt.val()) > 1)
 			ordercnt.val( parseInt(ordercnt.val())-1);
+		else
+			return false;
+		$(this).parent().next().text(convertNumToPrice(parseInt(ordercnt.val())*parseInt($('#price').text().replaceAll(',',''))));
 		updatePrice();
 	});
 

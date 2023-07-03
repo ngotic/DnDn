@@ -18,6 +18,4 @@ public class CartDTO {
     private String content;
     private String sale;
     private String price;
-
-
 }

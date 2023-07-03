@@ -2,6 +2,7 @@ package com.project.dndn.lunchdetail.service;
 
 import com.project.dndn.lunchdetail.domain.CartDTO;
 import com.project.dndn.lunchdetail.domain.StoreLocationDTO;
+import com.project.dndn.lunchdetail.domain.AddCartDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,10 +56,19 @@ public class LunchDetailServiceImpl implements LunchDetailService {
         return 1;
     }
 
+    @Override
+    public int addCart(AddCartDTO cartdto) {
+        return mapper.addCart(cartdto);
+    }
 
     @Override
-    public int addCart(CartDTO cartdto) {
-        return mapper.addCart(cartdto);
+    public List<CartDTO> listCart() {
+        return mapper.listCart();
+    }
+
+    @Override
+    public int delCart(List<String> cartseqList) {
+        return mapper.delCart(cartseqList);
     }
 
 }

@@ -174,8 +174,9 @@
     <form>
       <thead>
       <tr>
-        <td><input id="allCheck" type="checkbox" style="margin:-2px 0 0 0; vertical-align:middle;"></td>
-        <td>모두 선택</td>
+        <td>
+          <c:if test="${right eq 'false'}"><input id="allCheck" type="checkbox" style="margin:-2px 0 0 0; vertical-align:middle;"></c:if></td>
+        <td><c:if test="${right eq 'false'}">모두 선택 </c:if></td>
         <td>도시락정보</td>
         <td>개당가격</td>
         <td>수량</td>
@@ -186,8 +187,12 @@
       </tr>
       </thead>
       <tbody>
+
+      <c:forEach items="${list}" var="cdto">
       <tr class="cart__list__detail">
-        <td><input type="checkbox"></td>
+        <td>
+          <c:if test="${right eq 'false'}"><input class="ckbox" type="checkbox"></c:if><input type="hidden" value="${cdto.cartseq}">
+        </td>
         <td><img src="${cdto.pic}"  width="80"></td>
         <td>
           <c:if test="${cdto.periodshipseq eq null}">
@@ -199,7 +204,6 @@
 
         </td>
         <td>
-
           <span class="price"><fmt:formatNumber value="${cdto.price * (1-(cdto.sale/100))}" pattern="#,###"></fmt:formatNumber>원</span><br>
         </td>
         <td>
@@ -212,19 +216,26 @@
           <span style="color:#FF6666">${cdto.sale}%</span>
         </td>
         <td>
-          <span style="text-decoration: line-through; color: lightgray;"><fmt:formatNumber value="${cdto.cnt * cdto.price}" pattern="#,###"></fmt:formatNumber>원</span><br>
-          <span class="price"><fmt:formatNumber value="${cdto.cnt * cdto.price * (1-(cdto.sale/100))}" pattern="#,###"></fmt:formatNumber>원</span>
+          <c:if test="${cdto.sale != 0}">
+            <span style="text-decoration: line-through; color: lightgray;"><fmt:formatNumber value="${cdto.cnt * cdto.price}" pattern="#,###"></fmt:formatNumber>원</span><br>
+          </c:if>
+          <span class="c_price"><fmt:formatNumber value="${cdto.cnt * cdto.price * (1-(cdto.sale/100))}" pattern="#,###"></fmt:formatNumber>원</span>
         </td>
         <td><fmt:formatNumber value="${cdto.cnt * cdto.price * 5/100 * (1-(cdto.sale/100))}" pattern="#,###"></fmt:formatNumber>p</td>
       </tr>
+      </c:forEach>
+
       </tbody>
       <tfoot>
       <tr>
-        <td colspan="3"><button class="cart__list__optionbtn" style="margin-left: 20px;">선택상품 삭제</button>
-          <button class="cart__list__optionbtn" style="margin-left: 5px;">선택상품 찜</button>
+        <td colspan="3">
+          <c:if test="${right eq 'false'}">
+            <button type="button" id="delbtn" class="cart__list__optionbtn" style="margin-left: 20px;">선택상품 삭제</button>
+          </c:if>
+
         </td>
         <td></td>
-        <td colspan="5" style="text-align: right;"><h6>총 주문금액 : 10,000원</h6></td>
+        <td colspan="5" style="text-align: right;"><h6>총 주문금액 : <span id="total_price">10,000원</span></h6></td>
       </tr>
       </tfoot>
     </form>
@@ -237,13 +248,77 @@
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 <script>
+
+// 숫자 -> 가격 >
+function convertPriceToNum(price){
+  return parseInt(String(price).replaceAll('원','').replaceAll(',',''));
+}
+// 가격 -> 숫자 >
+function convertNumToPrice(num){
+  return parseInt(String(num)).toLocaleString()+'원';
+}
+
+var csrfHeaderName = "${_csrf.headerName}";
+var csrfTokenValue = "${_csrf.token}";
+let sum=0;
+let count = $('.c_price').length;
+
+
+
+
+$('#delbtn').click(function(){
+  let cartseqList = [];
+
+  if( confirm("정말로 삭제하시겠습니까?") ){
+
+  } else {
+    return false;
+  }
+
+  $('.ckbox').each(function (index, item) {
+      if ( $(item).prop('checked') == true) {
+        cartseqList.push($(item).next().val());
+      }
+  });
+
+  $.ajax({
+    type: 'DELETE',
+    url: '/dndn/cart/delCart',
+    headers: {"content-type" : "application/json"}, // 보내는 데이터
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+    },
+    data : JSON.stringify(cartseqList),
+    success : function(result) {
+      new Swal('삭제', '삭제하였습니다.','success').then(function() {
+        window.location.reload();
+      });
+    } ,
+    error : function (a, b, c){
+      console.log(a ,b, c)
+      if(b == 'error') {
+        new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+          location.href='/dndn/auth/login.do';
+        });
+      }
+    }
+  });
+
+});
+
+$('.c_price').each(function(index,item){
+  sum = sum + convertPriceToNum($(this).text());
+  if(index +1 == count){
+      $('#total_price').text(convertNumToPrice(sum));
+  }
+});
 
 // 모두 선택 체크바스 선택시 장바구니에 있는 것들 전부 선택
 $('#allCheck').click(function(){
 
   if($(this).prop('checked') ==true) {
-
     $('.cart__list__detail').each(function (index, item) {
       $(item).children().children().eq(0).prop('checked', true);
     });

@@ -60,7 +60,7 @@
 				<sec:authorize access="isAnonymous()">
 				<div class="nav-item"><a href = "/dndn/auth/register.do" class="nav-link" >회원가입</a></div>
 				</sec:authorize>
-				<div class="nav-item"><a href = "#" class="nav-link" >장바구니</a></div> 
+				<div class="nav-item"><a href = "/dndn/userorder/usercart.do?right=false" class="nav-link" >장바구니</a></div>
 				<sec:authorize access="isAnonymous()">
 				<div class="nav-item"><a href = "/dndn/auth/login.do" class="nav-link" >로그인</a></div>
 				</sec:authorize>
