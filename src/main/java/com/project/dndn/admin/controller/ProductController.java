@@ -13,15 +13,22 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@GetMapping("/admin/product.do")
-	public String list(Model model) {
-		
+	
+	@GetMapping("/admin/product.do") public String list(Model model) {
+	 
 		model.addAttribute("list", productService.list());
 		System.out.println(productService.list());
-		
-		return "admin/product";
+		 
+		return "admin/product"; 
 	}
 	
+	
+	@GetMapping("/admin/admin-main.do")
+	public String main(Model model) {
+		
+		
+		return "admin/admin-main";
+	}
 	
 	
 	
