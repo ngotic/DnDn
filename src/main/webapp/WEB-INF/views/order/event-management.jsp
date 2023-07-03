@@ -15,6 +15,8 @@
 	}
 	
 	.event-screen3{
+		    height: 205px;
+
 	}
 		.event-screen3 > div{
 
@@ -37,39 +39,105 @@
 	       width: 20%;
 		text-align: center;
 	}	
-		.event-screen3 > div div:nth-child(1) input{
-	   	height: 100%;
-    width: auto;
+		.event-screen3 > div div:nth-child(2){
+	    display: inline-block;
+	    height: 100%;
+	       width: 20%;
+		text-align: center;
+	}	
+		.event-screen3 > div div:nth-child(1) img{
+	   	    height: 77%;
+  		  width: auto;
 		
 	}	
-		.event-screen3 > div div:nth-child(2){
+			.event-screen3 > div div:nth-child(2) img{
+	       height: 77%;
+  		  width: auto;
+		
+	}	
+	
+			.event-screen3 > div div:nth-child(1) p{
+		margin-top: 5px;
+    	margin-bottom: 5px;
+		
+	}	
+			.event-screen3 > div div:nth-child(2) p{
+	   	margin-top: 5px;
+    	margin-bottom: 5px;
+	}		
+		.event-screen3 > div div:nth-child(3){
 	 	display: inline-block;
 		height: 100%;
 		width: 100%;
 		padding: 10px;
 	}
 	
-	.event-screen3 > div div:nth-child(2) table{
+	.event-screen3 > div div:nth-child(3) table{
 	    width: 100%;
     height: 100%;
 
 	}
-		 .event-screen3 > div div:nth-child(2) table tr td{
 
-		border: 1px solid black;
-	}
-		
-	.event-screen3 > div div:nth-child(2) table tr:first-child{
-	    width: 100%;
-    	height: 30%;
+	.event-screen3 > div div:nth-child(3) table tr:nth-child(1){
+	    height: 30px;
 	
 		}
-	 
-	.event-screen3 > div div:nth-child(2) table tr:last-child{
-	    width: 100%;
-  	 	 height: 70%;
+	.event-screen3 > div div:nth-child(3) table tr:nth-child(2){
+		height: 30px;
+		}
+		
+	.event-screen3 > div div:nth-child(3) table tr:nth-child(3){
+  		height: auto;
 	
-	}
+		}		
+
+	.event-screen3 > div div:nth-child(3) table tr:nth-child(4){
+
+		height: 30px;
+		}		
+	.event-screen3 > div div:nth-child(3) table tr:nth-child(5){
+
+		height: 30px;
+		}		
+
+		 .event-screen3 > div div:nth-child(3) table tr td{
+
+		border: 1px solid black;
+		
+		
+		}
+		
+		  .event-screen3 > div div table tr td{
+		 	padding-left: 10px;
+		 }
+		   .event-screen3 > div div table tr th{
+		   padding-left: 10px;
+		   }
+		
+		.event-screen3 > div div:nth-child(3) table tr:nth-child(3) td{
+   			border: none;
+	
+		}		
+	 	.event-screen3 > div div:nth-child(3) table tr:first-child td:nth-child(1){
+	 		width: 500px;
+		}
+		
+	 	.event-screen3 > div div:nth-child(3) table tr:first-child td:nth-child(2){
+	 		width: 200px;
+		}
+		
+	 	.event-screen3 > div div:nth-child(3) table tr:first-child td:nth-child(3){
+			width: 200px;
+		}				
+			 
+	 	.event-screen3 > div div:nth-child(3) table tr:first-child td:nth-child(4){
+	 		width: 200px;
+		}
+			 
+		.event-screen3 > div div:nth-child(3) table tr:last-child{
+		    width: 100%;
+	
+		}
 		
 	.event-screen5 div:first-child {
 	        display: flex;
@@ -82,8 +150,75 @@
 		
 	}
 
-	
 
+
+.img{
+    width: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  /* 이미지 클릭 시, 밝기 조절 */
+  .img:hover {opacity: 0.8;}
+
+	#event_modal1{
+	  display: none; /* 모달창 숨겨 놓기 */
+	  padding-top: 100px;
+	}
+	#event_modal2{
+	  display: none; /* 모달창 숨겨 놓기 */
+	  padding-top: 100px;
+	}
+  .modal {
+    display: none; /* 모달창 숨겨 놓기 */
+    position: fixed; 
+    z-index: 1; /* 모달창을 제일 앞에 두기 */
+    padding-top: 100px;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow: auto; /* 스크롤 허용 auto */
+    cursor: pointer; /* 마우스 손가락모양 */
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  /* 모달창 이미지 */
+  .modal_content {
+    margin: auto;
+    display: block;
+    width: 50%; height: auto;
+    max-width: 1000px;
+    border-radius: 10px;
+    animation-name: zoom;
+    animation-duration: 0.8s;
+  }
+  /* 모달창 애니메이션 추가 */
+  @keyframes zoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+  }
+  /* 닫기 버튼 꾸미기 */
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  .close:hover, .close:focus{
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .event-td-btn{
+  padding: 0px;
+  text-align: center;
+  }
+  .event-td-btn input{
+  	width: 100%;
+  	height: 100%;
+  	z-index: 2;
+  }
 </style>
 </head>
 <body style="    height: 100%;">
@@ -91,172 +226,27 @@
 <div class= "screen">
 	<section class="admin-page">
 
-		<form method="get" style="    height: 100%;">
-			<div class= "screen1 screenAll" >
-				<ol>
-				
-				</ol>
-				이용자관리
-				<ol>
-				    <li  onclick="location.href='http://localhost:8092/dndn/order/user.do'" >회원관리</li>
-				    <li  onclick="location.href='http://localhost:8092/dndn/order/store-user.do'" >점주관리</li>
-				   
-				</ol>
-				가맹점관리
-				<ol>
-					 <li>가맹점 등록</li>
-					 <li>가맹점 조회</li>
-					 <li>가맹점 삭제</li>
-				</ol>
-				매출관리
-				<ol>
-					 <li>매출 관리</li>
-				</ol>
-				이벤트관리
-				<ol>
-					 <li  onclick="location.href='http://localhost:8092/dndn/order/event-management.do'" >이벤트등록</li>
-					 <li  onclick="location.href='http://localhost:8092/dndn/order/event-management.do'" >이벤트수정</li>
-					 <li  onclick="location.href='http://localhost:8092/dndn/order/event-management.do'" >이벤트삭제</li>
-				</ol>
-				쿠폰 관리
-				<ol>
-					 <li>쿠폰등록</li>
-					 <li>쿠폰수정</li>
-					 <li>쿠폰삭제</li>
-				</ol>
-				통계
-				<ol>
-					<li>통계</li>
-				</ol>
-				
-
-				
-			</div>
-		
-		
-		
-			<div  class= " screen3 screen-width-88 event-screen3" >
-				
-				<div >
-					<div>
-						<input type="image">
-					</div>
-					
-					<div >
-					
-						<table>
-
-						<tr>
-						
-								<th>이벤트 이름</th>
-								<th>등록일</th>
-								<th>시작날짜</th>
-								<th>종료날짜</th>
-								
-						</tr>
-						
-						
-						<tr>
-								<td>이벤트 이름</td>
-								<td>등록일</td>
-								<td>시작날짜</td>
-								<td>종료날짜</td>
-						</tr>
-						
-						<tr>
-							<td colspan="4" style=" height: 10px;"></td>
-						</tr>
-						
-						<tr>
-						
-								<th>할인율</th>
-								<th colspan="3">이벤트 사진 경로</th>
-					
-						</tr>
-					
-						<tr>
-						
-								<td>할인율</td>
-								<td colspan="3">이벤트 사진 경로</td>
-						
-						</tr>
-						
-					 </table>
-
-					</div>
-					
-				</div>	
-				
-				
-			</div> 
-
-	
-	
-		
-			<div   class= " screen5 screenAll screen-width-88 event-screen5">
-					<span>이벤트 리스트</span> 
-					<div>
-
-						<span> 정렬 </span>
-						 <button class=" "  type="button" >
-						    	이벤트명
-						  </button>
-						   <button class=" "  type="button" >
-						    	시작날짜
-						  </button>
-						 <button class=" "  type="button" >
-						    	등록일
-						  </button>
-					
-						 <button class=" "  type="button">
-						    	종료일
-						  </button>
-					
-
-						<div>
-							<input type="text" >
-							<input type="button"  value="검색">
-						</div> 
-					</div>
-					 	
-					<table> 
-					
-						<tr>
-							<th>이벤트이름</th>
-							<th>등록일</th>
-							<th>시작날짜</th>
-							<th>종료날짜</th>
-							<th>할인률</th>
-							
-							<th>이벤트 사진</th>
-		
-							
-						</tr>
-						
-					<c:forEach var="order"  items="${orderlist}">
-						<tr>
-							<td>${order. orderseq}</td>
-							<td>${order.name}</td>
-							<td>${order.price}</td>
-							<td>${order.orderdate}</td>
-							<td>${order.shipdate}</td><!-- 요일  -->
-							
-							<td>${order.periodshipseq }</td>
-
-						</tr>
-					</c:forEach>	
-						
-					</table>
-					
-					 
-				
-			</div>
+		<form method="get"  style="height: 100%;">
 			
+			<!-- 좌측 메뉴 스크린 -->
+		<%@ include file="/WEB-INF/views/order/order-screen1.jsp" %>
+
+		<c:if test="${!edit }">
+		<!-- 이벤트 조회 메뉴 스크린 -->
+		<%@ include file="/WEB-INF/views/order/event-management-editfalse.jsp" %>
+		</c:if>
+		
+		<c:if test="${edit}">
+		<!--  이벤트 수정/삭제 메뉴 스크린-->	
+		<%@ include file="/WEB-INF/views/order/event-management-edittrue.jsp" %>
+		</c:if>
+		
+		
 		
 		</form>
 		
 </section>
-	
+
 </div>
 
 
@@ -268,6 +258,29 @@
 </body>
 
 <script>
+const modal = document.querySelector(".modal");
+const img = document.querySelector("#modal_img1");
+const img2 = document.querySelector("#modal_img2");
+const modal_img = document.querySelector(".modal_content");
+const span = document.querySelector(".close");
+
+img.addEventListener('click', ()=>{
+  modalDisplay("block");
+  modal_img.src = img.src;
+});
+img2.addEventListener('click', ()=>{
+	  modalDisplay("block");
+	  modal_img.src = img2.src;
+	});
+span.addEventListener('click', ()=>{
+  modalDisplay("none");
+});
+modal.addEventListener('click', ()=>{
+  modalDisplay("none");
+});
+function modalDisplay(text){
+  modal.style.display = text;
+}
 
 </script>
 </html>
