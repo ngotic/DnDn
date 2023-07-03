@@ -6,7 +6,7 @@
             <nav class="navbar bg-light navbar-light">
             
             	<!-- 로고 -->
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="/dndn/admin/admin-main.do" class="navbar-brand mx-4 mb-3">
                     <img src="/dndn/resources/img/logo_long.png" class="mt-1 mb-2" style="height:80px;">
                 </a>
                 
@@ -25,7 +25,7 @@
                 <!-- 메뉴 -->
                 <div class="navbar-nav w-100">
                 
-                    <a href="/dndn/admin/admin-main.do" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <!-- <a href="/dndn/admin/admin-main.do" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a> -->
                     
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>이용자 관리</a>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     
-                    <a href="" class="nav-item nav-link">
+                    <a href="/dndn/admin/product.do" class="nav-item nav-link">
                     	<i class="fa fa-th me-2"></i>상품 관리
                     </a>
                     
