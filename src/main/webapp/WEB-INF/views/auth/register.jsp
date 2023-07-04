@@ -39,8 +39,6 @@
     <div class="container mt-3">
 		<h3><strong>회원가입</strong></h3>
 		<form action="/dndn/auth/registerok.do" method="post" id="signupForm" >
-			
-			
 			<div>
 			    <label class="control-label" for="name">이름</label>
 			    <input class="form-control ${not empty dto.name ? 'is-valid' : ''}" type="text" name="name" id="name" maxlength="4" value="${dto.name}" required<%-- 읽기 전용 --%> ${ not empty dto.name ? 'readonly' : '' }/>
@@ -65,7 +63,6 @@
 				<input type="password" class="form-control" name="pwd2" id="pwd2" onkeyup="pwcheck();" required/>
 				<div class="invalid-feedback">입력하신 비밀번호가 다릅니다.</div>
 			</div>
-			
 			<div>
 				<label class="control-label" for="Gender">성별</label>
 				<div class="btn-group" data-toggle="buttons" class="form-control ${not empty dto.gender ? 'is-valid' : ''}">
@@ -89,7 +86,6 @@
 					</c:if>
 				</div>
 			</div>
-			
 			<div>
 				<label class="control-label" for="address">우편번호</label>
 				<input class="form-control" type="text" id="sample4_postcode" placeholder="우편번호" onclick="sample4_execDaumPostcode()" required>
@@ -106,7 +102,6 @@
 				<div class="valid-feedback"></div>
 				
 			</div>
-			
 			<div>
 				<label class="control-label" for="birth">생년월일</label>
 				<input class="form-control" type="text" name="birth" id="birth" maxlength="10" placeholder="ex)2000-01-01" onchange="forisvalid(this);" required/>
@@ -119,7 +114,6 @@
 			    <div class="valid-feedback"></div>
 			    <div class="invalid-feedback">이메일 형식이 올바르지 않거나 이미 등록된 이메일입니다.</div>
 			</div>
-			
 			<div>
 				<label class="control-label" for="tel">휴대폰번호</label>
 				<input class="form-control" type="tel" name="tel" id="tel" maxlength="13" placeholder="ex)010-1234-1234" required/>
@@ -131,8 +125,6 @@
 			<input type="hidden" name="${_csrf.parameterName }" value= "${_csrf.token}"> 
 		</form>
 	</div>
-	
-	
 	
 	</sec:authorize>
 <script>

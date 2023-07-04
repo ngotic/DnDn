@@ -41,39 +41,6 @@ section {
 	
 	<section class="container">
 		<h1>시작 페이지<small>없음</small></h1>
-		<sec:authorize access="isAuthenticated()">
-			<div title="사용자 아이디">
-		<sec:authentication property="principal.username"/>
-		</div>
-		<div class="message" title="principal">
-			<sec:authentication property="principal"/>
-		</div>
-		<div class="message" title="MemberDTO">
-			<sec:authentication property="principal.member"/>
-	 	</div>
-		<div class="message" title="사용자 아이디">
-			<sec:authentication property="principal.member.id"/>
-		</div>
-		<div class="message" title="사용자 아이디">
-			<sec:authentication property="principal.username"/>
-		</div>
-		<div class="message" title="사용자 이름">
-			<sec:authentication property="principal.member.name"/>
-		</div>
-				 
-		<div class="message" title="사용자 권한">
-			<sec:authentication property="principal.member.authlist"/>
-		</div>
-			<form method="POST" action="/dndn/delacc">
-				<div>
-					<button type="submit"  class="btn btn-outline-warning">회원탈퇴</button>
-				</div>
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-				<input type="hidden" name="id" value='<sec:authentication property="principal.username"/>'>
-			</form>
-			
-			
-		</sec:authorize>
 	</section>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
