@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dndn.main.mapper.LunchMapper">
+
+<!-- 날짜 기준으로 신상품 10개만 출력 -->
+<select id="getRecentLunchBoard" resultType="com.project.dndn.main.domain.LunchBoardDTO">
+	<![CDATA[
+	select * FROM ( SELECT sb.sellboardseq, sb.content, sb.sale, sb.regdate, sb.periodic, sb.pic, SUM(l.price) AS price
+	    FROM tblSellBoard sb INNER JOIN tblLunchBoxSet ls ON sb.sellboardseq = ls.sellboardseq INNER JOIN tblLunchbox l ON ls.lunchboxseq = l.lunchboxseq where PERIODIC='F' GROUP BY sb.sellboardseq, sb.content, sb.sale, sb.regdate, sb.periodic, sb.pic ORDER BY sb.regdate DESC
+	) WHERE ROWNUM <= 10
+	]]>
+</select>
+
+</mapper>

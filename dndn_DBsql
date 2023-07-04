@@ -60,7 +60,6 @@ create sequence suggestseq;
 create sequence suggestcategoryseq;
 create sequence couponmemberseq;
 create sequence couponseq;
-create sequence eventseq;
 create sequence lunchboxsetseq;
 create sequence cartseq;
 
@@ -318,14 +317,17 @@ CREATE TABLE tblLunchboxSet (
     constraint tblLunchboxSet_fk2 foreign key(lunchboxseq) references tblLunchBox(lunchboxseq)
 );
 
-
+-- 06-30 컬럼추가 =  pic_board 	varchar2(200) NOT NULL,   count number default 0 null,
 CREATE TABLE tblEvent (
 	eventseq	number		NOT NULL,
 	title	varchar2(100)		NULL,
+    regdate date DEFAULT sysdate	NULL,
 	startdate	date	DEFAULT sysdate	NULL,
 	enddate	date		NULL,
 	sale	number	DEFAULT 0	NOT NULL,
 	pic	varchar2(200)		NOT NULL,
+    pic_board 	varchar2(200) NOT NULL,
+    count number default 0 null,
     constraint tblEvent_pk1 primary key(eventseq)
 );
 
