@@ -7,13 +7,14 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
-	<!--  -->
+    
+    <!--  -->
     <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="/dndn/resources/startbootstrap-sb-admin-gh-pages/css/styles.css" rel="stylesheet" />
-	<!-- <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> -->
+	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 	
+
     <!-- Favicon -->
     <link href="/dndn/resources/bootstrap-admin-template-free/img/favicon.ico" rel="icon">
 
@@ -35,27 +36,19 @@
 
     <!-- Template Stylesheet -->
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
-    
-    
-    
-    <style>
-		
-		/* 추가 버튼 */
-		.add-button {
+</head>
+
+
+	<style>
+
+		.button-frame {
+			padding-top: 20px;
+			padding-bottom: 20px;
 			float: right;
-    		width: 60px;
-    		height: 35px;
-    		border: none;
-    		background-color: #636363;
-			color: white;
-    		margin-top: 2.5px;
-    		margin-right: 5px;
 		}
-	
+		
 		/* 수정 버튼 */
 		.edit-button {
-			width: 45px; height: 30px;
-			border: none;
 			/* background-color: #2e75b6; */
 			background-color: #1f79e0;
 			color: white;
@@ -63,43 +56,47 @@
 		
 		/* 삭제 버튼 */
 		.del-button {
-			width: 45px; height: 30px;
-			border: none;
+			background-color: #f2f2f2;
+			color: #3b3b3b;
+		}
+		
+		/* 목록 버튼 */
+		.list-button {
+			border: #f2f2f2;
 			background-color: #f2f2f2;
 			color: #3b3b3b;
 		}
 		
 		
-		thead > tr > th {
-			text-align: center;
-		}
 		
-		tbody > tr > td:nth-child(1), td:nth-child(2), 
-					 td:nth-child(3), td:nth-child(4), 
-					 td:nth-child(6), td:nth-child(7), td:nth-child(8) {
-			text-align: center;
-		}
-		
-		tbody > tr > td:nth-child(5) {
-			padding-right: 15px;
-			text-align: right;
+		.add-box {
+			border: 1px solid #ced4da;
 		}
 		
 		
-		/* 검색창 */
-		.datatable-input {
-			position: absolute;
-    		width: 550px;
-    		left: 290px;
+		.category-price {
+			display: flex;
+			justify-content: space-between;
+		}
+		
+		.image, .name {
+			width: 800px;
 		}
 		
 		
-		label {
-			color: white;
+		
+		.product-frame {
+			display: flex;
+    		align-items: center;
 		}
-	
+		
+		.pic {
+			float: left;
+    		padding-right: 30px;
+		}
+
 	</style>
-</head>
+
 
 <body>
     <div class="container-fluid position-relative bg-white d-flex p-0">
@@ -117,71 +114,53 @@
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
 			
 			
-			<section class="container">
-
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        
-                        <div class="card mb-4" style="border: none;">
-                            
-                            <div class="card-body">
+			<section class="container" style="margin-top: 100px;">
+				
+				<div style="display: flex; justify-content: center;">
+					
+					<div class="col-sm-12 col-xl-6">
+                        <div class="add-box rounded h-100 p-4">
+                            <h6 class="mb-4">상품 수정</h6>
+                            	
+                            	
+                           	<div class="product-frame">
+                            <div class="pic">
+                               	<div class="mb-3">
+                                	<div style="text-align: center;">
+                                		<img alt="" src="${dto.pic}" style="width: 500px;">
+                                	</div>
+                                </div>
+                            </div>
                             
                             <div>
-                            	<button type="button" class="add-button" 
-                            			onclick="location.href='/dndn/admin/product-add.do';">추가</button>
+                                <div class="mb-3">
+                                    <label class="form-label">이름</label>
+                                    <p>${dto.name}</p>
+                                </div>
+                                
+                                <label class="form-label">분류</label>
+                                <p>${dto.category}</p>
+                            	
+                            	<div>
+                            		<label class="form-label">가격</label>
+                            		<p>${dto.price}</p>
+                            	</div>
                             </div>
-                            
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>이미지</th>
-                                            <th>이름</th>
-                                            <th>분류</th>
-                                            <th>가격</th>
-                                            <th>등록일</th>
-                                            <th>수정일</th>
-                                            <th>관리</th>
-                                        </tr>
-                                    </thead>
-                                    
-
-                                    <tbody>
-                                    <c:forEach items="${list}" var="dto">
-                                    	<tr>
-                                    		<td>${dto.lunchboxseq}</td>
-                                    		<td>
-                                    			<img alt="도시락" src="${dto.pic}" 
-                                    				 style="width: 50px; height: 50px;">
-                                    		</td>
-                                    		<td>
-                                    			<a href="/dndn/admin/product-view.do?lunchboxseq=${dto.lunchboxseq}">
-                                    				${dto.name}
-                                    			</a>
-                                    		</td>
-                                    		<td>${dto.category}</td>
-                                    		<td>${dto.price}</td>
-                                    		<td>${dto.regdate}</td>
-                                    		<td>${dto.modidate}</td>
-                                    		<td>
-                                    			<button class="edit-button">수정</button>
-                                    			<button class="del-button">삭제</button>
-                                    		</td>
-                                    	</tr>
-  									</c:forEach>
-                                    </tbody>
-
-                                </table>
                             </div>
+                            	
+                            	<div class="button-frame">
+                            		<button type="button" class="edit-button btn">수정</button>
+                                    <button type="button" class="del-button btn">삭제</button>
+                                	<button type="button" class="list-button btn"
+	                                		onclick="location.href='/dndn/admin/product.do';">목록</button>
+                                </div>
+                               
                         </div>
                     </div>
-                </main>
-            </div>
-		</section>
-        </div>
-		
-		
+	
+				</div>
+				
+			</section>
             
         </div>
         <!-- Content End -->
@@ -211,6 +190,8 @@
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/scripts.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/datatables-simple-demo.js"></script>
+    
+
     
     
 </body>

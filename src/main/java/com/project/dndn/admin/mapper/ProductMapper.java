@@ -8,5 +8,11 @@ public interface ProductMapper {
 
 	List<ProductDTO> list();
 
+	int add(ProductDTO dto);
+
+	ProductDTO get(String lunchboxseq);
+
+	int edit(ProductDTO dto);
+
 	
 }

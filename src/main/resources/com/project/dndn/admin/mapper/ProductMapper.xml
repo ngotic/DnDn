@@ -4,8 +4,31 @@
 
 <mapper namespace="com.project.dndn.admin.mapper.ProductMapper">
 
+
 	<select id="list" resultType="com.project.dndn.admin.domain.ProductDTO">
-		select lunchboxseq, name, category, price, pic, to_char(regdate, 'YYYY-MM-DD') as regdate, to_char(modidate, 'YYYY-MM-DD') as modidate from tbllunchbox
+		select lunchboxseq, name, category, price, pic, to_char(regdate, 'YYYY-MM-DD') as regdate, to_char(modidate, 'YYYY-MM-DD') as modidate from tbllunchbox order by lunchboxseq desc
 	</select>
+
+
+	<insert id="add">
+		insert into tbllunchbox (lunchboxseq, name, category, price, pic, regdate, modidate)
+			values (lunchboxseq.nextVal, #{name}, #{category}, #{price}, #{pic}, default, default)
+	</insert>
+	
+	
+	<select id="get" resultType="com.project.dndn.admin.domain.ProductDTO">
+		select * from tbllunchbox where lunchboxseq = #{lunchboxseq}
+	</select>
+	
+	
+	<update id="edit">
+		update tbllunchbox set 
+			name = #{name}, 
+			category = #{category}, 
+			price = #{price}, 
+			pic = #{pic},
+			modidate = default
+		where lunchboxseq = #{lunchboxseq}
+	</update>
 
 </mapper>
