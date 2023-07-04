@@ -75,7 +75,7 @@
                     	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					</form>	
 						<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">찜목록</button></div></li>
-						<li><div class="nav-item"><a href = "#" class="nav-link" style="margin-left:20px;">마이페이지</a></div></li>
+						<li><div class="nav-item"><a href = "/dndn/mypage/edit.do" class="nav-link" style="margin-left:20px;">마이페이지</a></div></li>
                     </ul>
                 </div>
                 </sec:authorize>
