@@ -22,7 +22,7 @@ public interface LunchDetailService {
 
     int addCart(AddCartDTO cartdto);
 
-    List<CartDTO> listCart();
+    List<CartDTO> listCart(String id);
 
     int delCart(List<String> cartseqList);
 

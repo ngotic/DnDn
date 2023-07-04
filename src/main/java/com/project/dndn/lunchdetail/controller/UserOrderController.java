@@ -25,7 +25,7 @@ public class UserOrderController {
 
     @PreAuthorize("isAuthenticated()") // 막아준다.
     @GetMapping("/userorder/usercart.do")
-    public String orderCartGet(CartDTO cartDTO, String right, Model model){
+    public String orderCartGet(CartDTO cartDTO, String right, Model model, Principal principal){
 
         if(right.equals("true")){
             List<CartDTO> list = new ArrayList<CartDTO>();
@@ -33,7 +33,7 @@ public class UserOrderController {
             model.addAttribute("list",list);
         } else {
             // 장바구니에 있는거 다 보낸다. > 장바구니 보기
-            List<CartDTO> list = service.listCart();
+            List<CartDTO> list = service.listCart(principal.getName());
             model.addAttribute("list",list);
         }
         model.addAttribute("right", right); // 바로 구매를 구분해야 한다.
