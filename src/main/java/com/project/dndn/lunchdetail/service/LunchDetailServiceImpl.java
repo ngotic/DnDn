@@ -62,8 +62,8 @@ public class LunchDetailServiceImpl implements LunchDetailService {
     }
 
     @Override
-    public List<CartDTO> listCart() {
-        return mapper.listCart();
+    public List<CartDTO> listCart(String id) {
+        return mapper.listCart(id);
     }
 
     @Override
