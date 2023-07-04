@@ -235,7 +235,7 @@
 
         </td>
         <td></td>
-        <td colspan="5" style="text-align: right;"><h6>총 주문금액 : <span id="total_price">10,000원</span></h6></td>
+        <td colspan="5" style="text-align: right;"><h6>총 주문금액 : <span id="total_price">0원</span></h6></td>
       </tr>
       </tfoot>
     </form>
@@ -269,6 +269,7 @@ let count = $('.c_price').length;
 
 
 $('#delbtn').click(function(){
+
   let cartseqList = [];
 
   if( confirm("정말로 삭제하시겠습니까?") ){

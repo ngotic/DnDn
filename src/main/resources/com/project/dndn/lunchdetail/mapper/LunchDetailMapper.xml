@@ -42,7 +42,7 @@
     </insert>
 
     <select id="listCart" resultType="com.project.dndn.lunchdetail.domain.CartDTO">
-        select c.*, (select name from tblStore where storeseq=c.storeseq) as storename, (select pic from tblSellBoard where sellboardseq = c.sellboardseq) as pic, (select content from tblSellBoard where sellboardseq = c.sellboardseq) as content, (select sale from tblSellBoard where sellboardseq = c.sellboardseq) as sale, (select price from v_sellboard where sellboardseq = c.sellboardseq) as price  from tblCart c
+        select c.*, (select name from tblStore where storeseq=c.storeseq) as storename, (select pic from tblSellBoard where sellboardseq = c.sellboardseq) as pic, (select content from tblSellBoard where sellboardseq = c.sellboardseq) as content, (select sale from tblSellBoard where sellboardseq = c.sellboardseq) as sale, (select price from v_sellboard where sellboardseq = c.sellboardseq) as price  from tblCart c where status = 'F'
     </select>
 
     <delete id="delCart">
