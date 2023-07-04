@@ -34,6 +34,7 @@
         #loginWrapper{
             margin: AUTO;
             display: flex;
+            position:relative;
             width: 60%;
             height: 600px;
             align-items: center;
@@ -99,12 +100,24 @@
        td{
         padding-bottom: 15px;
        }
+       #socialLoginWrapper{
+       		position: absolute;
+       		bottom:70px;
+       		left: 130px;
+       }
+       
 </style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>	
-	
-	<div id="pagename"> <h2>로그인</h2> </div>
+	<div id="pagename"> <h2>로그인</h2></div>
+	<%
+	    String errorParam = request.getParameter("error");
+	    String passwordClass = "";
+	    if (errorParam != null) {
+	        passwordClass = "is-invalid";
+	    }
+	%>ㅌ
     <fieldset id="loginWrapper" >
     	<form action="/dndn/login" method="Post">
     	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">   
@@ -117,10 +130,12 @@
                     <td>가입하신 아이디와 비밀번호를 입력해주세요. <br>비밀번호는 대소문자를 구분합니다. </td>
                 </tr>    
                 <tr>
-                    <td><input type="text" placeholder="아이디" name="username" id="idInput" required> </td>
+                    <td><input type="text" placeholder="아이디" name="username" id="idInput" class="form-control <%= passwordClass %>" required> </td>
                 </tr>    	
                 <tr>
-                    <td><input type="password" placeholder="비밀번호" name="password" id="pwInput" required></td>
+                    <td><input type="password" placeholder="비밀번호" class="form-control <%= passwordClass %>" name="password" id="pwInput" required>
+                    <div class="valid-feedback"></div>
+					<div class="invalid-feedback">아이디 혹은 비밀번호를 확인해주세요</div></td>
                 </tr>    
                 <tr>
                     <td><button id="loginSubmit" class="btn btn-warning">로그인</button></td>
@@ -130,7 +145,6 @@
                 </tr>
             </tbody>
         </table>
-		     
         </form>
         <table id="registerProcess">
             <tbody>
@@ -151,6 +165,13 @@
                 </tr>
             </tbody>
         </table>
+        <div id="socialLoginWrapper">
+        	<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3e25d1471c8b89b2e37d2bc1eb786e27&redirect_uri=	
+http://localhost:8091/dndn/kakao&response_type=code">
+			    <img alt="kakaoLogin" src="/dndn/resources/img/kakao_login_medium_narrow.png">
+			    <!-- ///dndn/resources/img/logo_edit.png -->
+			</a>
+        </div>
     </fieldset>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>

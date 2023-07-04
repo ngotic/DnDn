@@ -13,8 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.dndn.auth.domain.AuthDTO;
 import com.project.dndn.auth.domain.MemberDTO;
 import com.project.dndn.auth.mapper.MemberMapper;
@@ -30,7 +34,18 @@ public class MemberController {
 	private PasswordEncoder encoder;
 	
 	@GetMapping("/auth/register.do")
-	public String register() {
+	public String register(@RequestParam(name = "name",required = false) String name,
+				            @RequestParam(name = "email",required = false) String email,
+				            @RequestParam(name = "gender",required = false) String gender
+				            , Model model){
+		if(name != null || email !=null || gender!=null) {
+			MemberDTO dto = new MemberDTO();
+		    dto.setName(name);
+		    dto.setEmail(email);
+		    dto.setGender(gender);
+		    System.out.println(dto.toString());
+	    	model.addAttribute("dto", dto);
+	    }
 		return "auth/register";
 	}
 	
@@ -50,7 +65,7 @@ public class MemberController {
 	    String script = "<script>alert('완료');</script>";
 	    model.addAttribute("script", script);
 		
-		return "redirect:/dndn/auth/login.do";
+		return "redirect:/auth/login.do";
 		
 	}
 	@GetMapping("/auth/findidpw.do")
@@ -110,7 +125,6 @@ public class MemberController {
 		System.out.println("이메일 인증 요청이 들어옴!");
 		System.out.println("이메일 인증 이메일 : " + emailInput);
 		System.out.println("아이디 : " + id);
-		System.out.println(mailService.joinEmail(emailInput));
 
 		return mailService.joinEmail(emailInput);
 	}
@@ -130,6 +144,34 @@ public class MemberController {
 		
 		
 		return null;
+	}
+	
+	//이메일 유효성 검사
+	@PostMapping(value="/emailvalidcheck" ,produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String emailvalidcheck(@RequestBody MemberDTO dto)throws Exception {
+		System.out.println(dto.toString());
+		String email = mapper.emailvalidcheck(dto);
+		System.out.println(email);
+		
+		if(email!=null) {
+			return email;
+		}
+		
+		
+		return null;
+	}
+	
+	
+	//회원탈퇴
+	@PostMapping(value="/delacc")
+	public String delacc(MemberDTO dto) {
+		System.out.println(dto.toString());
+		
+		mapper.delaccAuth(dto);
+		mapper.delacc(dto);
+		
+		return "redirect:/auth/logout.do";
 	}
 	
 }
