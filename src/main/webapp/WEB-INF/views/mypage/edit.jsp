@@ -47,48 +47,50 @@ input,
 		<%@ include file="/WEB-INF/views/include/mypage-header.jsp" %>
 		<section class="container">
 			<h1 id="mypage">My Page</h1>
-			<div> ${list}</div>
-			
 			<form method="POST" action="/dndn/mypage/editok.do">
 			<c:forEach var="user" items="${list }">
 				<div class="input-group mb-3">
-					<span class="input-group-text" id="basic-addon1">아이디</span> <input
+					<span class="input-group-text">아이디</span> <input
 						type="text" class="form-control" value="${user.id }"
-						aria-label="Username" aria-describedby="basic-addon1" readonly name="id">
+						 readonly name="id">
 				</div>
 				<div class="input-group mb-3">
-					<span class="input-group-text" id="basic-addon1">비밀번호</span> <input
-						type="number" class="form-control" placeholder="Userpassword"
-						aria-label="Userpassword" aria-describedby="basic-addon1" name="pw">
+					<span class="input-group-text">비밀번호</span> <input
+						type="number" class="form-control" placeholder="비밀번호"
+						 name="pw">
 				</div>
 				<div class="input-group mb-3">
-					<span class="input-group-text" id="basic-addon1">전화번호</span> <input
+					<span class="input-group-text">전화번호</span> <input
 						type="number" class="form-control"
-						value="010" aria-label="Usertel1" aria-describedby="basic-addon1"
-						disabled><span class="dash">&nbsp;-&nbsp;</span> <input
-						type="number" class="form-control" placeholder="${user.tel.substring(tFidx,tLidx-1) }"
-						aria-label="Usertel2" aria-describedby="basic-addon1" name="telList"><span
+						value="010" disabled><span class="dash">&nbsp;-&nbsp;</span> <input
+						type="number" class="form-control"  value="${user.tel.substring(tFidx,tLidx-1) }"
+						 name="telList"><span
 						class="dash">&nbsp;-&nbsp;</span><input type="number"
-						class="form-control" placeholder="${user.tel.substring(tLidx)}" aria-label="Usertel3"
-						aria-describedby="basic-addon1"  name="telList">
+						class="form-control" value="${user.tel.substring(tLidx)}"  name="telList">
 				</div>
 				<div class="input-group mb-3">
-					<input type="text" class="form-control" placeholder="${user.email.substring(0,eidx) }"
-						aria-label="UserEmail"  name="emailList"> <span class="input-group-text">@</span>
-					<input type="text" class="form-control" placeholder="${user.email.substring(eidx+1) }"
-						aria-label="Email.com" name="emailList">
-				</div>
+					<input type="text" class="form-control" value="${user.email.substring(0,eidx) }" name="emailList"
+						> <span class="input-group-text">@</span>
+            <input type="text" name="emailList" id="em2" class="form-control" value="${user.email.substring(eidx+1) }" readonly>
+            <select class="form-select" id="em3">
+            <option selected value="" disabled  hidden>  메일 선택  </option>
+ <option value="">  이메일주소 직접입력  </option>
+                <option value="naver.com">naver.com</option>
+                <option value="nate.com">nate.com</option>
+                <option value="gmail.com">gmail.com</option>
+                <option value="yahoo.com">yahoo.com</option>
+                <option value="hanmail.net">hanmail.net</option>
+</select>
+        </div>
 				<div class="input-group mb-3">
-					<span class="input-group-text" id="basic-addon1">우편번호</span> <input
+					<span class="input-group-text">우편번호</span> <input
 						type="text" id="sample4_postcode" class="form-control"
 						placeholder="우편번호"> &nbsp; <input type="button"
 						onclick="sample4_execDaumPostcode()" value="우편번호 찾기"
 						class="btn btn-primary" id="postnum">
 				</div>
-				<div id="test">${user.address }</div>
-				06235
 				<div class="input-group mb-3">
-					<input type="text" id="sample4_roadAddress" placeholder="${user.address }" name="address"
+					<input type="text" id="sample4_roadAddress" value="${user.address }" name="address"
 						class="form-control"> <input type="text"
 						id="sample4_jibunAddress" placeholder="지번주소" class="form-control">
 				</div>
@@ -96,14 +98,14 @@ input,
 				
 				<div class="input-group mb-3">
 					<span id="guide" style="color: #999; display: none"></span> <input
-						type="text" id="sample4_detailAddress" placeholder="${user.addressdetail } "
+						type="text" id="sample4_detailAddress" value="${user.addressdetail } "
 						class="form-control" name="addressdetail"><input type="text"
 						id="sample4_extraAddress" placeholder="참고항목" class="form-control">
 				</div>
 				<div class="input-group mb-3">
-					<span class="input-group-text" id="basic-addon1">내 포인트 조회</span> <input
-						type="text" class="form-control" placeholder="${user.point }"
-						aria-label="Userpoint" aria-describedby="basic-addon1" disabled>
+					<span class="input-group-text">내 포인트 조회</span> <input
+						type="text" class="form-control" value="${user.point }"
+						 disabled>
 					<span style="font-size: 24px;">&nbsp;점</span>
 				</div>
 				<div><input type="submit" value="변경하기"></div>
@@ -118,6 +120,52 @@ input,
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+	/* 전화번호 4자리 */
+	$("input[name=telList]").keyup(function(){
+		
+		if($(event.target).val().length > 4){
+
+			$(event.target).val($(event.target).val().slice(0, 4));
+
+        }
+	});
+	
+	/* value 초기화 */
+	$(".form-control").focus(function(){
+		$(event.target).val("");
+		$(event.target).attr("required",true);
+		
+	});
+	
+	
+	$(".form-control").keyup(function(){
+		
+		if($(event.target).val()==""){
+			
+			$(event.target).attr("required",true); 
+		}
+
+	});
+	
+	/* 이메일 select change value */
+	$("#em3").change(function(){
+		
+		$("#em2").removeAttr("readonly"); 
+			
+		if($("#em3").val()==""){
+			
+		$("#em2").val( $("#em3").val());
+		$("#em2").removeAttr("readonly"); 
+
+		}else{
+			$("#em2").attr("readonly",true); 
+			 $("#em2").val( $("#em3").val());
+		}
+		
+	});
+	
+	</script>
 	<script>
 		function sample4_execDaumPostcode() {
 			new daum.Postcode(

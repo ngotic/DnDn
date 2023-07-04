@@ -13,13 +13,18 @@
 		<div id="side-content">
 			<div>유저명</div>
 			<button onclick="location.href='/dndn/mypage/edit.do';">내 정보</button>
-			<form method="POST" action="/dndn/auth/logout.do">
-			<button>LOGOUT</button>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-					</form>	
 			<button onclick="location.href='/dndn/mypage/order.do';">주문관리</button>
 			<button onclick="location.href='/dndn/mypage/food.do';">식단관리</button>
 			<button onclick="location.href='/dndn/mypage/fav.do';">찜</button>
 			<button onclick="location.href='/dndn/mypage/buylist.do';">장바구니</button>
+			<form method="POST" action="/dndn/auth/logout.do">
+			<button>LOGOUT</button>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+					</form>	
+<form method="POST" action="/dndn/delacc">
+               <button type="submit">회원탈퇴</button>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+            <input type="hidden" name="id" value='<sec:authentication property="principal.username"/>'>
+         </form>
 		</div>
 	</div>

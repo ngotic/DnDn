@@ -22,4 +22,33 @@ public class MyPageDTO {
 	private String regdate;
 	private String enabled;
 	private String point;
+	
+	
+	//주문정보
+	private String orderseq;
+	private String orderdate;
+	private String couponseq;
+	
+	//도시락 정보
+	private String Lunchname;
+	private String Lunchpic;
+	private String LunchCategory;
+	
+	//장바구니 주문
+	private String sellboardseq;
+	private String cnt;
+	private String storeseq;
+	private String status;
+	private String price;
+	
+	//정기배송
+	private String periodshipseq;
+	private String shipdate;
+	private String shiptime;
+	private String shipperiod;
+	private String dayperweek;
+	
+	//쿠폰 정보
+	private String sale;
+	
 }

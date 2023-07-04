@@ -10,4 +10,8 @@ public interface MyPageMapper {
 
 	void add(MyPageDTO dto);
 
+	List<MyPageDTO> Flist(String id);
+
+	List<MyPageDTO> Olist(String id);
+
 }

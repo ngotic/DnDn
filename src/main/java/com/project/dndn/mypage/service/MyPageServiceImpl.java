@@ -9,7 +9,7 @@ import com.project.dndn.mypage.domain.MyPageDTO;
 import com.project.dndn.mypage.mapper.MyPageMapper;
 
 @Service("myService")
-public class MyPageServiceImpl implements MyPageService{
+public class MyPageServiceImpl implements MyPageService {
 
 	@Autowired
 	private MyPageMapper myMapper;
@@ -17,6 +17,18 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public List<MyPageDTO> list(String id) {
 		return myMapper.list(id);
+	}
+
+	@Override
+	public List<MyPageDTO> Flist(String id) {
+
+		return myMapper.Flist(id);
+	}
+
+	@Override
+	public List<MyPageDTO> Olist(String id) {
+
+		return myMapper.Olist(id);
 	}
 
 	@Override

@@ -45,6 +45,14 @@ button {
 #btn {
 	text-align: right;
 }
+#accordion-body{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
+}
+.detailimg{
+	grid-row: span 3;
+}
 </style>
 </head>
 <body>
@@ -53,18 +61,37 @@ button {
 		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
 		<section class="container">
 			<h1>주문 조회</h1>
+			<c:forEach items="${Flist}" var="dto">
 			<div id="card">
 				<div id="cimg">
 					<img alt="" src="/dndn/resources/img/mypage/cart.png">
 				</div>
-				<div>날짜</div>
-				<div>제목</div>
-				<div>가격</div>
+				<div>날짜: ${orderseq }</div>
+				<div>제목: ${Lunchname }</div>
+				<div>가격: ${Integer.parseInt(sale)*Integer.parseInt(price)*Integer.parseInt(cnt) }</div>
 				<div id="btn">
-					<button>상세보기</button>
+					<div class="accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        상세보기
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+    
+      <div id="accordion-body">
+      <div class="detailimg">샐러드 이미지</div>
+      <div>주문날짜</div>
+      <div>샐러드명</div>
+      <div>가격</div>
+      </div>
+    </div>
+    </div>
+    </div>
 					<button>재구매</button>
 				</div>
 			</div>
+			</c:forEach>
 		</section>
 	</div>
 	<script

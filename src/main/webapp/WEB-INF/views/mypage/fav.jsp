@@ -57,6 +57,7 @@
 						<img alt="" src="/dndn/resources/img/mypage/cart.png">
 						<div id="heart"><img src="/dndn/resources/img/mypage/heart.png"></div>
 					</div>
+					
 					<div>샐러드명</div>
 					<div>찜한 날짜</div>
 				</div>

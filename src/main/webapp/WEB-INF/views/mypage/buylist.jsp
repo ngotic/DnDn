@@ -116,7 +116,7 @@ input[type="number"]:focus {
 	<div id="box">
 		<%@ include file="/WEB-INF/views/include/mypage-header.jsp" %>
 		<section class="container">
-        <h1>장바구니</h1>
+        <h1>장바구니</h1>        
         <hr>
         <div id="bc">
         <div id="cartbox">
@@ -128,14 +128,13 @@ input[type="number"]:focus {
             <div>합계</div>
             <div>삭제</div>
         </div>
-        
         <div class="cartboxcontent">
             <div>
             <input type="checkbox" name="" class="one" onchange="sum('n')">
             </div>
             <div><img src="/dndn/resources/img/mypage/cart.png" id="cartsal"></div>
             <div>맛있는 샐러드</div>
-            <div id="price">20,000원</div>
+            <div class="price">20,000원</div>
             <div><input type="number" name="" class="count">
                 <img src="/dndn/resources/img/mypage/arrow.png" id="up" onclick="account('+')">
                 <img src="/dndn/resources/img/mypage/arrow.png" id="down" onclick="account('-')">
@@ -151,7 +150,7 @@ input[type="number"]:focus {
             </div>
             <div><img src="/dndn/resources/img/mypage/cart.png" id="cartsal"></div>
             <div>맛있는 샐러드</div>
-            <div id="price">20,000원</div>
+            <div class="price">50,000원</div>
             <div><input type="number" name="" class="count">
                 <img src="/dndn/resources/img/mypage/arrow.png" id="up" onclick="account('+')">
                 <img src="/dndn/resources/img/mypage/arrow.png" id="down" onclick="account('-')">
@@ -167,7 +166,7 @@ input[type="number"]:focus {
                 <input type="button" value="장바구니 비우기">
             </div>
             <div>상품갯수 : 4개</div>
-            <div id="total">합계금액 : 74,200원</div>
+            <div>합계금액 : <span id="total"></span>원</div>
         </div>
         <div id="orderbtn"><button>주문하기</button></div>
         </div>
@@ -217,49 +216,51 @@ input[type="number"]:focus {
 	}
 
 	
-	var stPrice = document.getElementById('price').innerHTML;
-	var unit = parseInt(stPrice.replace(/,/g, ""));
-
-	console.log(unit);
 		  
 	function account(pm) {
 
-	var value = parseInt($(event.target).siblings('.count').val());
-	alert(value);
-	if(value >= 1){
+	var stPrice = $(event.target).parent().prev().text();
+	var unit = parseInt(stPrice.replace(/,/g, ""));
 		
-	if(pm=='+'){
-		console.log(value);
-		value = value+1;
-		console.log("after"+value);
-		
-	}else if(pm=='-'){
-		
-		console.log(value);
-		value = value-1;
-		console.log("after"+value);
-	}
-	}else{
-		if(pm=='+'){
-			console.log(value);
-		value = value+1;
-		console.log("after"+value);
+		var value = parseInt($(event.target).siblings('.count').val());
+
+		if(value >= 1){
 			
-		}	
+			if(pm=='+'){
+				console.log(value);
+				value = value+1;
+				
+			}else if(pm=='-'){
+				
+				console.log(value);
+				value = value-1;
+			}
+		}else{
+			if(pm=='+'){
+				console.log(value);
+			value = value+1;
+				
+			}	
+		}
+		
+		$(event.target).siblings('.count').val(value);
+		
+		
+		var price = String(value * unit);
+		
+		name(price);
+		
 	}
-	$(event.target).siblings('.count').val(value);
-	var price = String(value * unit);
-	  console.log("곱"+price);
-	  var line = '';
-	  for (var i = price.length - 1, count = 0; i >= 0; i--, count++) {
-		    if (count !== 0 && count % 3 === 0) {
-		      line = ',' + line;
-		    }
-		    line = price[i] + line;
-		  }
-	  alert($(event.target).siblings('.sum').val);
-	  $( '.sum' ).text(line+'원');
-	  
+	
+	function name(price){
+		var line = '';
+		  for (var i = price.length - 1, count = 0; i >= 0; i--, count++) {
+			    if (count !== 0 && count % 3 === 0) {
+			      line = ',' + line;
+			    }
+			    line = price[i] + line;
+			  }
+		  $(event.target).parent().next().text(line);
 	}
 	</script>
 </body>
