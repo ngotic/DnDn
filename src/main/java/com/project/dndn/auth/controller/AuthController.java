@@ -1,5 +1,6 @@
 	package com.project.dndn.auth.controller;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,6 @@ import com.project.dndn.auth.mapper.MemberMapper;
 import com.project.dndn.auth.service.UserService;
 import com.project.dndn.security.CustomUserDetailsService;
 
-// dndn/
 @Controller 
 public class AuthController {
 	@GetMapping("/auth/login.do")
@@ -40,7 +40,7 @@ public class AuthController {
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-		return "redirect:/dndn/main.do";
+		return "redirect:/main.do";
 	}
 	
 	private final UserService userService;
@@ -58,23 +58,28 @@ public class AuthController {
 	private MemberDTO member;
     
 	@GetMapping("/kakao") 
-	public String main(@RequestParam String code) throws Throwable{
+	public String main(@RequestParam String code,Model model) throws Throwable{
 		MemberDTO dto = new MemberDTO();
 		String accessToken = userService.getKaKaoAccessToken(code);
 		HashMap<String, Object> userInfo = userService.getUserInfo(accessToken);
 		System.out.println(userInfo); // 사용자 정보 출력
 		System.out.println(code);
-		
 		dto.setName(userInfo.get("nickname").toString());
 		dto.setEmail(userInfo.get("email").toString());
+		dto.setGender(userInfo.get("gender").toString());
+		
 		System.out.println(dto.getName());
 		System.out.println(dto.getEmail());
+		System.out.println(dto.getGender());
 		String username =mapper.findId(dto);
 		dto.setId(username);
 		System.out.println(dto.getId());
 		
 		if(username==null) {
-			return "redirect:/auth/register.do";
+			
+			 return "redirect:/auth/register.do?name=" + URLEncoder.encode(dto.getName(), "UTF-8")
+	            + "&email=" + URLEncoder.encode(dto.getEmail(), "UTF-8")
+	            + "&gender=" + URLEncoder.encode(dto.getGender(), "UTF-8");
 		}
 		else {
 			UserDetails userDetails = userDetailsService.loadUserByUsername(dto.getId());

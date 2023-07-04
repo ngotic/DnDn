@@ -40,12 +40,13 @@
 		<h3><strong>회원가입</strong></h3>
 		<form action="/dndn/auth/registerok.do" method="post" id="signupForm" >
 			
+			
 			<div>
-				<label class="control-label" for="name">이름</label>
-				<input class="form-control" type="text" name="name" id="name" maxlength="4" required/>
-				<div class="valid-feedback"></div>
-				<div class="invalid-feedback">숫자, 특수문자, 공백이 포함될 수 없습니다.</div>
-			</div>   
+			    <label class="control-label" for="name">이름</label>
+			    <input class="form-control ${not empty dto.name ? 'is-valid' : ''}" type="text" name="name" id="name" maxlength="4" value="${dto.name}" required<%-- 읽기 전용 --%> ${ not empty dto.name ? 'readonly' : '' }/>
+			    <div class="valid-feedback"></div>
+			    <div class="invalid-feedback">숫자, 특수문자, 공백이 포함될 수 없습니다.</div>
+			</div>
 			
 			<div>
 				<label class="control-label" for="id">아이디</label>
@@ -67,19 +68,31 @@
 			
 			<div>
 				<label class="control-label" for="Gender">성별</label>
-				<div class="btn-group" data-toggle="buttons">
-					<label class="btn btn-light">
-						<input type="radio" name="Gender" autocomplete="off" value="M" checked>남자
-					</label>
-					<label class="btn btn-light">
-						<input type="radio" name="Gender" autocomplete="off" value="F" checked>여자
-					</label>
+				<div class="btn-group" data-toggle="buttons" class="form-control ${not empty dto.gender ? 'is-valid' : ''}">
+					<c:if test="${dto.gender=='male'}">
+						<label class="btn btn-light">
+							<input type="radio" name="Gender" autocomplete="off" value="M" checked >남자
+						</label>
+						
+						<label class="btn btn-light">
+							<input type="radio" name="Gender" autocomplete="off" value="F" disabled>여자
+						</label>
+					</c:if>
+					<c:if test="${dto.gender!='male'}">
+						<label class="btn btn-light">
+							<input type="radio" name="Gender" autocomplete="off" value="M" disabled>남자
+						</label>
+						
+						<label class="btn btn-light">
+							<input type="radio" name="Gender" autocomplete="off" value="F" checked >여자
+						</label>
+					</c:if>
 				</div>
 			</div>
 			
 			<div>
 				<label class="control-label" for="address">우편번호</label>
-				<input class="form-control" type="text" id="sample4_postcode" placeholder="우편번호" required>
+				<input class="form-control" type="text" id="sample4_postcode" placeholder="우편번호" onclick="sample4_execDaumPostcode()" required>
 				<input type="button" class="btn btn-outline-warning" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" required><br>
 				<div class="valid-feedback"></div>
 				
@@ -99,15 +112,14 @@
 				<input class="form-control" type="text" name="birth" id="birth" maxlength="10" placeholder="ex)2000-01-01" onchange="forisvalid(this);" required/>
 				<div class="valid-feedback"></div>
 			</div>			
-						
-						
+			
 			<div>
-				<label class="control-label" for="email">이메일</label>
-				<input class="form-control" type="email" name="email" id="email" required/>
-				<div class="valid-feedback"></div>
-				<div class="invalid-feedback">이메일 형식이 올바르지 않거나 이미 등록된 이메일입니다.</div>
-				
+			    <label class="control-label" for="email">이메일</label>
+			    <input class="form-control ${not empty dto.email ? 'is-valid' : ''}" type="email" name="email" id="email" value="${dto.email}" required<%-- 읽기 전용 --%> ${ not empty dto.email ? 'readonly' : '' }/>
+			    <div class="valid-feedback"></div>
+			    <div class="invalid-feedback">이메일 형식이 올바르지 않거나 이미 등록된 이메일입니다.</div>
 			</div>
+			
 			<div>
 				<label class="control-label" for="tel">휴대폰번호</label>
 				<input class="form-control" type="tel" name="tel" id="tel" maxlength="13" placeholder="ex)010-1234-1234" required/>
@@ -336,6 +348,7 @@ $('#birth').keydown(function(event) {
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById('sample4_postcode').setAttribute('disabled', true);
                 document.getElementById("sample4_postcode").classList.add("is-valid");
                 document.getElementById("sample4_roadAddress").value = roadAddr;
                 document.getElementById("sample4_roadAddress").classList.add("is-valid");

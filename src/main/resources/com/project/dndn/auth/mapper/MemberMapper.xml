@@ -52,7 +52,12 @@
       insert into tblMember(id, name, pw,tel,birth,email,gender,address,addressdetail,regdate,enabled,point) 
          values (#{id}, #{name}, #{pw},#{tel},#{birth},#{email},#{gender},#{address},#{addressdetail},default,'1',default)
    	</insert>
-   
+   	<delete id="delacc">
+   		DELETE FROM tblMember WHERE id = #{id}
+   	</delete>
+   	<delete id="delaccAuth">
+   		DELETE FROM tblAuth WHERE id = #{id}
+   	</delete>
    <insert id="registerAuth">
       insert into tblAuth(id, auth) values (#{id}, #{auth})
    </insert>

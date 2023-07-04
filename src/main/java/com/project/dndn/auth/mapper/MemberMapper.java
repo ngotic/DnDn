@@ -21,6 +21,10 @@ public interface MemberMapper {
 
 	String emailvalidcheck(MemberDTO dto);
 
+	void delacc(MemberDTO dto);
+
+	void delaccAuth(MemberDTO dto);
+
 
 
 }

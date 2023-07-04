@@ -111,6 +111,13 @@
 <body>
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>	
 	<div id="pagename"> <h2>로그인</h2></div>
+	<%
+	    String errorParam = request.getParameter("error");
+	    String passwordClass = "";
+	    if (errorParam != null) {
+	        passwordClass = "is-invalid";
+	    }
+	%>ㅌ
     <fieldset id="loginWrapper" >
     	<form action="/dndn/login" method="Post">
     	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">   
@@ -123,10 +130,12 @@
                     <td>가입하신 아이디와 비밀번호를 입력해주세요. <br>비밀번호는 대소문자를 구분합니다. </td>
                 </tr>    
                 <tr>
-                    <td><input type="text" placeholder="아이디" name="username" id="idInput" required> </td>
+                    <td><input type="text" placeholder="아이디" name="username" id="idInput" class="form-control <%= passwordClass %>" required> </td>
                 </tr>    	
                 <tr>
-                    <td><input type="password" placeholder="비밀번호" name="password" id="pwInput" required></td>
+                    <td><input type="password" placeholder="비밀번호" class="form-control <%= passwordClass %>" name="password" id="pwInput" required>
+                    <div class="valid-feedback"></div>
+					<div class="invalid-feedback">아이디 혹은 비밀번호를 확인해주세요</div></td>
                 </tr>    
                 <tr>
                     <td><button id="loginSubmit" class="btn btn-warning">로그인</button></td>
