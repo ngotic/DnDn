@@ -804,7 +804,13 @@
 				storeseq : storeseq
 			}),
 			success : function(result) {
-				new Swal('장바구니', '장바구니에 추가하였습니다.','success');
+				if(result=='OK')
+					new Swal('장바구니', '장바구니에 추가하였습니다.','success');
+				else new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+					location.href='/dndn/auth/login.do';
+				});
+
+
 			} ,
 			error : function (a, b, c){
 				console.log(a ,b, c)

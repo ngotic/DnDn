@@ -23,7 +23,7 @@ public class WishController {
     //sellboardseq:12, id:"
     @PreAuthorize("isAuthenticated()") // 막아준다.
     @PutMapping("/addorDeleteWish")
-    public ResponseEntity<String> addWish(@RequestBody WishDTO Wish, Principal principal){
+    public ResponseEntity<String> addordelWish(@RequestBody WishDTO Wish, Principal principal){
 
         try {
 
