@@ -53,7 +53,7 @@
          values (#{id}, #{name}, #{pw},#{tel},#{birth},#{email},#{gender},#{address},#{addressdetail},default,'1',default)
    	</insert>
    	<delete id="delacc">
-   		DELETE FROM tblMember WHERE id = #{id}
+   		update tblMember set name = ' ', birth = ' ', tel = ' ', email = ' ', gender = ' ', address = ' ',addressdetail=' ',default,'1',default where id = #{id}
    	</delete>
    	<delete id="delaccAuth">
    		DELETE FROM tblAuth WHERE id = #{id}

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -56,17 +52,6 @@
 
         <!-- Content Start -->
         <div class="content">
-            
-
-<<<<<<< HEAD
-			<!-- nav -->
-			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
-			
-			
-			<h1>admin main</h1>
-            
-=======
-
             <!-- Sale & Revenue Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
@@ -348,7 +333,6 @@
                 </div>
             </div>
             <!-- Footer End -->
->>>>>>> sw1111
         </div>
         <!-- Content End -->
 
