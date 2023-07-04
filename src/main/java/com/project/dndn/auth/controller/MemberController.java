@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,7 @@ public class MemberController {
 	@Autowired
 	private PasswordEncoder encoder;
 	
+	@PreAuthorize("isAnonymous()")
 	@GetMapping("/auth/register.do")
 	public String register(@RequestParam(name = "name",required = false) String name,
 				            @RequestParam(name = "email",required = false) String email,
@@ -164,6 +166,7 @@ public class MemberController {
 	
 	
 	//회원탈퇴
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value="/delacc")
 	public String delacc(MemberDTO dto) {
 		System.out.println(dto.toString());
