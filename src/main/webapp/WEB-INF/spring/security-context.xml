@@ -16,11 +16,14 @@
 	<security:http>
 		<!-- 로그인 -->
 		<security:form-login login-page="/auth/login.do" authentication-success-handler-ref="customLoginSuccess"/>
-		
 		<security:access-denied-handler ref="customAccessDenied"></security:access-denied-handler>
 		
 		<!-- 로그아웃 -->
 		 <security:logout logout-url="/auth/logout.do" invalidate-session="true" logout-success-url="/main.do" 	/>
+		 
+		 <!-- remember-me -->
+		 <security:remember-me data-source-ref="dataSource" token-validity-seconds="8640000"/>
+		 
 	</security:http>	
 	
 	<security:authentication-manager>
@@ -28,5 +31,5 @@
          <security:password-encoder ref="bcryptPasswordEncoder"/>
       </security:authentication-provider>
    </security:authentication-manager>
-	
+
 </beans>

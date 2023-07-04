@@ -9,6 +9,14 @@
 <title>Document</title>
 <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 <style>
+*{
+	font-weight:bold;
+}
+
+
+.btn-outline-warning{
+	font-weight:bold;
+}
         body{
             align-items: center;
         }
@@ -93,10 +101,12 @@
        #findid{
             width: 100%;
             height: 50px;        
+            font-weight:bold;
        }
        #loginSubmit{
             width: 100%;
             height: 50px;        
+            
        }
        #name  {
             width: 100%;
@@ -183,9 +193,9 @@
                 </tr>
                 <tr>
                     <td>
-                    <button id="findpw"  class="btn btn-primary">비밀번호 찾기</button>
-                    <button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
-                    <button id="showpw" class="btn btn-primary" onclick="showpw();">비밀번호 재설정</button>
+                    <button id="findpw"  class="btn btn-outline-warning">비밀번호 찾기</button>
+                    <button type="button" class="btn btn-outline-warning" id="mail-Check-Btn">본인인증</button>
+                    <button id="showpw" class="btn btn-outline-warning" onclick="showpw();">비밀번호 재설정</button>
                     </td>
                 </tr>
                 <tr>
@@ -207,10 +217,10 @@
                     <td>변경하실 비밀번호를 입력해주세요. <br>비밀번호는 대소문자를 구분합니다. </td>
                 </tr>    
                 <tr>
-                    <td><input type="text" placeholder="변경할 비밀번호" name="inputPw" id="inputPw" class="form-control" required> <span id="pwok"></span> </td>
+                    <td><input type="password" placeholder="변경할 비밀번호" name="inputPw" id="inputPw" class="form-control" required> <span id="pwok"></span> </td>
                 </tr>    	
                 <tr>
-                    <td><button id="updatepw" class="btn btn-primary">비밀번호 변경</button></td>
+                    <td><button id="updatepw" class="btn btn-outline-warning">비밀번호 변경</button></td>
                 </tr>    	
         	</tbody>
         </table>
@@ -240,9 +250,12 @@
 	        },
 	        success:function(data){
 	        		$('#findidtable').show();
-	       	 		 $("#idlist").append("<h3>"+"아이디 : "+data.id+"</h3>");
+	       	 		 $("#idlist").append("<h3 style=color:black;text-align:center;>"+name+" 회원님의 아이디는"+"<br><strong style=color:orange;>"+data.id+"</strong>입니다.</h3>");
 					$('#findid').prop('disabled','true');
 					$('#FindIdProcess').hide();
+					$('#findpw').removeClass("btn-outline-warning");
+					$('#findpw').addClass("btn-warning");
+		        	
 	        },
 	        error: function (XMLHttpRequest, textStatus, errorThrown){
 	
@@ -261,7 +274,7 @@
 	        url:'/dndn/findpw',
 	        type:'POST',
 	        data: JSON.stringify(pwData),
-	        dataType : "json",
+	        dataType : "text",
 	        contentType: 'application/json', 
 	        beforeSend: function(xhr) {
 	            xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}'); // CSRF 토큰 헤더에 추가

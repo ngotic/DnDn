@@ -17,5 +17,14 @@ public interface MemberMapper {
 
 	int updatepw(MemberDTO vo);
 
+	String idvalidcheck(MemberDTO dto);
+
+	String emailvalidcheck(MemberDTO dto);
+
+	void delacc(MemberDTO dto);
+
+	void delaccAuth(MemberDTO dto);
+
+
 
 }

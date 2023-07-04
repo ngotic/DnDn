@@ -60,7 +60,7 @@
 				<sec:authorize access="isAnonymous()">
 				<div class="nav-item"><a href = "/dndn/auth/register.do" class="nav-link" >회원가입</a></div>
 				</sec:authorize>
-				<div class="nav-item"><a href = "#" class="nav-link" >장바구니</a></div> 
+				<div class="nav-item"><a href = "/dndn/userorder/usercart.do?right=false" class="nav-link" >장바구니</a></div>
 				<sec:authorize access="isAnonymous()">
 				<div class="nav-item"><a href = "/dndn/auth/login.do" class="nav-link" >로그인</a></div>
 				</sec:authorize>
@@ -72,6 +72,7 @@
                     <ul class="dropdown-menu">
                     <form method="POST" action="/dndn/auth/logout.do">
                     	<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">로그아웃</button></div></li>
+						<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">찜목록</button></div></li>
                     	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					</form>	
 						<li><div class="nav-item"><a href = "/dndn/mypage/edit.do" class="nav-link" style="margin-left:20px;">마이페이지</a></div></li>
@@ -82,7 +83,7 @@
 		</nav>
 </header>
 <div class="main_logo">
-	<img src="/dndn/resources/img/logo_long.png" class="mt-1 mb-2" style="height:110px;">
+	<img src="/dndn/resources/img/logo_long.png" class="mt-3 mb-4" style="height:130px;">
 </div>
 <hr class="mb-0">
 

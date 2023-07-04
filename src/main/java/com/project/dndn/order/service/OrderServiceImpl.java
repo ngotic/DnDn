@@ -1,18 +1,21 @@
 package com.project.dndn.order.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.project.dndn.order.domain.OrderDTO;
+import com.project.dndn.order.domain.OrderEventDTO;
 import com.project.dndn.order.mapper.OrderMapper;
 
 @Service("orderService")
 public class OrderServiceImpl implements OrderService{
 
 	@Autowired
+	@Qualifier("orderMapper")
 	private OrderMapper orderMapper;
 	
 	
@@ -22,7 +25,11 @@ public class OrderServiceImpl implements OrderService{
 		return orderMapper.userlist();
 	}
 	
-	
+	@Override
+	public OrderDTO usernull() {
+		OrderDTO dto =  orderMapper.usernull();
+		return dto;
+	}
 	@Override
 	public OrderDTO user(String user_id) {
 		
@@ -60,4 +67,65 @@ public class OrderServiceImpl implements OrderService{
 		return dto;
 	}
 	
+	@Override
+	public ArrayList<OrderEventDTO> eventlist() {
+		
+		ArrayList<OrderEventDTO> dto = orderMapper.eventlist();
+		
+		
+		return dto;
+	}
+	
+	
+	@Override
+	public ArrayList<OrderEventDTO> eventopenlist() {
+		
+		ArrayList<OrderEventDTO> dto = orderMapper.eventopenlist();
+		
+		return dto;
+	}
+	
+	@Override
+	public ArrayList<OrderEventDTO> eventcloselist() {
+		ArrayList<OrderEventDTO> dto = orderMapper.eventcloselist();
+		
+		return dto;
+	}
+	
+	
+	@Override
+	public OrderEventDTO eventdto(String event_seq) {
+		
+		OrderEventDTO dto =  orderMapper.eventdto(event_seq);
+		
+		return dto;
+	}
+	
+
+	
+	@Override
+	public void updatecount(String event_seq) {
+		
+		orderMapper.updatecount(event_seq);
+		
+		
+	}
+	
+	@Override
+	public OrderEventDTO eventnulldto() {
+		OrderEventDTO dto = orderMapper.eventnulldto();
+		return dto;
+	}
+	
+	
+	@Override
+	public List<OrderEventDTO> eventpage(String event_seq) {
+		
+		List<OrderEventDTO> eventpage = orderMapper.eventpage(event_seq);
+		
+		return eventpage;
+		
+	}
+	
+
 }
