@@ -267,7 +267,6 @@ let count = $('.c_price').length;
 
 
 
-
 $('#delbtn').click(function(){
 
   let cartseqList = [];

@@ -26,7 +26,7 @@ public class UserOrderController {
     @PreAuthorize("isAuthenticated()") // 막아준다.
     @GetMapping("/userorder/usercart.do")
     public String orderCartGet(CartDTO cartDTO, String right, Model model, Principal principal){
-
+        
         if(right.equals("true")){
             List<CartDTO> list = new ArrayList<CartDTO>();
             list.add(cartDTO);

@@ -24,7 +24,6 @@
         select * from tblStore
     </select>
 
-
     <select id="readUserWishList" resultType="int">
         select count(*) from tblWishList where id = #{id} and sellboardseq = #{sellboardseq}
     </select>

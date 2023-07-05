@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,70 +10,12 @@
     <title>Insert title here</title>
     <%@ include file="/WEB-INF/views/include/asset.jsp" %>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
 
-        }
-        body {
-            font-family: "나눔바른고딕OTF", "돋움";
-        }
         #pdtImg{
             width:100px;
             height: 100px;
         }
-        #logoImg {
-            width: 300px;
-        }
-        #orderHeader {
-            height: 99px;
-            border-bottom: 1px solid #dcdcdc;
-        }
-        #orderHeader .orderHead {
-            position: relative;
-            max-width: 1280px;
-            min-width: 1024px;
-            margin: 0 auto;
-            padding: 20px 0 0;
-        }
-        #orderHeader .logo {
-            height: 80px;
-        }
-        #orderHeader .logo a {
-            display: inline-block;
-            vertical-align: middle;
-        }
-        #orderHeader .logo:after, #orderHeader .helpArea:after {
-            content: "";
-            display: inline-block;
-            height: 100%;
-            vertical-align: middle;
-        }
-        #orderHeader .helpArea {
-            position: absolute;
-            top: 20px;
-            right: 0;
-            bottom: 0;
-            color: #222;
-        }
-        #orderHeader .helpArea strong {
-            display: inline-block;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-        #orderHeader .helpArea .btnType1s {
-            margin: 0 0 0 8px;
-            padding: 0 30px;
-            vertical-align: middle;
-        }
 
-        .btnType1s {
-            height: 32px;
-            line-height: 30px;
-            padding: 0 16px;
-            border-radius: 32px;
-            font-size: 14px;
-        }
         [class*="btnType1"] {
             height: 33px;
             line-height: 33px;
@@ -409,11 +353,7 @@
         .deliveryWriteWrap td {
             padding-top: 20px;
         }
-        .tableTypeWrite td {
-            height: 40px;
-            padding: 4px 0;
-            color: #222;
-        }
+
         .deliveryWriteWrap .row:first-child {
             margin-top: -4px;
         }
@@ -450,6 +390,7 @@
             content: "";
             position: absolute;
             z-index: 2;
+            border-radius: 2px;
         }
         .deliveryWriteWrap .titLabel {
             display: inline-block;
@@ -619,7 +560,7 @@
             right: 0;
             width: 320px;
             height: 100%;
-            z-index: 10;
+            z-index: 0;
         }
 
         .orderContents .totalPayment .inner {
@@ -792,11 +733,6 @@
             text-decoration: underline;
             color: #222;
         }
-        .orderPrice .teenAlert {
-            margin: 0 0 24px;
-            font-family: "나눔바른고딕OTF", "돋움";
-            font-size: 14px;
-        }
         .totalPayment .btnType4xl {
             width: 100%;
             margin: 16px 0 0;
@@ -812,7 +748,6 @@
             background-color: #fff;
             border: 2px solid #EE8035;
         }
-
 
         [class*="btnType4"] {
             height: 65px;
@@ -844,7 +779,7 @@
             right: 0;
             width: 320px;
             height: 100%;
-            z-index: 10;
+            z-index: 0;
         }
         .orderContents {
             position: relative;
@@ -887,19 +822,7 @@
         .orderContents .subTitle2 {
             margin-bottom: 15px;
         }
-        .subTitle2 {
-            /*margin: 75px 0 24px;*/
-            font-size: 22px;
-        }
-        .radioTab {
-            padding: 18px 0 22px;
-            border-top: 1px solid #222;
-            border-bottom: 1px solid #dcdcdc;
-            line-height: 1;
-        }
-        .radioTab .inputRadio {
-            margin-right: 72px;
-        }
+
         .inputChk, .inputRadio {
             position: relative;
             display: inline-block;
@@ -909,11 +832,7 @@
             line-height: 1;
             cursor: pointer;
         }
-        .radioTab .inputRadio span {
-            display: inline-block;
-            font: 16px/1 '나눔바른고딕OTF', '돋움';
-            color: #222;
-        }
+
         .tableTypeWrite {
             padding-right:15px;
             border-top: 2px solid #222;
@@ -994,7 +913,7 @@
                                 <th scope="row"><span class="required" aria-required="true">필수입력</span> 주문자</th>
                                 <td>
                                     <div class="row">
-                                        <input type="text" required name="ordNmTxt" id="ordNmTxt" maxlength="10" class="form-control altPosition" title="이름입력" style=" text-align: center;" value="홍길동" readonly>
+                                        <input type="text" required name="ordNmTxt" id="ordNmTxt" maxlength="10" class="form-control altPosition mb-2" title="이름입력" style=" text-align: center;" value="<sec:authentication property="principal.member.name"/>" readonly>
                                     </div>
                                 </td>
                             </tr>
@@ -1003,19 +922,8 @@
                                 <th scope="row"><span  class="required" aria-required="true">필수입력</span> 연락처</th>
                                 <td>
                                     <div class="row" style="text-align: center; display: flex; flex-direction: row; justify-content:space-between;">
-                                        <select id="ordMblNo1" class="form-control" style="width:25%; text-align: center;">
-                                            <option value="1" selected>010</option>
-                                            <option value="1" selected>010</option>
-                                            <option value="1" selected>010</option>
-                                            <option value="1" selected>010</option>
-                                        </select>
-                                        <span class="hyphen">-</span>
-                                        <input type="text" class="form-control" style=" width:30%; text-align: center;" required >
-                                        <span class="hyphen">-</span>
-                                        <input type="text" class="form-control" style=" width:30%; text-align: center;" required >
-                                        <p class="inputAlt"></p>
+                                        <input type="text" name=""  class="form-control " title="이메일 입력" style="text-align:center;" value="<sec:authentication property="principal.member.tel"/>" readonly>
                                     </div>
-
                                 </td>
                             </tr>
 
@@ -1026,8 +934,7 @@
                                 </th>
                                 <td>
                                     <div class="row">
-                                        <input type="text" name="emailTxt" id="emailTxt" class="form-control " title="이메일 입력" value="">
-                                        <p class="inputAlt"></p>
+                                        <input type="text" name="emailTxt" id="emailTxt" class="form-control " title="이메일 입력" style="text-align:center;" value="<sec:authentication property="principal.member.email"/>" readonly>
                                     </div>
                                 </td>
                             </tr>
@@ -1042,38 +949,39 @@
                                     <div class="row deliverySel"  id="chkWrapper" style="display: none">
                                         <label class="inputChk addNewDiv" for="isAddNewChk"> <input type="checkbox"   name="isAddNewChk" id="isAddNewChk"  readonly=""  checked="checked"> <span>배송지 목록에 추가</span></label>
                                         <label class="inputChk" for="isAddDefaultChk"> <input type="checkbox" name="isAddDefaultChk" id="isAddDefaultChk"  > <span>기본 배송지로 등록</span></label>
-                                        <%--                                            <button type="button" class="btnType7s" id="cancelManualAddDlvAddr">입력취소</button>--%>
                                     </div>
 
                                     <!-- 배송지명 -->
                                     <div class="row">
                                         <label for="dlvNmTxt" class="titLabel"  style="display: block"><span class="required" aria-required="true">필수입력</span> 배송지명</label>
-                                        <input type="text" id="dlvNmTxt" name="dlvNmTxt" maxlength="10" class="inputTxt form-control" style="margin-top:4px;" placeholder="최대 10자 까지 입력 가능" >
+                                        <input type="text" id="dlvNmTxt" name="dlvNmTxt" maxlength="10" class="inputTxt form-control" style="margin-top:4px; text-align: center;" placeholder="최대 10자 까지 입력 가능" >
 
                                         <p class="inputAlt"></p>
                                     </div>
 
-
                                     <!-- 받으실 분 -->
                                     <div class="row" >
-                                        <label for="addOrdererInfo" class="titLabel mb-1"><span class="required" aria-required="true" required>필수입력</span> 받으실 분</label>
-                                        <label class="inputChk mb-1" for="addOrdererInfo" style="padding-right: 5px;"><input type="checkbox" id="addOrdererInfo" > <span style="margin-left: 0px;">주문자 정보와 동일</span></label>
+                                        <label class="titLabel mb-1"><span class="required" aria-required="true" required>필수입력</span> 받으실 분</label>
+                                        <label class="mb-1" for="sameaddress" style="padding-right: 5px;"><input id="sameaddress" type="checkbox" style="border-radius: 5px; margin:-5px 0 0 0; vertical-align:middle;" ><span style="margin-left: 0px;">&nbsp;&nbsp;주문자 배송정보와 동일</span></label>
                                         <p class="inputAlt"></p>
                                     </div>
                                     <div class="row">
                                         <!-- 우편 번호 -->
                                         <label class="control-label" for="address">우편번호</label>
-                                        <input class="form-control mb-2" type="text" id="sample4_postcode" placeholder="우편번호" required>
+                                        <input class="form-control mb-2" type="hidden" id="sample4_postcode" placeholder="우편번호" required>
                                         <input class="form-control mb-2" id="findaddressnumber" type="button" onclick="sample4_execDaumPostcode();" value="우편번호 찾기" required><br>
 
 
                                         <label class="control-label" for="address">주소</label>
-                                        <input class="form-control mb-2" type="text" id="sample4_roadAddress" name="address" placeholder="도로명주소" readonly required>
+                                        <input class="form-control mb-2 address" type="text" id="sample4_roadAddress" name="address" placeholder="도로명주소" readonly required style="text-align: center;">
                                         <span id="guide" style="color:#999;display:none"></span>
 
                                         <label class="control-label" for="addressdetail">상세주소</label>
-                                        <input class="form-control mb-2" type="text" id="sample4_detailAddress" name="addressdetail" placeholder="상세주소" onchange="nameCheck(this);" required>
-                                        <div class="valid-feedback"></div>
+                                        <input class="form-control mb-2 addressdetail" type="text" id="sample4_detailAddress" name="addressdetail" placeholder="상세주소" required style="text-align: center;">
+
+                                        <input id="myaddress" type="hidden" value="<sec:authentication property='principal.member.address'/>">
+                                        <input id="myaddressdetail" type="hidden" value="<sec:authentication property='principal.member.addressdetail'/>">
+
                                     </div>
                                 </td>
                             </tr>
@@ -1082,14 +990,15 @@
                                 <td class="shippingMsg">
                                     <div class="row">
 
-                                        <select id="sellLocation" class="form-control">
-                                            <option value="" selected>배송 요청사항을 선택해 주세요.</option>
-                                             <option value="1">부재시 경비(관리)실에 맡겨주세요.</option>
+                                        <select id="sellrequest" class="form-control" style="text-align: center;">
+                                            <option value="0" selected>배송 요청사항을 선택해 주세요.</option>
+                                            <option value="1">부재시 경비(관리)실에 맡겨주세요.</option>
                                             <option value="2">부재시 문앞에 놓아주세요.</option>
                                             <option value="3">파손의 위험이 있는 상품이 있으니, 배송에 주의해주세요.</option>
                                             <option value="4">배송전에 연락주세요.</option>
                                             <option value="5">메시지 직접 입력</option>
                                         </select>
+                                        <input class="form-control mt-2" type="hidden" id="requestmessage" value="" style="text-align: center;">
 
                                     </div>
                                     <div class="writeMsg request">
@@ -1209,7 +1118,6 @@
 
 
 
-
                             <tr class="btPtUseTr" id="btPtUseTr">
                                 <th scope="row">적립금</th>
                                 <td>
@@ -1218,13 +1126,12 @@
                                             사용가능 <strong><span id="canUseBtPt">0</span></strong> P &nbsp;/&nbsp; 보유 <strong><span id="myBtPtTxt">3000</span></strong> P
                                         </div>
                                         <div class="display:margin:auto;">
-                                        <input type="text" class="form-control" name="totalUseBtPt" value="0" style="width:200px; display: inline-block; text-align: center;">
+                                        <input type="text" class="form-control" name="totalUseBtPt" value="0" style="width:190px;margin-right: 10px; display: inline-block; text-align: center;">
                                         <button type="button" class="form-control" name="useAllBtPt" id="useAllBtPt" style="display: inline-block; width:170px;">모두사용</button>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -1265,12 +1172,10 @@
                     </section>
 
 
-
                     <!-- 결제 수단 선택 -->
-
                     <!-- 품절 시 환불 방법 -->
                     <section id="refundMethodArea" style="display: block;">
-                        <h4 class="subtitle">품절 시 환불 방법</h4>
+                        <h4 class="subtitle">결제방법</h4>
                         <div class="refundPayMethod radioTabContents">
                             <div id="ACCOUNT" class="radioTabCont">
                                 <div class="tableTypeWrite">
@@ -1323,8 +1228,8 @@
                 </div>
                 <!-- //상품 정보 -->
             </form><!--ordForm -->
-
         </div>
+
         <!-- 결제 금액 정보 -->
         <div class="totalPayment">
             <div class="inner">
@@ -1362,7 +1267,6 @@
                             <dd><span class="num" id="totPurPrcTxt"></span>원</dd>
                         </dl>
                         <div class="paymentAgreeWrap">
-
                             <div class="agree">
                                 <label class="inputChk" for="payWayProvision"><input type="checkbox" id="payWayProvision"><span>[필수] 구매 조건 및 결제 진행 동의</span></label>
                                 <p class="txt">주문할 상품의 상품명, 상품가격, 배송정보를 확인하였으며, 구매 진행에 동의 하시겠습니까? (전자상거래법 제8조 제2항)</p>
@@ -1371,11 +1275,10 @@
                                 <label class="inputChk VbankWayProvision" for="VbankWayProvision" style="display: none;"><input type="checkbox" id="VbankWayProvision"><span>[필수] 개인정보 수집/이용동의</span></label>
                                 <button type="button" class="btn VbankWayProvision" onclick="layerOpen('privacyTerms');" style="display: none;">개인정보 수집 자세히 보기</button>
                             </div>
-
                         </div>
                     </section>
                 </div>
-                <button type="button" class="btnType4xl" id="payBtn"><span class="num" id="totPurPrcBtnTxt"></span>10,000 원 결제하기</button>
+                <button type="button" class="btnType4xl" id="payBtn" onclick="kakaopay();"><span class="num" id="totPurPrcBtnTxt"></span>10,000 원 결제하기</button>
             </div>
         </div>
         <!-- //결제 금액 정보 -->
@@ -1385,9 +1288,101 @@
 
 
 </section>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+    var csrfHeaderName = "${_csrf.headerName}";
+    var csrfTokenValue = "${_csrf.token}";
+
+    function kakaopay(){
+
+        // if(inputH.value == null || inputH.value == 'none' || inputH.value == ""){
+        //     alert("결제 개월 수를 선택 해 주세요");
+        //     return;
+        // }
+        // console.log($('#userid'));
+
+        var IMP = window.IMP;
+        IMP.init('imp86112373');
+        IMP.request_pay({
+            pg : 'kakaopay',
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),   //주문번호
+            name : 'dndn',                                  //상품명
+            amount : 100,                                    //가격
+            //customer_uid : buyer_name + new Date().getTime(),  //해당 파라미터값이 있어야 빌링 키 발급 시도
+            buyer_email : 'aa@aaa.com',             //구매자 이메일
+            buyer_name : 'buyer_name',                           //구매자 이름
+            buyer_tel : 'hp',                                    //전화번호
+            buyer_addr : 'addr',	                             //주소
+            buyer_postcode : '123-456'                           //우편번호
+        },function(rsp){
+            if(rsp.success){
+                var msg = "결제 완료";
+                msg += '고유ID : ' + rsp.imp_uid;                //아임포트 uid는 실제 결제 시 결제 고유번호를 서버와 비교해서 결제처리하는데 필요없긴함.
+                msg += '// 상점 거래ID : ' + rsp.merchant_uid;
+                msg += '// 결제 금액 : ' + rsp.paid_amount;
+                msg += '// 카드 승인번호 : ' + rsp.apply_num;
+                $.ajax({
+                    type : 'POST',
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                    },
+                    url : '/dndn/verifyIamport/'+ rsp.imp_uid // 결제금액, 상태에 대한 위변조 때문에 넣는 검증로직
+                }).done(function(data) {
+                    // return값은 xml로 받는다. 그래서 jquery로 xml 파싱
+                    if(rsp.paid_amount == $(data).find('amount').text()){
+                        alert("결제 및 결제검증완료");
+                        // 비즈니스 로직 추가
+                        // ~> 기록에 쓴다., 포인트 차감시 포인트 감소
+                        // ajax 처리 > 해당 사용자
+                        // 트랜잭션 처리,
+
+
+
+
+
+
+                    } else {
+                        alert("결제 실패");
+                    }
+                });
+            }else{
+                var msg = "결제 실패"
+                // msg += "에러 내용" + rsp.error_msg;
+            }
+            alert(msg);
+        });
+    }
+
+
+    $('#sameaddress').change(function(){
+        //(uri);
+        if($('#sameaddress').prop('checked') ==true) {
+            let address = $('#myaddress').val();
+            let addressdetail = $('#myaddressdetail').val();
+            $('.address').val(address);
+            $('.addressdetail').val(addressdetail);
+        } else {
+            $('.address').val('');
+            $('.addressdetail').val('');
+        }
+    });
+
+
+    $('#sellrequest').change(function(){
+
+        if($("#sellrequest option:checked").val()=='5'){
+            $("#requestmessage").attr('type','text');
+            $("#requestmessage").val("");
+        } else {
+            $("#requestmessage").val($("#sellrequest option:checked").text());
+            $("#requestmessage").attr('type','hidden');
+        }
+    });
 
     function sample4_execDaumPostcode() {
         new daum.Postcode({
@@ -1417,10 +1412,7 @@
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_postcode").classList.add("is-valid");
                 document.getElementById("sample4_roadAddress").value = roadAddr;
-                document.getElementById("sample4_roadAddress").classList.add("is-valid");
-
 
                 var guideTextBox = document.getElementById("guide");
                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
@@ -1428,7 +1420,6 @@
                     var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
                     guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
                     guideTextBox.style.display = 'block';
-
                 } else if(data.autoJibunAddress) {
                     var expJibunAddr = data.autoJibunAddress;
                     guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
