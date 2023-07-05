@@ -3,6 +3,7 @@ package com.project.dndn.auth.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -168,10 +169,16 @@ public class MemberController {
 	//회원탈퇴
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value="/delacc")
-	public String delacc(MemberDTO dto) {
+	public String delacc(@RequestBody MemberDTO dto) {
 		System.out.println(dto.toString());
+		Random r = new Random();
+		int randompw = r.nextInt(888888) + 111111;
+		String randompwString = String.valueOf(randompw);
 		
+		dto.setPw(encoder.encode(randompwString));
+		System.out.println("권한삭제");
 		mapper.delaccAuth(dto);
+		System.out.println("계정 정보 삭제");
 		mapper.delacc(dto);
 		
 		return "redirect:/auth/logout.do";

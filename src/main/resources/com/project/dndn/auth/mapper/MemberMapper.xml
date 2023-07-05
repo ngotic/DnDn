@@ -52,9 +52,9 @@
       insert into tblMember(id, name, pw,tel,birth,email,gender,address,addressdetail,regdate,enabled,point) 
          values (#{id}, #{name}, #{pw},#{tel},#{birth},#{email},#{gender},#{address},#{addressdetail},default,'1',default)
    	</insert>
-   	<delete id="delacc">
-   		update tblMember set name = ' ', birth = ' ', tel = ' ', email = ' ', gender = ' ', address = ' ',addressdetail=' ',default,'1',default where id = #{id}
-   	</delete>
+   	<update id="delacc">
+   		update tblMember set name = '-', pw = #{pw}, birth = '-', tel = '-', email = null, gender = '-', address = '-',addressdetail='-',regdate=default where id = #{id}
+   	</update>
    	<delete id="delaccAuth">
    		DELETE FROM tblAuth WHERE id = #{id}
    	</delete>

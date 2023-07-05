@@ -75,13 +75,22 @@
 							<input type="radio" name="Gender" autocomplete="off" value="F" disabled>여자
 						</label>
 					</c:if>
-					<c:if test="${dto.gender!='male'}">
+					<c:if test="${dto.gender=='female'}">
 						<label class="btn btn-light">
 							<input type="radio" name="Gender" autocomplete="off" value="M" disabled>남자
 						</label>
 						
 						<label class="btn btn-light">
 							<input type="radio" name="Gender" autocomplete="off" value="F" checked >여자
+						</label>
+					</c:if>
+					<c:if test="${empty dto.gender}">
+						<label class="btn btn-light">
+							<input type="radio" name="Gender" autocomplete="off" value="M" checked>남자
+						</label>
+						
+						<label class="btn btn-light">
+							<input type="radio" name="Gender" autocomplete="off" value="F" >여자
 						</label>
 					</c:if>
 				</div>
