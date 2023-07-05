@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
    
@@ -23,14 +24,20 @@
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
       <constructor-arg ref="hikariConfig"></constructor-arg>
    </bean>
-   
+
    <!-- MyBatis -->
    <bean id="sessionfactory" class="org.mybatis.spring.SqlSessionFactoryBean">
    		<property name="dataSource" ref="dataSource"></property>
    </bean>
- 
-   <!-- namespace에서 mybatis 체크해야함 -->
+
+    <tx:annotation-driven />
+
+   <!-- namespace에서 mybatis 체크해야함 여기 mapper만 넣어야 한다. -->
+   <mybatis-spring:scan base-package="com.project.dndn.order.mapper"/>
+   <mybatis-spring:scan base-package="com.project.dndn.main.mapper"/>
+   <mybatis-spring:scan base-package="com.project.dndn.lunchdetail.mapper"/>
    <mybatis-spring:scan base-package="com.project.dndn.auth.mapper"/>
-   <mybatis-spring:scan base-package="com.project.dndn"/>
- 	 	
+   <mybatis-spring:scan base-package="com.project.dndn.admin.mapper"/>
+   <mybatis-spring:scan base-package="com.project.dndn.mypage.mapper"/>
+
 </beans>

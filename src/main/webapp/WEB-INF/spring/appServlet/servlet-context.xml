@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+    xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -14,19 +16,21 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
-	<context:component-scan base-package="com.project.dndn" />
-	<context:component-scan base-package="com.project.controller" />
-	
-   <!-- Load email properties -->
-	<context:property-placeholder location="classpath:/db-config/email.properties" />
 
+	<context:component-scan base-package="com.project.dndn"/>
+	<context:component-scan base-package="com.project.dndn.*" />
+
+	<security:global-method-security pre-post-annotations="enabled"/>
+   <!-- Load email properties -->
+<!--	<context:property-placeholder location="classpath:/config/email.properties" />-->
+	<context:property-placeholder location="classpath:config/email.properties"/>
 	<!-- 이메일 인증 관련 빈 등록 -->
 	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<beans:property name="host" value="smtp.gmail.com" />
@@ -46,13 +50,7 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
-	
-	<!-- 스프링에서 기본으로 제공하는 multipartResolver는 CommonsMultipartResolver 이므로, 순수한 multipartResolver를 사용하기 위해 빈 이름으로 "multipartResolver"를 등록해야함 + 프로퍼티를 이용 최대 가능한 업로드 사이즈 지정함 -->
-    
-<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	<beans:property name="maxUploadSize" value="100000000"></beans:property>
-</beans:bean>
-	
-	
-	
+
+
+
 </beans:beans>

@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- favicon 추가 -->
-<!-- <link rel="icon" href="/wood/asset/logo.png" type="image/x-icon">
-<link rel="shortcut icon" href="/wood/asset/logo.png" type="image/x-icon"> -->
+<link rel="icon" href="/dndn/resources/img/logo_edit.png" type="image/x-icon">
+<link rel="shortcut icon" href="/dndn/resources/img/logo_edit.png" type="image/x-icon">
 
 <script src="https://kit.fontawesome.com/d6f8323617.js" crossorigin="anonymous"></script>
  <!-- fonts -->

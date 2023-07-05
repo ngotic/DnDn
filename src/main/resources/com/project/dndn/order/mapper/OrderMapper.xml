@@ -11,7 +11,7 @@
 				        from tblmember  
 				         inner join tblAuth
 				          on tblmember.id = tblAuth.id
-				            where tblAuth.AUTH = 'ROLE_MEMBER'
+				            where tblAuth.auth = 'ROLE_MEMBER'
 	</select>
 
 	<select id="user" resultType ="com.project.dndn.order.domain.OrderDTO">
@@ -23,10 +23,19 @@
 		          				where tblmember.id= #{user_id}
 	</select>	
 
-
+	<select id="usernull" resultType ="com.project.dndn.order.domain.OrderDTO">
+				select 
+						*
+							 from tblmember 
+							 	inner join tblAuth
+		          					on tblmember.id = tblAuth.id
+		          						where tblmember.id = (select MAX(tblmember.id) from tblmember) and tblAuth.AUTH = 'ROLE_MEMBER'
+	</select>	
 	<select id="order" resultType ="com.project.dndn.order.domain.OrderDTO">
 	
-	select 
+<!-- 	
+	미완성
+select 
 	tblOrder.id , shipdate , shiptime , shipperiod , dayperweek , tblLunchBox.price , orderdate , payment ,orderseq ,tblLunchBox.name, tblPeriodShip.periodshipseq
 		from tblOrder 
 			inner join tblCart 
@@ -39,7 +48,7 @@
                                         on  tblSellBoard.sellboardseq =tblLunchboxSet.sellboardseq  
                                             inner join tblLunchBox
                                                 on tblLunchBox.lunchboxseq = tblLunchBox.lunchboxseq
-                                                     where tblOrder.id =  #{user_id}
+                                                     where tblOrder.id =  #{user_id} -->
                                                      
 	</select>	
 	
@@ -84,7 +93,57 @@
 		                                                     where tblOrder.id =  #{user_id}
                                                      
 	</select>	
-	
-	
+			<select id="eventlist" resultType ="com.project.dndn.order.domain.OrderEventDTO">
+			
+			
+			select * from tblevent order by ENDDATE DESC
+					
+				
+			</select>
+			<select id="eventopenlist" resultType ="com.project.dndn.order.domain.OrderEventDTO">
+			
+			
+			select * from tblevent where enddate > sysdate
+					
+				
+			</select>
+			<select id="eventcloselist" resultType ="com.project.dndn.order.domain.OrderEventDTO">
+			
+			
+			select * from tblevent where enddate <![CDATA[ < ]]> sysdate
+					
+				
+			</select>
+			
+			
+			
 
+			<select id="eventdto" resultType ="com.project.dndn.order.domain.OrderEventDTO">
+			
+				select * from tblevent where eventseq = #{event_seq}
+
+			</select>
+			
+			<select id="eventnulldto" resultType ="com.project.dndn.order.domain.OrderEventDTO">
+			
+				select * from tblevent where eventseq = (select MAX(eventseq) from tblevent)
+				
+			</select>
+			
+			
+			<update id="updatecount">
+			
+			update tblEvent set count = count+1 where eventseq = #{event_seq}
+			
+			</update>
+				
+			<select id="eventpage" resultType ="com.project.dndn.order.domain.OrderEventDTO">
+			
+					select * from tblevent where eventseq = #{event_seq}+1 or eventseq = #{event_seq}-1
+				
+			</select>
+			
+			
+		
+			
 </mapper>

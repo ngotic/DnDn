@@ -54,11 +54,11 @@ body {
 
 /* HEADER */
 .header-area {
-    position: sticky; /* ¿©±âµµ */
+    position: sticky; /* ï¿½ï¿½ï¿½âµµ */
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1;
+    z-index: 2;
     background-color: white;
     border-bottom: 2px solid #eee;
 }
@@ -81,7 +81,7 @@ body {
 }
 
 .header-area.navbar-fixed {
-    position: fixed; /*¿©±âµµ*/
+    position: fixed; /*ï¿½ï¿½ï¿½âµµ*/
 }
 
 .header-area > #navbar {
