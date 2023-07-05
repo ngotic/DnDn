@@ -56,7 +56,7 @@
 			<a class="navbar-toggler" id="toggleBtn"><i class="fa fa-bars"></i></a>
 			
 			<div class="navbar-menu" id="menu">
-				<div class="nav-item"><a href = "#" class="nav-link" >고객지원</a></div>
+				<div class="nav-item"><a href = "/dndn/inform/notice.do" class="nav-link" >고객지원</a></div>
 				<sec:authorize access="isAnonymous()">
 				<div class="nav-item"><a href = "/dndn/auth/register.do" class="nav-link" >회원가입</a></div>
 				</sec:authorize>

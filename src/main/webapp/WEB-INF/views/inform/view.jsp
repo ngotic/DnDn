@@ -80,37 +80,50 @@
 			<h2 class="th-bold" style="font-size: 20pt; color:#F27C2A; margin-bottom:20px; margin-top:20px;">공지사항</h2>
 			<div class="notice-box">
 				<div class="notice-list notice-title">
-					<span>간식류 단종 안내</span>
+					<span>${dto.title }</span>
 				</div>
 				<div class="notice-list notice-writer">
 					<span>관리자</span>
-					<span>2023.04.28</span>
-					<span style="display:inline-block; float:right">조회수 | 366</span>
+					<span>${dto.regdate }</span>
+					<span style="display:inline-block; float:right">조회수 | ${dto.views }</span>
 				</div>
 				<div class="notice-list notice-content">
-					<p>
-					안녕하세요. 포켓샐러드입니다.
-					
-					그동안 많은 사랑을 주셨던 간식 상품이 판매 종료되었습니다.(요거트 제외)
-					
-					 
-					
-					정기배송에서 해당 상품을 선택해 주신 고객님께는 일정대로 배송 될 예정입니다.
-					
-					많은 성원에 감사드리며, 다양한 신제품으로 찾아뵐 수 있도록 하겠습니다.
-					
-					 
-					
-					감사합니다.
-					
-					포켓샐러드 드림
-					
-					</p>
+					${dto.content }
 				</div>
 			</div>
 			<div class="notice-btn-side">
 				<input type="button" class="btn notice-btn" value="목록" onclick="location.href='/dndn/inform/notice.do';">
+				
+				<button type="button" class="btn notice-btn"
+            onclick="location.href='/dndn/inform/notice_edit.do?noticeseq=${dto.noticeseq}&id=${dto.id}';">수정하기</button>
+         		<button type="button" class="btn notice-btn"
+            onclick="location.href=/dndn/inform/view.do?noticeseq=${dto.noticeseq}&id=${dto.id}';" data-bs-toggle="modal" data-bs-target="#exampleModalDel">삭제하기</button>
+				
+				
 			</div>
+		
+		
+		<div class="modal fade" id="exampleModalDel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border:none;">
+      <div class="modal-header" style="border:none;">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="border:none; height: 300px; display:flex; justify-content:center; align-items:center; font-size: 20px;">
+        삭제하시겠습니까?
+      </div>
+      <div class="modal-footer" style="border:none; display:flex; justify-content: space-between;">
+        <button type="button" class="btn-accept-quit" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn-accept" onclick="">삭제</button>
+      </div>
+    </div>
+  </div>
+</div>
+		
+		
+		
+		
 		
 		
 		</div>

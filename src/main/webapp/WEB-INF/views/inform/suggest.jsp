@@ -300,9 +300,9 @@
  	
  
  	.add-side {
- 		float:left;
- 		margin-top: 40px;
-    	margin-bottom: 30px;
+ 		float:right;
+ 		margin-top: 50px;
+    	margin-bottom: 50px;
     	margin-left: 10px;
  	}
  	
@@ -342,12 +342,74 @@
  	.suggest-table td, .suggest-table tr, .suggest-table th{
  		
  		padding: 5px;
+ 		padding-top: 10px;
+ 		padding-bottom: 10px;
  	
  	}
  	
+
+ 	
  	.suggest-table thead {
  		
+ 		border-top: 1px solid gray;
  		border-bottom: 1px solid gray;
+ 	
+ 	}
+ 	
+ 	.suggest-title {
+ 		
+ 		text-align: left;
+ 		
+ 	}
+
+ 	.suggest-title a {
+ 		
+ 		padding: 5px;
+ 		text-decoration: none;
+ 		color: #777;
+ 		
+ 	}
+ 	
+ 	.row {
+ 		font-family: 'Pretendard';
+		font-weight: 500;
+ 	
+ 	
+ 		margin-top: 40px;
+ 		text-align: center;
+ 		align-items:center;
+ 		color: #333;
+ 		font-size: 13pt;
+ 		border-top: 1px solid #333;
+ 		border-bottom: 1px solid #333;
+
+ 		
+ 	}
+ 	
+ 	
+ 	.suggest-tab {
+ 	 	padding-top: 10px;
+ 		padding-bottom: 10px;
+ 		
+ 	
+ 	}
+ 	
+ 	
+ 	.th-bold {
+		font-size: 13pt;
+		font-family: 'Pretendard';
+		font-weight: 700;
+		color: #333;
+	}
+ 	
+ 	
+ 	
+ 	.suggest-tab:hover {
+ 		
+ 		background-color: #F8F8F8;
+ 		color: #F27C2A;
+ 		cursor: pointer;
+ 		
  	
  	}
  	
@@ -360,38 +422,7 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>
 	<section class="container">
 		
-		<div class="side-container">
-			<div class="inform-menu-box">
-				<h2 class="h2-bold ">고객센터</h2>
-				<ul class="inform-menu">
-					<li class="active">
-						<a href="/dndn/inform/notice.do" class="inform-item active menu-font">공지사항</a>
-					</li>
-					<li>
-						<a href="/dndn/infrom/suggest.do" class="inform-item menu-font">1:1 문의</a>
-					</li>
-					<li>
-						<a href="#" class="inform-item menu-font">FAQ</a>
-					</li>
-				</ul>
-			</div>
-			<div class="info-box">
-				<dl>
-					<dt>고객상담센터</dt>
-					<dd>
-						<strong class="info-num">02-3482-4632</strong>
-						<br>
-						<p>
-							평일 : 오전 9시 ~ 오후 6시
-							<br>
-							점심 : 오후 1시 ~ 오후 2시
-							<br>
-							휴무 : 주말, 공휴일
-						</p>
-					</dd>
-				</dl>
-			</div>
-		</div>
+		<%@ include file="/WEB-INF/views/inform/inform_sidebar.jsp" %>
 		
 		<div class="mainbar">
 			
@@ -399,10 +430,16 @@
 				<span class="bold">1:1문의</span>
 			</div>
 			
+			<div class="row">
+				<div class="col-md-3 suggest-tab">상품</div>
+				<div class="col-md-3 suggest-tab">배송</div>
+				<div class="col-md-3 suggest-tab">취소</div>
+				<div class="col-md-3 suggest-tab">기타</div>
+			</div>
+			
+			
 			<div class="notice-under">
-				<div class="add-side">
-					<input type="button" class="btn add-btn" value="글쓰기" onclick="location.href='/dndn/inform/add.do';">
-				</div>
+
 				
 				<div class="search-bar">
 					<select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 100px;">
@@ -446,7 +483,169 @@
 								</strong>
 							</td>
 							<td>배송</td>
+							<td class="suggest-title">
+								<a href="">언제 보내주나요</a>
+							</td>
 							<td>
+								yes123
+							</td>
+							<td>
+								<strong>2023-06-30</strong>
+							</td>
+						</tr>
+						<tr>
+							<td>200</td>
+							<td>
+								<strong>
+									답변완료
+								</strong>
+							</td>
+							<td>배송</td>
+							<td class="suggest-title">
+								<a href="">언제 보내주나요</a>
+							</td>
+							<td>
+								yes123
+							</td>
+							<td>
+								<strong>2023-06-30</strong>
+							</td>
+						</tr>
+						<tr>
+							<td>200</td>
+							<td>
+								<strong>
+									답변완료
+								</strong>
+							</td>
+							<td>배송</td>
+							<td class="suggest-title">
+								<a href="">언제 보내주나요</a>
+							</td>
+							<td>
+								yes123
+							</td>
+							<td>
+								<strong>2023-06-30</strong>
+							</td>
+						</tr>
+						<tr>
+							<td>200</td>
+							<td>
+								<strong>
+									답변완료
+								</strong>
+							</td>
+							<td>배송</td>
+							<td class="suggest-title">
+								<a href="">언제 보내주나요</a>
+							</td>
+							<td>
+								yes123
+							</td>
+							<td>
+								<strong>2023-06-30</strong>
+							</td>
+						</tr>
+						<tr>
+							<td>200</td>
+							<td>
+								<strong>
+									답변완료
+								</strong>
+							</td>
+							<td>배송</td>
+							<td class="suggest-title">
+								<a href="">언제 보내주나요</a>
+							</td>
+							<td>
+								yes123
+							</td>
+							<td>
+								<strong>2023-06-30</strong>
+							</td>
+						</tr>
+						<tr>
+							<td>200</td>
+							<td>
+								<strong>
+									답변완료
+								</strong>
+							</td>
+							<td>배송</td>
+							<td class="suggest-title">
+								<a href="">언제 보내주나요</a>
+							</td>
+							<td>
+								yes123
+							</td>
+							<td>
+								<strong>2023-06-30</strong>
+							</td>
+						</tr>
+						<tr>
+							<td>200</td>
+							<td>
+								<strong>
+									답변완료
+								</strong>
+							</td>
+							<td>배송</td>
+							<td class="suggest-title">
+								<a href="">언제 보내주나요</a>
+							</td>
+							<td>
+								yes123
+							</td>
+							<td>
+								<strong>2023-06-30</strong>
+							</td>
+						</tr>
+						<tr>
+							<td>200</td>
+							<td>
+								<strong>
+									답변완료
+								</strong>
+							</td>
+							<td>배송</td>
+							<td class="suggest-title">
+								<a href="">언제 보내주나요</a>
+							</td>
+							<td>
+								yes123
+							</td>
+							<td>
+								<strong>2023-06-30</strong>
+							</td>
+						</tr>
+						<tr>
+							<td>200</td>
+							<td>
+								<strong>
+									답변완료
+								</strong>
+							</td>
+							<td>배송</td>
+							<td class="suggest-title">
+								<a href="">언제 보내주나요</a>
+							</td>
+							<td>
+								yes123
+							</td>
+							<td>
+								<strong>2023-06-30</strong>
+							</td>
+						</tr>
+						<tr>
+							<td>200</td>
+							<td>
+								<strong>
+									답변완료
+								</strong>
+							</td>
+							<td>배송</td>
+							<td class="suggest-title">
 								<a href="">언제 보내주나요</a>
 							</td>
 							<td>
@@ -458,8 +657,14 @@
 						</tr>
 					</tbody>
 				</table>
+				
+			<div class="add-side">
+				<input type="button" class="btn add-btn" value="글쓰기" onclick="location.href='/dndn/inform/add.do';">
+			</div>
+				
 			</div>	
 			
+
 		
 		<div class="page-side">
 			<nav class="pagination-container">

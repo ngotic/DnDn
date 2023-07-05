@@ -333,7 +333,9 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>
 	<section class="container">
 		
-		<div class="side-container">
+		<%@ include file="/WEB-INF/views/inform/inform_sidebar.jsp" %>
+		
+		<!-- <div class="side-container">
 			<div class="inform-menu-box">
 				<h2 class="h2-bold ">고객센터</h2>
 				<ul class="inform-menu">
@@ -364,7 +366,7 @@
 					</dd>
 				</dl>
 			</div>
-		</div>
+		</div> -->
 		
 		<div class="mainbar">
 			
@@ -374,7 +376,7 @@
 			
 			<div class="notice-under">
 				<div class="add-side">
-					<input type="button" class="btn add-btn" value="글쓰기" onclick="location.href='/dndn/inform/add.do';">
+					<input type="button" class="btn add-btn" value="글쓰기" onclick="location.href='/dndn/inform/notice_add.do';">
 				</div>
 				
 				<div class="search-bar">
@@ -399,9 +401,24 @@
 						<th class="th-bold">작성자</th>
 						<th class="th-bold">조회수</th>
 					</tr>
+					
+					
+					<c:forEach items="${noticelist}" var="dto">
+					<tr>
+						<td>${dto.noticeseq}</td>
+						<td class="notice-title"><a href="/dndn/inform/view.do?noticeseq=${dto.noticeseq }">${dto.title} </a></td>
+						<td>${dto.regdate} </td>
+						<td>${dto.id} </td>
+						<td>${dto.views }</td>
+					</tr>
+					</c:forEach>
+					
+					
+					
+					<!-- 
 					<tr>
 						<td>1</td>
-						<td class="notice-title"><a href="#">포켓샐러드 새벽 배송 </a></td>
+						<td class="notice-title"><a href="/dndn/inform/view.do">포켓샐러드 새벽 배송 </a></td>
 						<td>2021.12.27</td>
 						<td>관리자</td>
 						<td>200</td>
@@ -483,7 +500,7 @@
 						<td>관리자</td>
 						<td>200</td>
 					</tr>
-				
+				 -->
 				</table>
 			</div>	
 			
