@@ -14,5 +14,7 @@ public interface ProductService {
 
 	int edit(ProductDTO dto);
 
+	int del(String lunchboxseq);
+
 
 }

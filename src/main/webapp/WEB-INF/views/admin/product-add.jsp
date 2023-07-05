@@ -86,6 +86,11 @@
 			float: left;
     		padding-right: 30px;
 		}
+		
+		
+		.product-menu {
+			font-size: 1.4rem;
+		}
 
 
 	</style>
@@ -113,19 +118,19 @@
 					
 					<div class="col-sm-12 col-xl-6">
                         <div class="add-box rounded h-100 p-4">
-                        <h6 class="mb-4">상품 추가</h6>
+                        <h6 class="product-menu mb-4">상품 추가</h6>
                             
                         <div class="product-frame">
                         
-                            <div class="pic" style="margin-bottom: 40px;">
+                            <div class="pic" style="margin-bottom: 40px; width: 100%;">
 								
 							
                             <form method="POST" action="/dndn/admin/product-addok.do">
                             
-							    <img id="preview" src="" alt="" style="width:500px; margin-bottom: 10px;">
+							    <img id="preview" src="" alt="" style="margin-bottom: 10px; width: 500px;">
 							    <br>
-	                            <input class="form-control" name="pic" style="width: 500px;"
-	                            	   type="text" id="urlInput" placeholder="이미지 URL을 입력하세요.">
+	                            <input class="form-control" name="pic"
+	                            	   type="text" id="urlInput" placeholder="이미지 URL을 입력하세요." required>
                             </div>
                             
                            
@@ -134,20 +139,20 @@
 
                                 <div class="mb-3">
                                     <label class="form-label">이름</label>
-                                    <input class="form-control" name="name" style="width: 100%">
+                                    <input class="form-control" name="name" style="width: 100%" required>
                                 </div>
                                 
                                 <label class="form-label">분류</label>
-                                <select class="form-select mb-3" aria-label="Default select example" name="category">
+                                <select class="form-select mb-3" aria-label="Default select example" name="category" required>
 	                                <option selected></option>
 	                                <option value="일반식">일반식</option>
 	                                <option value="건강식">건강식</option>
-	                                <option value="프리미엄">프리미엄</option>
+	                                <option value="프리미엄식">프리미엄식</option>
                             	</select>
                             	
                             	<div>
                             		<label class="form-label">가격</label>
-                            		<input class="form-control" type="number" min="0" name="price">
+                            		<input class="form-control" type="number" min="0" name="price" required>
                             	</div>
                             	</div>
                             </div>

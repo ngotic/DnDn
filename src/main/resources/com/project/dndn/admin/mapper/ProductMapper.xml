@@ -27,8 +27,30 @@
 			category = #{category}, 
 			price = #{price}, 
 			pic = #{pic},
-			modidate = default
+			modidate = sysdate 
 		where lunchboxseq = #{lunchboxseq}
 	</update>
+	
+	
+	<delete id="del">
+		delete from tbllunchbox 
+			where lunchboxseq = #{lunchboxseq}
+	</delete>
 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

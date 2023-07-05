@@ -42,5 +42,23 @@ public class ProductServiceImpl implements ProductService {
 		
 		return mapper.edit(dto);
 	}
+	
+	//삭제하기
+	@Override
+	public int del(String lunchboxseq) {
+		
+		return mapper.del(lunchboxseq);
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+

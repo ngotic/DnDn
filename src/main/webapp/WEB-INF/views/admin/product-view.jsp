@@ -149,7 +149,8 @@
                             </div>
                             	
                             	<div class="button-frame">
-                            		<button type="button" class="edit-button btn">수정</button>
+                            		<button type="button" class="edit-button btn"
+                            				onclick="location.href='/dndn/admin/product-edit.do?lunchboxseq=${dto.lunchboxseq}';">수정</button>
                                     <button type="button" class="del-button btn">삭제</button>
                                 	<button type="button" class="list-button btn"
 	                                		onclick="location.href='/dndn/admin/product.do';">목록</button>

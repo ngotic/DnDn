@@ -37,6 +37,8 @@
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
     
     
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    
     
     <style>
 		
@@ -164,10 +166,52 @@
                                     		<td>${dto.price}</td>
                                     		<td>${dto.regdate}</td>
                                     		<td>${dto.modidate}</td>
+                                    		
+                                    		
+                                    		
+                                    		
                                     		<td>
-                                    			<button class="edit-button">수정</button>
-                                    			<button class="del-button">삭제</button>
+                                    		
+                                    			<button type="button" class="edit-button"
+                                    					onclick="location.href='/dndn/admin/product-edit.do?lunchboxseq=${dto.lunchboxseq}';">수정</button>
+
+
+
+                                    					
+                                    			<button type="button" class="del-button" data-toggle="modal" data-target="#exampleModal">삭제</button>
+
+	                                    		<!-- Modal -->
+	                                    		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" 
+	                                    			 aria-labelledby="exampleModalLabel" aria-hidden="true">
+	                                    			 
+												  <div class="modal-dialog" role="document">
+												    <div class="modal-content">
+												      <div class="modal-header">
+												        <h5 class="modal-title" id="exampleModalLabel">상품 삭제</h5>
+												        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												          <span aria-hidden="true">&times;</span>
+												        </button>
+												      </div>
+												      <div class="modal-body">
+												        상품을 삭제하시겠습니까?
+												      </div>
+												      <div class="modal-footer">
+												      	<button type="button" class="btn btn-primary" onclick="clickDel(boardInfo)">삭제</button>
+												       	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+												      </div>
+												    </div>
+												  </div>
+												  
+												</div>
+												
+												<form name="boardInfo">
+													<input type="hidden" name="lunchboxseq" value="${lunchboxseq}">
+												</form>
+
+												
                                     		</td>
+                                    		
+                                    		
                                     	</tr>
   									</c:forEach>
                                     </tbody>
@@ -212,6 +256,16 @@
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/datatables-simple-demo.js"></script>
     
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    
+    
+    <script>
+	    function clickDel(formName) {
+			formName.action = "/dndn/admin/product-del";
+			formName.method = "post";
+			formName.submit();
+		}
+    </script>
     
 </body>
 

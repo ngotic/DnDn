@@ -9,7 +9,7 @@
     <meta content="" name="description">
     
     <!--  -->
-    <%@ include file="/WEB-INF/views/include/asset.jsp" %>
+    
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="/dndn/resources/startbootstrap-sb-admin-gh-pages/css/styles.css" rel="stylesheet" />
 	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -36,6 +36,8 @@
 
     <!-- Template Stylesheet -->
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
+    
+    
 </head>
 
 
@@ -54,6 +56,10 @@
 			color: #3b3b3b;
 		}
 		
+		.pic-button {
+			position: absolute;
+			margin-top: 20px;
+		}				
 		
 		
 		.add-box {
@@ -75,6 +81,17 @@
 			display: flex;
     		align-items: center;
 		}
+		
+		.pic {
+			float: left;
+    		padding-right: 30px;
+		}
+		
+		
+		.product-menu {
+			font-size: 1.4rem;
+		}
+
 
 	</style>
 
@@ -95,45 +112,58 @@
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
 			
 			
-			<section class="container" style="margin-top: 100px;">
+			<section class="container" style="margin-top: 50px;">
 				
 				<div style="display: flex; justify-content: center;">
 					
 					<div class="col-sm-12 col-xl-6">
                         <div class="add-box rounded h-100 p-4">
-                            <h6 class="mb-4">상품 추가</h6>
+                        <h6 class="product-menu mb-4">상품 수정</h6>
                             
-         
+                        <div class="product-frame">
+                        
+                            <div class="pic" style="margin-bottom: 40px; width: 100%;">
+								
+							
                             <form method="POST" action="/dndn/admin/product-editok.do">
+                            
+							    <img id="preview" src="${dto.pic}" alt="" style="margin-bottom: 10px; width: 500px;">
+							    <br>
+	                            <input class="form-control" name="pic"
+	                            	   type="text" id="urlInput" placeholder="이미지 URL을 입력하세요." required
+	                            	   value="${dto.pic}">
+                            </div>
+                            
+                           
                             	
-                                <div class="mb-3">
-                                	<!-- <div style="text-align: center;">
-                                		<img alt="" src="" style="width: 250px;">
-                                	</div> -->
-                                    <label class="form-label">이미지 URL</label>
-                                    <input class="form-control" name="pic" required>
-                                </div>
-                                
+                            <div  style="width: 100%;">
+
                                 <div class="mb-3">
                                     <label class="form-label">이름</label>
-                                    <input class="form-control" name="name" required>
+                                    <input class="form-control" name="name" style="width: 100%" required
+                                    	   value="${dto.name}">
                                 </div>
                                 
                                 <label class="form-label">분류</label>
-                                <select class="form-select mb-3" aria-label="Default select example" name="category" required>
-	                                <option selected></option>
-	                                <option value="일반식">일반식</option>
-	                                <option value="건강식">건강식</option>
-	                                <option value="프리미엄">프리미엄</option>
+                                <select class="form-select mb-3" aria-label="Default select example" aria-hidden="true"
+                                		name="category" required>
+	                                <option value=""></option>
+	                                <option value="일반식" ${dto.category.equals("일반식") ? "selected" : ""}>일반식</option>
+	                                <option value="건강식" ${dto.category.equals("건강식") ? "selected" : ""}>건강식</option>
+	                                <option value="프리미엄식" ${dto.category.equals("프리미엄식") ? "selected" : ""}>프리미엄식</option>
                             	</select>
                             	
                             	<div>
                             		<label class="form-label">가격</label>
-                            		<input class="form-control" type="number" min="0" name="price" required>
+                            		<input class="form-control" type="number" min="0" 
+                            			   name="price" required value="${dto.price}">
                             	</div>
+                            	</div>
+                            </div>
                             	
+                            	<!-- 버튼 -->
                             	<div class="button-frame">
-                                	<button type="submit" class="add-button btn btn-primary">추가</button>
+                                	<button type="submit" class="edit-button btn btn-primary">수정</button>
 	                                <button type="button" class="list-button btn"
 	                                		onclick="location.href='/dndn/admin/product.do';">목록</button>
                                 </div>
@@ -144,6 +174,9 @@
 	
                                 
                             </form>
+                            
+                            <button class="pic-button btn btn-primary" onclick="previewImage()">이미지 미리보기</button>
+                            
                         </div>
                     </div>
 	
@@ -181,7 +214,17 @@
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/datatables-simple-demo.js"></script>
     
     
-
+    <script>
+		function previewImage() {
+		    var urlInput = document.getElementById('urlInput');
+		    var preview = document.getElementById('preview');
+		    
+		    var imageUrl = urlInput.value;
+		    preview.src = imageUrl;
+		  }
+	</script>
+    
+    
 </body>
 
 </html>

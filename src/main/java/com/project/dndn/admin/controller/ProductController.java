@@ -21,6 +21,12 @@ public class ProductController {
 
 		return "admin/admin-main";
 	}
+	
+	@GetMapping("/admin/test.do")
+	public String test(Model model) {
+
+		return "admin/test";
+	}
 
 	@GetMapping("/admin/product.do")
 	public String list(Model model) {
@@ -59,7 +65,7 @@ public class ProductController {
 
 	}
 
-	@PreAuthorize("isAuthenticated() and principal.username == #id")
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/admin/product-edit.do")
 	public String edit(Model model, String lunchboxseq, String id) {
 
@@ -74,9 +80,48 @@ public class ProductController {
 	@PostMapping("/admin/product-editok.do")
 	public String editok(ProductDTO dto) {
 
-		int reult = productService.edit(dto);
+		int result = productService.edit(dto);
 
 		return "redirect:/admin/product-view.do?lunchboxseq=" + dto.getLunchboxseq();
 	}
+	
+	
+	
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/admin/product-del.do")
+	public String del(Model model, String lunchboxseq) {
+		
+		model.addAttribute("lunchboxseq", lunchboxseq);
+		
+		return "admin/product-del";
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/admin/product-delok.do")
+	public String delok(String lunchboxseq) {
+		
+		int result = productService.del(lunchboxseq);
+		
+		return "redirect:/admin/product.do";
+	}
+	
+	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
