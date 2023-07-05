@@ -3,6 +3,7 @@ package com.project.dndn.auth.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -54,7 +55,8 @@ public class MemberController {
 	
 	
 	@PostMapping("/auth/registerok.do")
-	public String registerok(Model model, MemberDTO dto) {
+	@ResponseBody
+	public void registerok(Model model, @RequestBody MemberDTO dto) {
 		
 		dto.setPw(encoder.encode(dto.getPw()));
 		int result = mapper.register(dto);
@@ -63,13 +65,8 @@ public class MemberController {
 		adto.setId(dto.getId());
 		adto.setAuth("ROLE_MEMBER");
 		mapper.registerAuth(adto);
-		 // JavaScript를 사용하여 alert 창 띄우기
-	    String script = "<script>alert('완료');</script>";
-	    model.addAttribute("script", script);
-		
-		return "redirect:/auth/login.do";
-		
 	}
+	
 	@GetMapping("/auth/findidpw.do")
 	public String findidpw() {
 		return "auth/findidpw";
@@ -105,7 +102,7 @@ public class MemberController {
 		}
 		
 		else {
-			return  enabled;
+			return  "result";
 		}
 	}
 	@PostMapping(value="/updatepw" ,produces = "application/json; charset=utf-8")
@@ -168,10 +165,16 @@ public class MemberController {
 	//회원탈퇴
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value="/delacc")
-	public String delacc(MemberDTO dto) {
+	public String delacc(@RequestBody MemberDTO dto) {
 		System.out.println(dto.toString());
+		Random r = new Random();
+		int randompw = r.nextInt(888888) + 111111;
+		String randompwString = String.valueOf(randompw);
 		
+		dto.setPw(encoder.encode(randompwString));
+		System.out.println("권한삭제");
 		mapper.delaccAuth(dto);
+		System.out.println("계정 정보 삭제");
 		mapper.delacc(dto);
 		
 		return "redirect:/auth/logout.do";
