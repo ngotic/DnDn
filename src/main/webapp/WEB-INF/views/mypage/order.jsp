@@ -8,7 +8,7 @@
 <%@ include file="/WEB-INF/views/include/asset.jsp"%>
 <style>
 .container {
-	background-color: #EDEDEF !important;
+	background-color: #F7F7F7 !important;
 }
 
 #card {
@@ -37,8 +37,7 @@
 button {
 	width: 40%;
 	border: none;
-	color: black;
-	font-weight: bold;
+	
 	background-color: #F9F9D4;
 }
 
@@ -66,9 +65,9 @@ button {
 				<div id="cimg">
 					<img alt="" src="/dndn/resources/img/mypage/cart.png">
 				</div>
-				<div>날짜: ${orderseq }</div>
-				<div>제목: ${Lunchname }</div>
-				<div>가격: ${Integer.parseInt(sale)*Integer.parseInt(price)*Integer.parseInt(cnt) }</div>
+				<div>날짜: ${dto.orderseq }</div>
+				<div>제목: ${dto.Lunchname }</div>
+				<div>가격: ${dto.Integer.parseInt(sale)*Integer.parseInt(price)*Integer.parseInt(cnt) }</div>
 				<div id="btn">
 					<div class="accordion">
   <div class="accordion-item">

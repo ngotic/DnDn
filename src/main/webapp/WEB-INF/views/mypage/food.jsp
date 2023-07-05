@@ -57,7 +57,10 @@
 			<h1>식단 관리</h1>
 			<div id="contentbox">
 				<div id="cal">
+				<%-- <c:forEach items="" var="dto"> --%>
+					<%-- <c:if test="${dto.shipdate!=null && dto.shipdate ==data-date}"> --%>
 					<div id='calendar'></div>
+				<%-- </c:forEach> --%>
 				</div>
 				<div id="caldetail">
 					<div id="morning">아침</div>
@@ -75,14 +78,26 @@
 		</section>
 	</div>
 	<script>
+
 	
 		document.addEventListener('DOMContentLoaded', function() {
 			var calendarEl = document.getElementById('calendar');
 			var calendar = new FullCalendar.Calendar(calendarEl, {
-				initialView : 'dayGridMonth'
-			});
+				initialView : 'dayGridMonth',
+					 events: [
+				          {
+				            title: '♣',
+				            start: '2023-07-01',
+				            end: '2023-07-01',
+				            backgroundColor: 'white',
+			            	borderColor: 'white'
+				          } 
+				          ],
+				            
+		      });
 			calendar.render();
-		});
+			
+			});
 	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

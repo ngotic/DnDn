@@ -3,19 +3,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="_csrf_header" content="${_csrf.headerName}">
+<meta name="_csrf" content="${_csrf.token}">
 <meta charset="UTF-8">
 <title>dndn</title>
 <%@ include file="/WEB-INF/views/include/asset.jsp"%>
 <style>
 .container {
-	background-color: #EDEDEF !important;
-	margin-
+	background-color: #F7F7F7 !important;
 }
 
 #cardbox {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-	margin: 20px;
+	margin-bottom: 10px;
 }
 
 #card {
@@ -37,11 +38,24 @@
 	padding: 10px 10px 0px 10px;
 }
 
-#cimg >div{
+#cimg>div {
 	text-align: right;
 }
-#heart{
+
+#fimg {
+	width: 200px;
+}
+
+#heart {
 	
+}
+.name{
+	font-weight: bold;
+	font-size: 1.3rem;
+}
+.day{
+	font-size: 0.8rem;
+	color: gray !important;
 }
 </style>
 </head>
@@ -51,17 +65,20 @@
 		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
 		<section class="container">
 			<h1>찜</h1>
-			<div id="cardbox">
-				<div id="card">
-					<div id="cimg">
-						<img alt="" src="/dndn/resources/img/mypage/cart.png">
-						<div id="heart"><img src="/dndn/resources/img/mypage/heart.png"></div>
+				<div id="cardbox">
+			<c:forEach items="${wlist }" var="dto">
+					<div id="card">
+						<div id="cimg">
+							<img id="fimg" src="${dto.lunchpic }">
+							<div id="heart">
+								<img src="/dndn/resources/img/mypage/heart.png" id="himg" onclick="hate('${dto.wishlistseq}')">
+							</div>
+						</div>
+						<div class="name">${dto.lunchname }</div>
+						<div class="day">${dto.regdate.substring(0,10) }</div>
 					</div>
-					
-					<div>샐러드명</div>
-					<div>찜한 날짜</div>
+			</c:forEach>
 				</div>
-			</div>
 		</section>
 	</div>
 	<script
@@ -69,7 +86,32 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
-		
+	
+	var header = $("meta[name='_csrf_header']").attr('content');
+	var token = $("meta[name='_csrf']").attr('content');
+	
+		function hate(wishlistseq){
+			alert(wishlistseq);
+			
+			$.ajax({
+				url: '/dndn/mypage/fav/'+wishlistseq,
+				type : 'post',
+	            contentType : 'application/json; charset=utf-8',
+	            dataType : 'json',
+	            
+	            data : JSON.stringify(wishlistseq),
+	            beforeSend: function(xhr){
+	                xhr.setRequestHeader(header, token);
+	            },
+	            success : function (result) {
+	                console.log(result);
+	                $('#himg').attr("src","/dndn/resources/img/mypage/blackheart.png")
+	            },
+	            error: function(a,b,c){
+					console.log(a,b,c); 
+				}
+			})
+		};
 	</script>
 </body>
 </html>

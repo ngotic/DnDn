@@ -65,8 +65,13 @@ html, body {
 	display: flex
     align-items: center
 	font-size: 23px;
-	font-weight: bold;
-	color: black;
+	font-weight: bold !important;
+}
+
+#side-content >button,
+#side-content >form>button{
+	font-weight: bold !important;
+	color: #888 !important;
 }
 
 #side-content>div:first-child {

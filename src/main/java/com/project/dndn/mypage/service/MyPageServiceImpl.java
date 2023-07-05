@@ -36,4 +36,10 @@ public class MyPageServiceImpl implements MyPageService {
 
 		myMapper.add(dto);
 	}
+
+	@Override
+	public List<MyPageDTO> wlist(String id) {
+		
+		return myMapper.wlist(id);
+	}
 }

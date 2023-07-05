@@ -14,4 +14,6 @@ public interface MyPageService {
 
 	void add(MyPageDTO dto);
 
+	List<MyPageDTO> wlist(String id);
+
 }

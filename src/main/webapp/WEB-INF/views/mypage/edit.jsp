@@ -91,8 +91,7 @@ input,
 				</div>
 				<div class="input-group mb-3">
 					<input type="text" id="sample4_roadAddress" value="${user.address }" name="address"
-						class="form-control"> <input type="text"
-						id="sample4_jibunAddress" placeholder="지번주소" class="form-control">
+						class="form-control">
 				</div>
 				
 				
