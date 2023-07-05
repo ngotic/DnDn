@@ -130,13 +130,56 @@
 				<div class="invalid-feedback">휴대폰 번호를 확인해주세요</div>
 			</div>
 			
-			<button class="btn btn-dark mt-3" type="submit">가입하기</button>
+			<button class="btn btn-dark mt-3" type="submit" id="submitregister">가입하기</button>
 			<input type="hidden" name="${_csrf.parameterName }" value= "${_csrf.token}"> 
 		</form>
 	</div>
 	
 	</sec:authorize>
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 <script>
+
+$("#signupForm").submit(function(event) {
+    event.preventDefault();
+    
+    // Create an empty JavaScript object
+    var formData = {};
+    
+    // Assign form field values to the corresponding properties
+    formData.id = $("#id").val();
+    formData.pw = $("#pw").val();
+    formData.name = $("#name").val();
+    formData.tel = $("#tel").val();
+    formData.email = $("#email").val();
+    formData.birth = $("#birth").val();
+    formData.gender = $("input[name='Gender']:checked").val();
+    formData.address = $("#sample4_roadAddress").val();
+    formData.addressdetail = $("#sample4_detailAddress").val();
+
+    // Convert the JavaScript object to JSON format
+    var jsonData = JSON.stringify(formData);
+
+    // Perform Ajax request with the JSON data
+    $.ajax({
+        type: "POST",
+        url: "/dndn/auth/registerok.do",
+        data: jsonData,
+        contentType: "application/json",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}'); // CSRF 토큰 헤더에 추가
+        },
+        success: function(response) {
+        	new Swal('가입', '가입되었습니다.','success').then(function() {
+        	    location.href='/dndn/auth/login.do';
+        	    
+        	});
+        },
+        error: function(xhr, status, error) {
+        	new Swal('가입 실패', 'error');
+        }
+    });
+});
+
 //허용하고 싶은 특수문자가 있다면 여기서 삭제하면 됨
 var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
 function characterCheck(obj) {

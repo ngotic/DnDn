@@ -55,7 +55,8 @@ public class MemberController {
 	
 	
 	@PostMapping("/auth/registerok.do")
-	public String registerok(Model model, MemberDTO dto) {
+	@ResponseBody
+	public void registerok(Model model, @RequestBody MemberDTO dto) {
 		
 		dto.setPw(encoder.encode(dto.getPw()));
 		int result = mapper.register(dto);
@@ -64,13 +65,8 @@ public class MemberController {
 		adto.setId(dto.getId());
 		adto.setAuth("ROLE_MEMBER");
 		mapper.registerAuth(adto);
-		 // JavaScript를 사용하여 alert 창 띄우기
-	    String script = "<script>alert('완료');</script>";
-	    model.addAttribute("script", script);
-		
-		return "redirect:/auth/login.do";
-		
 	}
+	
 	@GetMapping("/auth/findidpw.do")
 	public String findidpw() {
 		return "auth/findidpw";
@@ -106,7 +102,7 @@ public class MemberController {
 		}
 		
 		else {
-			return  enabled;
+			return  "result";
 		}
 	}
 	@PostMapping(value="/updatepw" ,produces = "application/json; charset=utf-8")
