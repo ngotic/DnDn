@@ -111,9 +111,9 @@ public class MyPageController {
 	}
 	
 	@PreAuthorize("isAuthenticated()")
-	@PostMapping("/mypage/fav/{wishlistseq}")
+	@PostMapping("/mypage/fav/{wishlistseq}/{wishsellboardseq}/{num}")
 	@ResponseBody
-   	public int favok(@PathVariable("wishlistseq") String wishlistseq, Model model, Authentication a) {
+   	public int favok(@PathVariable("wishlistseq") String wishlistseq, Model model, Authentication a, @PathVariable("num") String num, @PathVariable("wishsellboardseq") String wishsellboardseq) {
 
 		System.out.println("wlist");
 		
@@ -123,8 +123,10 @@ public class MyPageController {
 		
 		map.put("id", id);
 		map.put("wishlistseq", wishlistseq);
+		map.put("wishsellboardseq", wishsellboardseq);
+		map.put("num", num);
 		
-		return myMapper.wdlist(map);
+		return myService.wdlist(map);
 	}
 
 	@PreAuthorize("isAuthenticated()")

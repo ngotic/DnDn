@@ -27,7 +27,6 @@
                <button type="submit" id="memberout">회원탈퇴</button>
 	            <input type="hidden" name="id" id="id" value='<sec:authentication property="principal.username"/>'>
 	         <script>
-	         console.log($('#id').val());
 	         $('#memberout').click(function(){
 	        	 var postData = {'id':$('#id').val(), '${_csrf.parameterName}': '${_csrf.token}' };
 	        	

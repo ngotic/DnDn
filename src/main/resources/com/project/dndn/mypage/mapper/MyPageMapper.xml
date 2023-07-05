@@ -82,6 +82,9 @@ select
 	<delete id="wdlist">
 		delete from tblWishList where wishlistseq = #{wishlistseq} and id=#{id}
 	</delete>
+	<insert id="wIlist">
+	insert into tblWishList values(wishlistseq.nextVal, #{id}, #{wishsellboardseq}, sysdate)
+	</insert>
 
 	<select id="">
 		select

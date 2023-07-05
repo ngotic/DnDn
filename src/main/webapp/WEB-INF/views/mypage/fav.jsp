@@ -71,7 +71,7 @@
 						<div id="cimg">
 							<img id="fimg" src="${dto.lunchpic }">
 							<div id="heart">
-								<img src="/dndn/resources/img/mypage/heart.png" id="himg" onclick="hate('${dto.wishlistseq}')">
+								<img src="/dndn/resources/img/mypage/heart.png" id="himg" onclick="hate(this,'${dto.wishlistseq}','${dto.sellboardseq }');">
 							</div>
 						</div>
 						<div class="name">${dto.lunchname }</div>
@@ -89,29 +89,66 @@
 	
 	var header = $("meta[name='_csrf_header']").attr('content');
 	var token = $("meta[name='_csrf']").attr('content');
+	var num = '0';
 	
-		function hate(wishlistseq){
-			alert(wishlistseq);
+		function hate(element,wishlistseq,wishsellboardseq){
 			
+
+			if($(element).attr("src")=='/dndn/resources/img/mypage/heart.png'){
+				num='1';
+			console.log(num);
+				$.ajax({
+					url: '/dndn/mypage/fav/'+wishlistseq+'/'+wishsellboardseq+'/'+num,
+					type : 'post',
+		            contentType : 'application/json; charset=utf-8',
+		            dataType : 'json',
+		            
+		            data : JSON.stringify({
+		            		'wishlistseq': wishlistseq,
+		            		'wishsellboardseq': wishsellboardseq
+		            		}),
+		            beforeSend: function(xhr){
+		                xhr.setRequestHeader(header, token);
+		            },
+		            success : function (result) {
+		                console.log('hi');
+		                $(element).attr("src","/dndn/resources/img/mypage/blackheart.png")
+		            },
+		            error: function(a,b,c){
+						console.log(a,b,c); 
+					}
+				})
+			}else{
+			num='0';
+			console.log(num);
 			$.ajax({
-				url: '/dndn/mypage/fav/'+wishlistseq,
+				url: '/dndn/mypage/fav/'+wishlistseq+'/'+wishsellboardseq+'/'+num,
 				type : 'post',
 	            contentType : 'application/json; charset=utf-8',
 	            dataType : 'json',
 	            
-	            data : JSON.stringify(wishlistseq),
+	            data : JSON.stringify({
+            		'wishlistseq': wishlistseq,
+            		'wishsellboardseq': wishsellboardseq
+            		}),
 	            beforeSend: function(xhr){
 	                xhr.setRequestHeader(header, token);
 	            },
 	            success : function (result) {
 	                console.log(result);
-	                $('#himg').attr("src","/dndn/resources/img/mypage/blackheart.png")
+	                $(element).attr("src","/dndn/resources/img/mypage/heart.png")
 	            },
 	            error: function(a,b,c){
 					console.log(a,b,c); 
 				}
 			})
+				
+			}
+			
 		};
+		
+		
+		
 	</script>
 </body>
 </html>

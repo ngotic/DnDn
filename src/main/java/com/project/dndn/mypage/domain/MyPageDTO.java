@@ -54,7 +54,6 @@ public class MyPageDTO {
 	//찜 정보
 	private String wishlistseq;
 	private String wishid;
-	private String wishsellboardseq;
 	private String wishregdate;
 	
 }
