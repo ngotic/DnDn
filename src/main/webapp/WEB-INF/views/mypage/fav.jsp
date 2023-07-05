@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,112 +10,148 @@
 <%@ include file="/WEB-INF/views/include/asset.jsp"%>
 <style>
 .container {
-	background-color: #F7F7F7 !important;
+   background-color: #F7F7F7 !important;
 }
 
 #cardbox {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	margin-bottom: 10px;
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr 1fr;
+   margin-bottom: 10px;
 }
 
 #card {
-	text-align: center;
-	border-radius: 10px;
-	margin: 10px;
-	padding: 10px;
-	background-color: #F9F9D4;
-	cursor: pointer;
+   text-align: center;
+   border-radius: 10px;
+   margin: 10px;
+   padding: 10px;
+   background-color: #F9F9D4;
+   cursor: pointer;
 }
 
 #card>div {
-	color: black;
-	font-weight: bold;
-	margin: 5px 5px 0px 5px;
+   color: black;
+   font-weight: bold;
+   margin: 5px 5px 0px 5px;
 }
 
 #cimg {
-	padding: 10px 10px 0px 10px;
+   padding: 10px 10px 0px 10px;
 }
 
 #cimg>div {
-	text-align: right;
+   text-align: right;
 }
 
 #fimg {
-	width: 200px;
+   width: 200px;
 }
 
 #heart {
-	
+   
 }
 .name{
-	font-weight: bold;
-	font-size: 1.3rem;
+   font-weight: bold;
+   font-size: 1.3rem;
 }
 .day{
-	font-size: 0.8rem;
-	color: gray !important;
+   font-size: 0.8rem;
+   color: gray !important;
 }
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-	<div id="box">
-		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
-		<section class="container">
-			<h1>찜</h1>
-				<div id="cardbox">
-			<c:forEach items="${wlist }" var="dto">
-					<div id="card">
-						<div id="cimg">
-							<img id="fimg" src="${dto.lunchpic }">
-							<div id="heart">
-								<img src="/dndn/resources/img/mypage/heart.png" id="himg" onclick="hate('${dto.wishlistseq}')">
-							</div>
-						</div>
-						<div class="name">${dto.lunchname }</div>
-						<div class="day">${dto.regdate.substring(0,10) }</div>
-					</div>
-			</c:forEach>
-				</div>
-		</section>
-	</div>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script>
-	
-	var header = $("meta[name='_csrf_header']").attr('content');
-	var token = $("meta[name='_csrf']").attr('content');
-	
-		function hate(wishlistseq){
-			alert(wishlistseq);
-			
-			$.ajax({
-				url: '/dndn/mypage/fav/'+wishlistseq,
-				type : 'post',
-	            contentType : 'application/json; charset=utf-8',
-	            dataType : 'json',
-	            
-	            data : JSON.stringify(wishlistseq),
-	            beforeSend: function(xhr){
-	                xhr.setRequestHeader(header, token);
-	            },
-	            success : function (result) {
-	                console.log(result);
-	                $('#himg').attr("src","/dndn/resources/img/mypage/blackheart.png")
-	            },
-	            error: function(a,b,c){
-					console.log(a,b,c); 
-				}
-			})
-		};
-	</script>
+   <%@ include file="/WEB-INF/views/include/header.jsp"%>
+   <div id="box">
+      <%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
+      <section class="container">
+         <h1>찜</h1>
+            <div id="cardbox">
+         <c:forEach items="${wlist }" var="dto">
+               <div id="card">
+                  <div id="cimg">
+                     <img id="fimg" src="${dto.lunchpic }">
+                     <div id="heart">
+                        <img src="/dndn/resources/img/mypage/heart.png" id="himg" onclick="hate('${dto.wishlistseq}','${dto.sellboardseq }')">
+                     </div>
+                  </div>
+                  <div class="name">${dto.lunchname }</div>
+                  <div class="day">${dto.regdate.substring(0,10) }</div>
+               </div>
+         </c:forEach>
+            </div>
+      </section>
+   </div>
+   <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+   <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+   <script>
+   
+   var header = $("meta[name='_csrf_header']").attr('content');
+   var token = $("meta[name='_csrf']").attr('content');
+   var num = '0';
+   
+      function hate(wishlistseq,wishsellboardseq){
+         
+
+         if($(event.target).attr("src")=='/dndn/resources/img/mypage/heart.png'){
+            num='1';
+         console.log(num);
+            $.ajax({
+               url: '/dndn/mypage/fav/'+wishlistseq+'/'+wishsellboardseq+'/'+num,
+               type : 'post',
+                  contentType : 'application/json; charset=utf-8',
+                  dataType : 'json',
+                  
+                  data : JSON.stringify({
+                        'wishlistseq': wishlistseq,
+                        'wishsellboardseq': wishsellboardseq
+                        }),
+                  beforeSend: function(xhr){
+                      xhr.setRequestHeader(header, token);
+                  },
+                  success : function (result) {
+                      console.log('hi');
+                      $(event.target).attr("src","/dndn/resources/img/mypage/blackheart.png")
+                  },
+                  error: function(a,b,c){
+                  console.log(a,b,c); 
+               }
+            })
+         }else{
+         num='0';
+         console.log(num);
+         $.ajax({
+            url: '/dndn/mypage/fav/'+wishlistseq+'/'+wishsellboardseq+'/'+num,
+            type : 'post',
+               contentType : 'application/json; charset=utf-8',
+               dataType : 'json',
+               
+               data : JSON.stringify({
+                  'wishlistseq': wishlistseq,
+                  'wishsellboardseq': wishsellboardseq
+                  }),
+               beforeSend: function(xhr){
+                   xhr.setRequestHeader(header, token);
+               },
+               success : function (result) {
+                   console.log(result);
+                   $(event.target).attr("src","/dndn/resources/img/mypage/heart.png")
+               },
+               error: function(a,b,c){
+               console.log(a,b,c); 
+            }
+         })
+            
+         }
+         
+      };
+      
+      
+      
+   </script>
 </body>
 </html>
-
 
 
 
