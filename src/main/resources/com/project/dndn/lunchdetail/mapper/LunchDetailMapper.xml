@@ -51,4 +51,28 @@
             </foreach>
     </delete>
 
+<!--    <select id="orderCart" resultType="com.project.dndn.lunchdetail.domain.CartDTO">-->
+<!--        select c.*, (select name from tblStore where storeseq=c.storeseq) as storename, (select pic from tblSellBoard where sellboardseq = c.sellboardseq) as pic, (select content from tblSellBoard where sellboardseq = c.sellboardseq) as content, (select sale from tblSellBoard where sellboardseq = c.sellboardseq) as sale, (select price from v_sellboard where sellboardseq = c.sellboardseq) as price  from tblCart c where status = 'F' and id = #{id} and cartseq =#{cartseq}-->
+<!--    </select>-->
+
+    <select id="maxCartseq" resultType="String">
+        select max(cartseq) from tblCart where id=#{id}
+    </select>
+
+    <!-- 주문하기 페이지에 올라가는 장바구니 쿼리 -->
+    <select id="orderCartList" resultType="com.project.dndn.lunchdetail.domain.CartDTO">
+        select c.*, (select name from tblStore where storeseq=c.storeseq) as storename, (select pic from tblSellBoard where sellboardseq = c.sellboardseq) as pic, (select content from tblSellBoard where sellboardseq = c.sellboardseq) as content, (select sale from tblSellBoard where sellboardseq = c.sellboardseq) as sale, (select price from v_sellboard where sellboardseq = c.sellboardseq) as price  from tblCart c where status = 'F' and id = #{id} and cartseq IN
+        <foreach collection="list" item="cartseq" open="(" close=")" separator="," >
+            #{cartseq}
+        </foreach>
+    </select>
+
+    <select id="getUserCouponList" resultType="com.project.dndn.lunchdetail.domain.CouponDTO">
+        select couponmemberseq, id, couponseq, getdate, isuse,
+               (select name from tblCoupon where couponseq=cm.couponseq) as name,
+               (select sale from tblCoupon where couponseq=cm.couponseq) as sale,
+               (select period from tblCoupon where couponseq=cm.couponseq) as period
+        from tblCouponMember cm where id=#{id} and isuse='F'
+    </select>
+
 </mapper>

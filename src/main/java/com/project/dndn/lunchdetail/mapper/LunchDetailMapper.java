@@ -1,9 +1,6 @@
 package com.project.dndn.lunchdetail.mapper;
 
-import com.project.dndn.lunchdetail.domain.CartDTO;
-import com.project.dndn.lunchdetail.domain.LunchBoxDTO;
-import com.project.dndn.lunchdetail.domain.StoreLocationDTO;
-import com.project.dndn.lunchdetail.domain.AddCartDTO;
+import com.project.dndn.lunchdetail.domain.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -20,4 +17,12 @@ public interface LunchDetailMapper {
 
     List<CartDTO> listCart(String id);
     int delCart(List<String> cartseqList);
+
+    // 바로주문인경우 
+    List<CartDTO> orderCartList(@Param("id") String id, @Param("list") List<String> cartseqList); // 주문페이지로 선택된 장바구니를 가져올 때 쓴다.
+
+    // 장바구니에서 한번에 여러개 주문인 경우
+    String maxCartseq(String id);
+
+    List<CouponDTO> getUserCouponList(String id);
 }

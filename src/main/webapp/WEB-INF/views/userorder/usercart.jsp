@@ -169,9 +169,8 @@
       <li>오늘출발 상품은 판매자 설정 시점에 따라 오늘출발 여부가 변경될 수 있으니 주문 시 꼭 다시 확인해 주시기 바랍니다.</li>
     </ul>
   </div>
-
+  <form method="POST" action="/dndn/userorder/userorder.do">
   <table class="cart__list">
-    <form>
       <thead>
       <tr>
         <td>
@@ -191,7 +190,8 @@
       <c:forEach items="${list}" var="cdto">
       <tr class="cart__list__detail">
         <td>
-          <c:if test="${right eq 'false'}"><input class="ckbox" type="checkbox"></c:if><input type="hidden" value="${cdto.cartseq}">
+          <c:if test="${right eq 'false'}"><input class="ckbox" type="checkbox" name="cartseq" value="${cdto.cartseq}"></c:if>
+          <c:if test="${right eq 'true'}"><input type="hidden" name="cartseq" value="${cartseq}"></c:if>
         </td>
         <td><img src="${cdto.pic}"  width="80"></td>
         <td>
@@ -201,7 +201,6 @@
           <c:if test="${cdto.periodshipseq ne null}">
             <a href="#" class="content"><span>${cdto.content}</span><br></a>
           </c:if>
-
         </td>
         <td>
           <span class="price"><fmt:formatNumber value="${cdto.price * (1-(cdto.sale/100))}" pattern="#,###"></fmt:formatNumber>원</span><br>
@@ -232,18 +231,20 @@
           <c:if test="${right eq 'false'}">
             <button type="button" id="delbtn" class="cart__list__optionbtn" style="margin-left: 20px;">선택상품 삭제</button>
           </c:if>
-
         </td>
         <td></td>
         <td colspan="5" style="text-align: right;"><h6>총 주문금액 : <span id="total_price">0원</span></h6></td>
       </tr>
       </tfoot>
-    </form>
+
   </table>
   <div class="cart__mainbtns">
-    <button class="cart__bigorderbtn left" onclick="location.href='/dndn/main.do';">쇼핑 계속하기</button>
-    <button class="cart__bigorderbtn right" onclick="location.href='/dndn/userorder/userorder.do';">주문하기</button>
+    <button type="button" class="cart__bigorderbtn left" onclick="location.href='/dndn/main.do';">쇼핑 계속하기</button>
+    <button id="order" type="submit" class="cart__bigorderbtn right">주문하기</button>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
   </div>
+  </form>
+
 </section>
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
@@ -266,6 +267,10 @@ let sum=0;
 let count = $('.c_price').length;
 
 
+$('#order').click(function(){
+
+});
+
 
 $('#delbtn').click(function(){
 
@@ -279,7 +284,7 @@ $('#delbtn').click(function(){
 
   $('.ckbox').each(function (index, item) {
       if ( $(item).prop('checked') == true) {
-        cartseqList.push($(item).next().val());
+        cartseqList.push($(item).val());
       }
   });
 
@@ -327,8 +332,12 @@ $('#allCheck').click(function(){
       $(item).children().children().eq(0).prop('checked', false);
     });
   }
-
 });
+
+$('#allCheck').click();
+
+
+
 </script>
 </body>
 </html>

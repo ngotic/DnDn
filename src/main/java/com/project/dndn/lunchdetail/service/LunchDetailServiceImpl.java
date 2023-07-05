@@ -1,12 +1,9 @@
 package com.project.dndn.lunchdetail.service;
 
-import com.project.dndn.lunchdetail.domain.CartDTO;
-import com.project.dndn.lunchdetail.domain.StoreLocationDTO;
-import com.project.dndn.lunchdetail.domain.AddCartDTO;
+import com.project.dndn.lunchdetail.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.dndn.lunchdetail.domain.LunchBoxDTO;
 import com.project.dndn.lunchdetail.mapper.LunchDetailMapper;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,11 +39,7 @@ public class LunchDetailServiceImpl implements LunchDetailService {
     public int addOrDeleteWish(String id, String sellboardseq) {
         int sellboardseqInt = Integer.parseInt(sellboardseq);
 
-        System.out.println("여기는 서비스단"+sellboardseq+ id);
-
         int result = checkBoardWishList(id, sellboardseqInt);
-
-        System.out.println("리절트는 이겁니다. "+result);
 
         if(result > 0)
               mapper.deleteUserWishList(id, sellboardseqInt);
@@ -70,5 +63,21 @@ public class LunchDetailServiceImpl implements LunchDetailService {
     public int delCart(List<String> cartseqList) {
         return mapper.delCart(cartseqList);
     }
+
+    @Override
+    public String maxCartseq(String id) {
+        return mapper.maxCartseq(id);
+    }
+
+    @Override
+    public List<CartDTO> orderCartList(String id, List<String> cartseqList) {
+        return mapper.orderCartList(id, cartseqList);
+    }
+
+    @Override
+    public List<CouponDTO> getUserCouponList(String id) {
+        return mapper.getUserCouponList(id);
+    }
+
 
 }

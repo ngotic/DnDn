@@ -27,12 +27,11 @@ public class CartController {
     @Autowired
     private LunchDetailService service;
 
+    // 장바구니에 직접 추가한다.
     @PreAuthorize("isAuthenticated()") // 막아준다.
     @PostMapping("/addCart")
     public ResponseEntity<String> addCart(@RequestBody AddCartDTO cartDTO, Principal principal){
         try {
-            System.out.println("출력");
-            System.out.println(cartDTO);
             cartDTO.setId(principal.getName());
             int result = service.addCart(cartDTO);
             if(result !=1){
@@ -49,8 +48,6 @@ public class CartController {
     @DeleteMapping ("/delCart")
     public ResponseEntity<String> delCart(@RequestBody List<String> cartseqList, Principal principal){
         try {
-            System.out.println("출력 >> ");
-            System.out.println(cartseqList);
             int result = service.delCart(cartseqList);
             if(result ==0){
                 throw new Exception("delCart failed");

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -743,10 +744,17 @@
             font-size: 22px;
         }
         .btnType4xl:hover{
-
             color: #EE8035;
             background-color: #fff;
             border: 2px solid #EE8035;
+        }
+
+        #totPurPrcBtnTxt{
+            color:white;
+        }
+
+        .btnType4xl:hover #totPurPrcBtnTxt{
+            color: #EE8035;
         }
 
         [class*="btnType4"] {
@@ -880,6 +888,10 @@
             background-color: #777777;
             border: 1px solid #777777;
         }
+        .cartList ul {
+            padding-left:0px;
+        }
+
     </style>
 </head>
 <body>
@@ -913,7 +925,7 @@
                                 <th scope="row"><span class="required" aria-required="true">필수입력</span> 주문자</th>
                                 <td>
                                     <div class="row">
-                                        <input type="text" required name="ordNmTxt" id="ordNmTxt" maxlength="10" class="form-control altPosition mb-2" title="이름입력" style=" text-align: center;" value="<sec:authentication property="principal.member.name"/>" readonly>
+                                        <input type="text" id="name" required name="name" maxlength="10" class="form-control mb-2" title="이름입력" style=" text-align: center;" value="<sec:authentication property="principal.member.name"/>" readonly>
                                     </div>
                                 </td>
                             </tr>
@@ -922,7 +934,7 @@
                                 <th scope="row"><span  class="required" aria-required="true">필수입력</span> 연락처</th>
                                 <td>
                                     <div class="row" style="text-align: center; display: flex; flex-direction: row; justify-content:space-between;">
-                                        <input type="text" name=""  class="form-control " title="이메일 입력" style="text-align:center;" value="<sec:authentication property="principal.member.tel"/>" readonly>
+                                        <input type="text" name="tel"  id="tel" class="form-control " style="text-align:center;" value="<sec:authentication property="principal.member.tel"/>" readonly>
                                     </div>
                                 </td>
                             </tr>
@@ -934,7 +946,7 @@
                                 </th>
                                 <td>
                                     <div class="row">
-                                        <input type="text" name="emailTxt" id="emailTxt" class="form-control " title="이메일 입력" style="text-align:center;" value="<sec:authentication property="principal.member.email"/>" readonly>
+                                        <input type="text" name="emailTxt" id="email" class="form-control"  style="text-align:center;" value="<sec:authentication property="principal.member.email"/>" readonly>
                                     </div>
                                 </td>
                             </tr>
@@ -955,7 +967,6 @@
                                     <div class="row">
                                         <label for="dlvNmTxt" class="titLabel"  style="display: block"><span class="required" aria-required="true">필수입력</span> 배송지명</label>
                                         <input type="text" id="dlvNmTxt" name="dlvNmTxt" maxlength="10" class="inputTxt form-control" style="margin-top:4px; text-align: center;" placeholder="최대 10자 까지 입력 가능" >
-
                                         <p class="inputAlt"></p>
                                     </div>
 
@@ -967,17 +978,16 @@
                                     </div>
                                     <div class="row">
                                         <!-- 우편 번호 -->
-                                        <label class="control-label" for="address">우편번호</label>
-                                        <input class="form-control mb-2" type="hidden" id="sample4_postcode" placeholder="우편번호" required>
+                                        <label class="control-label" >우편번호</label>
+                                        <input class="form-control mb-2 zipcode" type="hidden" id="sample4_postcode" placeholder="우편번호" required>
                                         <input class="form-control mb-2" id="findaddressnumber" type="button" onclick="sample4_execDaumPostcode();" value="우편번호 찾기" required><br>
 
-
-                                        <label class="control-label" for="address">주소</label>
-                                        <input class="form-control mb-2 address" type="text" id="sample4_roadAddress" name="address" placeholder="도로명주소" readonly required style="text-align: center;">
+                                        <label class="control-label" >주소</label>
+                                        <input class="form-control mb-2 address" type="text" id="sample4_roadAddress" name="address" placeholder="도로명주소" value="" readonly required style="text-align: center;">
                                         <span id="guide" style="color:#999;display:none"></span>
 
-                                        <label class="control-label" for="addressdetail">상세주소</label>
-                                        <input class="form-control mb-2 addressdetail" type="text" id="sample4_detailAddress" name="addressdetail" placeholder="상세주소" required style="text-align: center;">
+                                        <label class="control-label" >상세주소</label>
+                                        <input class="form-control mb-2 addressdetail" type="text" id="sample4_detailAddress" name="addressdetail" value="" placeholder="상세주소" required style="text-align: center;">
 
                                         <input id="myaddress" type="hidden" value="<sec:authentication property='principal.member.address'/>">
                                         <input id="myaddressdetail" type="hidden" value="<sec:authentication property='principal.member.addressdetail'/>">
@@ -998,7 +1008,7 @@
                                             <option value="4">배송전에 연락주세요.</option>
                                             <option value="5">메시지 직접 입력</option>
                                         </select>
-                                        <input class="form-control mt-2" type="hidden" id="requestmessage" value="" style="text-align: center;">
+                                        <input class="form-control mt-2" type="hidden" id="requestmessage" value="없음" style="text-align: center;">
 
                                     </div>
                                     <div class="writeMsg request">
@@ -1011,54 +1021,39 @@
                     </div>
                 </section>
 
-
-
-                <!-- //주문 배송 정보 -->
-
                 <!-- 주문 상품 정보 -->
                 <form id="orderForm" name="orderForm" action="" onsubmit="return false;">
                     <section id="orderChk" style="display: block;">
                         <h4 class="subtitle">주문 상품 정보</h4>
                         <div class="cartList">
+                            <c:forEach items="${clist}" var="cdto">
                             <ul>
                                     <li>
                                         <div class="pdtRow">
                                             <div class="cell pdtImg">
 
                                                 <a href="javascript:void(0);" >
-                                                    <img  id ="pdtImg" src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" alt="상품이미지">
+                                                    <img  id ="pdtImg" src="${cdto.pic}" alt="상품이미지">
                                                 </a>
 
                                             </div>
                                             <div class="cell pdtInfo">
-                                                <div class="pdtName">
-                                                    <a href="javascript:void(0);">
-                                                            ${orderList.PROD_NM}
-                                                    </a>
-                                                </div>
-
-                                                <div class="pdtOpt">
-
+                                                <div class="pdtName" style="text-align: center;">
+                                                    ${cdto.content}<br>
+                                                    <span class="storekind" style="color:#888;">지점 : ${cdto.storename}</span>
                                                 </div>
                                             </div>
-                                            <div class="cell pdtCount">${orderList.PROD_INDV_QTY} 개</div>
+                                            <div class="cell pdtCount">${cdto.cnt} 개</div>
                                             <div class="cell pdtPrice">
-                                                            <span class="price">
-                                                                <span id="price" class="num"><fmt:formatNumber pattern="###,###,###" value="${prod_fee}"/></span>원
-                                                            </span>
-                                                <span id="point" class="point">+<fmt:formatNumber pattern="###,###,###" value="${point}"/> P</span>
+                                                <span class="price">
+                                                    <fmt:formatNumber value="${cdto.price * cdto.cnt * (1-(cdto.sale/100))}" pattern="#,###"></fmt:formatNumber>원
+                                                </span>
+                                                <span class="point">+<fmt:formatNumber value="${cdto.cnt * cdto.price * 5/100 * (1-(cdto.sale/100))}"></fmt:formatNumber>P</span>
                                             </div>
                                         </div>
-
-                                        <div class="usePoint">
-
-                                                        <span class="pointInput" style="display:none;">
-                                                            <input type="text" name="useBtPt" id="useBtPt" class="inputTxt checkNum inputError colorRed" value="0"> P
-                                                        </span>
-                                        </div>
-
                                     </li>
                             </ul>
+                            </c:forEach>
                         </div>
                     </section>
                 </form>
@@ -1067,9 +1062,7 @@
                 <!-- 쿠폰확인 & 포인트적립 -->
                 <section id="cpnPt">
 
-                    <h4 class="subtitle">쿠폰/포인트 적용</h4>
-
-
+                    <h4 class="subtitle">쿠폰/포인트/이벤트 적용</h4>
                     <div class="tableTypeWrite typeline basicOrderCoupon">
                         <table style="padding-top:10px;">
                             <caption>쿠폰/포인트 적용</caption>
@@ -1079,16 +1072,21 @@
                             </colgroup>
                             <tbody>
                             <tr id="userCouponList">
-                                <th scope="row">쿠폰 <span class="ftColor3">(사용 가능한 쿠폰 <span class="ftColor7" id="couponAllCnt">3장</span>)</span></th>
+                                <th scope="row">쿠폰 <span class="ftColor3">(사용 가능한 쿠폰
+                                    <span class="ftColor7" id="couponAllCnt">
+                                        <fmt:formatNumber value="${fn:length(coulist)}"  />장</span>)
+                                    </span>
+                                </th>
                                 <td>
-                                    <div class="selectArea">
-                                        <select class="form-control">
-                                            <option value="" selected>쿠폰을 선택하세요.</option>
-                                            <option value="1">[신규]1만원이상 2천원할인</option>
-                                            <option value="2">[신규]2만원이상 5천원할인</option>
-                                            <option value="3">[신규]3만원이상 1만원할인</option>
-                                        </select>
-                                    </div>
+
+                                    <select class="form-control" style="width:100%;" id="sellcoupon">
+                                        <option value="0" selected style="text-align: center;">쿠폰을 선택하세요.</option>
+                                        <c:forEach items="${coulist}" var="coudto">
+                                            <option value="${coudto.couponmemberseq}/${coudto.sale}">${coudto.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <!-- 쿠폰 셋팅 -->
+
 
                                     <ul class="selCouponList" id="selUserCouponList">
                                         <li style="display:none;">
@@ -1116,32 +1114,37 @@
                                 </td>
                             </tr>
 
-
-
-                            <tr class="btPtUseTr" id="btPtUseTr">
-                                <th scope="row">적립금</th>
-                                <td>
-                                    <div class="beautyPoint">
-                                        <div class="mb-1">
-                                            사용가능 <strong><span id="canUseBtPt">0</span></strong> P &nbsp;/&nbsp; 보유 <strong><span id="myBtPtTxt">3000</span></strong> P
+                                <tr class="btPtUseTr" id="btPtUseTr">
+                                    <th scope="row"><span class="required" aria-required="true">필수입력</span> 포인트</th>
+                                    <td>
+                                        <div class="beautyPoint">
+                                            <div class="mb-1">
+                                                사용가능 <strong><span id="canUseBtPt"><sec:authentication property='principal.member.point'/></span></strong> P &nbsp;/&nbsp; 보유 <strong><span id="myBtPtTxt"><sec:authentication property='principal.member.point'/></span></strong> P
+                                            </div>
+                                            <div class="display:margin:auto;">
+                                            <input id="pointInput" type="text" class="form-control" name="totalUseBtPt" value="0" style="width:190px;margin-right: 10px; display: inline-block; text-align: center;">
+                                            <button id="allUsePoint" type="button" class="form-control" name="useAllBtPt" id="useAllBtPt" style="display: inline-block; width:170px;">모두사용</button>
+                                            </div>
                                         </div>
-                                        <div class="display:margin:auto;">
-                                        <input type="text" class="form-control" name="totalUseBtPt" value="0" style="width:190px;margin-right: 10px; display: inline-block; text-align: center;">
-                                        <button type="button" class="form-control" name="useAllBtPt" id="useAllBtPt" style="display: inline-block; width:170px;">모두사용</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+
+<%--                                <tr class="btPtUseTr" >--%>
+<%--                                    <th scope="row" ><span class="required" aria-required="true">필수입력</span> 이벤트</th>--%>
+<%--                                    <td>--%>
+<%--                                        <div class="beautyPoint">--%>
+<%--                                            <div class="display:margin:auto;">--%>
+<%--                                                <input type="text" class="form-control" name="totalUseBtPt" value="머머머이벤트" style="width:190px;margin-right: 10px; display: inline-block; text-align: center;" readonly>--%>
+<%--                                                <button type="button" class="form-control" name="useAllBtPt" style="display: inline-block; width:170px;"> 10%할인 </button>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                </tr>--%>
                             </tbody>
                         </table>
                     </div>
                     <div class="tableTypeWrite typeline abcCampaignChk" style="display:none;">
                         <table>
-                            <caption>쿠폰/포인트 적용</caption>
-                            <colgroup>
-                                <col style="width:214px;">
-                                <col>
-                            </colgroup>
                             <tbody>
                             <tr>
                                 <th scope="row">연계 구매 프로모션</th>
@@ -1164,61 +1167,32 @@
 
 
                 <div id="odGift">
-                    <section id="orderGift" style="display: none;">
-                        <p class="helpWrap">
-                            저희 쇼핑몰은 고객님의 안전한 거래를 위해 무통장입금/계좌이체 거래에 대해 구매안전서비스를 적용하고 있습니다.
-                            <a href="https://pgweb.uplus.co.kr/ms/escrow/s_escrowYn.do?mertid=innisfree" target="_blank" title="새창 열림" class="btnType5">토스페이먼츠 구매안전 서비스 가입확인</a>
-                        </p>
-                    </section>
-
 
                     <!-- 결제 수단 선택 -->
-                    <!-- 품절 시 환불 방법 -->
                     <section id="refundMethodArea" style="display: block;">
-                        <h4 class="subtitle">결제방법</h4>
+                        <h4 class="subtitle">결제수단</h4>
                         <div class="refundPayMethod radioTabContents">
                             <div id="ACCOUNT" class="radioTabCont">
                                 <div class="tableTypeWrite">
                                     <table>
-                                        <caption>환불 은행 계좌 정보 입력</caption>
-                                        <colgroup>
-                                            <col style="width:210px;">
-                                            <col>
-                                        </colgroup>
                                         <tbody>
                                         <tr>
-                                            <th scope="row">입금은행</th>
+                                            <th scope="row">결제수단</th>
                                             <td>
-                                                <select  class="form-control">
-                                                    <option value="" selected>배송 요청사항을 선택해 주세요.</option>
-                                                    <option value="1">부재시 경비(관리)실에 맡겨주세요.</option>
-                                                    <option value="2">부재시 문앞에 놓아주세요.</option>
-                                                    <option value="3">파손의 위험이 있는 상품이 있으니, 배송에 주의해주세요.</option>
-                                                    <option value="4">배송전에 연락주세요.</option>
-                                                    <option value="5">메시지 직접 입력</option>
+                                                <select class="form-control" id="sellpaymethod">
+                                                    <option value="1">카카오페이</option>
+                                                    <option value="2">카드</option>
+                                                    <option value="3">계좌이체</option>
                                                 </select>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">계좌번호</th>
-                                            <td>
-                                                <input class="form-control" type="text" name="tempAccNo" id="tempAccNo" class="inputTxt checkNum" title="계좌번호 입력" placeholder="‘-’제외하고 숫자만 입력해주세요." >
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">예금주명</th>
-                                            <td>
-                                                <input class="form-control" type="text" name="tempDpoSiTr" id="tempDpoSiTr" title="예금주명 입력" placeholder="예금주명을 입력해주세요.">
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
+
                                 </div>
                                 <div class="helpWrap">
                                     <ul class="bulListType">
-                                        <li>주문취소나 품절 시 환불 받으실 계좌입니다. 빠르고 편리한 환불서비스를 위해 정확한 계좌정보를 입력해주세요.</li>
-                                        <li>환불계좌는 본인명의 계좌만 등록/변경 가능합니다.</li>
+                                        <li>저희 쇼핑몰은 고객님의 안전한 거래를 위해 카카오페이/카드결제/계좌이체 거래에 대해 구매안전서비스를 적용하고 있습니다.</li>
                                     </ul>
                                 </div>
                             </div>
@@ -1239,16 +1213,16 @@
                     <section class="orderPrice">
                         <dl>
                             <dt>주문금액</dt>
-                            <dd><span class="num" id="totPrdPrcTxt"></span>원</dd>
+                            <dd><span class="num" id="totPrdPrcTxt"></span></dd>
                         </dl>
                         <dl>
                             <dt>할인/차감 금액</dt>
-                            <dd class="totalSale"><span class="num" id="totDcCpnPrcTxt">0</span>원</dd>
+                            <dd class="totalSale"><span class="num" id="totDcCpnPrcTxt">0원</span></dd>
                         </dl>
                         <dl>
                             <dt>배송비</dt>
                             <%--                                <dd id="totPurDlvPrcTxt" $dlvcost="2500"></dd>--%>
-                            <dd id="totalDlvTxt" $dlvcost="2500"><span class="num" id="totPurDlvPrcTxt">- 0</span>원</dd>
+                            <dd id="totalDlvTxt" ><span class="num" id="delveryCost"> 0</span></dd>
                         </dl>
                         <div class="saleBox" id="dlvUseBtPtDiv" style="display: none;">
                             <dl id="dlvUseBtPtDl">
@@ -1258,13 +1232,13 @@
                         </div>
 
                         <dl>
-                            <dt>예정 적립금 <button type="button" class="btnTooltip" onclick="tooltip('btPointInfo3','fixed');">툴팁</button></dt>
+                            <dt>예정 적립 포인트 <button type="button" class="btnTooltip" onclick="tooltip('btPointInfo3','fixed');">툴팁</button></dt>
                             <dd><span class="num" id="totReservePtTxt"></span>P</dd>
                         </dl>
 
                         <dl class="totalPrice">
                             <dt>최종 결제 금액</dt>
-                            <dd><span class="num" id="totPurPrcTxt"></span>원</dd>
+                            <dd><span class="num" id="totPurPrcTxt"></span></dd>
                         </dl>
                         <div class="paymentAgreeWrap">
                             <div class="agree">
@@ -1278,14 +1252,13 @@
                         </div>
                     </section>
                 </div>
-                <button type="button" class="btnType4xl" id="payBtn" onclick="kakaopay();"><span class="num" id="totPurPrcBtnTxt"></span>10,000 원 결제하기</button>
+                <button type="button" class="btnType4xl" id="payBtn" onclick="payrequest();">
+                    <span class="num" id="totPurPrcBtnTxt">10,000원</span> 결제하기
+                </button>
             </div>
         </div>
         <!-- //결제 금액 정보 -->
     </div>
-    </div>
-    </div>
-
 
 </section>
 
@@ -1294,22 +1267,133 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+
+    let sel_pg = 'kakaopay.TC0ONETIME';
+    let sel_pg_method ='card';
+    let ordercnt = 0;
+    let delvery_price = 3000;
+    let discountDelivery=0;
+    let pointSum =0;
+
+    let count = $('.price').length;
+    let sum=0;
+
+    // 주문금액 구하기
+    $('.price').each(function(index,item){
+        sum = sum + convertPriceToNum($(this).text());
+        if(index +1 == count){
+            $('#totPrdPrcTxt').text(convertNumToPrice(sum));
+        }
+    });
+
+    // > 배송비 구하기, 배송비는 주문당 하나로 측정된다. 5만원이상 배송비 무료
+    $('.storekind').each(function (index, item) {
+        let price = $(item).parent().parent().next().next().find('.price').text().trim();
+        if( convertPriceToNum(price) > 50000 )
+            discountDelivery+=1;
+        ordercnt+=1;
+    });
+    $('.storekind').promise().done(function(){
+        ordercnt = ordercnt - discountDelivery;
+        $('#delveryCost').text((ordercnt*delvery_price).toLocaleString()+'원');
+    });
+
+    updateTotalDiscountPrice(); // 가격 셋팅
+
+    function updateTotalDiscountPrice(){
+        //totPrdPrcTxt   >
+        //totDcCpnPrcTxt > - 할인/차감 결과
+        // delveryCost > + 배달비
+        // totPurPrcBtnTxt > 마지막 합산
+        // totPurPrcTxt
+        let discountprice = 0;
+        if($('#sellcoupon').val()!='0')
+            discountprice = parseInt($('#sellcoupon').val().split('/')[1]) /100 * convertPriceToNum($('#totPrdPrcTxt').text());
+        let point = parseInt($('#pointInput').val());
+        $('#totDcCpnPrcTxt').text( convertNumToPrice (discountprice+point));
+        let totPrdPrcTxt= convertPriceToNum($('#totPrdPrcTxt').text());
+        let totDcCpnPrcTxt = discountprice+point;
+        let delveryCost = convertPriceToNum($('#delveryCost').text());
+        // alert(totPrdPrcTxt+'/'+totDcCpnPrcTxt+"/"+delveryCost);
+        $('#totPurPrcTxt').text(convertNumToPrice(totPrdPrcTxt-totDcCpnPrcTxt+delveryCost));
+        $('#totPurPrcBtnTxt').text(convertNumToPrice(totPrdPrcTxt-totDcCpnPrcTxt+delveryCost));
+    }
+
+    $('#pointInput').on('change keyup', function(){
+        if($(this).val()=='' || parseInt($(this).val())<0)
+            $(this).val(0);
+       updateTotalDiscountPrice();
+    });
+
+    $('#allUsePoint').click(function(){
+        let point = '<sec:authentication property="principal.member.point"/>'
+        $('#pointInput').val(point);
+        updateTotalDiscountPrice();
+    });
+
+    $('#sellcoupon').change(function(){
+        // alert($('#sellcoupon').val().split('/')[1]);
+        updateTotalDiscountPrice();
+    });
+
+    $('.point').each(function (index, item) {
+        pointSum += parseFloat($(item).text().trim().replaceAll('+','').replaceAll('P','').replaceAll(',',''));
+    });
+
+    $('.point').promise().done(function(){
+        $('#totReservePtTxt').text(Math.floor(pointSum));
+    });
+
+
+
+
+
+    $('#sellpaymethod').change(function(){
+        // 카카오페이
+        if($("#sellpaymethod option:checked").val()=='1'){
+            sel_pg = 'kakaopay.TC0ONETIME';
+            sel_pg_method ='card';
+        // 카드결제
+        } else if($("#sellpaymethod option:checked").val()=='2'){
+            sel_pg = 'html5_inicis.INIBillTst';
+            sel_pg_method ='card';
+        // 계좌이체
+        } else if($("#sellpaymethod option:checked").val()=='3'){
+            sel_pg = 'html5_inicis.INIBillTst';
+            sel_pg_method ='trans';
+        }
+    });
+
     var csrfHeaderName = "${_csrf.headerName}";
     var csrfTokenValue = "${_csrf.token}";
 
-    function kakaopay(){
 
-        // if(inputH.value == null || inputH.value == 'none' || inputH.value == ""){
-        //     alert("결제 개월 수를 선택 해 주세요");
-        //     return;
-        // }
-        // console.log($('#userid'));
+    function payrequest(){
+        // 예외처리하기
+        if( $('#payWayProvision').prop('checked')==false){
+            alert('약관에 동의하세요.');
+            return;
+        }
+
+        if( $('.address').val()=='' || $('.addressdetail')=='' ) {
+            alert('주소를 입력해주세요.');
+            return;
+        }
+
+        // 주문금액
+        // 아이디
+        // 전화번호
+        // 우편번호
+        // 배송주소
+        // 배송상세주소
+        // 주문날짜
+        // 결제방식
 
         var IMP = window.IMP;
         IMP.init('imp86112373');
         IMP.request_pay({
-            pg : 'kakaopay',
-            pay_method : 'card',
+            pg : sel_pg,
+            pay_method : sel_pg_method,
             merchant_uid : 'merchant_' + new Date().getTime(),   //주문번호
             name : 'dndn',                                  //상품명
             amount : 100,                                    //가격
@@ -1432,6 +1516,14 @@
         }).open();
     }
 
+    // 숫자 -> 가격 >
+    function convertPriceToNum(price){
+        return parseInt(String(price).replaceAll('원','').replaceAll(',',''));
+    }
+    // 가격 -> 숫자 >
+    function convertNumToPrice(num){
+        return parseInt(String(num)).toLocaleString()+'원';
+    }
 </script>
 </body>
 </html>
