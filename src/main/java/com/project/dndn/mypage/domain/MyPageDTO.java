@@ -30,9 +30,9 @@ public class MyPageDTO {
 	private String couponseq;
 	
 	//도시락 정보
-	private String Lunchname;
-	private String Lunchpic;
-	private String LunchCategory;
+	private String lunchname;
+	private String lunchpic;
+	private String lunchcategory;
 	
 	//장바구니 주문
 	private String sellboardseq;
@@ -50,5 +50,11 @@ public class MyPageDTO {
 	
 	//쿠폰 정보
 	private String sale;
+	
+	//찜 정보
+	private String wishlistseq;
+	private String wishid;
+	private String wishsellboardseq;
+	private String wishregdate;
 	
 }

@@ -1,6 +1,8 @@
 package com.project.dndn.mypage.contoller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,9 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.dndn.mypage.domain.MyPageDTO;
+import com.project.dndn.mypage.mapper.MyPageMapper;
 import com.project.dndn.mypage.service.MyPageService;
 
 @Controller
@@ -19,16 +24,20 @@ public class MyPageController {
 
 	@Autowired
 	private MyPageService myService;
-
+	
+	@Autowired
+	private MyPageMapper myMapper;
+	
 	@Autowired
 	private PasswordEncoder encoder;
+	
 
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/mypage/edit.do")
 	public String edit(MyPageDTO dto, Model model, Authentication a) {
 
 		String id = a.getName();
-
+		
 		System.out.println(id);
 
 		List<MyPageDTO> list = myService.list(id);
@@ -66,10 +75,8 @@ public class MyPageController {
 
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/mypage/food.do")
-	public String food(Authentication a, Model model) {
-
-		model.addAttribute(a);
-
+	public String food(Model model, Authentication a) {
+		
 		String id = a.getName();
 
 		List<MyPageDTO> Flist = myService.Flist(id);
@@ -79,10 +86,8 @@ public class MyPageController {
 
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/mypage/order.do")
-	public String order(Authentication a, Model model) {
-
-		model.addAttribute(a);
-
+	public String order(Model model, Authentication a) {
+		
 		String id = a.getName();
 
 		List<MyPageDTO> Olist = myService.Olist(id);
@@ -94,14 +99,39 @@ public class MyPageController {
 
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/mypage/fav.do")
-	public String fav() {
+	public String fav(Model model, Authentication a) {
+		
+		String id = a.getName();
+		
+		List<MyPageDTO> wlist = myService.wlist(id);
 
+		model.addAttribute("wlist", wlist);
+		
 		return "/mypage/fav";
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/mypage/fav/{wishlistseq}")
+	@ResponseBody
+   	public int favok(@PathVariable("wishlistseq") String wishlistseq, Model model, Authentication a) {
+
+		System.out.println("wlist");
+		
+		String id = a.getName();
+		
+		Map<String,String> map = new HashMap<String,String>();
+		
+		map.put("id", id);
+		map.put("wishlistseq", wishlistseq);
+		
+		return myMapper.wdlist(map);
 	}
 
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/mypage/buylist.do")
 	public String buylist(Authentication a) {
+
+		String id = a.getName();
 
 		return "/mypage/buylist";
 	}

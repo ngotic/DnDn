@@ -40,7 +40,6 @@
 input[type=button] {
 	background-color: #EDEDEF;
 	font-weight: bold;
-	color: black;
 	font-size: 1.2rem;
 	border: .2px #999 solid;
 	margin: 5px;
@@ -166,7 +165,7 @@ input[type="number"]:focus {
                 <input type="button" value="장바구니 비우기">
             </div>
             <div>상품갯수 : 4개</div>
-            <div>합계금액 : <span id="total"></span>원</div>
+            <div id="total">원</div>
         </div>
         <div id="orderbtn"><button>주문하기</button></div>
         </div>
@@ -180,7 +179,7 @@ input[type="number"]:focus {
 
 	
 	
-	/* $('#all').change(() => {
+	 $('#all').change(() => {
 		
 	  for (var i = 0; i < one.length; i++) {
 	    one[i].checked = $('#all').is(':checked');
@@ -196,22 +195,23 @@ input[type="number"]:focus {
 			alert('check?');
 		}
 	  }
-	}); */
+	});
 	var one = $('.one');
-	var num = 0;
 	function sum(yn) {
+	var num = 0;
 		if(yn=='y' && $('#all').is(':checked')){
 			for (var i = 0; i < one.length; i++) {
 			    one[i].checked = $('#all').is(':checked');
-				alert($('.sum').text());
 				num += parseInt($('.sum').text());
 			  }
-				alert("sum"+num);
+
+			$('#total').text("합계금액 : "+name(String(num))+"원");
 			    	
 		}else{
 			for (var i = 0; i < one.length; i++) {
 			    one[i].checked = $('#all').is(':checked');
 			}
+			$('#total').text("합계금액 : 0원");
 		}
 	}
 
@@ -248,8 +248,7 @@ input[type="number"]:focus {
 		
 		var price = String(value * unit);
 		
-		name(price);
-		
+		$(event.target).parent().next().text(name(price));
 	}
 	
 	function name(price){
@@ -258,9 +257,9 @@ input[type="number"]:focus {
 			    if (count !== 0 && count % 3 === 0) {
 			      line = ',' + line;
 			    }
-			    line = price[i] + line;
+			   line = price[i] + line;
 			  }
-		  $(event.target).parent().next().text(line);
+		  return line;
 	}
 	</script>
 </body>

@@ -64,4 +64,39 @@ select
 																on o.couponseq = c.couponseq
 																	where o.id = #{id}
 	</select>
+	<select id="wlist" resultType="com.project.dndn.mypage.domain.MyPageDTO">
+		select
+			w.*,
+			t.name as lunchname, t.pic as lunchpic
+		from tblWishList w
+			inner join tblSellBoard s
+				on w.sellboardseq = s.sellboardseq
+
+																	inner join tblLunchboxSet x
+																		on s.sellboardseq = x.sellboardseq
+																			inner join tblLunchBox t
+																				on x.lunchboxseq = t.lunchboxseq					
+					where w.id = #{id}
+	</select>
+	
+	<delete id="wdlist">
+		delete from tblWishList where wishlistseq = #{wishlistseq} and id=#{id}
+	</delete>
+
+	<select id="">
+		select
+		o.*
+		from tblOrder o
+		inner join tblOrderCart d
+		on o.orderseq = d.orderseq
+		inner join tblCart c
+		on d.cartseq = c.cartseq
+		<if test='periodshipseq != null'>
+			inner join tblPeriodShip p
+			on p.periodshipseq = c.periodshipseq
+			inner join tblday y
+			on p.periodshipseq = y.periodshipseq
+		</if>
+			where o.id = #{id}
+	</select>
 </mapper>
