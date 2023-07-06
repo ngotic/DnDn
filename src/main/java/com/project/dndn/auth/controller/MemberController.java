@@ -69,7 +69,7 @@ public class MemberController {
 	
 	@GetMapping("/auth/findidpw.do")
 	public String findidpw() {
-		return "40auth/findidpw";
+		return "auth/findidpw";
 	}
 
 	//아이디 찾기 
