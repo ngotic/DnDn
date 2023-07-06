@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -173,7 +174,23 @@ section {
 	outline:none !important;
 	box-shadow:none !important;
 }
-
+#chatBox{
+	position:fixed;
+	bottom:0px;
+	right:20px;
+	color:black;
+	background-color:white;
+}
+#chatBox *{
+color:black;
+background-color:white;
+}
+button.in{
+	position:fixed;
+	bottom:240px;
+	right:200px;
+	z-index:99;
+}
 
 </style>
 </head>
@@ -477,14 +494,32 @@ section {
 				<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
 			</div>
 		</div>
-
+		<sec:authorize access="isAuthenticated()">
+		<button type="button" class="in btn btn-warning">상담하기</button>
+		<div title="사용자 아이디" style="display:none;" id = "memberid">
+			<sec:authentication property="principal.member.id"/>
+		</div>
+		</sec:authorize>
+		<div id="chatBox"  style="width:400px; height:600px;display:none;">
+			<div id="main" style="position:relative">
+			<button CLASS="btn btn-warning" style="position:absolute; right:0px;font-size:20px;" id="">x</button>
+				<div id="header">
+					<h2>1:1문의 <small></small></h2>
+				</div>
+				<div id="list">
+					
+				</div>
+				<input type="text" id="msg" placeholder="대화 내용을 입력하세요.">
+			</div>
+		</div>
 	</section>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.8/dayjs.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
+
 
 	$('#closebtn').click(function(){
 		$('.right-recent-item').css('display','none');	
@@ -505,6 +540,142 @@ section {
 		var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
 		return direction;
 	}
+
+	//채팅
+	var memberId =$('#memberid').text();
+//채팅 준비
+const url = 'ws://localhost:8091/dndn/chatserver.do';
+
+let ws;
+
+var name; //
+function connect(name) {
+	
+	$('#header small').text(name);
+	ws = new WebSocket(url);
+	ws.onopen = function(evt) {
+		log('서버 연결 성공');
+		//내가 접속했다고 다른 사람들에게 알리기
+		let chat = {
+			code: '1',
+			sender: name,
+			receiver: '',
+			content: '',
+			regdate: dayjs().format('YYYY-MM-DD HH:mm:ss')
+		};
+		ws.send(JSON.stringify(chat));
+		print('', '입장했습니다.', 'me', 'state', chat.regdate);
+		$('#msg').focus();
+	};
+	
+	ws.onmessage = function(evt) {
+		
+		log('메시지 수신');
+		
+		let chat = JSON.parse(evt.data);
+		
+		log(chat.code + ':' + chat.sender);
+		
+		if (chat.code == '1') {
+			//다른 사람 입장
+			print('', `[\${chat.sender}]님이 입장했습니다.`, 'other', 'state', chat.regdate);
+		} else if (chat.code == '2') {
+			//다른 사람 퇴장
+			print('', `[\${chat.sender}]님이 퇴장했습니다.`, 'other', 'state', chat.regdate);				
+		} else if (chat.code == '3') {
+			//대화 수신
+			print(chat.sender, chat.content, 'other', 'msg', chat.regdate);
+			
+		} 
+		
+		
+	};
+	ws.onclose = function(evt) {
+		
+	};
+	ws.onerror = function(evt) {
+		
+	};
+	
+}
+
+
+	function log(msg) {
+		
+		console.log(`[\${new Date().toLocaleTimeString()}]` +  msg);
+		
+	}
+	
+	
+	function print(name, msg, side, state, time) {
+	      let temp = `
+	         <div class="item \${state} \${side}">
+	            <div>
+	               <div>\${name}</div>
+	               <div>\${msg}</div>
+	            </div>
+	            <div>\${time}</div>
+	         </div>
+	      `;      
+	      $('#list').append(temp);
+	      scrollList();
+	   }
+   $('#msg').keydown(function(evt){
+		
+		if (evt.keyCode == 13) {
+			
+			let chat = {
+					
+					code: '3',
+					sender: window.name,
+					receiver: '',
+					content: $('#msg').val(),
+					regdate: dayjs().format('YYYY-MM-DD HH:mm:ss')
+						
+			};
+			ws.send(JSON.stringify(chat));
+			if (chat.code == '3') {
+				print(window.name, chat.content, 'me', 'msg', chat.regdate);
+			} 
+			$('#msg').val('').focus();
+		   
+	
+		}
+   });
+
+	function scrollList() {
+		
+		$('#list').scrollTop($('#list')[0].scrollHeight + 500);
+		
+	}
+	$('.in').click(function() {
+		 // JavaScript 코드
+			$('.in').css('opacity', .5);
+			$('.in').prop('disabled', true);
+			 $('#chatBox').css('transform', 'translate(0px,0px)');
+			 $('#chatBox').css('z-index', '100');
+			 $("#chatBox").css("display", "block");
+			connect(memberId);
+	});
+	//창 닫을 때
+	$('#xxx').on('click', function() {
+		$('.in').css('opacity', 1);
+		$('.in').prop('disabled', false);
+		$("#chatBox").css("display", "none");
+		//저 나가요~라고 서버에게 메시지 보내기
+		let chat = {
+			
+			code: '2',
+			sender: memberId,
+			receiver: '',
+			content: '',
+			regdate: dayjs().format('YYYY-MM-DD HH:mm:ss')
+				
+		};
+		
+		ws.send(JSON.stringify(chat));
+		
+	});
 </script>
 </body>
 </html>
