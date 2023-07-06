@@ -150,70 +150,56 @@
                                     
 
                                     <tbody>
-                                    <c:forEach items="${list}" var="dto">
-                                    	<tr>
-                                    		<td>${dto.lunchboxseq}</td>
-                                    		<td>
-                                    			<img alt="도시락" src="${dto.pic}" 
-                                    				 style="width: 50px; height: 50px;">
-                                    		</td>
-                                    		<td>
-                                    			<a href="/dndn/admin/product-view.do?lunchboxseq=${dto.lunchboxseq}">
-                                    				${dto.name}
-                                    			</a>
-                                    		</td>
-                                    		<td>${dto.category}</td>
-                                    		<td>${dto.price}</td>
-                                    		<td>${dto.regdate}</td>
-                                    		<td>${dto.modidate}</td>
-                                    		
-                                    		
-                                    		
-                                    		
-                                    		<td>
-                                    		
-                                    			<button type="button" class="edit-button"
-                                    					onclick="location.href='/dndn/admin/product-edit.do?lunchboxseq=${dto.lunchboxseq}';">수정</button>
-
-
-
-                                    					
-                                    			<button type="button" class="del-button" data-toggle="modal" data-target="#exampleModal">삭제</button>
-
-	                                    		<!-- Modal -->
-	                                    		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" 
-	                                    			 aria-labelledby="exampleModalLabel" aria-hidden="true">
-	                                    			 
-												  <div class="modal-dialog" role="document">
-												    <div class="modal-content">
-												      <div class="modal-header">
-												        <h5 class="modal-title" id="exampleModalLabel">상품 삭제</h5>
-												        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												          <span aria-hidden="true">&times;</span>
-												        </button>
-												      </div>
-												      <div class="modal-body">
-												        상품을 삭제하시겠습니까?
-												      </div>
-												      <div class="modal-footer">
-												      	<button type="button" class="btn btn-primary" onclick="clickDel(boardInfo)">삭제</button>
-												       	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-												      </div>
-												    </div>
-												  </div>
-												  
-												</div>
-												
-												<form name="boardInfo">
-													<input type="hidden" name="lunchboxseq" value="${lunchboxseq}">
-												</form>
-
-												
-                                    		</td>
-                                    		
-                                    		
-                                    	</tr>
-  									</c:forEach>
+	                                <c:forEach items="${list}" var="dto">
+	                                   <tr>
+	                                     <td>${dto.lunchboxseq}</td>
+	                                     <td>
+	                                       <img alt="도시락" src="${dto.pic}" style="width: 50px; height: 50px;">
+	                                     </td>
+	                                     <td>
+	                                       <a href="/dndn/admin/product-view.do?lunchboxseq=${dto.lunchboxseq}">
+	                                         ${dto.name}
+	                                       </a>
+	                                     </td>
+	                                     <td>${dto.category}</td>
+	                                     <td>${dto.price}</td>
+	                                     <td>${dto.regdate}</td>
+	                                     <td>${dto.modidate}</td>
+	                                     <td>
+	                                       <button type="button" class="edit-button" onclick="location.href='/dndn/admin/product-edit.do?lunchboxseq=${dto.lunchboxseq}';">수정</button>
+	                                       <button type="button" class="del-button" data-bs-toggle="modal" data-bs-target="#exampleModalDel${dto.lunchboxseq}" onclick="f1(this)">삭제</button>
+	                                     </td>
+	                                 
+	                                     <!-- Modal -->
+	                                     <div class="modal fade" id="exampleModalDel${dto.lunchboxseq}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	                                       <div class="modal-dialog modal-dialog-centered">
+	                                         <div class="modal-content">
+	                                         
+	                                           <div class="modal-header">
+	                                             <h5 class="modal-title" id="exampleModalLabel">상품 삭제</h5>
+	                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+	                                           </div>
+	                                           
+	                                           <div class="modal-body">
+	                                             상품 이름: ${dto.name}<br>
+	                                             상품을 삭제하시겠습니까?
+	                                           </div>
+	                                           
+	                                           <div class="modal-footer">
+	                                             <form method="POST" action="/dndn/admin/product-delok">
+	                                               <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+	                                               <input type="hidden" name="id" value='<sec:authentication property="principal.username"/>'>
+	                                               <input type="hidden" name="lunchboxseq" value="${dto.lunchboxseq}">
+	                                               <button type="submit" class="btn btn-primary">삭제</button>
+	                                             </form>
+	                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='/dndn/admin/product.do';">취소</button>
+	                                           </div>
+	                                           
+	                                         </div>
+	                                       </div>
+	                                     </div>
+	                                   </tr>
+	                                </c:forEach>
                                     </tbody>
 
                                 </table>
@@ -260,12 +246,11 @@
     
     
     <script>
-	    function clickDel(formName) {
-			formName.action = "/dndn/admin/product-del";
-			formName.method = "post";
-			formName.submit();
-		}
-    </script>
+	  function setLunchboxSeq(lunchboxSeq) {
+	    document.getElementById('lunchboxseqInput').value = lunchboxSeq;
+	  }
+	</script>
+    
     
 </body>
 

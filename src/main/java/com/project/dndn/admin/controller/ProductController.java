@@ -87,7 +87,7 @@ public class ProductController {
 	
 	
 	
-	
+	/*
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/admin/product-del.do")
 	public String del(Model model, String lunchboxseq) {
@@ -96,14 +96,33 @@ public class ProductController {
 		
 		return "admin/product-del";
 	}
+	*/
+	
+	/*
+	 * @PreAuthorize("isAuthenticated()")
+	 * 
+	 * @PostMapping("/admin/product-delok") public String delok(ProductDTO dto,
+	 * Model model) {
+	 * 
+	 * int result = productService.del(dto);
+	 * 
+	 * if (result == 1) { return "redirect:/admin/product.do"; } else { return null;
+	 * } }
+	 */
+	
 	
 	@PreAuthorize("isAuthenticated()")
-	@PostMapping("/admin/product-delok.do")
-	public String delok(String lunchboxseq) {
+	@PostMapping("/admin/product-delok")
+	public String delok(String lunchboxseq, Model model) {
 		
-		int result = productService.del(lunchboxseq);
+		int result = productService.del2(lunchboxseq);
 		
-		return "redirect:/admin/product.do";
+		if (result == 1) {
+			return "redirect:/admin/product.do";
+		} else {
+			return null;
+			
+		}
 	}
 	
 	

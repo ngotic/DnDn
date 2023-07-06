@@ -36,6 +36,11 @@
 		delete from tbllunchbox 
 			where lunchboxseq = #{lunchboxseq}
 	</delete>
+	
+	<delete id="del2">
+		delete from tbllunchbox 
+			where lunchboxseq = #{lunchboxseq}
+	</delete>
 
 </mapper>
 

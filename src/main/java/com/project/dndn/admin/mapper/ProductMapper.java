@@ -14,6 +14,8 @@ public interface ProductMapper {
 
 	int edit(ProductDTO dto);
 
-	int del(String lunchboxseq);
-	
+	int del(ProductDTO dto);
+
+	int del2(String lunchboxseq);
+
 }
