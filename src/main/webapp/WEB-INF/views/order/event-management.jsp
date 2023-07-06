@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
+  
 <head>
     <meta charset="utf-8">
     <title>든든</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
+<link rel="stylesheet" href="/dndn/resources/css/order.css">
 	<!--  -->
     <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
@@ -36,10 +36,10 @@
     <!-- Template Stylesheet -->
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
     
-    <link rel="stylesheet" href="/dndn/resources/css/order.css">
     
-<style>
-
+    
+    <style>
+		
 	.screen-width-88{
 		width: 88%;
 	}
@@ -129,13 +129,13 @@
 
 		height: 30px;
 		}		
-
+/* 
 		 .event-screen3 > div div:nth-child(3) table tr td{
 
 		border: 1px solid black;
 		
 		
-		}
+		} */
 		
 		  .event-screen3 > div div table tr td{
 		 	padding-left: 10px;
@@ -249,14 +249,33 @@
   	height: 100%;
   	z-index: 2;
   }
+  
+
+    #event_modal {
+        display: none;
+        width: 300px;
+        padding: 20px 60px;
+        background-color: #fefefe;
+        border: 1px solid #888;
+        border-radius: 3px;
+    }
+
+    #event_modal .event_modal_close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+  
+  
+  
 </style>
+
 </head>
 
 
 
-<body style="    height: 100%;">
-
-<div class="container-fluid position-relative bg-white d-flex p-0">
+<body style=" height: 100%;">
+    <div class="container-fluid position-relative bg-white d-flex p-0">
         
         <!-- 사이드바 -->
         <%@ include file="/WEB-INF/views/order/admin-sidebar.jsp" %>
@@ -271,10 +290,9 @@
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
 
 		<div>
-			<section class="admin-page">
+			<section class=" admin-page" style="    margin-left: 145px;">
 		
-				<form method="get"  style="height: 100%;">
-					
+			
 					<!-- 좌측 메뉴 스크린 -->
 				<%-- <%@ include file="/WEB-INF/views/order/order-screen1.jsp" %> --%>
 		
@@ -286,13 +304,52 @@
 				<c:if test="${edit}">
 				<!--  이벤트 수정/삭제 메뉴 스크린-->	
 				<%@ include file="/WEB-INF/views/order/event-management-edittrue.jsp" %>
+				       
+                        <form action="order/event-management.do" method="POST"  enctype="multipart/form-data" >
+                       		<input type="hidden" name="edit" value="true">
+                       		
+					 	   <input type="file" name="pic" accept="image/*" required>
+					        <br>
+					       	<input type="file" name="pic_board" accept="image/*" required>
+					       		 
+						<!-- 			<input type="hidden" name="edit" value="true">
+											제목
+											<input type="text"  name="title" >
+										</div>
+										<div>
+										이벤트시작 날짜
+											<input type="text"  name="startdate">
+										</div>
+										<div>
+										종료날짜
+											<input type="text"  name="enddate">
+										</div>
+										<div>
+										할인률
+											<input type="text"  name="sale">
+										</div> -->
+					        <input type="submit" value="Upload">
+					        
+					        
+					    </form>
+                        
 				</c:if>
 		
 		
 		
-				</form>
+		
+
 		
 			</section>
+		
+		
+			<div id="event_modal">
+				test
+					<a class="event_modal_close" >닫기</a>
+			</div>
+			
+			<button id = "event_modal_open">미리보기</button>
+		
 			
 		</div>
 		
@@ -307,13 +364,14 @@
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 
 
-	<!-- JavaScript Libraries -->
+    JavaScript Libraries
+    
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/dndn/resources/bootstrap-admin-template-free/lib/chart/chart.min.js"></script>
+    
+    <!-- <script src="/dndn/resources/bootstrap-admin-template-free/lib/chart/chart.min.js"></script> -->
+
     <script src="/dndn/resources/bootstrap-admin-template-free/lib/easing/easing.min.js"></script>
     <script src="/dndn/resources/bootstrap-admin-template-free/lib/waypoints/waypoints.min.js"></script>
     <script src="/dndn/resources/bootstrap-admin-template-free/lib/owlcarousel/owl.carousel.min.js"></script>
@@ -321,20 +379,78 @@
     <script src="/dndn/resources/bootstrap-admin-template-free/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="/dndn/resources/bootstrap-admin-template-free/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="/dndn/resources/bootstrap-admin-template-free/js/main.js"></script>
-    
+    Template Javascript
+    <!-- <script src="/dndn/resources/bootstrap-admin-template-free/js/main.js"></script> -->
+     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	
+
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/scripts.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+	
+	<!--  오류발생 -->
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"  crossorigin="anonymous"></script>
+	
+	
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/datatables-simple-demo.js"></script>
-    
 
 </body>
 
 <script>
+
+
+//------------------------
+/* 
+function modal(id) {
+    var zIndex = 9999;
+    var modal = $('#' + id);
+
+    // 모달 div 뒤에 희끄무레한 레이어
+    var bg = $('<div>')
+        .css({
+            position: 'fixed',
+            zIndex: zIndex,
+            left: '0px',
+            top: '0px',
+            width: '100%',
+            height: '100%',
+            overflow: 'auto',
+            // 레이어 색갈은 여기서 바꾸면 됨
+            backgroundColor: 'rgba(0,0,0,0.4)'
+        })
+        .appendTo('body');
+
+    modal
+        .css({
+            position: 'fixed',
+            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+
+            // 시꺼먼 레이어 보다 한칸 위에 보이기
+            zIndex: zIndex + 1,
+
+            // div center 정렬
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            msTransform: 'translate(-50%, -50%)',
+            webkitTransform: 'translate(-50%, -50%)'
+        })
+        .show()
+        // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+        .find('.event_modal_close')
+        .on('click', function() {
+            bg.remove();
+            modal.hide();
+        });
+} */
+
+$('#event_modal_open').on('click', function() {
+    // 모달창 띄우기
+    modal('event_modal');
+});
+
+//--------
 const modal = document.querySelector(".modal");
 const img = document.querySelector("#modal_img1");
 const img2 = document.querySelector("#modal_img2");
@@ -357,7 +473,38 @@ modal.addEventListener('click', ()=>{
 });
 function modalDisplay(text){
   modal.style.display = text;
-}
+};
+
+/*  
+function event_result(event_seq,edit){
+	location.href='http://localhost:8092/dndn/order/event-management.do?event_seq='+event_seq+'&edit='+edit;
+} ;
+ */
+/* 
+const fileDOM = document.querySelector('#file');
+const previews = document.querySelectorAll('.image-box');
+
+fileDOM.addEventListener('change', () => {
+  const reader = new FileReader();
+  reader.onload = ({ target }) => {
+    previews[0].src = target.result;
+  };
+  reader.readAsDataURL(fileDOM.files[0]);
+});
+
+const fileDOM2 = document.querySelector('#file2');
+
+fileDOM2.addEventListener('change', () => {
+	 const reader2 = new FileReader();
+	  reader.onload = ({ target }) => {
+	    previews[0].src = target.result;
+	  };
+	  reader.readAsDataURL(fileDOM.files[0]);
+});
+
+
+ */
+
 
 </script>
 </html>

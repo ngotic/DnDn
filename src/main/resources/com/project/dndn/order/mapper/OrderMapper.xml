@@ -130,6 +130,12 @@ select
 				
 			</select>
 			
+<insert id="insertevent" parameterType="com.project.dndn.order.domain.OrderEventDTO">
+    INSERT INTO tblEvent (eventseq, title, startdate, enddate, sale, pic, pic_board, count)
+    VALUES (10, #{title}, #{startdate}, #{enddate}, #{sale}, #{pic}, #{pic_board}, 0)
+</insert>
+			
+			
 			
 			<update id="updatecount">
 			
@@ -144,6 +150,29 @@ select
 			</select>
 			
 			
+		<select id="couponlist" resultType ="com.project.dndn.order.domain.OrderCouponDTO">
+			
+			select * from tblCoupon
 		
+		</select>
+			
+			
+			<insert id="insertcoupon" parameterType="com.project.dndn.order.domain.OrderCouponDTO" >
+			
+			insert into tblcoupon (couponseq , name , sale, period)
+						values (couponseq.nextVal , #{name},#{sale}, sysdate+ ${period2})
+			
+			</insert>
+			
+			<update id="updatecoupon">
+			
+				update tblcoupon set name = #{name}, sale = #{sale},period = sysdate + #{period} where couponseq = #{coupon_seq}
+			
+			
+			</update>
+			
+			<delete id="deletecoupon">
+				delete from tblcoupon where couponseq =  #{coupon_seq}
+			</delete>
 			
 </mapper>

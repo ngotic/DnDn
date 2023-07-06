@@ -24,6 +24,15 @@
       <constructor-arg ref="hikariConfig"></constructor-arg>
    </bean>
    
+	<!-- MultipartResolver -->
+   	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1000000000"/>
+		<property name="maxInMemorySize" value="1000000000"></property>
+	</bean>
+   
+   
+
+   
    <!-- MyBatis -->
    <bean id="sessionfactory" class="org.mybatis.spring.SqlSessionFactoryBean">
    		<property name="dataSource" ref="dataSource"></property>

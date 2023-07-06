@@ -1,6 +1,42 @@
 
 select * from tblmember;
 
+select * from tblcoupon;
+
+commit;
+
+delete from tblcoupon where couponseq = 3;
+
+update tblcoupon set name = '쿠폰55', sale = 10,period = sysdate + 4 where couponseq = 3;
+rollback;
+--
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰1', 11, sysdate+13);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰2', 5, sysdate+8);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰3', 24, sysdate+9);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰4', 11, sysdate+14);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰5', 11, sysdate+1);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰6', 24, sysdate+12);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰7', 16, sysdate+10);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰8', 12, sysdate+8);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰9', 14, sysdate+1);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰10', 11, sysdate+12);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰11', 29, sysdate+8);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰12', 12, sysdate+4);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰13', 15, sysdate+14);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰14', 28, sysdate+3);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰15', 16, sysdate+5);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰16', 5, sysdate+6);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰17', 12, sysdate+2);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰18', 22, sysdate+2);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰19', 30, sysdate+11);
+--INSERT INTO tblcoupon (couponseq, name, sale, period) VALUES (couponseq.nextVal, '쿠폰20', 16, sysdate+15);
+
+
+
+
+
+select * from tblmember inner join tblAuth on tblmember.id = tblAuth.id;
+
 select * from tblmember where id = (select MAX(id) from tblmember);
 
 select * from tblmember where id = (select MAX(id) from tblmember);
@@ -14,6 +50,11 @@ select * from tblmember where id = (select MAX(id) from tblmember);
 select * from tblAuth;
 --commit;
 select * from tblPromise;
+
+select * from tblOrder;
+
+
+
 select od.id,shipdate,shiptime,shipperiod,dayperweek,price,orderdate,payment from tblOrder od inner join tblCart ca on ca.cartseq = od.cartseq inner join tblPeriodShip ps on ca.periodshipseq = ps.periodshipseq where od.id = '1';
 
 	select 
@@ -63,6 +104,7 @@ select od.id,shipdate,shiptime,shipperiod,dayperweek,price,orderdate,payment fro
 --update tblEvent set enddate = sysdate+365 where eventseq =5;
 
 select * from tblevent;  
+--제목  sale enddate pic pic_board regdate
 
 select * from tblevent where enddate < sysdate;
 select * from tblevent where enddate > sysdate;

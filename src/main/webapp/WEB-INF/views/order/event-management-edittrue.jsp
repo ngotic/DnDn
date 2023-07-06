@@ -1,9 +1,87 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+    
+    <style>
+    	.order-event-image{
+    		width: 100px;
+    	}
+    	.card-body > div{
+    
+    		
+    	}
+    	#event-table{
+    		display: inline-block;
+    	}
+    	
+    	.screen6{
+    	    border: 1px solid #00000029;
+    	}
+    	
+    	tr {
+	    font-size: 20px;
+}
+tr td {
+	font-size: 15px;
+	}
+	
+	.flex-container {
+  display: flex;
+}
+
+.wrapper {
+  text-align: center;
+  flex-grow: 1;
+  
+  .image-box {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    margin: 20px auto;
+  }
+
+  .upload-btn {
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+    display: inline-block;
+    cursor: pointer;
+
+    input[type=file] {
+      display: none;
+    }
+  }
+}
+.text_editbox{
+
+	display: inline;
+	widows: 400px;
+
+}
+.text_editbox div{
+	
+	margin-bottom: 20px;
+	
+}
+
+
+.flex-container{
+
+		width: 400px;
+		display: inline-block;
+	
+}
+
+#edit{
+
+	display:  flex;
+	justify-content: left;
+
+}
+    </style>
+    <main>
 	<div  class= " screen3 screen-width-88 event-screen3" >
 				
-				<div >
+				<div class="screen6" >
 					<div>
 						<p>이벤트 썸네일</p>
 						<%-- <input class= "order-event-image" type="image"  src="/dndn/resources/img/event/${eventdto.pic_board} "  > --%>
@@ -94,68 +172,124 @@
 				
 			</div> 
 
-	
-	
-		
-			<div   class= " screen5 screenAll screen-width-88 event-screen5">
-					<span>이벤트 리스트</span> 
-					<div>
+                
+                    <div class="container-fluid px-4 ">
+                        
+                        <div class="card mb-4" style="border: none;" id="event-table">
+                            
+                            <div class="card-body">
+                               <span>이벤트 리스트</span> 
+                               
+                               <div>
 
-						<span> 정렬 </span>
-						 <button class=" "  type="button" >
-						    	이벤트명
-						  </button>
-						   <button class=" "  type="button" >
-						    	시작날짜
-						  </button>
-						 <button class=" "  type="button" >
-						    	등록일
-						  </button>
-					
-						 <button class=" "  type="button">
-						    	종료일
-						  </button>
-					
 
-						<div>
-							<input type="text" >
-							<input type="button"  value="검색">
-						</div> 
-					</div>
-					 	
-					<table> 
-					
-						<tr>
-							<th>이벤트번호</th>
-							<th>이벤트이름</th>
-							<th>등록일</th>
-							<th>시작날짜</th>
-							<th>종료날짜</th>
-							<th>할인률</th>
-							
-							<th>이벤트 사진</th>
-						
-							<th>수정</th>
-							<th>삭제</th>		
-							
-						</tr>
-						
-					<c:forEach var="event"  items="${eventlist}">
-						<tr onclick="location.href='http://localhost:8092/dndn/order/event-management.do?event_seq=${event.eventseq}&edit=${edit }'">
-							<td>${event.eventseq}</td>
-							<td>${event.title}</td>
-							<td>${event.regdate.substring(0,10) }</td>
-							<td>${event.startdate.substring(0,10) }</td>
-							<td>${event.enddate.substring(0,10) }</td>
-							<td>${event.sale} %</td><!-- 요일  -->
-							<td>${event.pic }</td>
-							<td class="event-td-btn"><a >수정</a></td>
-							<td class="event-td-btn"><a >삭제</a></td>
-						</tr>
-					</c:forEach>	
-						
-					</table>
-					
-					 
+                        </div>
+                               
+                                <table id="datatablesSimple">
+                                    <thead>
+                                    <tr>
+                                        <th>이벤트번호</th>
+                              <th>이벤트이름</th>
+                              <th>등록일</th>
+                              <th>시작날짜</th>
+                              <th>종료날짜</th>
+                              <th>할인률</th>
+                              
+                              <th>이벤트 사진</th>
+                              </tr>
+                                    </thead>
+                                    
+
+                                    <tbody>
+                                       <c:forEach var="event"  items="${eventlist}">
+                                 <tr class="event1">
+                                    <td>${event.eventseq}</td>
+                                    <td>${event.title}</td>
+                                    <td>${event.regdate.substring(0,10) }</td>
+                                    <td>${event.startdate.substring(0,10) }</td>
+                                    <td>${event.enddate.substring(0,10) }</td>
+                                    <td>${event.sale} %</td>
+                                    <td>${event.pic }</td>
+                                 </tr>
+                              </c:forEach>   
+                                    </tbody>
+
+
+                                </table>
+
+                        
+                        <!-- 이미지업로드 테스트 -->
+                 
+                        <!-- 이미지업로드 테스트 -->
+                        
+                        
+                        
+                    </div>
+
 				
 			</div>
+                </main>
+			
+<!-- 			<input type="button" id="btn1" value="Test"> -->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
+		<script>
+		
+		//$('#btn1').click(function() {
+			
+			setTimeout(function() {
+				$("#datatablesSimple tbody tr").click(function(event1){
+					
+					location.href='http://localhost:8092/dndn/order/event-management.do?event_seq='+$(this).children("td").eq(0).text()+'&edit=';
+				
+				} );
+			}, 300);
+			
+			
+		//});
+		
+		
+		
+			
+		
+		
+		
+		
+		
+			/* var e =  event1.target.childNodes.children[0].value; */
+/* 			var c =  event1.target.childNodes.children[1].nodeValue;
+			alert(e);
+			alert(c); */
+			//alert($(e).children().eq(1)/* .innerText */ .text()/* .nodeValue */ /* .value */);
+	
+			//alert(event.target.childNodes[1].children[0]); 
+			/* 
+			
+			*/
+		 
+		
+		 /* 
+		$('.event1').click(function(event){
+			
+		
+			//var event_seq = event.target.children[0].textContent;
+			alert(event.target.children[0].textContent); 
+			location.href='http://localhost:8092/dndn/order/event-management.do?event_seq='+event_seq+'&edit='+edit;
+		} );
+		 */ 
+/* 		
+		function event_result(event_seq,edit){
+			location.href='http://localhost:8092/dndn/order/event-management.do?event_seq='+event_seqpreventDefault()+'&edit='+edit;
+		} ;
+
+ */
+ /* 		
+			$('.event_result').onclick( 
+							 ); 
+ */			
+	//						$(".event_result").click(function(event_seq,edit){
+
+					
+		//		});
+			
+ 
+</script>	

@@ -202,7 +202,7 @@
 	}
 	.event-page-table tr {
 		 align-content: center;	
-		 border-bottom: 1px solid black; 
+		 /* border-bottom: 1px solid black; */ 
 		 	    height: 50px;
 		 	    
 	}
@@ -210,7 +210,7 @@
 	
 	
 	.event-page-table tr:first-child{
-		 border-top: 1px solid black; 
+		/*  border-top: 1px solid black; */ 
 	
 		 
 	}
@@ -249,7 +249,7 @@
     
     
     	.screen{
-	    border-top: 11px solid #7c7c7c;
+	   /*  border-top: 11px solid #7c7c7c; */
 	    height: 100%;
 	    width:100%;
 	    border-right: 8px solid #cacaca;
@@ -294,7 +294,7 @@
 	
 	.screen2 table tr td , .screen2 table tr th{
 	padding-left: 5px;
-	border: 1px solid black;
+	border: 1px;
 	
 	}
 	
@@ -316,7 +316,8 @@
 	}
 
 		.screen3{
-			border: 1px solid black;
+		
+		/* 	border: 1px solid black;  */
 			width:18%;
 			float: left;
 				height: 35%;
@@ -369,7 +370,7 @@
 	}
  
 	.screen4 table tr th,.screen4 table tr td{
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	padding-left: 5px;
 	}
 		.screen4 table tr th{
@@ -402,7 +403,7 @@
 	}
 
 	.screen3 div{
-		border: 1px solid black;
+	 	    border: 1px solid #00000029;
 		display: block;
 	} 
 
@@ -417,7 +418,7 @@
     		}
     		
 	.screen5 table th, .screen5 table td{
-		border: 1px solid black;
+	/* 	border: 1px solid black; */
 		
 	}    		
     		.screen5 table th{
@@ -461,7 +462,11 @@
 
 	.screenAll{
 		
-		border: 2px solid black;
+		/* border: 2px solid black; */
 		border-radius: 5px;
 		
 	}
+
+	.screen3 div table tr td {
+    border: 1px solid #00000029;
+}

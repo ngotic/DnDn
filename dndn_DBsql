@@ -277,9 +277,9 @@ CREATE TABLE tblCouponMember (
 
 CREATE TABLE tblCoupon (
 	couponseq	number		NOT NULL,
-	name	varchar2(100)		NULL,
-	sale	number		NULL,
-	period	number		NULL,
+	name	varchar2(100)	NOT	NULL,
+	sale	number	 NOT NULL,
+	period	date	 NOT NULL,
     constraint tblCoupon_pk1 primary key(couponseq)
 );
 
