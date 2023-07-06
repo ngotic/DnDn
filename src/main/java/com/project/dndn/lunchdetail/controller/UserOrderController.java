@@ -47,6 +47,7 @@ public class UserOrderController {
     public String orderCartPost(CartDTO cartDTO, String right, Principal principal, Model model){
         // 유저 정보 넣음
         cartDTO.setId(principal.getName());
+        System.out.println("------>"+cartDTO);
         if(right.equals("true")){
             String id = principal.getName();
             List<CartDTO> list = new ArrayList<CartDTO>();
@@ -86,13 +87,13 @@ public class UserOrderController {
         // 1. 주문하는 장바구니 품목 가져오기
         List<CartDTO> clist = service.orderCartList(principal.getName(), cartList);
         // 2. 유저가 보유한 쿠폰 가져오기 > 가져올 때 isuse가 F인 것만 가져온다.
-
         List<CouponDTO> coulist = service.getUserCouponList(principal.getName());// 안쓴거만
         // 3. 진행중인 이벤트 검색 > 서버단에서 로직 있고 ~~~ 해당되면 프론트단으로 뿌려준다.
+        int point = service.getUserPoint(principal.getName());
 
+        model.addAttribute("point", point);
         model.addAttribute("clist", clist);
         model.addAttribute("coulist", coulist);
-
 
         return "userorder/userorder";
     }

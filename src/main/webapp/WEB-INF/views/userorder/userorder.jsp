@@ -965,8 +965,8 @@
 
                                     <!-- 배송지명 -->
                                     <div class="row">
-                                        <label for="dlvNmTxt" class="titLabel"  style="display: block"><span class="required" aria-required="true">필수입력</span> 배송지명</label>
-                                        <input type="text" id="dlvNmTxt" name="dlvNmTxt" maxlength="10" class="inputTxt form-control" style="margin-top:4px; text-align: center;" placeholder="최대 10자 까지 입력 가능" >
+                                        <label for="addressname" class="titLabel"  style="display: block"><span class="required" aria-required="true">필수입력</span> 배송지명</label>
+                                        <input type="text" id="addressname" name="dlvNmTxt" maxlength="10" class="inputTxt form-control" style="margin-top:4px; text-align: center;" placeholder="최대 10자 까지 입력 가능" >
                                         <p class="inputAlt"></p>
                                     </div>
 
@@ -979,7 +979,7 @@
                                     <div class="row">
                                         <!-- 우편 번호 -->
                                         <label class="control-label" >우편번호</label>
-                                        <input class="form-control mb-2 zipcode" type="hidden" id="sample4_postcode" placeholder="우편번호" required>
+                                        <input id = "zipcode" class="form-control mb-2" type="hidden" id="sample4_postcode" placeholder="우편번호" value="12345" required>
                                         <input class="form-control mb-2" id="findaddressnumber" type="button" onclick="sample4_execDaumPostcode();" value="우편번호 찾기" required><br>
 
                                         <label class="control-label" >주소</label>
@@ -1028,30 +1028,29 @@
                         <div class="cartList">
                             <c:forEach items="${clist}" var="cdto">
                             <ul>
-                                    <li>
-                                        <div class="pdtRow">
-                                            <div class="cell pdtImg">
-
-                                                <a href="javascript:void(0);" >
-                                                    <img  id ="pdtImg" src="${cdto.pic}" alt="상품이미지">
-                                                </a>
-
-                                            </div>
-                                            <div class="cell pdtInfo">
-                                                <div class="pdtName" style="text-align: center;">
-                                                    ${cdto.content}<br>
-                                                    <span class="storekind" style="color:#888;">지점 : ${cdto.storename}</span>
-                                                </div>
-                                            </div>
-                                            <div class="cell pdtCount">${cdto.cnt} 개</div>
-                                            <div class="cell pdtPrice">
-                                                <span class="price">
-                                                    <fmt:formatNumber value="${cdto.price * cdto.cnt * (1-(cdto.sale/100))}" pattern="#,###"></fmt:formatNumber>원
-                                                </span>
-                                                <span class="point">+<fmt:formatNumber value="${cdto.cnt * cdto.price * 5/100 * (1-(cdto.sale/100))}"></fmt:formatNumber>P</span>
+                                <li>
+                                    <div class="pdtRow">
+                                        <div class="cell pdtImg">
+                                            <input type="hidden" class="cartseq" value="${cdto.cartseq}">
+                                            <a href="javascript:void(0);" >
+                                                <img  id ="pdtImg" src="${cdto.pic}" alt="상품이미지">
+                                            </a>
+                                        </div>
+                                        <div class="cell pdtInfo">
+                                            <div class="pdtName" style="text-align: center;">
+                                                ${cdto.content}<br>
+                                                <span class="storekind" style="color:#888;">지점 : ${cdto.storename}</span>
                                             </div>
                                         </div>
-                                    </li>
+                                        <div class="cell pdtCount">${cdto.cnt} 개</div>
+                                        <div class="cell pdtPrice">
+                                            <span class="price">
+                                                <fmt:formatNumber value="${cdto.price * cdto.cnt * (1-(cdto.sale/100))}" pattern="#,###"></fmt:formatNumber>원
+                                            </span>
+                                            <span class="point">+<fmt:formatNumber value="${cdto.cnt * cdto.price * 5/100 * (1-(cdto.sale/100))}"></fmt:formatNumber>P</span>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                             </c:forEach>
                         </div>
@@ -1082,7 +1081,7 @@
                                     <select class="form-control" style="width:100%;" id="sellcoupon">
                                         <option value="0" selected style="text-align: center;">쿠폰을 선택하세요.</option>
                                         <c:forEach items="${coulist}" var="coudto">
-                                            <option value="${coudto.couponmemberseq}/${coudto.sale}">${coudto.name}</option>
+                                            <option value="${coudto.couponmemberseq},${coudto.couponseq}/${coudto.sale}">${coudto.name}</option>
                                         </c:forEach>
                                     </select>
                                     <!-- 쿠폰 셋팅 -->
@@ -1119,7 +1118,7 @@
                                     <td>
                                         <div class="beautyPoint">
                                             <div class="mb-1">
-                                                사용가능 <strong><span id="canUseBtPt"><sec:authentication property='principal.member.point'/></span></strong> P &nbsp;/&nbsp; 보유 <strong><span id="myBtPtTxt"><sec:authentication property='principal.member.point'/></span></strong> P
+                                                사용가능 <strong><span id="canUseBtPt">${point}</span></strong> P &nbsp;/&nbsp; 보유 <strong><span id="myBtPtTxt">${point}</span></strong> P
                                             </div>
                                             <div class="display:margin:auto;">
                                             <input id="pointInput" type="text" class="form-control" name="totalUseBtPt" value="0" style="width:190px;margin-right: 10px; display: inline-block; text-align: center;">
@@ -1266,10 +1265,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 <script>
 
     let sel_pg = 'kakaopay.TC0ONETIME';
-    let sel_pg_method ='card';
+    let sel_pg_method ='kakaopay';
     let ordercnt = 0;
     let delvery_price = 3000;
     let discountDelivery=0;
@@ -1320,19 +1320,19 @@
     }
 
     $('#pointInput').on('change keyup', function(){
-        if($(this).val()=='' || parseInt($(this).val())<0)
-            $(this).val(0);
+       if( $(this).val()=='' || parseInt($(this).val())< 0 || parseInt($(this).val()) > parseInt($('#canUseBtPt').text())  )
+         $(this).val(0);
        updateTotalDiscountPrice();
     });
 
     $('#allUsePoint').click(function(){
-        let point = '<sec:authentication property="principal.member.point"/>'
+        let point = '${point}'
         $('#pointInput').val(point);
         updateTotalDiscountPrice();
     });
 
     $('#sellcoupon').change(function(){
-        // alert($('#sellcoupon').val().split('/')[1]);
+       //alert($('#sellcoupon').val().split('/')[0]);
         updateTotalDiscountPrice();
     });
 
@@ -1344,15 +1344,11 @@
         $('#totReservePtTxt').text(Math.floor(pointSum));
     });
 
-
-
-
-
     $('#sellpaymethod').change(function(){
         // 카카오페이
         if($("#sellpaymethod option:checked").val()=='1'){
             sel_pg = 'kakaopay.TC0ONETIME';
-            sel_pg_method ='card';
+            sel_pg_method ='kakaopay';
         // 카드결제
         } else if($("#sellpaymethod option:checked").val()=='2'){
             sel_pg = 'html5_inicis.INIBillTst';
@@ -1386,8 +1382,30 @@
         // 우편번호
         // 배송주소
         // 배송상세주소
-        // 주문날짜
+        // 주문날짜 > sysdate
         // 결제방식
+        // 적립포인트
+        let cartseqList = [];
+        $('.cartseq').each(function (index, item) {
+            cartseqList.push($(item).val());
+        })
+
+        let price = convertPriceToNum($('#totPurPrcBtnTxt').text());
+        let id = '<sec:authentication property="principal.member.id"/>';
+        let tel = $('#tel').val();
+        let email = $('#email').val(); // x
+        let zipcode = $('#zipcode').val();
+        let address = $('.address').val();
+        let addressdetail = $('.addressdetail').val();
+        let addpoint = $('#totReservePtTxt').text();
+        let usepoint = $('#pointInput').val();
+        let request = $("#requestmessage").val();
+        let payment = sel_pg_method;
+        let couponmemberseq = $('#sellcoupon').val().split('/')[0];// 0번이면 null이 들어간다.
+
+
+
+        let addressname = $('#addressname').val();
 
         var IMP = window.IMP;
         IMP.init('imp86112373');
@@ -1395,14 +1413,14 @@
             pg : sel_pg,
             pay_method : sel_pg_method,
             merchant_uid : 'merchant_' + new Date().getTime(),   //주문번호
-            name : 'dndn',                                  //상품명
-            amount : 100,                                    //가격
+            name : id,                                  //상품명
+            amount : price,                                    //가격
             //customer_uid : buyer_name + new Date().getTime(),  //해당 파라미터값이 있어야 빌링 키 발급 시도
-            buyer_email : 'aa@aaa.com',             //구매자 이메일
-            buyer_name : 'buyer_name',                           //구매자 이름
-            buyer_tel : 'hp',                                    //전화번호
-            buyer_addr : 'addr',	                             //주소
-            buyer_postcode : '123-456'                           //우편번호
+            buyer_email : email,             //구매자 이메일
+            buyer_name : id,                           //구매자 이름
+            buyer_tel : tel,                                    //전화번호
+            buyer_addr : address,	                             //주소
+            buyer_postcode : zipcode                           //우편번호
         },function(rsp){
             if(rsp.success){
                 var msg = "결제 완료";
@@ -1419,17 +1437,49 @@
                 }).done(function(data) {
                     // return값은 xml로 받는다. 그래서 jquery로 xml 파싱
                     if(rsp.paid_amount == $(data).find('amount').text()){
-                        alert("결제 및 결제검증완료");
+                        // alert("결제 및 결제검증완료");
                         // 비즈니스 로직 추가
                         // ~> 기록에 쓴다., 포인트 차감시 포인트 감소
                         // ajax 처리 > 해당 사용자
                         // 트랜잭션 처리,
-
-
-
-
-
-
+                        $.ajax({
+                            type: 'POST',
+                            url: '/dndn/order/addOrder',
+                            headers: {"content-type" : "application/json"}, // 보내는 데이터
+                            beforeSend: function(xhr) {
+                                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                            },
+                            data : JSON.stringify({
+                                id : id,
+                                price: price,
+                                request : request,
+                                couponmemberseq : couponmemberseq,
+                                payment: payment,
+                                addressname: addressname,
+                                tel : tel,
+                                zipcode: zipcode,
+                                address: address,
+                                addressdetail: addressdetail,
+                                addpoint :addpoint,
+                                usepoint : usepoint,
+                                cartseqList : cartseqList
+                            }),
+                            success : function(result) {
+                                if(result=='OK') {
+                                    new Swal('주문', '주문이 완료되었습니다.', 'success').then(function () {
+                                        location.href = '/dndn/main.do';
+                                    });
+                                }
+                            },
+                            error : function (a, b, c){
+                                console.log(a ,b, c)
+                                if(b == 'error') {
+                                    new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+                                        location.href='/dndn/auth/login.do';
+                                    });
+                                }
+                            }
+                        });
                     } else {
                         alert("결제 실패");
                     }
@@ -1438,10 +1488,9 @@
                 var msg = "결제 실패"
                 // msg += "에러 내용" + rsp.error_msg;
             }
-            alert(msg);
+            // alert(msg);
         });
     }
-
 
     $('#sameaddress').change(function(){
         //(uri);
@@ -1455,7 +1504,6 @@
             $('.addressdetail').val('');
         }
     });
-
 
     $('#sellrequest').change(function(){
 

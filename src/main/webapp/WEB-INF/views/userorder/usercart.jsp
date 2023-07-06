@@ -169,7 +169,7 @@
       <li>오늘출발 상품은 판매자 설정 시점에 따라 오늘출발 여부가 변경될 수 있으니 주문 시 꼭 다시 확인해 주시기 바랍니다.</li>
     </ul>
   </div>
-  <form method="POST" action="/dndn/userorder/userorder.do">
+  <form id="form1" method="POST" action="/dndn/userorder/userorder.do" >
   <table class="cart__list">
       <thead>
       <tr>
@@ -191,7 +191,7 @@
       <tr class="cart__list__detail">
         <td>
           <c:if test="${right eq 'false'}"><input class="ckbox" type="checkbox" name="cartseq" value="${cdto.cartseq}"></c:if>
-          <c:if test="${right eq 'true'}"><input type="hidden" name="cartseq" value="${cartseq}"></c:if>
+          <c:if test="${right eq 'true'}"><input class="ckbox" type="hidden" checked><input type="hidden" name="cartseq" value="${cartseq}" checked></c:if>
         </td>
         <td><img src="${cdto.pic}"  width="80"></td>
         <td>
@@ -240,7 +240,7 @@
   </table>
   <div class="cart__mainbtns">
     <button type="button" class="cart__bigorderbtn left" onclick="location.href='/dndn/main.do';">쇼핑 계속하기</button>
-    <button id="order" type="submit" class="cart__bigorderbtn right">주문하기</button>
+    <button id="order" type="button" class="cart__bigorderbtn right">주문하기</button>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
   </div>
   </form>
@@ -267,10 +267,49 @@ let sum=0;
 let count = $('.c_price').length;
 
 
-$('#order').click(function(){
 
+$('#order').click(function(){
+  checkBoxCnt();
 });
 
+function checkBoxCnt(){
+  let cnt = 0;
+  $('.ckbox').each(function(index,item){
+    if($(item).prop('checked') ==true){
+      cnt+=1;
+    }
+  });
+  if(cnt==0) {
+      alert('주문할 품목을 클릭하세요.');
+      return false;
+  } else {
+    $('#form1').submit();
+  }
+}
+
+
+
+
+function updateCheckboxAndTotalPrice(){
+  let csum = 0;
+  $('.ckbox').each(function(index,item){
+
+    let price = $(item).parent().parent().children().last().prev().find('.c_price').text();
+
+    if($(item).prop('checked') ==true) {
+      csum = csum + convertPriceToNum(price);
+    }
+    if (index + 1 == count) {
+      $('#total_price').text(convertNumToPrice(csum));
+    }
+  });
+}
+
+///////////////////////////////////////////////////////////////
+$('.ckbox').change(function(){
+  updateCheckboxAndTotalPrice();
+});
+//////////////////////////////////////////////////////////////
 
 $('#delbtn').click(function(){
 
@@ -332,6 +371,7 @@ $('#allCheck').click(function(){
       $(item).children().children().eq(0).prop('checked', false);
     });
   }
+  updateCheckboxAndTotalPrice();
 });
 
 $('#allCheck').click();

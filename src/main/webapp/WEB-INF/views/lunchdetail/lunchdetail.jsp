@@ -456,6 +456,11 @@
 								<input type="hidden" name="price" value="${ldto.price}">
 							</span>
 							</c:if>
+							<c:if test="${ldto.sale==0}">
+								<input type="hidden" name="sale" value="${ldto.sale}">
+								<input type="hidden" name="price" value="${ldto.price}">
+							</c:if>
+
 						</div>
 						<div class="table-opt">
 							<table>

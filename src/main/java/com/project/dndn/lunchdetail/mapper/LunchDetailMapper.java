@@ -25,4 +25,17 @@ public interface LunchDetailMapper {
     String maxCartseq(String id);
 
     List<CouponDTO> getUserCouponList(String id);
+
+    int insertAddress(OrderDTO order);
+
+
+    int insertOrder(OrderDTO order);
+
+    int updateOrderCart( @Param("list") List<String>  list);
+
+    int updateCoupon(@Param("couponmemberseq") String couponmemberseq, @Param("id") String id);
+
+    int updateMemberPoint(@Param("id") String id, @Param("point") int point);
+
+    int getUserPoint(String id);
 }

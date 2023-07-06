@@ -26,4 +26,8 @@ public interface LunchDetailService {
     List<CartDTO> orderCartList(String id, List<String> cartseqList);
 
     List<CouponDTO> getUserCouponList(String id);
+
+    int orderTransaction(OrderDTO order);
+
+    int getUserPoint(String id);
 }

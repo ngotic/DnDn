@@ -75,4 +75,45 @@
         from tblCouponMember cm where id=#{id} and isuse='F'
     </select>
 
+    <!-- addressseq.nextVal, id, addressname, tel, zipcode, address, addressdetail -->
+    <insert id="insertAddress">
+        insert into tblAddress values(addressseq.nextVal, #{id}, #{addressname}, #{tel}, #{zipcode}, #{address}, #{addressdetail})
+    </insert>
+
+    <insert id="insertOrder">
+        <selectKey resultType="int" keyProperty="addressseq" order="BEFORE">
+            select MAX(addressseq) from tblAddress
+        </selectKey>
+
+        <if test="couponseq==null">
+            insert into tblOrder values(orderseq.nextVal, #{id}, #{price}, sysdate, #{request}, null, #{payment}, 'T', #{addressseq}, null)
+        </if>
+        <if test="couponseq!=null">
+            insert into tblOrder values(orderseq.nextVal, #{id}, #{price}, sysdate, #{request}, #{couponseq}, #{payment}, 'T', #{addressseq}, null)
+        </if>
+
+    </insert>
+
+    <update id="updateOrderCart">
+        update tblCart set status='T'
+        where cartseq IN
+        <foreach collection="list" item="cartseq" open="(" close=")" separator="," >
+            #{cartseq}
+        </foreach>
+    </update>
+
+    <update id="updateCoupon">
+        update tblCouponMember set isuse = 'T'
+        where couponmemberseq = #{couponmemberseq} and id = #{id}
+    </update>
+
+    <update id="updateMemberPoint">
+        update tblMember set point = point + #{point}
+        where id = #{id}
+    </update>
+
+    <select id="getUserPoint" resultType="int">
+        select point from tblMember where id = #{id}
+    </select>
+
 </mapper>
