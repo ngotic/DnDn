@@ -58,7 +58,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 100;
+    z-index: 2;
     background-color: white;
     border-bottom: 2px solid #eee;
 }
@@ -231,9 +231,3 @@ body {
     font-family: var(--main-content-font-family);
     margin-bottom: 100px;
 } 
-
-.accordion-button {
-	
-	z-index: 1;
-	
-}

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.dndn.mypage.domain.MyPageDTO;
+import com.project.dndn.mypage.mapper.MyPageMapper;
 import com.project.dndn.mypage.service.MyPageService;
 
 @Controller
@@ -23,6 +24,9 @@ public class MyPageController {
 
 	@Autowired
 	private MyPageService myService;
+	
+	@Autowired
+	private MyPageMapper myMapper;
 	
 	@Autowired
 	private PasswordEncoder encoder;
@@ -86,16 +90,9 @@ public class MyPageController {
 		
 		String id = a.getName();
 
-		Map<String, List> map = new HashMap<String, List>();
-		
 		List<MyPageDTO> Olist = myService.Olist(id);
 
-		List<MyPageDTO> orderList = myService.orderList(id);
-		
-		map.put("Olist", Olist);
-		map.put("orderList", orderList);
-
-		model.addAttribute("map", map);
+		model.addAttribute("Olist", Olist);
 
 		return "/mypage/order";
 	}
