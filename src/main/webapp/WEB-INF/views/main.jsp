@@ -174,6 +174,11 @@ section {
 	box-shadow:none !important;
 }
 
+#chat-channel-button{
+	position: fixed;
+	top:160px;
+	right:35px;
+}
 
 </style>
 </head>
@@ -229,6 +234,8 @@ section {
 				</div>
 			</a>
 		</div>
+
+
 
 
 		<div class="lunchbox-list">
@@ -478,18 +485,32 @@ section {
 			</div>
 		</div>
 
+		<a id="chat-channel-button" href="javascript:chatChannel()">
+			<img src="https://developers.kakao.com/tool/resource/static/img/button/channel/consult/consult_small_yellow_pc.png"
+				alt="카카오톡 채널 채팅하기 버튼" />
+		</a>
+
 	</section>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.2.0/kakao.min.js"
+			integrity="sha384-x+WG2i7pOR+oWb6O5GV5f1KN2Ko6N7PTGPS7UlasYWNxZMKQA63Cj/B2lbUmUfuC" crossorigin="anonymous"></script>
+	<script>
+		Kakao.init('7904ca1e31c9655514139df57b15033a'); // 사용하려는 앱의 JavaScript 키 입력
+	</script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
+
+	function chatChannel() {
+		Kakao.Channel.chat({
+			channelPublicId: '_xamxcRG',
+		});
+	}
 
 	$('#closebtn').click(function(){
 		$('.right-recent-item').css('display','none');	
 	});
-
 
 	var swiper = new Swiper('.swiper', {
 		slidesPerView: 3,

@@ -109,7 +109,7 @@ public class LunchDetailServiceImpl implements LunchDetailService {
         // 4. 쿠폰 사용시 쿠폰 update
         // 5. 사용자 포인트 차감 or 포인트 증가
         // ---------------------------------------
-        //1. 새로 얻는 Point - 사용하는 포인트만큼 업데이트
+        // 1. 새로 얻는 Point - 사용하는 포인트만큼 업데이트
         int point = order.getAddpoint() - order.getUsepoint();
 
         result *= mapper.updateMemberPoint(order.getId(), point);
