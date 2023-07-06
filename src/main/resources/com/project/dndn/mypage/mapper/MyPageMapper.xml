@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.dndn.mypage.mapper.MyPageMapper">
+
+	<!-- 회원정보 조회 -->
+	<select id="list" resultType ="com.project.dndn.mypage.domain.MyPageDTO">
+		select * from tblMember where id = #{id}
+	</select>
+	
+	<!-- 회원정보 수정 -->
+	<update id="add">
+		update tblMember set 
+	<if test= 'pw != null and pw != ""'>
+		pw=#{pw},
+	</if>
+		tel=#{tel}, email=#{email},address=#{address},addressdetail=#{addressdetail} where id = #{id}
+	</update>
+	
+	
+	<select id="Flist" resultType="com.project.dndn.mypage.domain.MyPageDTO">
+		select 
+			o.orderseq, o.orderdate,
+			b.name as Lunchname, b.pic as Lunchpic, b.category as LunchCategory,
+			p.periodshipseq, p.shipdate, p.shiptime, p.shipperiod, p.dayperweek
+		from tblOrder o
+			inner join tblOrderCart t
+				on o.orderseq = t.orderseq
+					inner join tblCart c
+						on t.cartseq = c.cartseq
+							inner join tblPeriodShip p
+								on c.periodshipseq = p.periodshipseq
+									inner join tblSellBoard s
+										on c.sellboardseq = s.sellboardseq
+											inner join tblLunchboxSet l
+												on s.sellboardseq = l.sellboardseq
+													inner join tblLunchBox b
+														on l.lunchboxseq = b.lunchboxseq
+															where o.id = #{id}
+							
+			 
+	</select>
+	
+	<select id="orderList" resultType="com.project.dndn.mypage.domain.MyPageDTO">
+		select * from tblorder where id = #{id} order by orderseq desc
+	</select>
+	
+	<!-- 회원의 주문 조회 -->
+	<select id="Olist" resultType="com.project.dndn.mypage.domain.MyPageDTO">
+select
+    o.orderseq, o.orderdate, o.price as orderPrice, o.couponseq,
+    t.cnt,
+    a.*,
+    s.sale, s.pic,
+    l.name, l.category, l.price, l.pic
+from tblOrder o
+    inner join tblOrderCart c
+        on o.orderseq = c.orderseq
+            inner join tblCart t
+                on c.cartseq = t.cartseq
+                    inner join tblAddress a
+                        on o.addressseq = a.addressseq
+                            inner join tblSellBoard s
+                                on s.sellboardseq = t.sellboardseq
+                                    inner join tblLunchboxSet x
+                                        on x.sellboardseq = s.sellboardseq
+                                            inner join tblLunchbox l
+                                                on x.lunchboxseq = l.lunchboxseq
+        where o.id=#{id} order by o.orderseq desc
+	</select>
+	
+	<!-- 찜 조회 -->
+	<select id="wlist" resultType="com.project.dndn.mypage.domain.MyPageDTO">
+		select
+			w.*,
+			t.name as lunchname, t.pic as lunchpic
+		from tblWishList w
+			inner join tblSellBoard s
+				on w.sellboardseq = s.sellboardseq
+
+																	inner join tblLunchboxSet x
+																		on s.sellboardseq = x.sellboardseq
+																			inner join tblLunchBox t
+																				on x.lunchboxseq = t.lunchboxseq					
+					where w.id = #{id}
+	</select>
+	<!-- 찜 삭제 -->
+	<delete id="wdlist">
+		delete from tblWishList where wishlistseq = #{wishlistseq} and id=#{id}
+	</delete>
+	<!-- 찜 선택 -->
+	<insert id="wIlist">
+	insert into tblWishList values(wishlistseq.nextVal, #{id}, #{wishsellboardseq}, sysdate)
+	</insert>
+
+	<select id="">
+		select
+		o.*
+		from tblOrder o
+		inner join tblOrderCart d
+		on o.orderseq = d.orderseq
+		inner join tblCart c
+		on d.cartseq = c.cartseq
+		<if test='periodshipseq != null'>
+			inner join tblPeriodShip p
+			on p.periodshipseq = c.periodshipseq
+			inner join tblday y
+			on p.periodshipseq = y.periodshipseq
+		</if>
+			where o.id = #{id}
+	</select>
+</mapper>

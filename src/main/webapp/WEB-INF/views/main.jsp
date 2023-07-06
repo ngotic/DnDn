@@ -319,14 +319,14 @@ section {
 					<c:forEach items="${list}" var="dto" >
 					<div class="swiper-slide">
 						<div class="lunchbox-list-img">
-							<a href="<c:url value='/lunchdetail/detail.do?seq=${dto.sellboardseq}' />">
+							<a href="<c:url value='/lunchdetail/detail.do?seq=${dto.sellboardseq}&period=F'/>">
 								<img src="${dto.pic}" height=200px>
 							</a>
 						</div>
 						<div class="listInfo">
 							<p style="font-size:14px;">${dto.content}</p>
 							<c:if test="${dto.sale != 0 }">
-								<p ><span class="sale">${dto.sale}%</span> <span class="price">${dto.price}원</span> <span class="saleprice"><fmt:formatNumber value="${dto.price * (1-(dto.sale/100))}" pattern="0"></fmt:formatNumber>원</span> </p>
+								<p ><span class="sale">${dto.sale}%</span> <span class="price">${dto.price}원</span> <span class="saleprice"><fmt:formatNumber value="${dto.price * (1-(dto.sale/100))}" pattern="#,###"></fmt:formatNumber>원</span> </p>
 							</c:if>
 							<c:if test="${dto.sale == 0}">
 								<p><span class="saleprice">${dto.price}원</span></p>
@@ -343,7 +343,7 @@ section {
 
 		<div class="lunchbox-list">
 			<div class="lunchbox-list-title">이번달 정기배송 BEST
-				<img src="	https://www.slimcook.co.kr/design/slimcook/renewal/icon/review.png" alt="정기" width=16px>
+				<img src="https://www.slimcook.co.kr/design/slimcook/renewal/icon/review.png" alt="정기" width=16px>
 			</div>
 			<!-- 서버에서 많이 팔린 제품순으로 뿌려준다. -->
 			<div class="swiper">

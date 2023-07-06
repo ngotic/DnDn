@@ -23,6 +23,6 @@ public class CustomUser extends User {
 		this.member = dto;
 		
 	}
-	
+	 
 	
 }

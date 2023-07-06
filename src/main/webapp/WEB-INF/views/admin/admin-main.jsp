@@ -52,6 +52,7 @@
 
         <!-- Content Start -->
         <div class="content">
+<<<<<<< HEAD
             
 
 
@@ -62,6 +63,8 @@
 			<h1>admin main</h1>
 
 
+=======
+>>>>>>> develop
             <!-- Sale & Revenue Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
@@ -343,7 +346,6 @@
                 </div>
             </div>
             <!-- Footer End -->
->>>>>>> sw1111
         </div>
         <!-- Content End -->
 

@@ -217,7 +217,7 @@
                     <td>변경하실 비밀번호를 입력해주세요. <br>비밀번호는 대소문자를 구분합니다. </td>
                 </tr>    
                 <tr>
-                    <td><input type="text" placeholder="변경할 비밀번호" name="inputPw" id="inputPw" class="form-control" required> <span id="pwok"></span> </td>
+                    <td><input type="password" placeholder="변경할 비밀번호" name="inputPw" id="inputPw" class="form-control" required> <span id="pwok"></span> </td>
                 </tr>    	
                 <tr>
                     <td><button id="updatepw" class="btn btn-outline-warning">비밀번호 변경</button></td>
@@ -226,6 +226,7 @@
         </table>
         </div>
     </fieldset>
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>    
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
 	$('#findidtable').hide();
@@ -255,11 +256,13 @@
 					$('#FindIdProcess').hide();
 					$('#findpw').removeClass("btn-outline-warning");
 					$('#findpw').addClass("btn-warning");
+					new Swal('확인', '확인되었습니다.','success').then(function() {
+		        	});
 		        	
 	        },
 	        error: function (XMLHttpRequest, textStatus, errorThrown){
 	
-	        	alert('정보를 다시 입력해주시길 바랍니다.' );
+	        	new Swal('Error','정보를 확인해주세요', 'error');
 	        }
 	    });
 	});
@@ -268,29 +271,42 @@
 	$(document).on('click','#findpw',function(){
 		var id = $('#idInput').val();
 	 	var email = $('#emailInput').val();
-		console.log(name + email);
 	 	var pwData = {'id' : id , 'email' : email ,'${_csrf.parameterName}': '${_csrf.token}' };
 		$.ajax({
 	        url:'/dndn/findpw',
 	        type:'POST',
 	        data: JSON.stringify(pwData),
-	        dataType : "json",
+	        dataType : "text",
 	        contentType: 'application/json', 
 	        beforeSend: function(xhr) {
 	            xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}'); // CSRF 토큰 헤더에 추가
 	        },
 	        success:function(data){	
+	        	console.log(data);
+	        	if(data==="result"){
+	        	
 	        	$('#mail-Check-Btn').trigger("click");
-	        	$('.mail-check-input').show();
 	        	$('#idInput').prop('readonly',true);
 	        	$('#emailInput').prop('readonly',true);
-	        	$('#findpw').text('인증 메일 발송중');
+	        	$('.mail-check-input').show();
 				$('#findpw').prop('disabled',true);
+				$('#findpw').text('인증 메일 발송중');
+	        	}
+	        	else{
+	        		$('#findpw').text('비밀번호 찾기'); 	
+		        	$('#findpw').prop('disabled',false);
+		        	new Swal('Error','정보를 확인해주세요', 'error');
+		        	
+		        	
+	        	}
 		
 	        },
 	        error: function (XMLHttpRequest, textStatus, errorThrown){
-	
-	        	alert('정보를 다시 입력해주시길 바랍니다.' );
+	        	
+	        	$('#findpw').text('비밀번호 찾기'); 	
+	        	$('#findpw').prop('disabled',false);
+	        	new Swal('Error','1정보를 확인해주세요', 'error');
+	        	
 	        }
 	    });
 	});
@@ -302,7 +318,7 @@
 		const idInput = $('#idInput').val();;
 		console.log('완성된 이메일 : ' + emailInput); // 이메일 오는지 확인
 		const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
-		
+		$('#mail-Check-Btn').val('인증메일 전송중');
 		$.ajax({
 			type : 'POST',
 			url : '/dndn/emailVerify', 
@@ -314,14 +330,18 @@
 				console.log("data : " +  data.result);
 				checkInput.attr('disabled',false);
 				code =data;
-				alert('인증번호가 전송되었습니다.');
-			}			
+				new Swal('인증번호', '인증번호가 전송되었습니다.','success');
+			},		
+		  error: function (XMLHttpRequest, textStatus, errorThrown){
+				
+	        	new Swal('Error','이메일 인증 실패', 'error');
+	        }    
 		}); // end ajax	
 	}); // end send eamil
 	
 	// 인증번호 비교 
 	// blur -> focus가 벗어나는 경우 발생
-	$('.mail-check-input').blur(function () {
+	$('.mail-check-input').on('keyup', function(){
 		const inputCode = $(this).val();
 		const $resultMsg = $('#mail-check-warn');
 		
@@ -358,9 +378,13 @@
 	        		$('#inputPw').hide();
 	       	 		 $("#pwok").append("<h3>변경완료</h3>");
 					$('#updatepw').prop('disabled',true);
+					new Swal('변경', '변경완료되었습니다.','success').then(function() {
+		        	    location.href='/dndn/auth/login.do';
+		        	    
+		        	});
 	        },
 	        error: function (XMLHttpRequest, textStatus, errorThrown){
-	        	alert('정보를 다시 입력해주시길 바랍니다.' );
+	        	new Swal('변경 실패', 'error');
 	        }
 	    });
 	});

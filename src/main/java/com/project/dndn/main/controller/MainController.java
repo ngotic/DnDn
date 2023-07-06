@@ -29,8 +29,6 @@ public class MainController {
 		// 뿌려줘야할 것 원가, 할인된 가격, 
 		
 		List<LunchBoardDTO> list =  lunchBoxService.getRecentLunchServce();
-		
-		System.out.println(list);
 		model.addAttribute("list", list);
 		
 		return "main";
