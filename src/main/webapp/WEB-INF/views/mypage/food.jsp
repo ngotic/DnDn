@@ -24,11 +24,10 @@
 	width: 500px;
 	padding: 30px;
 	background-color: #fdfde0c5;
-	float: right;
-	height: 100%;
+	height: 600px;
 }
 
-#cal::after, #caledetail::after {
+#cal::after{
 	clear: right;
 }
 
@@ -44,8 +43,21 @@
 }
 
 #calendar {
-	width: 100%;
+	position: sticky;
+	width: 500px;
 	height: 100%;
+	z-index: 3;
+	background-color: white;
+}
+
+#caldetail {
+	position: sticky;
+	transform: translate(-500px, 0px);
+	transition: 2s all;
+	display: inline-block;
+}
+#caldetail>div{
+display: inline-block;
 }
 </style>
 </head>
@@ -57,10 +69,7 @@
 			<h1>식단 관리</h1>
 			<div id="contentbox">
 				<div id="cal">
-				<%-- <c:forEach items="" var="dto"> --%>
-					<%-- <c:if test="${dto.shipdate!=null && dto.shipdate ==data-date}"> --%>
 					<div id='calendar'></div>
-				<%-- </c:forEach> --%>
 				</div>
 				<div id="caldetail">
 					<div id="morning">아침</div>
@@ -77,27 +86,45 @@
 			</div>
 		</section>
 	</div>
-	<script>
 
-	
+	<script>
+		/*  document.addEventListener('click', function(event) {
+		   console.log('screenX:', event.screenX);
+		   console.log('screenY:', event.screenY);
+		 }); 
+		 document.addEventListener('click', function(event) {
+			  $('#caldetail').css('display', 'inline-block');
+			});*/
+	</script>
+
+
+	<script>
+		document.addEventListener('click', function(event) {
+			$('#caldetail').css({
+
+				'transform' : 'translate(0px, 0px)'
+			});
+		});
+		
+		
+		
+
 		document.addEventListener('DOMContentLoaded', function() {
 			var calendarEl = document.getElementById('calendar');
 			var calendar = new FullCalendar.Calendar(calendarEl, {
 				initialView : 'dayGridMonth',
-					 events: [
-				          {
-				            title: '♣',
-				            start: '2023-07-01',
-				            end: '2023-07-01',
-				            backgroundColor: 'white',
-			            	borderColor: 'white'
-				          } 
-				          ],
-				            
-		      });
-			calendar.render();
-			
+				events : [ {
+					title : '♣',
+					start : '2023-07-01',
+					end : '2023-07-01',
+					backgroundColor : 'white',
+					borderColor : 'white'
+				} ],
+
 			});
+			calendar.render();
+
+		});
 	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

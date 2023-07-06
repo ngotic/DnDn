@@ -7,6 +7,7 @@
 	margin-bottom: 100px;
 	float: left;
 	width: 80%;
+	padding: 40px;
 }
 
 .container::after {
@@ -99,3 +100,4 @@ html, body {
 .mb-0{
 	display: none;
 }
+#side-content:hover{}

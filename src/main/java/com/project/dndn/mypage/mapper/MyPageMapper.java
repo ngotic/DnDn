@@ -21,4 +21,6 @@ public interface MyPageMapper {
 
 	int wIlist(Map<String, String> map);
 
+	List<MyPageDTO> orderList(String id);
+
 }

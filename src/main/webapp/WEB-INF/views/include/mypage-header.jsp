@@ -7,7 +7,7 @@
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<div id="sidebar">
-		<div id="circle">
+		<div id="circle" onclick="location.href='/dndn/main.do';" style=" cursor: pointer;">
 			<div id="in_circle">
 				<img id="dlogo" src="/dndn/resources/img/logo_short.png">
 			</div>
@@ -15,7 +15,7 @@
 		<div id="side-content">
 			<div>유저명</div>
 			<button onclick="location.href='/dndn/mypage/edit.do';">내 정보</button>
-			<button onclick="location.href='/dndn/mypage/order.do';">주문관리</button>
+			<button onclick="location.href='/dndn/mypage/order.do';">주문조회</button>
 			<button onclick="location.href='/dndn/mypage/food.do';">식단관리</button>
 			<button onclick="location.href='/dndn/mypage/fav.do';">찜</button>
 			<button onclick="location.href='/dndn/mypage/buylist.do';">장바구니</button>
