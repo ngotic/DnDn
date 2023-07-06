@@ -45,10 +45,6 @@
 #fimg {
 	width: 200px;
 }
-
-#heart {
-	
-}
 .name{
 	font-weight: bold;
 	font-size: 1.3rem;
@@ -71,7 +67,7 @@
 						<div id="cimg">
 							<img id="fimg" src="${dto.lunchpic }">
 							<div id="heart">
-								<img src="/dndn/resources/img/mypage/heart.png" id="himg" onclick="hate(this,'${dto.wishlistseq}','${dto.sellboardseq }');">
+								<img src="/dndn/resources/img/mypage/heart.png" id="himg" onclick="hate('${dto.wishlistseq}','${dto.sellboardseq }');">
 							</div>
 						</div>
 						<div class="name">${dto.lunchname }</div>
@@ -91,10 +87,11 @@
 	var token = $("meta[name='_csrf']").attr('content');
 	var num = '0';
 	
-		function hate(element,wishlistseq,wishsellboardseq){
+		function hate(wishlistseq,wishsellboardseq){
 			
+			let temp = event.target;
 
-			if($(element).attr("src")=='/dndn/resources/img/mypage/heart.png'){
+			if($(event.target).attr("src")=='/dndn/resources/img/mypage/heart.png'){
 				num='1';
 			console.log(num);
 				$.ajax({
@@ -112,7 +109,7 @@
 		            },
 		            success : function (result) {
 		                console.log('hi');
-		                $(element).attr("src","/dndn/resources/img/mypage/blackheart.png")
+		                $(temp).attr("src","/dndn/resources/img/mypage/blackheart.png")
 		            },
 		            error: function(a,b,c){
 						console.log(a,b,c); 
@@ -136,7 +133,7 @@
 	            },
 	            success : function (result) {
 	                console.log(result);
-	                $(element).attr("src","/dndn/resources/img/mypage/heart.png")
+	                $(temp).attr("src","/dndn/resources/img/mypage/heart.png")
 	            },
 	            error: function(a,b,c){
 					console.log(a,b,c); 

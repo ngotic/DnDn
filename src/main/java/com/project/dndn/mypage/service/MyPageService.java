@@ -19,4 +19,6 @@ public interface MyPageService {
 
 	int wdlist(Map<String, String> map);
 
+	List<MyPageDTO> orderList(String id);
+
 }

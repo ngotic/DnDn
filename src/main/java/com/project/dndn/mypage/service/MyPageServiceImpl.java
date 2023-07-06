@@ -56,4 +56,9 @@ public class MyPageServiceImpl implements MyPageService {
 			return myMapper.wIlist(map);
 		}
 	}
+
+	@Override
+	public List<MyPageDTO> orderList(String id) {
+		return myMapper.orderList(id);
+	}
 }
