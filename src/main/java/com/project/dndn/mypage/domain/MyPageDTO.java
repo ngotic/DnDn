@@ -54,7 +54,11 @@ public class MyPageDTO {
 	//찜 정보
 	private String wishlistseq;
 	private String wishid;
-	private String wishsellboardseq;
 	private String wishregdate;
 	
+	//구매정보
+	private String orderPrice;
+	private String totalPrice;
+	private String pic;
+	private String category;
 }

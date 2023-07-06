@@ -1,6 +1,7 @@
 package com.project.dndn.mypage.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,23 @@ public class MyPageServiceImpl implements MyPageService {
 	public List<MyPageDTO> wlist(String id) {
 		
 		return myMapper.wlist(id);
+	}
+
+	@Override
+	public int wdlist(Map<String, String> map) {
+
+		System.out.println(map.get("num"));
+		if(map.get("num").equals("1")) {
+			
+			return myMapper.wdlist(map);
+		}else {
+			
+			return myMapper.wIlist(map);
+		}
+	}
+
+	@Override
+	public List<MyPageDTO> orderList(String id) {
+		return myMapper.orderList(id);
 	}
 }

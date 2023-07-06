@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.dndn.mypage.domain.MyPageDTO;
-import com.project.dndn.mypage.mapper.MyPageMapper;
 import com.project.dndn.mypage.service.MyPageService;
 
 @Controller
@@ -24,9 +23,6 @@ public class MyPageController {
 
 	@Autowired
 	private MyPageService myService;
-	
-	@Autowired
-	private MyPageMapper myMapper;
 	
 	@Autowired
 	private PasswordEncoder encoder;
@@ -90,9 +86,16 @@ public class MyPageController {
 		
 		String id = a.getName();
 
+		Map<String, List> map = new HashMap<String, List>();
+		
 		List<MyPageDTO> Olist = myService.Olist(id);
 
-		model.addAttribute("Olist", Olist);
+		List<MyPageDTO> orderList = myService.orderList(id);
+		
+		map.put("Olist", Olist);
+		map.put("orderList", orderList);
+
+		model.addAttribute("map", map);
 
 		return "/mypage/order";
 	}
@@ -111,9 +114,9 @@ public class MyPageController {
 	}
 	
 	@PreAuthorize("isAuthenticated()")
-	@PostMapping("/mypage/fav/{wishlistseq}")
+	@PostMapping("/mypage/fav/{wishlistseq}/{wishsellboardseq}/{num}")
 	@ResponseBody
-   	public int favok(@PathVariable("wishlistseq") String wishlistseq, Model model, Authentication a) {
+   	public int favok(@PathVariable("wishlistseq") String wishlistseq, Model model, Authentication a, @PathVariable("num") String num, @PathVariable("wishsellboardseq") String wishsellboardseq) {
 
 		System.out.println("wlist");
 		
@@ -123,8 +126,10 @@ public class MyPageController {
 		
 		map.put("id", id);
 		map.put("wishlistseq", wishlistseq);
+		map.put("wishsellboardseq", wishsellboardseq);
+		map.put("num", num);
 		
-		return myMapper.wdlist(map);
+		return myService.wdlist(map);
 	}
 
 	@PreAuthorize("isAuthenticated()")
