@@ -43,10 +43,11 @@ public class MyPageDTO {
 	
 	//정기배송
 	private String periodshipseq;
-	private String shipdate;
 	private String shiptime;
 	private String shipperiod;
 	private String dayperweek;
+	private String endship;
+	private String startship;
 	
 	//쿠폰 정보
 	private String sale;

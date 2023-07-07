@@ -1,5 +1,6 @@
 package com.project.dndn.mypage.contoller;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.dndn.mypage.domain.MyPageDTO;
+import com.project.dndn.mypage.mapper.MyPageMapper;
 import com.project.dndn.mypage.service.MyPageService;
 
 @Controller
@@ -24,6 +26,9 @@ public class MyPageController {
 	@Autowired
 	private MyPageService myService;
 	
+	@Autowired
+	private MyPageMapper myMapper;
+
 	@Autowired
 	private PasswordEncoder encoder;
 	
@@ -76,7 +81,18 @@ public class MyPageController {
 		String id = a.getName();
 
 		List<MyPageDTO> Flist = myService.Flist(id);
-
+		
+		for(int i=0; i < Flist.size(); i++) {
+			
+			String temp = Flist.get(i).getLunchname().substring(0, 3)+"...";
+			Flist.get(i).setLunchname(temp);
+			System.out.println(Flist.get(i).getLunchname());
+			Calendar cal = Calendar.getInstance();
+			
+		}
+		
+		model.addAttribute("Flist",Flist);
+		
 		return "/mypage/food";
 	}
 

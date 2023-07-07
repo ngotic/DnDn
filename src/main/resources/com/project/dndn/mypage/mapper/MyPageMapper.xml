@@ -18,10 +18,10 @@
 	
 	
 	<select id="Flist" resultType="com.project.dndn.mypage.domain.MyPageDTO">
-		select 
+		       select 
 			o.orderseq, o.orderdate,
 			b.name as Lunchname, b.pic as Lunchpic, b.category as LunchCategory,
-			p.periodshipseq, p.shipdate, p.shiptime, p.shipperiod, p.dayperweek
+			p.periodshipseq, p.dayperweek, p.shiptime, p.startship, p.endship
 		from tblOrder o
 			inner join tblOrderCart t
 				on o.orderseq = t.orderseq

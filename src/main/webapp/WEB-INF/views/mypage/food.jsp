@@ -16,7 +16,7 @@
 <style>
 #contentbox {
 	margin-top: 20px;
-	width: 1000px;
+	width: 200px;
 	height: 600px;
 }
 
@@ -36,7 +36,7 @@
 }
 
 #cal {
-	width: 500px;
+	width: 800px;
 	height: 100%;
 	margin-right: 0px;
 	float: left;
@@ -44,7 +44,6 @@
 
 #calendar {
 	position: sticky;
-	width: 500px;
 	height: 100%;
 	z-index: 3;
 	background-color: white;
@@ -52,12 +51,33 @@
 
 #caldetail {
 	position: sticky;
-	transform: translate(-500px, 0px);
+	transform: translate(0px, 0px);
 	transition: 2s all;
 	display: inline-block;
 }
 #caldetail>div{
 display: inline-block;
+}
+/* .fc-event-title,.fc-sticky{
+      width: 50px;
+      padding:0 5px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+} */
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 300,
+  'GRAD' 200,
+  'opsz' 20
+}
+.material-symbols-outlined{
+	color: green !important;
+	font-size: 20px;
+}
+.fc-event-title-container{
+	width: 5px !important;
 }
 </style>
 </head>
@@ -72,7 +92,8 @@ display: inline-block;
 					<div id='calendar'></div>
 				</div>
 				<div id="caldetail">
-					<div id="morning">아침</div>
+					<div id="morning">아침
+					</div>
 					<hr>
 					<div id="lunch">점심</div>
 					<hr>
@@ -88,44 +109,40 @@ display: inline-block;
 	</div>
 
 	<script>
-		/*  document.addEventListener('click', function(event) {
-		   console.log('screenX:', event.screenX);
-		   console.log('screenY:', event.screenY);
-		 }); 
-		 document.addEventListener('click', function(event) {
-			  $('#caldetail').css('display', 'inline-block');
-			});*/
-	</script>
-
-
-	<script>
 		document.addEventListener('click', function(event) {
+			
 			$('#caldetail').css({
 
-				'transform' : 'translate(0px, 0px)'
-			});
+				'transform' : 'translate(800px, 0px)'
+				
+		   });
+			
 		});
 		
-		
-		
-
 		document.addEventListener('DOMContentLoaded', function() {
-			var calendarEl = document.getElementById('calendar');
-			var calendar = new FullCalendar.Calendar(calendarEl, {
+	        var calendarEl = document.getElementById('calendar');
+	        var calendar = new FullCalendar.Calendar(calendarEl, {
 				initialView : 'dayGridMonth',
-				events : [ {
-					title : '♣',
-					start : '2023-07-01',
-					end : '2023-07-01',
+				events : [ 
+					<c:forEach items="${Flist}" var="dto">
+					{
+					title : '${dto.lunchname}',
+					start : '${dto.startship}',
+					//end : '${dto.endship}',
 					backgroundColor : 'white',
-					borderColor : 'white'
-				} ],
+					borderColor : 'white',
+					allDay: true
+					},
+					</c:forEach>
+				],
 
 			});
 			calendar.render();
 
+			$('.fc-event-title,.fc-sticky').prepend('<span class="material-symbols-outlined">psychiatry');
+			
 		});
-	</script>
+ </script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 	<script
