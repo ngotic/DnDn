@@ -39,6 +39,7 @@ public class MainController {
 		if(cookies !=null ){
 			for(int i = cookies.length-1 ; i>=0 ; i--){
 				if(cookies[i].getName().startsWith("recent")){
+					System.out.println("카운트");
 					RecentDTO rdto = new RecentDTO();
 					String[] divided = cookies[i].getValue().split("#");
 					rdto.setUrl(divided[0]);

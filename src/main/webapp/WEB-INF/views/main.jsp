@@ -192,6 +192,12 @@ button.in{
 	z-index:99;
 }
 
+#chat-channel-button{
+	position: fixed;
+	top:160px;
+	right:35px;
+}
+
 </style>
 </head>
 <body>
@@ -484,24 +490,36 @@ button.in{
 			<div class="recent-item-text">&nbsp;&nbsp;&nbsp;최근 본 목록
 				<button id="closebtn" type="button" class="btn-close btn-close-white" aria-label="Close" style="float:right;"></button>
 			</div>
+			<c:forEach items="${relist}" var="rdto">
 			<div class="recent-item">
-				<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
+				<a href="${rdto.url}"><img src="${rdto.pic}"></a>
 			</div>
-			<div class="recent-item">
-				<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
-			</div>
-			<div class="recent-item">
-				<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
-			</div>
+			</c:forEach>
 		</div>
+		
+		<a id="chat-channel-button" href="javascript:chatChannel()">
+			<img src="https://developers.kakao.com/tool/resource/static/img/button/channel/consult/consult_small_yellow_pc.png"
+				alt="카카오톡 채널 채팅하기 버튼" />
+		</a>
+		
 	</section>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.8/dayjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.2.0/kakao.min.js" integrity="sha384-x+WG2i7pOR+oWb6O5GV5f1KN2Ko6N7PTGPS7UlasYWNxZMKQA63Cj/B2lbUmUfuC" crossorigin="anonymous"></script>
+	<script>
+		Kakao.init('7904ca1e31c9655514139df57b15033a'); // 사용하려는 앱의 JavaScript 키 입력
+	</script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
-
+	
+	function chatChannel() {
+		Kakao.Channel.chat({
+			channelPublicId: '_xamxcRG',
+		});
+	}
 
 	$('#closebtn').click(function(){
 		$('.right-recent-item').css('display','none');	

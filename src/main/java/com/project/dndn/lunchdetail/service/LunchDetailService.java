@@ -35,4 +35,12 @@ public interface LunchDetailService {
 
 	List<ReviewDTO> listReview(String seq);
 
+	int reviewRemove(Integer rseq);
+
+	int reviewReplyWrite(ReviewReplyDTO rdto);
+
+	int reviewReplyDelete(Integer rrseq);
+
+	
+
 }

@@ -39,17 +39,29 @@ public class LunchDetailController {
 		String pic = ldto.getPic();
 
 		Cookie[] cookies = request.getCookies();
-		if(cookies !=null && cookies.length > 2 ){
-			Cookie delCookie = new Cookie(cookies[0].getName(), null);
-			delCookie.setPath("/dndn/");
-			delCookie.setMaxAge(0);
-			response.addCookie(delCookie);
-		}
+		if(cookies !=null ){
+			if(cookies.length > 3) {
+				Cookie delCookie = new Cookie(cookies[0].getName(), null);
+				delCookie.setPath("/dndn/");
+				delCookie.setMaxAge(0);
+				response.addCookie(delCookie);
 
-		Cookie cookie = new Cookie("recent_"+seq, url+"#"+pic );
-		cookie.setPath("/dndn/");
-		cookie.setMaxAge(60*60*24);
-		response.addCookie(cookie);
+				Cookie cookie = new Cookie("recent_"+seq, url+"#"+pic );
+				cookie.setPath("/dndn/");
+				cookie.setMaxAge(60*60*24);
+				response.addCookie(cookie);
+			} else {
+				Cookie cookie = new Cookie("recent_"+seq, url+"#"+pic );
+				cookie.setPath("/dndn/");
+				cookie.setMaxAge(60*60*24);
+				response.addCookie(cookie);
+			}
+		} else {
+			Cookie cookie = new Cookie("recent_"+seq, url+"#"+pic );
+			cookie.setPath("/dndn/");
+			cookie.setMaxAge(60*60*24);
+			response.addCookie(cookie);
+		}
 
 		if( principal == null ) {
 			model.addAttribute("boardlike", null);
@@ -61,7 +73,7 @@ public class LunchDetailController {
 		
 		List<ReviewDTO> rlist = service.listReview(seq);
 		
-		System.out.println(rlist);
+		System.out.println("무슨값인지 보자구"+rlist);
 		model.addAttribute("rlist", rlist); // 리뷰 리스트 
 		model.addAttribute("ldto", ldto);
 		model.addAttribute("locations", locations);

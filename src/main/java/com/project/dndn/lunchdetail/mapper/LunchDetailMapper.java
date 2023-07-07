@@ -28,7 +28,6 @@ public interface LunchDetailMapper {
 
     int insertAddress(OrderDTO order);
 
-
     int insertOrder(OrderDTO order);
 
     int updateOrderCart( @Param("list") List<String>  list);
@@ -42,6 +41,11 @@ public interface LunchDetailMapper {
     int reviewWrite(ReviewDTO reviewdto);
     
 	List<ReviewDTO> listReview(String seq);
-    
+	
+	int reviewRemove(Integer rseq);
+	
+	int reviewReplyWrite(ReviewReplyDTO rdto);
+	
+	int reviewReplyDelete(Integer rrseq);
     
 }

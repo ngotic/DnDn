@@ -79,10 +79,6 @@ public class UserOrderController {
     @PostMapping("/userorder/userorder.do")
     public String order(String[] cartseq, Model model, Principal principal){
 
-        for( String a : cartseq)
-            System.out.println(a);
-
-
         List<String> cartList = Arrays.asList(cartseq);
         // 1. 주문하는 장바구니 품목 가져오기
         List<CartDTO> clist = service.orderCartList(principal.getName(), cartList);

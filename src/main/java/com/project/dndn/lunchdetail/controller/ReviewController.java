@@ -2,6 +2,7 @@ package com.project.dndn.lunchdetail.controller;
 
 
 import com.project.dndn.lunchdetail.domain.ReviewDTO;
+import com.project.dndn.lunchdetail.domain.ReviewReplyDTO;
 import com.project.dndn.lunchdetail.service.LunchDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,19 +28,19 @@ public class ReviewController {
     private LunchDetailService service;
     // 리뷰 조회
     //dndn/lunchdetail/review?seq=3
-    @GetMapping("/review")
-    public ResponseEntity<List<ReviewDTO>> list(Integer seq){
-        List<ReviewDTO> list = null;
-        try {
-
-            //list = service.getReviewList(seq);
-
-            return new ResponseEntity<List<ReviewDTO>>(list, HttpStatus.OK);
-        } catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<List<ReviewDTO>>(HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @GetMapping("/review")
+//    public ResponseEntity<List<ReviewDTO>> list(Integer seq){
+//        List<ReviewDTO> list = null;
+//        try {
+//
+//            //list = service.getReviewList(seq);
+//
+//            return new ResponseEntity<List<ReviewDTO>>(list, HttpStatus.OK);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            return new ResponseEntity<List<ReviewDTO>>(HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
 
     // 리뷰 등록
@@ -48,10 +49,6 @@ public class ReviewController {
     // 댓글을 등록하는 메서드
     public ResponseEntity<String> write(ReviewDTO reviewdto,
                                         Principal principal, HttpServletRequest req) {
-
-//        System.out.println("-------------------------여기-------------------");
-//        System.out.println(">"+reviewdto);
-//        reviewdto.setId(principal.getName());
     	System.out.println(">"+reviewdto);
         try {
         	reviewdto.setId(principal.getName());
@@ -77,22 +74,66 @@ public class ReviewController {
         }
     }
 
-    @DeleteMapping("/review/{rseq}")  // http://localhost/dndn/lunchdetail/review/10?seq=3 DELETE
+    @DeleteMapping("/review/{rseq}")  // http://localhost/dndn/lunchdetail/review/10 DELETE
     // 이거 어노테이션 순서는 상관없다.
-    public ResponseEntity<String> remove(@PathVariable Integer rseq, Integer seq, HttpSession session){
-//        String commenter = (String)session.getAttribute("id");
-        // 로그인 과정 따로 없이 테스트를 하기위해~
-        String id = "asdf";
+    public ResponseEntity<String> remove(@PathVariable Integer rseq){
+
+        System.out.println("delete 요청 : "+rseq);
         try {
-            // int rowCnt = service.remove(seq, rseq, id);
-//            if ( rowCnt !=1 )
-//                throw new Exception("Delete Failed");
-            return new ResponseEntity<>("DEL_OK", HttpStatus.OK);
+            int rowCnt = service.reviewRemove(rseq);
+        	if ( rowCnt !=1 )
+        		throw new Exception("Delete Failed");
+            return new ResponseEntity<>("OK", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>("DEL_ERR", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("ERR", HttpStatus.BAD_REQUEST);
         }
     }
+    
+    @PreAuthorize("isAuthenticated()") 
+    @PostMapping("/reviewreply/{rseq}")  // http://localhost/dndn/lunchdetail/review/10 DELETE
+    // 이거 어노테이션 순서는 상관없다.
+    public ResponseEntity<String> reviewreply(@PathVariable Integer rseq, HttpServletRequest req, Principal principal){
+    	
+    	
+        System.out.println("post reviewreply 요청 : "+rseq);
+        System.out.println(principal.getName());
+        System.out.println("content: "+req.getParameter("content"));
+        
+        try {
+        	String content =req.getParameter("content");
+        	ReviewReplyDTO rdto = new ReviewReplyDTO();
+        	rdto.setId(principal.getName());
+        	rdto.setReviewseq(rseq);
+        	rdto.setContent(content);
+        	
+        	int rowCnt = service.reviewReplyWrite(rdto);
+        	if ( rowCnt !=1 )
+        		throw new Exception("reviewreply Failed");
+            return new ResponseEntity<>("OK", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("ERR", HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @PreAuthorize("isAuthenticated()") 
+    @DeleteMapping("/reviewreply/{rrseq}")  // http://localhost/dndn/lunchdetail/review/10 DELETE
+    // 이거 어노테이션 순서는 상관없다.
+    public ResponseEntity<String> reviewreplydelete(@PathVariable Integer rrseq, Principal principal){
+    	
+        try {
+        	
+        	int rowCnt = service.reviewReplyDelete(rrseq);
+        	if ( rowCnt !=1 )
+        		throw new Exception("reviewreply Failed");
+            return new ResponseEntity<>("OK", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("ERR", HttpStatus.BAD_REQUEST);
+        }
+    }
+    
 
 
 }

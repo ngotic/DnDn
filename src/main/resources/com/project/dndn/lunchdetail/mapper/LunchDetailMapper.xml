@@ -125,10 +125,46 @@
         </if>
     </insert>
 
-	<select id ="listReview" resultType="com.project.dndn.lunchdetail.domain.ReviewDTO">
+
+	<!--
+	 1대 N관계로 확장 
+	 <select id ="listReview" resultType="com.project.dndn.lunchdetail.domain.ReviewDTO">
 		select * from tblReview where sellboardseq=#{seq} 
+	</select> 
+	-->
+	
+	
+	<resultMap id="replyResult" type="com.project.dndn.lunchdetail.domain.ReviewDTO">
+		<result property="reviewseq" column="reviewseq"/>
+		<result property="sellboardseq" column="sellboardseq"/>
+		<result property="regdate" column="regdate"/>
+		<result property="content" column="content"/>
+		<result property="star" column="star"/>
+		<result property="id" column="id"/>
+		<result property="image" column="image"/>
+		<result property="replycnt" column="replycnt"/>
+		<collection property="reviewreplylist" column="reviewseq" javaType="java.util.ArrayList" ofType="com.project.dndn.lunchdetail.domain.ReviewReplyDTO" select="getReplyByReviewSeq"/>
+	</resultMap>
+	
+	<select id="listReview" resultMap="replyResult">
+		select reviewseq, sellboardseq, regdate, content, star, id, image, (select count(*) from tblReviewReply where reviewseq=tblReview.reviewseq) as replycnt from tblReview where sellboardseq=#{seq} 
 	</select>
 
+	<select id="getReplyByReviewSeq" resultType="com.project.dndn.lunchdetail.domain.ReviewReplyDTO">
+		select reviewreplyseq, reviewseq, id, regdate, content from tblReviewReply where reviewseq = #{reviewseq}
+	</select>
+	
 
-
+	<delete id="reviewRemove">
+		delete from tblReview where reviewseq=#{rseq}
+	</delete>
+	
+	<insert id="reviewReplyWrite">
+		insert into tblReviewReply values(reviewreplyseq.nextVal, #{reviewseq}, #{id}, sysdate, #{content})
+	</insert>
+	
+	<delete id="reviewReplyDelete">
+		delete from tblReviewReply where reviewreplyseq=#{rrseq}
+	</delete>
+	
 </mapper>

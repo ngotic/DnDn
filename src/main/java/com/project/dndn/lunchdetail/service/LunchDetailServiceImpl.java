@@ -133,4 +133,22 @@ public class LunchDetailServiceImpl implements LunchDetailService {
 		return mapper.listReview(seq);
 	}
 
+	@Override
+	public int reviewRemove(Integer rseq) {
+
+		return mapper.reviewRemove(rseq);
+	}
+
+	@Override
+	public int reviewReplyWrite(ReviewReplyDTO rdto) {
+		return mapper.reviewReplyWrite(rdto);
+	}
+
+	@Override
+	public int reviewReplyDelete(Integer rrseq) {
+		return mapper.reviewReplyDelete(rrseq);
+	}
+
+
+
 }

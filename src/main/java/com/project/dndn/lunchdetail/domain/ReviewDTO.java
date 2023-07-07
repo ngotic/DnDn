@@ -1,6 +1,9 @@
 package com.project.dndn.lunchdetail.domain;
 
 import lombok.Data;
+
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -15,4 +18,7 @@ public class ReviewDTO {
     private String image;
 
     private MultipartFile uploadImg;
+    private String replycnt;
+    private List<ReviewReplyDTO> reviewreplylist;
+    
 }

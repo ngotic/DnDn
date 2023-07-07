@@ -9,11 +9,11 @@
   	/* transform : translateY(-100%); */
     height: auto;
     text-align: left;
-    background-color: #777;
+    background-color: #F5F6F7;
  
 }
 .footer-area * {
-    color: white;
+    color: #777;
 }
 .footer-area strong{
   font-weight: 1500;
@@ -44,7 +44,7 @@ table{
     			<td style="padding-bottom:10px;"> <span><strong>마케팅제휴문의</strong> dndn@oreun-corp.com   <strong>건강기능식품영업신고</strong> 제xxxx-xxxxxxx호(강남구청)</span></td>
     		</tr>
     		<tr>
-    			<td style="padding-bottom:10px;"> <span><strong>대표전화</strong> 1600-xxxx (점심시간 13:00~14:00/공휴일 휴무)   <strong>개인정보보호책임자</strong> 남건욱   <strong>E-mail</strong> help@xxxx-corp.com</span></td>
+    			<td style="padding-bottom:10px;"> <span><strong>대표전화</strong> 1600-xxxx (점심시간 13:00~14:00/공휴일 휴무)   <strong>개인정보보호책임자</strong> 침착맨   <strong>E-mail</strong> help@xxxx-corp.com</span></td>
     		</tr>
     		<tr>
     			<td style="padding-top:20px;"><span><strong>이용안내 | 이용약관 | 개인정보처리방침 | 입점&제휴문의</strong></span></td>
