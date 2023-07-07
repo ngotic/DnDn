@@ -85,32 +85,7 @@ public class ProductController {
 		return "redirect:/admin/product-view.do?lunchboxseq=" + dto.getLunchboxseq();
 	}
 	
-	
-	
-	/*
-	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/admin/product-del.do")
-	public String del(Model model, String lunchboxseq) {
-		
-		model.addAttribute("lunchboxseq", lunchboxseq);
-		
-		return "admin/product-del";
-	}
-	*/
-	
-	/*
-	 * @PreAuthorize("isAuthenticated()")
-	 * 
-	 * @PostMapping("/admin/product-delok") public String delok(ProductDTO dto,
-	 * Model model) {
-	 * 
-	 * int result = productService.del(dto);
-	 * 
-	 * if (result == 1) { return "redirect:/admin/product.do"; } else { return null;
-	 * } }
-	 */
-	
-	
+
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/admin/product-delok")
 	public String delok(String lunchboxseq, Model model) {

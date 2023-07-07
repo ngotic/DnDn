@@ -78,7 +78,7 @@
                         </div>
                     </div>
                     
-                    <a href="" class="nav-item nav-link">
+                    <a href="/dndn/admin/chart.do" class="nav-item nav-link">
                     	<i class="fa fa-chart-bar me-2"></i>통계
                     </a>
                     
