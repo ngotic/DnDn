@@ -122,5 +122,15 @@ public class LunchDetailServiceImpl implements LunchDetailService {
         return mapper.getUserPoint(id);
     }
 
+    @Override
+    public int reviewWrite(ReviewDTO reviewdto) {
+        return mapper.reviewWrite(reviewdto);
+    }
+
+	@Override
+	public List<ReviewDTO> listReview(String seq) {
+
+		return mapper.listReview(seq);
+	}
 
 }

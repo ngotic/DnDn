@@ -7,8 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.project.dndn.lunchdetail.domain.LunchBoxDTO;
+import com.project.dndn.lunchdetail.domain.ReviewDTO;
 import com.project.dndn.lunchdetail.service.LunchDetailService;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.List;
 
@@ -19,17 +23,33 @@ public class LunchDetailController {
 	private LunchDetailService service;
 
 	@GetMapping("/lunchdetail/detail.do")
-	public String lunchdetail(String seq, String period, Model model, Principal principal) {
+	public String lunchdetail(String seq, String period, Model model, Principal principal, HttpServletRequest request, HttpServletResponse response) {
 
 		// 1. 정기, 비정기배송에 따라 나오는 lunchdetail 구분 > 'query String' 사용
 		// 2. boardDetail을 받아서 맞는 정보 리턴
 		// 3. 지점정보 같이 넣어주기
 
+
+
 		System.out.println("출력 : "+seq+"/"+period);
 		LunchBoxDTO ldto = service.getLunchBoxDetail(period, seq);
 		List<StoreLocationDTO> locations = service.getStoreLocations();
 
-		// ldto.getPic()
+		String url = request.getRequestURI()+"?seq="+seq+"&period="+period;
+		String pic = ldto.getPic();
+
+		Cookie[] cookies = request.getCookies();
+		if(cookies !=null && cookies.length > 2 ){
+			Cookie delCookie = new Cookie(cookies[0].getName(), null);
+			delCookie.setPath("/dndn/");
+			delCookie.setMaxAge(0);
+			response.addCookie(delCookie);
+		}
+
+		Cookie cookie = new Cookie("recent_"+seq, url+"#"+pic );
+		cookie.setPath("/dndn/");
+		cookie.setMaxAge(60*60*24);
+		response.addCookie(cookie);
 
 		if( principal == null ) {
 			model.addAttribute("boardlike", null);
@@ -38,7 +58,11 @@ public class LunchDetailController {
 			model.addAttribute("boardlike", result);
 			System.out.println("boardlike " + result);
 		}
-
+		
+		List<ReviewDTO> rlist = service.listReview(seq);
+		
+		System.out.println(rlist);
+		model.addAttribute("rlist", rlist); // 리뷰 리스트 
 		model.addAttribute("ldto", ldto);
 		model.addAttribute("locations", locations);
 

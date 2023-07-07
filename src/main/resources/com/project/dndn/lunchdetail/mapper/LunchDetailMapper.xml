@@ -116,4 +116,19 @@
         select point from tblMember where id = #{id}
     </select>
 
+    <insert id="reviewWrite">
+        <if test="image!=null">
+            insert into tblReview values(reviewseq.nextVal,#{sellboardseq}, sysdate, #{content}, #{star}, #{id},  #{image})
+        </if>
+        <if test="image==null">
+            insert into tblReview values(reviewseq.nextVal,#{sellboardseq}, sysdate, #{content}, #{star}, #{id},  null)
+        </if>
+    </insert>
+
+	<select id ="listReview" resultType="com.project.dndn.lunchdetail.domain.ReviewDTO">
+		select * from tblReview where sellboardseq=#{seq} 
+	</select>
+
+
+
 </mapper>

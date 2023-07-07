@@ -30,4 +30,9 @@ public interface LunchDetailService {
     int orderTransaction(OrderDTO order);
 
     int getUserPoint(String id);
+
+    int reviewWrite(ReviewDTO reviewdto);
+
+	List<ReviewDTO> listReview(String seq);
+
 }

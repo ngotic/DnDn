@@ -38,4 +38,10 @@ public interface LunchDetailMapper {
     int updateMemberPoint(@Param("id") String id, @Param("point") int point);
 
     int getUserPoint(String id);
+
+    int reviewWrite(ReviewDTO reviewdto);
+    
+	List<ReviewDTO> listReview(String seq);
+    
+    
 }
