@@ -38,6 +38,7 @@
    <mybatis-spring:scan base-package="com.project.dndn.lunchdetail.mapper"/>
    <mybatis-spring:scan base-package="com.project.dndn.auth.mapper"/>
    <mybatis-spring:scan base-package="com.project.dndn.admin.mapper"/>
+   <mybatis-spring:scan base-package="com.project.dndn.mypage.mapper"/>
 
 
 </beans>

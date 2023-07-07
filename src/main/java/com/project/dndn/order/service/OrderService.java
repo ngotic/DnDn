@@ -3,6 +3,9 @@ package com.project.dndn.order.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.project.dndn.order.domain.OrderCouponDTO;
 import com.project.dndn.order.domain.OrderDTO;
 import com.project.dndn.order.domain.OrderEventDTO;
 
@@ -37,5 +40,20 @@ public interface OrderService {
 	ArrayList<OrderEventDTO> eventopenlist();
 
 	ArrayList<OrderEventDTO> eventcloselist();
+
+
+	void insertevent(OrderEventDTO dto);
+
+	ArrayList<OrderCouponDTO> couponlist();
+
+	void insertcoupon(OrderCouponDTO dto);
+
+	void updatecoupon(OrderCouponDTO dto);
+
+	void deletecoupon(String coupon_seq);
+
+	
+
+
 
 }

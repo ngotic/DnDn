@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,12 +29,14 @@ import com.project.dndn.security.CustomUserDetailsService;
 
 @Controller 
 public class AuthController {
+	
+	@PreAuthorize("isAnonymous()")
 	@GetMapping("/auth/login.do")
 	public String login() {
-		return "auth/login";
+		return "auth/login";	
 	}
 	
-	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/auth/logout.do")
     public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

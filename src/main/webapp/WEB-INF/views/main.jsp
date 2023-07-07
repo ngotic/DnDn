@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -173,11 +174,22 @@ section {
 	outline:none !important;
 	box-shadow:none !important;
 }
-
-#chat-channel-button{
-	position: fixed;
-	top:160px;
-	right:35px;
+#chatBox{
+	position:fixed;
+	bottom:0px;
+	right:20px;
+	color:black;
+	background-color:white;
+}
+#chatBox *{
+color:black;
+background-color:white;
+}
+button.in{
+	position:fixed;
+	bottom:240px;
+	right:200px;
+	z-index:99;
 }
 
 </style>
@@ -234,8 +246,6 @@ section {
 				</div>
 			</a>
 		</div>
-
-
 
 
 		<div class="lunchbox-list">
@@ -474,40 +484,29 @@ section {
 			<div class="recent-item-text">&nbsp;&nbsp;&nbsp;최근 본 목록
 				<button id="closebtn" type="button" class="btn-close btn-close-white" aria-label="Close" style="float:right;"></button>
 			</div>
-			<c:forEach items="${relist}" var="rdto">
 			<div class="recent-item">
-				<a href="${rdto.url}"><img src="${rdto.pic}"></a>
+				<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
 			</div>
-			</c:forEach>
+			<div class="recent-item">
+				<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
+			</div>
+			<div class="recent-item">
+				<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
+			</div>
 		</div>
-
-		<a id="chat-channel-button" href="javascript:chatChannel()">
-			<img src="https://developers.kakao.com/tool/resource/static/img/button/channel/consult/consult_small_yellow_pc.png"
-				alt="카카오톡 채널 채팅하기 버튼" />
-		</a>
-
 	</section>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
-	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.2.0/kakao.min.js"
-			integrity="sha384-x+WG2i7pOR+oWb6O5GV5f1KN2Ko6N7PTGPS7UlasYWNxZMKQA63Cj/B2lbUmUfuC" crossorigin="anonymous"></script>
-	<script>
-		Kakao.init('7904ca1e31c9655514139df57b15033a'); // 사용하려는 앱의 JavaScript 키 입력
-	</script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.8/dayjs.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
 
-	function chatChannel() {
-		Kakao.Channel.chat({
-			channelPublicId: '_xamxcRG',
-		});
-	}
 
 	$('#closebtn').click(function(){
 		$('.right-recent-item').css('display','none');	
 	});
+
 
 	var swiper = new Swiper('.swiper', {
 		slidesPerView: 3,
@@ -523,6 +522,7 @@ section {
 		var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
 		return direction;
 	}
+
 </script>
 </body>
 </html>

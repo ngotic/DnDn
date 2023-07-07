@@ -54,29 +54,46 @@
 				<div class="nav-item"><a href = "/dndn/order/event.do" class="nav-link" >이벤트</a></div>
 			</div>
 			<a class="navbar-toggler" id="toggleBtn"><i class="fa fa-bars"></i></a>
-			
-			<div class="navbar-menu" id="menu">
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<div class="navbar-menu" id="menu"  style="padding-left: 300px;">
+			</sec:authorize>
+			<sec:authorize access="!hasRole('ROLE_ADMIN')">
+			<div class="navbar-menu" id="menu" style="padding-left: 220px;">
+			</sec:authorize>
 				<div class="nav-item"><a href = "#" class="nav-link" >고객지원</a></div>
 				<sec:authorize access="isAnonymous()">
 				<div class="nav-item"><a href = "/dndn/auth/register.do" class="nav-link" >회원가입</a></div>
 				</sec:authorize>
+				 <sec:authorize access="hasRole('ROLE_MEMBER')">
 				<div class="nav-item"><a href = "/dndn/userorder/usercart.do?right=false" class="nav-link" >장바구니</a></div>
+				 </sec:authorize>
 				<sec:authorize access="isAnonymous()">
 				<div class="nav-item"><a href = "/dndn/auth/login.do" class="nav-link" >로그인</a></div>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
-				<div class="nav-item dropdown" >
+				<div class="nav-item dropdown">
                     <span class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="true">
             			<sec:authentication property="principal.username"/>
                     </span>
+                    <sec:authorize access="hasRole('ROLE_MEMBER')">
                     <ul class="dropdown-menu">
                     <form method="POST" action="/dndn/auth/logout.do">
                     	<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">로그아웃</button></div></li>
                     	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-					</form>
-						<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">찜목록</button></div></li>
-						<li><div class="nav-item"><a href = "#" class="nav-link" style="margin-left:20px;">마이페이지</a></div></li>
+					</form>	
+						<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;" onclick="location.href='/dndn/mypage/fav.do';">찜목록</button></div></li>
+						<li><div class="nav-item"><a href = "/dndn/mypage/edit.do" class="nav-link" style="margin-left:20px;">마이페이지</a></div></li>
                     </ul>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <ul class="dropdown-menu">
+                    <form method="POST" action="/dndn/auth/logout.do">
+                    	<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">로그아웃</button></div></li>
+                    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+					</form>	
+						<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">관리자페이지</button></div></li>
+                    </ul>
+                     </sec:authorize>
                 </div>
                 </sec:authorize>
 			</div>
