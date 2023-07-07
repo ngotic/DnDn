@@ -33,7 +33,7 @@ public class AuthController {
 	@PreAuthorize("isAnonymous()")
 	@GetMapping("/auth/login.do")
 	public String login() {
-		return "auth/login";
+		return "auth/login";	
 	}
 	
 	@PreAuthorize("isAuthenticated()")

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -173,7 +174,23 @@ section {
 	outline:none !important;
 	box-shadow:none !important;
 }
-
+#chatBox{
+	position:fixed;
+	bottom:0px;
+	right:20px;
+	color:black;
+	background-color:white;
+}
+#chatBox *{
+color:black;
+background-color:white;
+}
+button.in{
+	position:fixed;
+	bottom:240px;
+	right:200px;
+	z-index:99;
+}
 
 </style>
 </head>
@@ -477,14 +494,14 @@ section {
 				<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
 			</div>
 		</div>
-
 	</section>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.8/dayjs.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
+
 
 	$('#closebtn').click(function(){
 		$('.right-recent-item').css('display','none');	
@@ -505,6 +522,7 @@ section {
 		var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
 		return direction;
 	}
+
 </script>
 </body>
 </html>
