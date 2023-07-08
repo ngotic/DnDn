@@ -110,7 +110,7 @@ section {
 	border: #eee;
 	margin: 0 10px 0 10px;
 	border-radius: 10px;
-	padding: 10px;
+	padding: 10px 20px 10px 20px;
 }
 
 .menubtn.active{
@@ -198,6 +198,12 @@ button.in{
 	right:35px;
 }
 
+.carousel-item img{
+	height:280px;
+}
+
+
+
 </style>
 </head>
 <body>
@@ -209,7 +215,7 @@ button.in{
 	      <img src="https://www.slimcook.co.kr/design/slimcook/product/2%2B1/6meal_2%2B1_eventbanner_w.jpg" class="d-block w-100" alt="...">
 	    </div>
 	    <div class="carousel-item">
-	      <img src="https://www.slimcook.co.kr/design/slimcook/product/event/joinevent_eventbanner_w.jpg" class="d-block w-100" alt="...">
+	      <img src="https://ftp.xexymix.jpg3.kr/3carekorea/pocket/event/2023/07/230706_weekend/1300x200_top_banner.jpg" class="d-block w-100" alt="...">
 	    </div>
 	    <div class="carousel-item">
 	      <img src="https://www.slimcook.co.kr/design/slimcook/renewal/banner/slimlunch_w.jpg" class="d-block w-100" alt="...">
@@ -265,60 +271,26 @@ button.in{
 				<!-- Additional required wrapper -->
 				<div class="swiper-wrapper">
 					<!-- Slides -->
+					
+					<c:forEach items="${hlist}" var="hdto" >
 					<div class="swiper-slide">
 						<div class="lunchbox-list-img">
-							<img  src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
+							<a href="<c:url value='/lunchdetail/detail.do?seq=${hdto.sellboardseq}&period=F'/>">
+								<img src="${hdto.pic}" height=200px>
+							</a>
 						</div>
 						<div class="listInfo">
-							<p>하루 900Kcal 프로그램</p>
-							<p class="saleprice">144,900원</p>
+							<p style="font-size:14px;">${hdto.content}</p>
+							<c:if test="${hdto.sale != 0 }">
+								<p ><span class="sale">${hdto.sale}%</span> <span class="price">${hdto.price}원</span> <span class="saleprice"><fmt:formatNumber value="${hdto.price * (1-(hdto.sale/100))}" pattern="#,###"></fmt:formatNumber>원</span> </p>
+							</c:if>
+							<c:if test="${hdto.sale == 0}">
+								<p><span class="saleprice">${hdto.price}원</span></p>
+							</c:if>
 						</div>
 					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
-						</div>
-						<div class="listInfo">
-							<p>여기는 아이템 이름2</p>
-							<p ><span class="sale">30% </span> <span class="price">144,900</span> <span class="saleprice">90,900원</span> </p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>여기는 아이템 이름3</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>여기는 아이템 이름4</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>여기는 아이템 이름5</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>여기는 아이템 이름6</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
+					</c:forEach>
+				
 				</div>
 				<div class="swiper-button-prev"></div>
 				<div class="swiper-button-next"></div>
@@ -437,16 +409,16 @@ button.in{
 		<div class="lunchbox-list">
 		
 			<!-- 최대 10개정도 -->
-			<div class="lunchbox-list-title">카테고리별 BEST 상품
+			<div class="lunchbox-list-title">카테고리별 추천 상품
 				<img src="https://www.slimcook.co.kr/design/slimcook/renewal/icon/best.png" alt="왕관" width=16px>
 			</div>
 			<div class="btn-collection">
 				<button class="menubtn active">일반식</button>
 				<button class="menubtn">건강식</button>
-				<button class="menubtn">프리미엄</button>
+				<button class="menubtn">프리미엄식</button>
 				<button class="menubtn">정기배송</button>
 			</div>
-			<div class="row">
+			<div class="row" id="lunchByCategory">
 				<div class="best-lunch-list col-md-3 col-lg-3 project col-sm-6">
 					<div class="lunchbox-list-img ">
 						<img src="https://lh3.googleusercontent.com/u/0/drive-viewer/AFGJ81qydTbx0ijdP6Yqlpr38C56Dr9aeAe_C0NISqHZ04tTUCk5atGevi64Qf7jMGPR4mzzFwB7el2SHIO9IFbjJuIBEslXBA=w1920-h941" class="best-lunch-list">
@@ -514,6 +486,62 @@ button.in{
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
+	
+	
+	
+	
+	queryByCategoryForItems('일반식');
+	
+	function queryByCategoryForItems(category){
+		$.ajax({
+			type:'GET',
+			url:'/dndn/listByCategory?category='+category,
+			dataType:'json',
+			success : (result) => {
+				
+				$('#lunchByCategory').html('');
+				$(result).each((index, item)=>{
+							let text='';	
+							
+							text+=`<div class="best-lunch-list col-md-3 col-lg-3 project col-sm-6">
+							<div class="lunchbox-list-img ">
+								<a href="<c:url value='/lunchdetail/detail.do?seq=\${item.sellboardseq}&period=F'/>">
+									<img src="\${item.pic}" class="best-lunch-list">
+								</a>
+							</div>
+							<div class="listInfo">
+								<p>\${item.content}</p>`;
+								
+							if(item.sale != '0'){
+								let newprice = parseInt(item.price)* (1-parseInt(item.sale)/100);
+								text+=	`<p ><span class="sale">\${item.sale}%</span> <span class="price">\${item.price}원</span> <span class="saleprice">\${newprice.toLocaleString()}원</span> </p>`;	
+							} else 
+								text+= `<p><span class="saleprice">\${item.price}원</span></p>`;	
+								
+							text+=	`</div></div>`;
+							
+							$('#lunchByCategory').append(text);		
+				});
+				
+				
+            }, error : function (a, b, c){
+                  console.log(a ,b, c)
+                  if(b == 'error') {
+                      new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+                          location.href='/dndn/auth/login.do';
+                      });
+                  }
+            }		
+		});	
+	}
+	
+	
+	$('.menubtn').click(function(){
+		$('.menubtn').removeClass('active');
+		$(this).addClass('active');
+		queryByCategoryForItems($(this).text().trim());
+	});
+	
 	
 	function chatChannel() {
 		Kakao.Channel.chat({

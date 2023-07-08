@@ -10,7 +10,7 @@
   <%@ include file="/WEB-INF/views/include/asset.jsp" %>
   <style>
 
-    table {
+    .cart__list {
       border-top: solid 1.5px black;
       border-collapse: collapse;
       width: 100%;
@@ -227,13 +227,13 @@
       </tbody>
       <tfoot>
       <tr>
-        <td colspan="3">
+        <td colspan="2">
           <c:if test="${right eq 'false'}">
             <button type="button" id="delbtn" class="cart__list__optionbtn" style="margin-left: 20px;">선택상품 삭제</button>
           </c:if>
         </td>
         <td></td>
-        <td colspan="5" style="text-align: right;"><h6>총 주문금액 : <span id="total_price">0원</span></h6></td>
+        <td colspan="6" style="text-align: right;"><h6>총 주문금액 : <span id="total_price">0원</span></h6></td>
       </tr>
       </tfoot>
 

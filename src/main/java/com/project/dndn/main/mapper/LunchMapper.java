@@ -6,4 +6,8 @@ import com.project.dndn.main.domain.LunchBoardDTO;
 
 public interface LunchMapper {
 	List<LunchBoardDTO> getRecentLunchBoard();
+
+	List<LunchBoardDTO> getHotLunchBoard();
+
+	List<LunchBoardDTO> getLunchBoardByCategory(String category);
 }

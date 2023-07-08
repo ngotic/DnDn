@@ -19,6 +19,17 @@ public class LunchBoxServiceImpl implements LunchBoxService{
 	public List<LunchBoardDTO> getRecentLunchServce() {
 		return mapper.getRecentLunchBoard();
 	}
+
+	@Override
+	public List<LunchBoardDTO> getHotLunchServce() {
+		// TODO Auto-generated method stub
+		return mapper.getHotLunchBoard();
+	}
+
+	@Override
+	public List<LunchBoardDTO> getLunchBoardByCategory(String category) {
+		return mapper.getLunchBoardByCategory(category);
+	}
 	
 	
 }

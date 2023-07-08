@@ -91,7 +91,7 @@
 	}
 	#productDetail .thumb-info .info .table-opt td:nth-child(1) {
 	    float: left;
-	    width: 150px;
+	    width: 145px;
 	    margin-bottom: 8px;
 	    padding-top: 4px;
 	    *padding-bottom: 5px;

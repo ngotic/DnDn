@@ -49,8 +49,9 @@ public class MainController {
 			}
 		}
 
-
+		List<LunchBoardDTO> hlist =  lunchBoxService.getHotLunchServce();
 		List<LunchBoardDTO> list =  lunchBoxService.getRecentLunchServce();
+		model.addAttribute("hlist", hlist);
 		model.addAttribute("list", list);
 		model.addAttribute("relist", relist);
 

@@ -13,4 +13,26 @@
 	]]>
 </select>
 
+<!-- 가장 많이 팔린순으로 나열 -->
+<select id="getHotLunchBoard" resultType="com.project.dndn.main.domain.LunchBoardDTO">
+<![CDATA[
+	select * From ( select vsell.*, (select sum(c.cnt) as cnt from (select * from tblCart where status='T') c inner join tblSellboard s on s.sellboardseq=c.sellboardseq where s.sellboardseq=vsell.sellboardseq group by s.sellboardseq) as cnt  
+	from v_sellboard vsell order by cnt desc nulls last 
+	) WHERE ROWNUM <= 10
+]]>
+</select>
+
+<select id="getLunchBoardByCategory" resultType="com.project.dndn.main.domain.LunchBoardDTO">
+<![CDATA[
+	select * from
+	(select * from ( SELECT sb.sellboardseq, sb.content, sb.sale, sb.regdate, sb.periodic, sb.pic, SUM(l.price) AS price, l.category
+	FROM tblSellBoard sb
+	INNER JOIN tblLunchBoxSet ls ON sb.sellboardseq = ls.sellboardseq
+	INNER JOIN tblLunchbox l ON ls.lunchboxseq = l.lunchboxseq
+	GROUP BY sb.sellboardseq, sb.content, sb.sale, sb.regdate, sb.periodic, sb.pic, l.category)
+	where category = #{category})
+	where rownum <=4
+]]>
+</select>
+
 </mapper>
