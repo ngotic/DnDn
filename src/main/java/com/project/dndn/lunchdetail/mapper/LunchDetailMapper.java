@@ -13,7 +13,7 @@ public interface LunchDetailMapper {
     int readUserWishList(@Param("id") String id ,@Param("sellboardseq") int sellboardseq );
     void deleteUserWishList(@Param("id") String id , @Param("sellboardseq") int sellboardseq );
     void insertUserWishList(@Param("id")String id , @Param("sellboardseq") int sellboardseq );
-    int addCart(AddCartDTO cartdto);
+    int addCart(CartDTO cartdto);
 
     List<CartDTO> listCart(String id);
     int delCart(List<String> cartseqList);

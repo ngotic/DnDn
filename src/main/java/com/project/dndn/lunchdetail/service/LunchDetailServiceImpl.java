@@ -47,7 +47,7 @@ public class LunchDetailServiceImpl implements LunchDetailService {
     }
 
     @Override
-    public int addCart(AddCartDTO cartdto) {
+    public int addCart(CartDTO cartdto) {
         return mapper.addCart(cartdto);
     }
 

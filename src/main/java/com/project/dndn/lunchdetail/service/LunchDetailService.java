@@ -15,7 +15,7 @@ public interface LunchDetailService {
 
     int checkBoardWishList(String name, int parseInt);
 
-    int addCart(AddCartDTO cartdto);
+    int addCart(CartDTO cartdto);
 
     List<CartDTO> listCart(String id);
 

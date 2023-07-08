@@ -344,61 +344,24 @@ button.in{
 			<div class="swiper">
 				<!-- Additional required wrapper -->
 				<div class="swiper-wrapper">
-					<!-- Slides -->
+						<c:forEach items="${list}" var="dto" >
 					<div class="swiper-slide">
 						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
+							<a href="<c:url value='/lunchdetail/detail.do?seq=${dto.sellboardseq}&period=T'/>">
+								<img src="${dto.pic}" height=200px>
+							</a>
 						</div>
 						<div class="listInfo">
-							<p>[정기배송] 여기는 아이템 이름2</p>
-							<p ><span class="sale">30% </span> <span class="price">144,900</span> <span class="saleprice">90,900원</span> </p>
+							<p style="font-size:14px;">[ 정기배송 ] <br> ${dto.content}</p>
+							<c:if test="${dto.sale != 0 }">
+								<p ><span class="sale">${dto.sale}%</span> <span class="price">${dto.price}원</span> <span class="saleprice"><fmt:formatNumber value="${dto.price * (1-(dto.sale/100))}" pattern="#,###"></fmt:formatNumber>원</span> </p>
+							</c:if>
+							<c:if test="${dto.sale == 0}">
+								<p><span class="saleprice">${dto.price}원</span></p>
+							</c:if>
 						</div>
 					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>[정기배송] 여기는 아이템 이름2</p>
-							<p ><span class="sale">30% </span> <span class="price">144,900</span> <span class="saleprice">90,900원</span> </p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>[정기배송] 여기는 아이템 이름3</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>[정기배송] 여기는 아이템 이름4</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>[정기배송] 여기는 아이템 이름5</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>[정기배송] 여기는 아이템 이름6</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 				<div class="swiper-button-prev"></div>
 				<div class="swiper-button-next"></div>

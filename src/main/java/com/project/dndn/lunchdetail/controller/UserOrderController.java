@@ -51,15 +51,21 @@ public class UserOrderController {
         if(right.equals("true")){
             String id = principal.getName();
             List<CartDTO> list = new ArrayList<CartDTO>();
-            AddCartDTO addcartDto = new AddCartDTO();
-            addcartDto.setId(id);
-            addcartDto.setSellboardseq(cartDTO.getSellboardseq());
-            addcartDto.setStoreseq(cartDTO.getStoreseq());
-            addcartDto.setCnt(cartDTO.getCnt());
-            int result = service.addCart(addcartDto);
+           
+            int result;
+            
+            if(cartDTO.getDayperweek()==null)
+            	result = service.addCart(cartDTO);
+            else {
+            	// 이제 여기서, 정기배송 로직으로 빠진다. //
+            	// 1. getDayperweek() 이거 , 로 나뉘어진거 , 제거하고 담을 것 
+            	// 2. PeriodShipseq 는 생각해보니까 필요가 없다.
+            	
+            }
+            
             String cartseq = service.maxCartseq(id);
             list.add(cartDTO);
-            model.addAttribute("cartseq",cartseq);
+            model.addAttribute("cartseq",cartseq); // 방금 장바구니에 추가한 카트의 seq가 필요
             model.addAttribute("list",list);
         } else {
             // 장바구니에 있는거 다 보낸다. > 장바구니 보기

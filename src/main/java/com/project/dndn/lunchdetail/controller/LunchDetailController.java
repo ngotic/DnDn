@@ -28,11 +28,10 @@ public class LunchDetailController {
 		// 1. 정기, 비정기배송에 따라 나오는 lunchdetail 구분 > 'query String' 사용
 		// 2. boardDetail을 받아서 맞는 정보 리턴
 		// 3. 지점정보 같이 넣어주기
-
-
-
+		
 		System.out.println("출력 : "+seq+"/"+period);
-		LunchBoxDTO ldto = service.getLunchBoxDetail(period, seq);
+		
+		LunchBoxDTO ldto = service.getLunchBoxDetail("F", seq);
 		List<StoreLocationDTO> locations = service.getStoreLocations();
 
 		String url = request.getRequestURI()+"?seq="+seq+"&period="+period;
@@ -73,12 +72,14 @@ public class LunchDetailController {
 		
 		List<ReviewDTO> rlist = service.listReview(seq);
 		
-		System.out.println("무슨값인지 보자구"+rlist);
 		model.addAttribute("rlist", rlist); // 리뷰 리스트 
 		model.addAttribute("ldto", ldto);
 		model.addAttribute("locations", locations);
-
-		return "lunchdetail/lunchdetail";
+		
+		if(period.equals("F"))
+			return "lunchdetail/lunchdetail";
+		else 
+			return "lunchdetail/lunchdetailperiod";
 	}
 
 }

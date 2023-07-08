@@ -2,6 +2,7 @@ package com.project.dndn.lunchdetail.controller;
 
 
 import com.project.dndn.lunchdetail.domain.AddCartDTO;
+import com.project.dndn.lunchdetail.domain.CartDTO;
 import com.project.dndn.lunchdetail.service.LunchDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class CartController {
     // 장바구니에 직접 추가한다.
     @PreAuthorize("isAuthenticated()") // 막아준다.
     @PostMapping("/addCart")
-    public ResponseEntity<String> addCart(@RequestBody AddCartDTO cartDTO, Principal principal){
+    public ResponseEntity<String> addCart(@RequestBody CartDTO cartDTO, Principal principal){
         try {
             cartDTO.setId(principal.getName());
             int result = service.addCart(cartDTO);
