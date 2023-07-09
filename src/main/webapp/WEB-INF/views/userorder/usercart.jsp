@@ -28,7 +28,7 @@
       font-size: 12px;
     }
 
-    td {
+    .cart td {
       padding: 15px 0px;
       border-bottom: 1px solid #eee;
     }
@@ -197,7 +197,7 @@
       <tbody>
 
       <c:forEach items="${list}" var="cdto">
-      <tr class="cart__list__detail">
+      <tr class="cart__list__detail cart">
         <td><!-- jquery 걸림 -->
           <c:if test="${right eq 'false'}"><input class="ckbox" type="checkbox" name="cartseq" value="${cdto.cartseq}"></c:if>
           <c:if test="${right eq 'true'}"><input class="ckbox" type="hidden" checked><input type="hidden" name="cartseq" value="${cartseq}" checked></c:if>
@@ -254,7 +254,7 @@
 
       </tbody>
       <tfoot>
-      <tr>
+      <tr class="cart">
         <td colspan="2">
           <c:if test="${right eq 'false'}">
             <button type="button" id="delbtn" class="cart__list__optionbtn" style="margin-left: 20px;">선택상품 삭제</button>

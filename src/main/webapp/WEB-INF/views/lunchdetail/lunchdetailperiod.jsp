@@ -1254,7 +1254,6 @@
 		let startship = $('#startdate').val();
 		let endship = $('#enddate').val();
 		
-		alert(dayperweek+"/"+shiptime+"/"+startship+"/"+endship);
 	
 
 		$.ajax({

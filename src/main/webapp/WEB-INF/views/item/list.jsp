@@ -57,7 +57,7 @@
     height: 3px;
     background: var(--main-font-color);
     position: absolute; 
-    bottom:-6px;
+    bottom:-7px;
 }
 
 

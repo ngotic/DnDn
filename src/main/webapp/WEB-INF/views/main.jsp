@@ -358,7 +358,7 @@ body {
 							</a>
 						</div>
 						<div class="listInfo">
-							<p style="font-size:14px;">[ 정기배송 ] <br> ${dto.content}</p>
+							<p style="font-size:14px;"><span style="color:#FF6666;font-weight:bold;" >[정기배송]</span> <br> ${dto.content}</p>
 							<c:if test="${dto.sale != 0 }">
 								<p ><span class="sale">${dto.sale}%</span> <span class="price">${dto.price}원</span> <span class="saleprice"><fmt:formatNumber value="${dto.price * (1-(dto.sale/100))}" pattern="#,###"></fmt:formatNumber>원</span> </p>
 							</c:if>
@@ -482,7 +482,7 @@ body {
 										</a>
 									</div>
 									<div class="listInfo">
-										<p>[정기배송] <br>\${item.content}</p>`;
+										<p><span style="color:#FF6666;font-weight:bold;" >[정기배송]</span> <br>\${item.content}</p>`;
 
 							} else {
 								text+=`<div class="best-lunch-list col-md-3 col-lg-3 project col-sm-6">
