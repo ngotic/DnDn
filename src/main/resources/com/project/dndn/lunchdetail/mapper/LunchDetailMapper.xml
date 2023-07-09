@@ -39,9 +39,15 @@
     <insert id="addCart">
         insert into tblCart values (cartseq.nextVal, #{id}, #{sellboardseq}, null, #{cnt}, #{storeseq}, 'F', sysdate)
     </insert>
-
+    
+	<!-- 장바구니 페이지에 나오는 카트목록들 출력 -->
     <select id="listCart" resultType="com.project.dndn.lunchdetail.domain.CartDTO">
-        select c.*, (select name from tblStore where storeseq=c.storeseq) as storename, (select pic from tblSellBoard where sellboardseq = c.sellboardseq) as pic, (select content from tblSellBoard where sellboardseq = c.sellboardseq) as content, (select sale from tblSellBoard where sellboardseq = c.sellboardseq) as sale, (select price from v_sellboard where sellboardseq = c.sellboardseq) as price  from tblCart c where status = 'F' and id = #{id}
+        select c.*, (select name from tblStore where storeseq=c.storeseq) as storename, (select pic from tblSellBoard where sellboardseq = c.sellboardseq) as pic, (select content from tblSellBoard where sellboardseq = c.sellboardseq) as content, (select sale from tblSellBoard where sellboardseq = c.sellboardseq) as sale, (select price from v_sellboard where sellboardseq = c.sellboardseq) as price, 
+      (select dayperweek from tblPeriodShip where periodshipseq = c.periodshipseq) as dayperweek,
+      (select shiptime from tblPeriodShip where periodshipseq = c.periodshipseq) as shiptime,
+      (select startship from tblPeriodShip where periodshipseq = c.periodshipseq) as startship,
+      (select endship from tblPeriodShip where periodshipseq = c.periodshipseq) as endship
+         from tblCart c where status = 'F' and id = #{id}
     </select>
 
     <delete id="delCart">
@@ -59,9 +65,14 @@
         select max(cartseq) from tblCart where id=#{id}
     </select>
 
-    <!-- 주문하기 페이지에 올라가는 장바구니 쿼리 -->
+    <!-- 장바구니에서 주문하기 페이지로 올라가는 장바구니 쿼리 -->
     <select id="orderCartList" resultType="com.project.dndn.lunchdetail.domain.CartDTO">
-        select c.*, (select name from tblStore where storeseq=c.storeseq) as storename, (select pic from tblSellBoard where sellboardseq = c.sellboardseq) as pic, (select content from tblSellBoard where sellboardseq = c.sellboardseq) as content, (select sale from tblSellBoard where sellboardseq = c.sellboardseq) as sale, (select price from v_sellboard where sellboardseq = c.sellboardseq) as price  from tblCart c where status = 'F' and id = #{id} and cartseq IN
+        select c.*, (select name from tblStore where storeseq=c.storeseq) as storename, (select pic from tblSellBoard where sellboardseq = c.sellboardseq) as pic, (select content from tblSellBoard where sellboardseq = c.sellboardseq) as content, (select sale from tblSellBoard where sellboardseq = c.sellboardseq) as sale, (select price from v_sellboard where sellboardseq = c.sellboardseq) as price,
+      (select dayperweek from tblPeriodShip where periodshipseq = c.periodshipseq) as dayperweek,
+      (select shiptime from tblPeriodShip where periodshipseq = c.periodshipseq) as shiptime,
+      (select startship from tblPeriodShip where periodshipseq = c.periodshipseq) as startship,
+      (select endship from tblPeriodShip where periodshipseq = c.periodshipseq) as endship
+          from tblCart c where status = 'F' and id = #{id} and cartseq IN
         <foreach collection="list" item="cartseq" open="(" close=")" separator="," >
             #{cartseq}
         </foreach>
@@ -166,5 +177,19 @@
 	<delete id="reviewReplyDelete">
 		delete from tblReviewReply where reviewreplyseq=#{rrseq}
 	</delete>
+	
+	<insert id="insertPeriodShip">
+		insert into tblPeriodShip values (periodshipseq.nextVal, #{dayperweek}, #{shiptime}, #{startship}, #{endship})
+	</insert>
+	
+	
+	<insert id="addCartWithPeriodShip">
+	
+		<selectKey resultType="int" keyProperty="periodshipseq" order="BEFORE">
+            select MAX(periodshipseq) from tblPeriodShip
+        </selectKey>
+	
+		insert into tblCart values (cartseq.nextVal, #{id}, #{sellboardseq}, #{periodshipseq}, #{cnt}, #{storeseq}, 'F', sysdate)
+	</insert>
 	
 </mapper>

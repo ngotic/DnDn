@@ -45,31 +45,31 @@ public class UserOrderController {
     @PreAuthorize("isAuthenticated()") // 막아준다.
     @PostMapping("/userorder/usercart.do")
     public String orderCartPost(CartDTO cartDTO, String right, Principal principal, Model model){
+    	
         // 유저 정보 넣음
         cartDTO.setId(principal.getName());
+        
         System.out.println("------>"+cartDTO);
-        if(right.equals("true")){
-            String id = principal.getName();
-            List<CartDTO> list = new ArrayList<CartDTO>();
-           
-            int result;
-            
-            if(cartDTO.getDayperweek()==null)
-            	result = service.addCart(cartDTO);
-            else {
-            	// 이제 여기서, 정기배송 로직으로 빠진다. //
-            	// 1. getDayperweek() 이거 , 로 나뉘어진거 , 제거하고 담을 것 
-            	// 2. PeriodShipseq 는 생각해보니까 필요가 없다.
-            	
-            }
-            
-            String cartseq = service.maxCartseq(id);
-            list.add(cartDTO);
-            model.addAttribute("cartseq",cartseq); // 방금 장바구니에 추가한 카트의 seq가 필요
-            model.addAttribute("list",list);
-        } else {
-            // 장바구니에 있는거 다 보낸다. > 장바구니 보기
+        
+        String id = principal.getName();
+        List<CartDTO> list = new ArrayList<CartDTO>();
+       
+        int result;
+        
+        if(cartDTO.getDayperweek()==null)
+        	result = service.addCart(cartDTO);
+        else {
+        	// 이제 여기서, 정기배송 로직으로 빠진다. //
+        	// 1. getDayperweek() 이거 , 로 나뉘어진거 , 제거하고 담을 것 
+        	// 2. PeriodShipseq 는 생각해보니까 필요가 없다.
+        	cartDTO.setDayperweek(cartDTO.getDayperweek().replaceAll(",", ""));
+        	result = service.addCartWithPeriodShip(cartDTO);
         }
+        
+        String cartseq = service.maxCartseq(id);
+        list.add(cartDTO);
+        model.addAttribute("cartseq",cartseq); // 방금 장바구니에 추가한 카트의 seq가 필요
+        model.addAttribute("list",list);
         model.addAttribute("right", right); // 바로 구매를 구분해야 한다.
         return "userorder/usercart";
     }

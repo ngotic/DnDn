@@ -570,7 +570,7 @@
 												<div class="desc dawn" style="display: flex">
 													<p class="sub-tit">배송비</p>
 													<p class="time">
-														3,000원 <span>(5만원 이상 주문 시 무료배송)</span><br>
+														무료 <span>(정기배송은 5만원이상 주문시에만 가능합니다.)</span><br>
 														<span class="notice">*일/월요일, 공휴일은 수령일에서 제외 <br> *주문량 증가 시 순차발송될 수 있습니다. <br> *샐러드(신선식품)은 배송일자 상이하며, 상세페이지 내 출고일 및 유의사항을 참고바랍니다. </span>
 													</p>
 												</div>
@@ -1090,19 +1090,13 @@
 		$('#enddate').attr('min', afterOneWeek.format('YYYY-MM-DD'));
 		
 		
-		$('input[name=day]').change(function(){
-			
+		$('input[name=dayperweek]').change(function(){
 			if( $(this).prop('checked')==true ){
-				
 				$(this).parent().parent().addClass('bg-select');
-				
 			} else {
-				
 				$(this).parent().parent().removeClass('bg-select');
-				
 			}
 		});
-		
 		
 		
 		$('.review-comment-btn').click(function(){
@@ -1210,26 +1204,58 @@
 	}
 
 	$('.btn-buy').click(function(){
+		
+		if ( convertPriceToNum($('#total_price').text()) < 50000){
+			alert('정기배송은 총 5만원이상 구입시 가능합니다.');
+			return false;	
+		} 
+		
 		if( $("#sellLocation option:checked").val() =='0'){
 			alert('지점을 선택하세요.');
 			return false;
 		}
 		else {
+			
 			$('#form1').submit();
+			
 		}
 	});
 
 
 	$('.btn-cart').click(function(){
-
+		
 		if( $("#sellLocation option:checked").val() =='0'){
 			alert('지점을 선택하세요.');
 			return false;
 		}
+		
+		if ( convertPriceToNum($('#total_price').text()) < 50000){
+			alert('정기배송은 총 5만원이상 구입시 가능합니다.');
+			return false;	
+		}
+		
 
 		let sellboardseq = $('#sellboardseq').val();
 		let cnt = $('#cnt').val();
 		let storeseq = $("#sellLocation option:checked").val();
+		
+		let dayperweek = '';
+		
+		$('input[name=dayperweek]:checked').each(function(index, item){
+			dayperweek = dayperweek + $(item).val();
+		});
+		
+		if(dayperweek==''){
+			alert('희망배송일을 선택해주세요.');
+			return false;
+		}
+		
+		let shiptime = $('#shipmenttime').val();
+		let startship = $('#startdate').val();
+		let endship = $('#enddate').val();
+		
+		alert(dayperweek+"/"+shiptime+"/"+startship+"/"+endship);
+	
 
 		$.ajax({
 			type: 'POST',
@@ -1242,7 +1268,11 @@
 				id : 'xxxx',
 				sellboardseq : sellboardseq,
 				cnt : cnt,
-				storeseq : storeseq
+				storeseq : storeseq,
+				dayperweek: dayperweek,
+				shiptime :shiptime,
+				startship : startship,
+				endship : endship
 			}),
 			success : function(result) {
 				if(result=='OK')

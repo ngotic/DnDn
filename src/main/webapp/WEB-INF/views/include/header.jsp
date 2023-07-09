@@ -49,7 +49,7 @@
 				</a>
 			</div>
 			<div class="navbar-menu">
-				<div class="nav-item"><a href = "#" class="nav-link" >메뉴소개</a></div>
+				<div class="nav-item"><a href = "/dndn/list.do?page=1&category=0&sort=1" class="nav-link" >메뉴소개</a></div>
 				<div class="nav-item"><a href = "#" class="nav-link" >매장찾기</a></div>
 				<div class="nav-item"><a href = "/dndn/order/event.do" class="nav-link" >이벤트</a></div>
 			</div>
@@ -102,7 +102,7 @@
 <div class="main_logo">
 	<img src="/dndn/resources/img/logo_long.png" class="mt-3 mb-4" style="height:130px;">
 </div>
-<hr class="mb-0">
+<hr class="mb-0" style="color:#A8A8A8;">
 
 
 

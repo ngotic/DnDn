@@ -34,7 +34,14 @@ public class CartController {
     public ResponseEntity<String> addCart(@RequestBody CartDTO cartDTO, Principal principal){
         try {
             cartDTO.setId(principal.getName());
-            int result = service.addCart(cartDTO);
+            
+            int result;
+            
+            if(cartDTO.getDayperweek()==null)
+            	result = service.addCart(cartDTO);
+            else 
+            	result = service.addCartWithPeriodShip(cartDTO); // 정기배송 로직 
+            
             if(result !=1){
                 throw new Exception("addCart failed");
             }

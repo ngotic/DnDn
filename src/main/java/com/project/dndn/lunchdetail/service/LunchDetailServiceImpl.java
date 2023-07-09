@@ -91,8 +91,6 @@ public class LunchDetailServiceImpl implements LunchDetailService {
             order.setCouponseq(seqs[1]);
         }
 
-        System.out.println("----->>"+order);
-
         int result = mapper.insertAddress(order);
         // 2. 주문정보 추가, 추가된 배송지 정보 배송지 seq를 가져옴 > 이 때 selectKey를 사용하기
 
@@ -147,6 +145,12 @@ public class LunchDetailServiceImpl implements LunchDetailService {
 	@Override
 	public int reviewReplyDelete(Integer rrseq) {
 		return mapper.reviewReplyDelete(rrseq);
+	}
+
+	@Override
+	public int addCartWithPeriodShip(CartDTO cartDTO) {
+		int result = mapper.insertPeriodShip(cartDTO);
+		return result *= mapper.addCartWithPeriodShip(cartDTO); 
 	}
 
 

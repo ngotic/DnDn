@@ -46,10 +46,11 @@ section {
 }
 
 .lunchbox-list-title{
-	font-family: '';
+	font-family : 'Noto Sans KR', sans-serif;
+	font-weight: 700;
 	text-align: center;
 	font-size: 20px;
-	font-weight: 900;
+	
 	margin: 50px 0 50px 0;
 }
 
@@ -106,10 +107,11 @@ section {
 }
 
 .menubtn {
+	width:110px;
 	background-color: #eee;
 	border: #eee;
 	margin: 0 10px 0 10px;
-	border-radius: 10px;
+	border-radius: 5px;
 	padding: 10px 20px 10px 20px;
 }
 
@@ -185,6 +187,7 @@ section {
 color:black;
 background-color:white;
 }
+
 button.in{
 	position:fixed;
 	bottom:240px;
@@ -203,6 +206,9 @@ button.in{
 }
 
 
+body {
+	font-family : 'Noto Sans KR', sans-serif;
+}
 
 </style>
 </head>
@@ -233,25 +239,25 @@ button.in{
 	
 	<section class="container">
 		<div class="lunchbox-img-menu-wrapper">
-			<a class="lunchbox-img-item">
+			<a class="lunchbox-img-item" href="/dndn/list.do?page=1&category=4&sort=0">
 				<div>
 					<img class="lunchbox-img" src="https://www.slimcook.co.kr/design/slimcook/renewal/quick_menu/quick_3.png">
 					<p class="lunchbox-text">정기배송</p>
 				</div>
 			</a>
-			<a class="lunchbox-img-item">
+			<a class="lunchbox-img-item" href="/dndn/list.do?page=1&category=1&sort=0">
 				<div>
 					<img class="lunchbox-img" src="http://www.slimcook.co.kr/design/slimcook/renewal/quick_menu/quick_4.png">
 					<p class="lunchbox-text">일반식</p>
 				</div>
 			</a>
-			<a class="lunchbox-img-item">
+			<a class="lunchbox-img-item" href="/dndn/list.do?page=1&category=2&sort=0">
 				<div>
 					<img class="lunchbox-img" src="http://www.slimcook.co.kr/design/slimcook/renewal/quick_menu/quick_2.png" >
 					<p class="lunchbox-text">건강식</p>
 				</div>
 			</a>
-			<a class="lunchbox-img-item">
+			<a class="lunchbox-img-item" href="/dndn/list.do?page=1&category=3&sort=0">
 				<div>
 					<img class="lunchbox-img" src="http://www.slimcook.co.kr/design/slimcook/renewal/quick_menu/quick_7.png">
 					<p class="lunchbox-text">프리미엄식</p>
@@ -344,7 +350,7 @@ button.in{
 			<div class="swiper">
 				<!-- Additional required wrapper -->
 				<div class="swiper-wrapper">
-						<c:forEach items="${list}" var="dto" >
+						<c:forEach items="${plist}" var="dto" >
 					<div class="swiper-slide">
 						<div class="lunchbox-list-img">
 							<a href="<c:url value='/lunchdetail/detail.do?seq=${dto.sellboardseq}&period=T'/>">
@@ -456,6 +462,7 @@ button.in{
 	queryByCategoryForItems('일반식');
 	
 	function queryByCategoryForItems(category){
+		
 		$.ajax({
 			type:'GET',
 			url:'/dndn/listByCategory?category='+category,
@@ -466,14 +473,28 @@ button.in{
 				$(result).each((index, item)=>{
 							let text='';	
 							
-							text+=`<div class="best-lunch-list col-md-3 col-lg-3 project col-sm-6">
-							<div class="lunchbox-list-img ">
-								<a href="<c:url value='/lunchdetail/detail.do?seq=\${item.sellboardseq}&period=F'/>">
-									<img src="\${item.pic}" class="best-lunch-list">
-								</a>
-							</div>
-							<div class="listInfo">
-								<p>\${item.content}</p>`;
+							if(category == '정기배송'){
+							
+								text+=`<div class="best-lunch-list col-md-3 col-lg-3 project col-sm-6">
+									<div class="lunchbox-list-img ">
+										<a href="<c:url value='/lunchdetail/detail.do?seq=\${item.sellboardseq}&period=T'/>">
+											<img src="\${item.pic}" class="best-lunch-list">
+										</a>
+									</div>
+									<div class="listInfo">
+										<p>[정기배송] <br>\${item.content}</p>`;
+
+							} else {
+								text+=`<div class="best-lunch-list col-md-3 col-lg-3 project col-sm-6">
+									<div class="lunchbox-list-img ">
+										<a href="<c:url value='/lunchdetail/detail.do?seq=\${item.sellboardseq}&period=F'/>">
+											<img src="\${item.pic}" class="best-lunch-list">
+										</a>
+									</div>
+									<div class="listInfo">
+										<p>\${item.content}</p>`;
+											
+							}
 								
 							if(item.sale != '0'){
 								let newprice = parseInt(item.price)* (1-parseInt(item.sale)/100);
@@ -502,7 +523,9 @@ button.in{
 	$('.menubtn').click(function(){
 		$('.menubtn').removeClass('active');
 		$(this).addClass('active');
+		
 		queryByCategoryForItems($(this).text().trim());
+		
 	});
 	
 	

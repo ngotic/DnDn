@@ -77,9 +77,9 @@ public class LunchDetailController {
 		model.addAttribute("locations", locations);
 		
 		if(period.equals("F"))
-			return "lunchdetail/lunchdetail";
+			return "lunchdetail/lunchdetail";      // [ 일반상품 ] 페이지
 		else 
-			return "lunchdetail/lunchdetailperiod";
+			return "lunchdetail/lunchdetailperiod";// [ 정기배송 ] 전용페이지
 	}
 
 }

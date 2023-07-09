@@ -49,6 +49,8 @@
 	    width: 550px;
 	}
 	#productDetail .thumb-info .info .tit-prd {
+		font-family : 'Noto Sans KR', sans-serif;
+		font-weight: 700;
 	    font-size: 22px;
 	    color: #1c1c1c;
 	    font-weight: bold;

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <style>
 .footer-area {
+	font-family : 'Noto Sans KR', sans-serif;
 	height: 200px;
 	position : relative;
 	display:flex;

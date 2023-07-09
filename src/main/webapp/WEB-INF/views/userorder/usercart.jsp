@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -145,13 +147,20 @@
     a.content:hover{
       color : #EE8035 !important;
     }
+    
+    .page-title{
+    	font-family : 'Noto Sans KR', sans-serif;
+		font-weight: 700;
+		padding:10px;
+		padding-bottom: 5px;
+    }
   </style>
 </head>
 <body>
 <!-- template.jsp -->
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 <section class="container">
-  <h4 style="padding:10px;padding-bottom: 5px; font-family: ''; font-weight: 900;">
+  <h4 class="page-title">
 
      <c:if test="${right eq 'true'}">
           바로구매
@@ -189,17 +198,30 @@
 
       <c:forEach items="${list}" var="cdto">
       <tr class="cart__list__detail">
-        <td>
+        <td><!-- jquery 걸림 -->
           <c:if test="${right eq 'false'}"><input class="ckbox" type="checkbox" name="cartseq" value="${cdto.cartseq}"></c:if>
           <c:if test="${right eq 'true'}"><input class="ckbox" type="hidden" checked><input type="hidden" name="cartseq" value="${cartseq}" checked></c:if>
         </td>
         <td><img src="${cdto.pic}"  width="80"></td>
         <td>
-          <c:if test="${cdto.periodshipseq eq null}">
+        
+       	  <c:if test="${cdto.periodshipseq != 0}">
+       			<span style="font-size:14px; color: #EF6262;">[정기배송]<br></span>
+       	  </c:if>
+          <c:if test="${cdto.periodshipseq == 0}">
             <a href="/dndn/lunchdetail/detail.do?seq=${cdto.sellboardseq}&period=F" class="content"><span>${cdto.content}</span><br></a>
           </c:if>
-          <c:if test="${cdto.periodshipseq ne null}">
-            <a href="#" class="content"><span>${cdto.content}</span><br></a>
+          <c:if test="${cdto.periodshipseq != 0}">
+            <a href="/dndn/lunchdetail/detail.do?seq=${cdto.sellboardseq}&period=T" class="content"><span>${cdto.content}</span><br></a>
+            배송요일 : <span class="dayperweek">${cdto.dayperweek}</span><br>
+            <c:if test="${cdto.shiptime == 0}">
+            	<span>배송시간 : 아침배송</span><br>	
+            </c:if>
+            <c:if test="${cdto.shiptime == 1}">
+            	<span>배송시간 : 점심배송</span><br>
+            </c:if>
+            <span>배송시작 : ${fn:substring(cdto.startship, 0 , 10)}</span><br>
+            <span>배송종료 : ${fn:substring(cdto.endship,0 , 10)}</span>
           </c:if>
         </td>
         <td>
@@ -215,12 +237,18 @@
           <span style="color:#FF6666">${cdto.sale}%</span>
         </td>
         <td>
+        	
+          <c:if test="${cdto.periodshipseq != 0}">
+            <input type="hidden" class="shipnum" value="${cdto.dayperweek}/${fn:substring(cdto.startship, 0 , 10)}/${fn:substring(cdto.endship, 0 , 10)}">
+          </c:if>
           <c:if test="${cdto.sale != 0}">
-            <span style="text-decoration: line-through; color: lightgray;"><fmt:formatNumber value="${cdto.cnt * cdto.price}" pattern="#,###"></fmt:formatNumber>원</span><br>
+            <span class="o_price" style="text-decoration: line-through; color: lightgray; display:block;"><fmt:formatNumber value="${cdto.cnt * cdto.price}" pattern="#,###"></fmt:formatNumber>원</span>
           </c:if>
           <span class="c_price"><fmt:formatNumber value="${cdto.cnt * cdto.price * (1-(cdto.sale/100))}" pattern="#,###"></fmt:formatNumber>원</span>
         </td>
-        <td><fmt:formatNumber value="${cdto.cnt * cdto.price * 5/100 * (1-(cdto.sale/100))}" pattern="#,###"></fmt:formatNumber>p</td>
+        <td>
+        	<span class="point"><fmt:formatNumber value="${cdto.cnt * cdto.price * 5/100 * (1-(cdto.sale/100))}" pattern="#,###"></fmt:formatNumber></span>p
+        </td>
       </tr>
       </c:forEach>
 
@@ -250,6 +278,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.8/dayjs.min.js"></script>
 <script>
 
 // 숫자 -> 가격 >
@@ -266,6 +295,50 @@ var csrfTokenValue = "${_csrf.token}";
 let sum=0;
 let count = $('.c_price').length;
 
+let yoilList = ['', '월','화', '수', '목', '금'];
+
+$('.dayperweek').each(function(index, item){
+	let str=$(item).text().trim();
+	$(item).text(str.split('').map(i => yoilList[i]).join().replaceAll(',',''));
+});
+
+
+$('.shipnum').each(function(index, item){
+	
+	let dayperweek = $(item).val().split('/')[0];
+	let startship = $(item).val().split('/')[1];
+	let endship = $(item).val().split('/')[2];
+	
+	let startdayjsObj = dayjs(startship);
+	let enddayjsObj = dayjs(endship);
+	let curr = dayjs(startship);
+	let diff = enddayjsObj.diff(startdayjsObj, 'd');
+
+	let cnt = 0;
+	let dayList= [];
+	let selectYoil = dayperweek.split('');
+	
+	for( let i=0; i<= diff ; i++){
+		if( selectYoil.find( n => n == curr.get('d') ) != undefined ){
+			cnt += 1;	
+		} 
+		curr = curr.add(1, 'day'); // 하루 증가
+	}
+	
+	if(cnt==0)
+		$(item).val(1);
+	else 
+		$(item).val(cnt);
+	
+	let result = cnt * convertPriceToNum($(item).next().text());
+	$(item).next().text(convertNumToPrice(result));
+	result = cnt * convertPriceToNum($(item).next().next().text());
+	$(item).next().next().text(convertNumToPrice(result));
+	let point = $(item).parent().next().find('.point');
+	point.text(convertPriceToNum(point.text())*cnt);
+	
+	
+});
 
 
 $('#order').click(function(){

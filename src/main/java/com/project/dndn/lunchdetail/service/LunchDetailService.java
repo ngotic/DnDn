@@ -41,6 +41,8 @@ public interface LunchDetailService {
 
 	int reviewReplyDelete(Integer rrseq);
 
+	int addCartWithPeriodShip(CartDTO cartDTO);
+
 	
 
 }

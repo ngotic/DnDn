@@ -861,15 +861,15 @@
         .toptitle {
             padding:10px;
             padding-bottom: 10px;
-            font-family: '';
-            font-weight: 900;
+            font-family : 'Noto Sans KR', sans-serif;
+			font-weight: 700;
         }
         .subtitle{
 
             padding:10px;
             padding-bottom: 40px;
-            font-family: '';
-            font-weight: 900;
+            font-family : 'Noto Sans KR', sans-serif;
+			font-weight: 700;
             color:black;
         }
 
@@ -891,6 +891,8 @@
         .cartList ul {
             padding-left:0px;
         }
+
+
 
     </style>
 </head>
@@ -1022,7 +1024,7 @@
                 </section>
 
                 <!-- 주문 상품 정보 -->
-                <form id="orderForm" name="orderForm" action="" onsubmit="return false;">
+                
                     <section id="orderChk" style="display: block;">
                         <h4 class="subtitle">주문 상품 정보</h4>
                         <div class="cartList">
@@ -1038,16 +1040,36 @@
                                         </div>
                                         <div class="cell pdtInfo">
                                             <div class="pdtName" style="text-align: center;">
+                                              <c:if test="${cdto.periodshipseq != 0}">
+									       			<span style="font-size:14px; color: #EF6262;">[정기배송] <br> </span>
+									       	  </c:if>
+									       	  
                                                 ${cdto.content}<br>
-                                                <span class="storekind" style="color:#888;">지점 : ${cdto.storename}</span>
+                                                
+                                                  <c:if test="${cdto.periodshipseq != 0}">
+										            배송요일 : <span class="dayperweek">${cdto.dayperweek}</span><br>
+										            <c:if test="${cdto.shiptime == 0}">
+										            	<span>배송시간 : 아침배송</span><br>	
+										            </c:if>
+										            <c:if test="${cdto.shiptime == 1}">
+										            	<span>배송시간 : 점심배송</span><br>
+										            </c:if>
+										            <span>배송시작 : ${fn:substring(cdto.startship, 0 , 10)}</span><br>
+										            <span>배송종료 : ${fn:substring(cdto.endship,0 , 10)}</span><br>
+										          </c:if> 
+										      	  <span class="storekind" style="color:#888;">지점 : ${cdto.storename}</span><br>    
                                             </div>
                                         </div>
                                         <div class="cell pdtCount">${cdto.cnt} 개</div>
                                         <div class="cell pdtPrice">
+                                        
+                                          <c:if test="${cdto.periodshipseq != 0}">
+								            <input type="hidden" class="shipnum" value="${cdto.dayperweek}/${fn:substring(cdto.startship, 0 , 10)}/${fn:substring(cdto.endship, 0 , 10)}">
+								          </c:if>
                                             <span class="price">
                                                 <fmt:formatNumber value="${cdto.price * cdto.cnt * (1-(cdto.sale/100))}" pattern="#,###"></fmt:formatNumber>원
                                             </span>
-                                            <span class="point">+<fmt:formatNumber value="${cdto.cnt * cdto.price * 5/100 * (1-(cdto.sale/100))}"></fmt:formatNumber>P</span>
+                                            <span class="point"><fmt:formatNumber value="${cdto.cnt * cdto.price * 5/100 * (1-(cdto.sale/100))}"></fmt:formatNumber>P</span>
                                         </div>
                                     </div>
                                 </li>
@@ -1055,13 +1077,13 @@
                             </c:forEach>
                         </div>
                     </section>
-                </form>
+                
 
 
                 <!-- 쿠폰확인 & 포인트적립 -->
                 <section id="cpnPt">
 
-                    <h4 class="subtitle">쿠폰/포인트/이벤트 적용</h4>
+                    <h4 class="subtitle">쿠폰/포인트 적용</h4>
                     <div class="tableTypeWrite typeline basicOrderCoupon">
                         <table style="padding-top:10px;">
                             <caption>쿠폰/포인트 적용</caption>
@@ -1176,7 +1198,7 @@
                                     <table>
                                         <tbody>
                                         <tr>
-                                            <th scope="row">결제수단</th>
+                                            <th scope="row">방법</th>
                                             <td>
                                                 <select class="form-control" id="sellpaymethod">
                                                     <option value="1">카카오페이</option>
@@ -1191,7 +1213,7 @@
                                 </div>
                                 <div class="helpWrap">
                                     <ul class="bulListType">
-                                        <li>저희 쇼핑몰은 고객님의 안전한 거래를 위해 카카오페이/카드결제/계좌이체 거래에 대해 구매안전서비스를 적용하고 있습니다.</li>
+                                        <li> 저희 쇼핑몰은 고객님의 안전한 거래를 위해 카카오페이/카드결제/계좌이체 거래에 대해 구매안전서비스를 적용하고 있습니다.</li>
                                     </ul>
                                 </div>
                             </div>
@@ -1266,6 +1288,7 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.8/dayjs.min.js"></script>
 <script>
 
     let sel_pg = 'kakaopay.TC0ONETIME';
@@ -1278,6 +1301,50 @@
     let count = $('.price').length;
     let sum=0;
 
+    let yoilList = ['', '월','화', '수', '목', '금'];
+    
+
+    $('.dayperweek').each(function(index, item){
+    	let str=$(item).text().trim();
+    	$(item).text(str.split('').map(i => yoilList[i]).join().replaceAll(',',''));
+    });
+    
+    $('.shipnum').each(function(index, item){
+    	
+    	let dayperweek = $(item).val().split('/')[0];
+    	let startship = $(item).val().split('/')[1];
+    	let endship = $(item).val().split('/')[2];
+    	
+    	let startdayjsObj = dayjs(startship);
+    	let enddayjsObj = dayjs(endship);
+    	let curr = dayjs(startship);
+    	let diff = enddayjsObj.diff(startdayjsObj, 'd');
+
+    	let cnt = 0;
+    	let dayList= [];
+    	let selectYoil = dayperweek.split('');
+    	
+    	for( let i=0; i<= diff ; i++){
+    		if( selectYoil.find( n => n == curr.get('d') ) != undefined ){
+    			cnt += 1;	
+    		} 
+    		curr = curr.add(1, 'day'); // 하루 증가
+    	}
+    	
+    	if(cnt==0)
+    		$(item).val(1);
+    	else 
+    		$(item).val(cnt);
+    	
+    	let result = cnt * convertPriceToNum($(item).next().text());
+    	$(item).next().text(convertNumToPrice(result));
+    	let point = $(item).parent().find('.point');
+    	point.text(convertPriceToNum(point.text().replace('P',''))*cnt+'P');
+    	
+    });
+    
+    
+    
     // 주문금액 구하기
     $('.price').each(function(index,item){
         sum = sum + convertPriceToNum($(this).text());

@@ -7,12 +7,17 @@ import java.util.List;
 
 public interface LunchDetailMapper {
     LunchBoxDTO getLunchBoxDetail(@Param("period") String period,@Param("seq")  String seq);
+    
     List<String> lunchBoxDetailList(String seq);
+    
     List<StoreLocationDTO> getStoreLocations();
     // 다수의 인자인 경우 파람으로 표기해주기
     int readUserWishList(@Param("id") String id ,@Param("sellboardseq") int sellboardseq );
+    
     void deleteUserWishList(@Param("id") String id , @Param("sellboardseq") int sellboardseq );
+    
     void insertUserWishList(@Param("id")String id , @Param("sellboardseq") int sellboardseq );
+    
     int addCart(CartDTO cartdto);
 
     List<CartDTO> listCart(String id);
@@ -47,5 +52,9 @@ public interface LunchDetailMapper {
 	int reviewReplyWrite(ReviewReplyDTO rdto);
 	
 	int reviewReplyDelete(Integer rrseq);
+	
+	int addCartWithPeriodShip(CartDTO cartDTO);
+
+	int insertPeriodShip(CartDTO cartDTO);
     
 }
