@@ -7,13 +7,14 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
-	<!--  -->
+    
+    <!--  -->
     <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="/dndn/resources/startbootstrap-sb-admin-gh-pages/css/styles.css" rel="stylesheet" />
 	<!-- <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> -->
 	
+
     <!-- Favicon -->
     <link href="/dndn/resources/bootstrap-admin-template-free/img/favicon.ico" rel="icon">
 
@@ -36,72 +37,81 @@
     <!-- Template Stylesheet -->
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
     
-    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     
-    
-    <style>
-		
-		/* 추가 버튼 */
-		.add-button {
+</head>
+
+
+	<style>
+
+		.button-frame {
+			padding-top: 20px;
+			padding-bottom: 20px;
 			float: right;
-    		width: 60px;
-    		height: 35px;
-    		border: none;
-    		background-color: #636363;
-			color: white;
-    		margin-top: 2.5px;
-    		margin-right: 5px;
-		}
-	
-		/* 수정 버튼 */
-		.edit-button {
-			width: 45px; height: 30px;
-			border: none;
-			/* background-color: #2e75b6; */
-			background-color: #1f79e0;
-			color: white;
 		}
 		
-		/* 삭제 버튼 */
-		.del-button {
-			width: 45px; height: 30px;
-			border: none;
+		/* 목록 버튼 */
+		.list-button {
+			border: #f2f2f2;
 			background-color: #f2f2f2;
 			color: #3b3b3b;
 		}
 		
-		
-		thead > tr > th {
-			text-align: center;
-		}
-		
-		tbody > tr > td:nth-child(1), td:nth-child(2), 
-					 td:nth-child(3), td:nth-child(4), 
-					 td:nth-child(6), td:nth-child(7), td:nth-child(8) {
-			text-align: center;
-		}
-		
-		tbody > tr > td:nth-child(5) {
-			padding-right: 15px;
-			text-align: right;
-		}
-		
-		
-		/* 검색창 */
-		.datatable-input {
+		.pic-button {
 			position: absolute;
-    		width: 550px;
-    		left: 290px;
+			margin-top: 20px;
+		}				
+		
+		
+		.add-box {
+			border: 1px solid #ced4da;
 		}
 		
 		
-		label {
-			color: white;
+		.category-price {
+			display: flex;
+			justify-content: space-between;
 		}
-	
+		
+		.image, .name {
+			width: 800px;
+		}
+		
+		
+		.product-frame {
+			display: flex;
+    		align-items: center;
+		}
+		
+		.pic {
+			float: left;
+    		padding-right: 30px;
+		}
+		
+		
+		.title {
+			font-weight: 700;
+			font-size: 1.5rem;
+			color: #EE8035;
+			font-family: pretendard;
+		}
+		
+		
+		.name1, .category1, .price1 {
+			font-weight: 700;
+			color: #EE8035;
+			font-family: pretendard;
+		}
+		
+		.name2, .category2, .price2 {
+			font-weight: 700;
+			color: #555;
+			font-family: pretendard;
+		}
+
+
 	</style>
-</head>
+
 
 <body>
     <div class="container-fluid position-relative bg-white d-flex p-0">
@@ -204,103 +214,80 @@
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
 			
 			
-			<section class="container">
-
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
+			<section class="container" style="margin-top: 50px;">
+				
+				<div style="display: flex;">
+					
+					<div class="col-sm-12 col-xl-6">
+                        <div class="add-box rounded h-100 p-4" style="width: 1000px;">
+                        <h6 class="title mb-4">[상품 수정]</h6>
+                            
+                        <div class="product-frame">
                         
-                        <div class="card mb-4" style="border: none;">
+                            <div class="pic" style="margin-bottom: 40px; width: 100%;">
+								
+							
+                            <form method="POST" action="/dndn/admin/product-editok.do">
                             
-                            <div class="card-body">
-                            
-                            <div>
-                            	<button type="button" class="add-button" 
-                            			onclick="location.href='/dndn/admin/product-add.do';">추가</button>
+							    <img id="preview" src="${dto.pic}" alt="" style="margin-bottom: 10px; width: 500px;">
+							    <br>
+	                            <input class="form-control" name="pic"
+	                            	   type="text" id="urlInput" placeholder="이미지 URL을 입력하세요." required
+	                            	   value="${dto.pic}">
                             </div>
                             
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>이미지</th>
-                                            <th>이름</th>
-                                            <th>분류</th>
-                                            <th>가격</th>
-                                            <th>등록일</th>
-                                            <th>수정일</th>
-                                            <th>관리</th>
-                                        </tr>
-                                    </thead>
-                                    
+                           
+                            	
+                            <div  style="width: 100%;">
 
-                                    <tbody>
-	                                <c:forEach items="${list}" var="dto">
-	                                   <tr>
-	                                     <td>${dto.lunchboxseq}</td>
-	                                     <td>
-	                                       <img alt="도시락" src="${dto.pic}" style="width: 50px; height: 50px;">
-	                                     </td>
-	                                     <td>
-	                                       <a href="/dndn/admin/product-view.do?lunchboxseq=${dto.lunchboxseq}">
-	                                         ${dto.name}
-	                                       </a>
-	                                     </td>
-	                                     <td>${dto.category}</td>
-	                                     <td>${dto.price}</td>
-	                                     <td>${dto.regdate}</td>
-	                                     <td>${dto.modidate}</td>
-	                                     <td>
-	                                       <button type="button" class="edit-button" onclick="location.href='/dndn/admin/product-edit.do?lunchboxseq=${dto.lunchboxseq}';">수정</button>
-	                                       <button type="button" class="del-button" data-bs-toggle="modal" data-bs-target="#exampleModalDel${dto.lunchboxseq}" onclick="f1(this)">삭제</button>
-	                                     </td>
-	                                 
-	                                     <!-- Modal -->
-	                                     <div class="modal fade" id="exampleModalDel${dto.lunchboxseq}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	                                       <div class="modal-dialog modal-dialog-centered">
-	                                         <div class="modal-content">
-	                                         
-	                                           <div class="modal-header">
-	                                             <h5 class="modal-title" id="exampleModalLabel">상품 삭제</h5>
-	                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-	                                           </div>
-	                                           
-	                                           <div class="modal-body">
-	                                             상품 이름: ${dto.name}<br>
-	                                             상품을 삭제하시겠습니까?
-	                                           </div>
-	                                           
-	                                           <div class="modal-footer">
-	                                             <form method="POST" action="/dndn/admin/product-delok">
-	                                               <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-	                                               <input type="hidden" name="id" value='<sec:authentication property="principal.username"/>'>
-	                                               <input type="hidden" name="lunchboxseq" value="${dto.lunchboxseq}">
-	                                               <button type="submit" class="btn btn-primary">삭제</button>
-	                                             </form>
-	                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='/dndn/admin/product.do';">취소</button>
-	                                           </div>
-	                                           
-	                                         </div>
-	                                       </div>
-	                                     </div>
-	                                   </tr>
-	                                </c:forEach>
-                                    </tbody>
-
-                                </table>
+                                <div class="mb-3">
+                                    <label class="name1 form-label">이름</label>
+                                    <input class="name2 form-control" name="name" style="width: 100%" required
+                                    	   value="${dto.name}">
+                                </div>
+                                
+                                <label class="category1 form-label">분류</label>
+                                <select class="category2 form-select mb-3" aria-label="Default select example" aria-hidden="true"
+                                		name="category" required>
+	                                <option value=""></option>
+	                                <option value="일반식" ${dto.category.equals("일반식") ? "selected" : ""}>일반식</option>
+	                                <option value="건강식" ${dto.category.equals("건강식") ? "selected" : ""}>건강식</option>
+	                                <option value="프리미엄식" ${dto.category.equals("프리미엄식") ? "selected" : ""}>프리미엄식</option>
+                            	</select>
+                            	
+                            	<div>
+                            		<label class="price1 form-label">가격</label>
+                            		<input class="price2 form-control" type="number" min="0" 
+                            			   name="price" required value="${dto.price}">
+                            	</div>
+                            	</div>
                             </div>
+                            	
+                            	<!-- 버튼 -->
+                            	<div class="button-frame">
+                                	<button type="submit" class="edit-button btn btn-primary">수정</button>
+	                                <button type="button" class="list-button btn"
+	                                		onclick="location.href='/dndn/admin/product.do';">목록</button>
+                                </div>
+                                
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+								<input type="hidden" name="id" value='<sec:authentication property="principal.username"/>'>
+								<input type="hidden" name="lunchboxseq" value="${dto.lunchboxseq}">
+	
+                                
+                            </form>
+                            
+                            <button class="pic-button btn btn-primary" onclick="previewImage()">이미지 미리보기</button>
+                            
                         </div>
                     </div>
-                </main>
-            </div>
-		</section>
-        </div>
-		
-		
+	
+				</div>
+				
+			</section>
             
         </div>
         <!-- Content End -->
-
 
     </div>
 
@@ -325,13 +312,15 @@
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/datatables-simple-demo.js"></script>
     
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    
     
     <script>
-	  function setLunchboxSeq(lunchboxSeq) {
-	    document.getElementById('lunchboxseqInput').value = lunchboxSeq;
-	  }
+		function previewImage() {
+		    var urlInput = document.getElementById('urlInput');
+		    var preview = document.getElementById('preview');
+		    
+		    var imageUrl = urlInput.value;
+		    preview.src = imageUrl;
+		  }
 	</script>
     
     
