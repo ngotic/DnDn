@@ -19,20 +19,14 @@ public class WishController {
     @Autowired
     private LunchDetailService service;
 
-
-    //sellboardseq:12, id:"
     @PreAuthorize("isAuthenticated()") // 막아준다.
     @PutMapping("/addorDeleteWish")
     public ResponseEntity<String> addordelWish(@RequestBody WishDTO Wish, Principal principal){
 
         try {
-
             if(Wish ==null ) throw new Exception("addorDeleteWish failed");
 
-            System.out.println(Wish);
-
             int result = service.addOrDeleteWish(principal.getName(), Wish.getSellboardseq());
-
             if(result !=1){
                 throw new Exception("addorDeleteWish failed");
             }
@@ -41,7 +35,6 @@ public class WishController {
             e.printStackTrace();
             return new ResponseEntity<String>("ERR", HttpStatus.BAD_REQUEST);
         }
-
     }
 
 }

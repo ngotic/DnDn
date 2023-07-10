@@ -3,6 +3,9 @@ package com.project.dndn.order.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.project.dndn.order.domain.OrderCouponDTO;
 import com.project.dndn.order.domain.OrderDTO;
 import com.project.dndn.order.domain.OrderEventDTO;
 
@@ -39,6 +42,26 @@ public interface OrderMapper {
 	ArrayList<OrderEventDTO> eventopenlist();
 
 	ArrayList<OrderEventDTO> eventcloselist();
+
+	void insertevent(OrderEventDTO dto);
+
+	ArrayList<OrderCouponDTO> couponlist();
+
+	void insertcoupon(OrderCouponDTO dto);
+
+	void updatecoupon(OrderCouponDTO dto);
+
+	void deletecoupon(String coupon_seq);
+
+	void delete_event(String event_seq);
+
+	
+
+	void editevent(OrderEventDTO dto);
+
+	void addevent(OrderEventDTO dto);
 		
+	
+	
 	
 }

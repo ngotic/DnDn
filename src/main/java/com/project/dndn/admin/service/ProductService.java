@@ -8,5 +8,14 @@ public interface ProductService {
 
 	List<ProductDTO> list();
 
+	int add(ProductDTO dto);
+
+	ProductDTO get(String lunchboxseq);
+
+	int edit(ProductDTO dto);
+
+	int del(ProductDTO dto);
+
+	int del2(String lunchboxseq);
 
 }

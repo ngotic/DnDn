@@ -7,7 +7,7 @@ public class CartDTO {
     private String cartseq;
     private String id;
     private String sellboardseq;
-    private String periodshipseq;
+    private int periodshipseq;
     private String cnt;
     private String storeseq;
     private String status;
@@ -18,4 +18,11 @@ public class CartDTO {
     private String content;
     private String sale;
     private String price;
+    
+    //period 정기인 경우
+    private String dayperweek;
+    private String shiptime;
+    private String startship;
+    private String endship;
+    
 }

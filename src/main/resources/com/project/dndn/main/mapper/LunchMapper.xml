@@ -13,4 +13,123 @@
 	]]>
 </select>
 
+<!-- 가장 많이 팔린순으로 나열 -->
+<select id="getHotLunchBoard" resultType="com.project.dndn.main.domain.LunchBoardDTO">
+<![CDATA[
+	select * From ( select vsell.*, (select sum(c.cnt) as cnt from (select * from tblCart where status='T') c inner join tblSellboard s on s.sellboardseq=c.sellboardseq where s.sellboardseq=vsell.sellboardseq group by s.sellboardseq) as cnt  
+	from v_sellboard vsell order by cnt desc nulls last 
+	) WHERE ROWNUM <= 10
+]]>
+</select>
+
+
+<select id="getPeriodLunchServce" resultType="com.project.dndn.main.domain.LunchBoardDTO">
+<![CDATA[
+	select * From ( select vsell.*, (select sum(c.cnt) as cnt from (select * from tblCart where status='T' and periodshipseq is not null ) c inner join tblSellboard s on s.sellboardseq=c.sellboardseq where s.sellboardseq=vsell.sellboardseq group by s.sellboardseq) as cnt  
+	from v_sellboard vsell order by cnt desc nulls last 
+	) WHERE ROWNUM <= 10
+]]>
+</select>
+
+
+<select id="getLunchBoardByCategory" resultType="com.project.dndn.main.domain.LunchBoardDTO">
+
+	select * from
+	(select * from ( SELECT sb.sellboardseq, sb.content, sb.sale, sb.regdate, sb.periodic, sb.pic, SUM(l.price) AS price, l.category
+	FROM tblSellBoard sb
+	INNER JOIN tblLunchBoxSet ls ON sb.sellboardseq = ls.sellboardseq
+	INNER JOIN tblLunchbox l ON ls.lunchboxseq = l.lunchboxseq
+	GROUP BY sb.sellboardseq, sb.content, sb.sale, sb.regdate, sb.periodic, sb.pic, l.category)
+	<if test='!category.equals("정기배송")'>
+		where category = #{category})
+	</if>
+	<if test='category.equals("정기배송")'>
+		order by price desc)
+	</if>
+	where rownum &lt; 5
+
+</select>
+
+
+<select id="getLunchBoardServiceFull" resultType="com.project.dndn.main.domain.LunchBoardDTO">
+<![CDATA[
+	select * FROM ( SELECT sb.sellboardseq, sb.content, sb.sale, sb.regdate, sb.periodic, sb.pic, SUM(l.price) AS price
+	    FROM tblSellBoard sb INNER JOIN tblLunchBoxSet ls ON sb.sellboardseq = ls.sellboardseq INNER JOIN tblLunchbox l ON ls.lunchboxseq = l.lunchboxseq where PERIODIC='F' GROUP BY sb.sellboardseq, sb.content, sb.sale, sb.regdate, sb.periodic, sb.pic ORDER BY sb.regdate DESC
+	) 
+]]>
+</select>
+
+
+<select id="getTotalCnt" resultType="int">
+select count(*) from (
+select mainquery.*, 
+rownum as rnum 
+from (select subquery.*, CASE WHEN sale = 0 THEN price ELSE price * (1 - (sale / 100)) 
+END AS sprice,
+(select sum(c.cnt) as cnt from (select * from tblCart where status='T') c inner 
+join tblSellboard s on s.sellboardseq=c.sellboardseq where s.sellboardseq=subquery.sellboardseq 
+group by s.sellboardseq) as cnt
+from ( SELECT sb.sellboardseq, sb.content, sb.sale, sb.regdate, 
+sb.periodic, sb.pic, SUM(l.price) AS price, l.category FROM tblSellBoard sb INNER JOIN tblLunchBoxSet 
+ls ON sb.sellboardseq = ls.sellboardseq INNER JOIN tblLunchbox l ON ls.lunchboxseq = l.lunchboxseq 
+GROUP BY sb.sellboardseq, sb.content, sb.sale, sb.regdate, sb.periodic, sb.pic, l.category) subquery 
+
+<choose>
+		<when test="category==0"> </when>
+    	<when test="category==1"> where category = '일반식'</when>
+    	<when test="category==2"> where category = '건강식'</when>
+    	<when test="category==3"> where category = '프리미엄식'</when>
+		<otherwise></otherwise>
+</choose>
+
+<choose>
+	<when test="sort==0"> order by regdate desc nulls last </when>
+    	<when test="sort==1"> order by cnt desc nulls last </when>
+    	<when test="sort==2"> order by price desc nulls last </when>
+	<otherwise> order by price asc nulls last</otherwise>
+</choose>
+) mainquery
+)  
+</select>
+
+
+<select id="getLunchBoardList" resultType="com.project.dndn.main.domain.LunchBoardDTO">
+	
+select * from (
+select mainquery.*, 
+rownum as rnum 
+from (select subquery.*, CASE WHEN sale = 0 THEN price ELSE price * (1 - (sale / 100)) 
+END AS sprice,
+(select sum(c.cnt) as cnt from (select * from tblCart where status='T') c inner 
+join tblSellboard s on s.sellboardseq=c.sellboardseq where s.sellboardseq=subquery.sellboardseq 
+group by s.sellboardseq) as cnt
+from ( SELECT sb.sellboardseq, sb.content, sb.sale, sb.regdate, 
+sb.periodic, sb.pic, SUM(l.price) AS price, l.category FROM tblSellBoard sb INNER JOIN tblLunchBoxSet 
+ls ON sb.sellboardseq = ls.sellboardseq INNER JOIN tblLunchbox l ON ls.lunchboxseq = l.lunchboxseq 
+GROUP BY sb.sellboardseq, sb.content, sb.sale, sb.regdate, sb.periodic, sb.pic, l.category) subquery 
+
+<choose>
+		<when test="category==0"> </when>
+    	<when test="category==1"> where category = '일반식'</when>
+    	<when test="category==2"> where category = '건강식'</when>
+    	<when test="category==3"> where category = '프리미엄식'</when>
+		<otherwise></otherwise>
+</choose>
+
+<choose>
+	<when test="sort==0"> order by regdate desc nulls last </when>
+    	<when test="sort==1"> order by cnt desc nulls last </when>
+    	<when test="sort==2"> order by sprice asc nulls last </when>
+	<otherwise> order by sprice desc nulls last</otherwise>
+</choose>
+) mainquery
+) 
+where rnum between #{begin} and #{end}
+
+</select>
+
+
+
+
+
 </mapper>

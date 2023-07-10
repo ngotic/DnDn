@@ -20,7 +20,7 @@
                 
                 <div>
                 <a class="navbar-brand" id="navbarBrand" href="/dndn/main.do">
-					<img src="/dndn/resources/img/logo_edit.png" class="mt-1 mb-2" style="height:80px;">			
+					<img src="/dndn/resources/img/logo_edit.png" class="mt-1 mb-2" style="height:80px; margin-left: 110px;">			
 				</a>
 				</div>
                 
