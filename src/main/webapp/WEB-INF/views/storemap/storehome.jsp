@@ -9,7 +9,6 @@
 <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 <style>
 
-	
 	#mapcontainer{
 		position: relative;
 		width:100%;
@@ -81,8 +80,8 @@ var container = document.getElementById('map'); //지도를 담을 영역의 DOM
 	
 	// 마커가 표시될 위치입니다 
 	var markerPosition  = new kakao.maps.LatLng(${37.4992}, ${127.033}); 
-	var imageSrc = '/dndn/resources/img/logo_short.png'; // 마커이미지의 주소입니다 
-	var imageSize = new kakao.maps.Size(70, 70); // 마커이미지의 크기입니다
+	var imageSrc = '/dndn/resources/img/pngwing.com.png'; // 마커이미지의 주소입니다 
+	var imageSize = new kakao.maps.Size(65, 65); // 마커이미지의 크기입니다
 	var imageOption = {offset: new kakao.maps.Point(25, 50)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 	  
 	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);	
@@ -160,7 +159,7 @@ var container = document.getElementById('map'); //지도를 담을 영역의 DOM
 		    position : p${status.count},
 		    content : content${status.count},
 		    xAnchor: 0.47,
-		    yAnchor: 1.59
+		    yAnchor: 1.65
 		});
 		
 		  kakao.maps.event.addListener(m${status.count}, 'click', function(mouseEvent) {
