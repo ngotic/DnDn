@@ -49,6 +49,7 @@ public class MemberController {
 		    System.out.println(dto.toString());
 	    	model.addAttribute("dto", dto);
 	    }
+		
 		return "auth/register";
 	}
 	

@@ -66,18 +66,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
 <script>
-var prevOverlay =null;
+var prevOverlay = null;
 var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-	var options = { //지도를 생성할 때 필요한 기본 옵션
-		center: new kakao.maps.LatLng(${37.4992}, ${127.033}), //지도의 중심좌표.
-		level: 6 //지도의 레벨(확대, 축소 정도),
-	};
-	
-	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-	
-	let m  = null;
-	
-	
+var options = { //지도를 생성할 때 필요한 기본 옵션
+	center: new kakao.maps.LatLng(${37.4992}, ${127.033}), //지도의 중심좌표.
+    level: 6 //지도의 레벨(확대, 축소 정도),
+};
+
+var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+let m = null;
+
+
 	// 마커가 표시될 위치입니다 
 	var markerPosition  = new kakao.maps.LatLng(${37.4992}, ${127.033}); 
 	var imageSrc = '/dndn/resources/img/pngwing.com.png'; // 마커이미지의 주소입니다 
@@ -87,7 +87,7 @@ var container = document.getElementById('map'); //지도를 담을 영역의 DOM
 	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);	
 	const ms=[];
 	$(document).ready(function(){
-		
+			
 		//리스트에 뿌려주기 
 		var placeList = $('#placelist');
 
@@ -104,6 +104,7 @@ var container = document.getElementById('map'); //지도를 담을 영역의 DOM
 	        placeList.append(placeItem);
 	
 	        placeItem.on('click', function() {
+	        	
 	            var position = new kakao.maps.LatLng(lat, lng);
 	            map.panTo(position);
 	            for (var i = 0; i < ms.length; i++) {
@@ -216,6 +217,8 @@ var container = document.getElementById('map'); //지도를 담을 영역의 DOM
 	    storeInfoDiv.appendChild(telElement);
 	    
 	}
+	
+	
 
 </script>
 </body>
