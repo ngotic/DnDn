@@ -46,10 +46,11 @@ section {
 }
 
 .lunchbox-list-title{
-	font-family: '';
+	font-family : 'Noto Sans KR', sans-serif;
+	font-weight: 700;
 	text-align: center;
 	font-size: 20px;
-	font-weight: 900;
+	
 	margin: 50px 0 50px 0;
 }
 
@@ -106,11 +107,12 @@ section {
 }
 
 .menubtn {
+	width:110px;
 	background-color: #eee;
 	border: #eee;
 	margin: 0 10px 0 10px;
-	border-radius: 10px;
-	padding: 10px;
+	border-radius: 5px;
+	padding: 10px 20px 10px 20px;
 }
 
 .menubtn.active{
@@ -185,11 +187,27 @@ section {
 color:black;
 background-color:white;
 }
+
 button.in{
 	position:fixed;
 	bottom:240px;
 	right:200px;
 	z-index:99;
+}
+
+#chat-channel-button{
+	position: fixed;
+	top:160px;
+	right:35px;
+}
+
+.carousel-item img{
+	height:280px;
+}
+
+
+body {
+	font-family : 'Noto Sans KR', sans-serif;
 }
 
 </style>
@@ -203,7 +221,7 @@ button.in{
 	      <img src="https://www.slimcook.co.kr/design/slimcook/product/2%2B1/6meal_2%2B1_eventbanner_w.jpg" class="d-block w-100" alt="...">
 	    </div>
 	    <div class="carousel-item">
-	      <img src="https://www.slimcook.co.kr/design/slimcook/product/event/joinevent_eventbanner_w.jpg" class="d-block w-100" alt="...">
+	      <img src="https://ftp.xexymix.jpg3.kr/3carekorea/pocket/event/2023/07/230706_weekend/1300x200_top_banner.jpg" class="d-block w-100" alt="...">
 	    </div>
 	    <div class="carousel-item">
 	      <img src="https://www.slimcook.co.kr/design/slimcook/renewal/banner/slimlunch_w.jpg" class="d-block w-100" alt="...">
@@ -221,25 +239,25 @@ button.in{
 	
 	<section class="container">
 		<div class="lunchbox-img-menu-wrapper">
-			<a class="lunchbox-img-item">
+			<a class="lunchbox-img-item" href="/dndn/list.do?page=1&category=4&sort=0">
 				<div>
 					<img class="lunchbox-img" src="https://www.slimcook.co.kr/design/slimcook/renewal/quick_menu/quick_3.png">
 					<p class="lunchbox-text">정기배송</p>
 				</div>
 			</a>
-			<a class="lunchbox-img-item">
+			<a class="lunchbox-img-item" href="/dndn/list.do?page=1&category=1&sort=0">
 				<div>
 					<img class="lunchbox-img" src="http://www.slimcook.co.kr/design/slimcook/renewal/quick_menu/quick_4.png">
 					<p class="lunchbox-text">일반식</p>
 				</div>
 			</a>
-			<a class="lunchbox-img-item">
+			<a class="lunchbox-img-item" href="/dndn/list.do?page=1&category=2&sort=0">
 				<div>
 					<img class="lunchbox-img" src="http://www.slimcook.co.kr/design/slimcook/renewal/quick_menu/quick_2.png" >
 					<p class="lunchbox-text">건강식</p>
 				</div>
 			</a>
-			<a class="lunchbox-img-item">
+			<a class="lunchbox-img-item" href="/dndn/list.do?page=1&category=3&sort=0">
 				<div>
 					<img class="lunchbox-img" src="http://www.slimcook.co.kr/design/slimcook/renewal/quick_menu/quick_7.png">
 					<p class="lunchbox-text">프리미엄식</p>
@@ -259,60 +277,26 @@ button.in{
 				<!-- Additional required wrapper -->
 				<div class="swiper-wrapper">
 					<!-- Slides -->
+					
+					<c:forEach items="${hlist}" var="hdto" >
 					<div class="swiper-slide">
 						<div class="lunchbox-list-img">
-							<img  src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
+							<a href="<c:url value='/lunchdetail/detail.do?seq=${hdto.sellboardseq}&period=F'/>">
+								<img src="${hdto.pic}" height=200px>
+							</a>
 						</div>
 						<div class="listInfo">
-							<p>하루 900Kcal 프로그램</p>
-							<p class="saleprice">144,900원</p>
+							<p style="font-size:14px;">${hdto.content}</p>
+							<c:if test="${hdto.sale != 0 }">
+								<p ><span class="sale">${hdto.sale}%</span> <span class="price">${hdto.price}원</span> <span class="saleprice"><fmt:formatNumber value="${hdto.price * (1-(hdto.sale/100))}" pattern="#,###"></fmt:formatNumber>원</span> </p>
+							</c:if>
+							<c:if test="${hdto.sale == 0}">
+								<p><span class="saleprice">${hdto.price}원</span></p>
+							</c:if>
 						</div>
 					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
-						</div>
-						<div class="listInfo">
-							<p>여기는 아이템 이름2</p>
-							<p ><span class="sale">30% </span> <span class="price">144,900</span> <span class="saleprice">90,900원</span> </p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>여기는 아이템 이름3</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>여기는 아이템 이름4</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>여기는 아이템 이름5</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>여기는 아이템 이름6</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
+					</c:forEach>
+				
 				</div>
 				<div class="swiper-button-prev"></div>
 				<div class="swiper-button-next"></div>
@@ -366,61 +350,24 @@ button.in{
 			<div class="swiper">
 				<!-- Additional required wrapper -->
 				<div class="swiper-wrapper">
-					<!-- Slides -->
+						<c:forEach items="${plist}" var="dto" >
 					<div class="swiper-slide">
 						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
+							<a href="<c:url value='/lunchdetail/detail.do?seq=${dto.sellboardseq}&period=T'/>">
+								<img src="${dto.pic}" height=200px>
+							</a>
 						</div>
 						<div class="listInfo">
-							<p>[정기배송] 여기는 아이템 이름2</p>
-							<p ><span class="sale">30% </span> <span class="price">144,900</span> <span class="saleprice">90,900원</span> </p>
+							<p style="font-size:14px;"><span style="color:#FF6666;font-weight:bold;" >[정기배송]</span> <br> ${dto.content}</p>
+							<c:if test="${dto.sale != 0 }">
+								<p ><span class="sale">${dto.sale}%</span> <span class="price">${dto.price}원</span> <span class="saleprice"><fmt:formatNumber value="${dto.price * (1-(dto.sale/100))}" pattern="#,###"></fmt:formatNumber>원</span> </p>
+							</c:if>
+							<c:if test="${dto.sale == 0}">
+								<p><span class="saleprice">${dto.price}원</span></p>
+							</c:if>
 						</div>
 					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>[정기배송] 여기는 아이템 이름2</p>
-							<p ><span class="sale">30% </span> <span class="price">144,900</span> <span class="saleprice">90,900원</span> </p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>[정기배송] 여기는 아이템 이름3</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>[정기배송] 여기는 아이템 이름4</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>[정기배송] 여기는 아이템 이름5</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="lunchbox-list-img">
-							<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" height=200px>
-						</div>
-						<div class="listInfo">
-							<p>[정기배송] 여기는 아이템 이름6</p>
-							<p>가격 얼마정도</p>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 				<div class="swiper-button-prev"></div>
 				<div class="swiper-button-next"></div>
@@ -431,16 +378,16 @@ button.in{
 		<div class="lunchbox-list">
 		
 			<!-- 최대 10개정도 -->
-			<div class="lunchbox-list-title">카테고리별 BEST 상품
+			<div class="lunchbox-list-title">카테고리별 추천 상품
 				<img src="https://www.slimcook.co.kr/design/slimcook/renewal/icon/best.png" alt="왕관" width=16px>
 			</div>
 			<div class="btn-collection">
 				<button class="menubtn active">일반식</button>
 				<button class="menubtn">건강식</button>
-				<button class="menubtn">프리미엄</button>
+				<button class="menubtn">프리미엄식</button>
 				<button class="menubtn">정기배송</button>
 			</div>
-			<div class="row">
+			<div class="row" id="lunchByCategory">
 				<div class="best-lunch-list col-md-3 col-lg-3 project col-sm-6">
 					<div class="lunchbox-list-img ">
 						<img src="https://lh3.googleusercontent.com/u/0/drive-viewer/AFGJ81qydTbx0ijdP6Yqlpr38C56Dr9aeAe_C0NISqHZ04tTUCk5atGevi64Qf7jMGPR4mzzFwB7el2SHIO9IFbjJuIBEslXBA=w1920-h941" class="best-lunch-list">
@@ -484,24 +431,109 @@ button.in{
 			<div class="recent-item-text">&nbsp;&nbsp;&nbsp;최근 본 목록
 				<button id="closebtn" type="button" class="btn-close btn-close-white" aria-label="Close" style="float:right;"></button>
 			</div>
+			<c:forEach items="${relist}" var="rdto">
 			<div class="recent-item">
-				<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
+				<a href="${rdto.url}"><img src="${rdto.pic}"></a>
 			</div>
-			<div class="recent-item">
-				<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
-			</div>
-			<div class="recent-item">
-				<img src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417">
-			</div>
+			</c:forEach>
 		</div>
+		
+		<a id="chat-channel-button" href="javascript:chatChannel()">
+			<img src="https://developers.kakao.com/tool/resource/static/img/button/channel/consult/consult_small_yellow_pc.png"
+				alt="카카오톡 채널 채팅하기 버튼" />
+		</a>
+		
 	</section>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.8/dayjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.2.0/kakao.min.js" integrity="sha384-x+WG2i7pOR+oWb6O5GV5f1KN2Ko6N7PTGPS7UlasYWNxZMKQA63Cj/B2lbUmUfuC" crossorigin="anonymous"></script>
+	<script>
+		Kakao.init('7904ca1e31c9655514139df57b15033a'); // 사용하려는 앱의 JavaScript 키 입력
+	</script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
+	
+	
+	
+	
+	queryByCategoryForItems('일반식');
+	
+	function queryByCategoryForItems(category){
+		
+		$.ajax({
+			type:'GET',
+			url:'/dndn/listByCategory?category='+category,
+			dataType:'json',
+			success : (result) => {
+				
+				$('#lunchByCategory').html('');
+				$(result).each((index, item)=>{
+							let text='';	
+							
+							if(category == '정기배송'){
+							
+								text+=`<div class="best-lunch-list col-md-3 col-lg-3 project col-sm-6">
+									<div class="lunchbox-list-img ">
+										<a href="<c:url value='/lunchdetail/detail.do?seq=\${item.sellboardseq}&period=T'/>">
+											<img src="\${item.pic}" class="best-lunch-list">
+										</a>
+									</div>
+									<div class="listInfo">
+										<p><span style="color:#FF6666;font-weight:bold;" >[정기배송]</span> <br>\${item.content}</p>`;
 
+							} else {
+								text+=`<div class="best-lunch-list col-md-3 col-lg-3 project col-sm-6">
+									<div class="lunchbox-list-img ">
+										<a href="<c:url value='/lunchdetail/detail.do?seq=\${item.sellboardseq}&period=F'/>">
+											<img src="\${item.pic}" class="best-lunch-list">
+										</a>
+									</div>
+									<div class="listInfo">
+										<p>\${item.content}</p>`;
+											
+							}
+								
+							if(item.sale != '0'){
+								let newprice = parseInt(item.price)* (1-parseInt(item.sale)/100);
+								text+=	`<p ><span class="sale">\${item.sale}%</span> <span class="price">\${item.price}원</span> <span class="saleprice">\${newprice.toLocaleString()}원</span> </p>`;	
+							} else 
+								text+= `<p><span class="saleprice">\${item.price}원</span></p>`;	
+								
+							text+=	`</div></div>`;
+							
+							$('#lunchByCategory').append(text);		
+				});
+				
+				
+            }, error : function (a, b, c){
+                  console.log(a ,b, c)
+                  if(b == 'error') {
+                      new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+                          location.href='/dndn/auth/login.do';
+                      });
+                  }
+            }		
+		});	
+	}
+	
+	
+	$('.menubtn').click(function(){
+		$('.menubtn').removeClass('active');
+		$(this).addClass('active');
+		
+		queryByCategoryForItems($(this).text().trim());
+		
+	});
+	
+	
+	function chatChannel() {
+		Kakao.Channel.chat({
+			channelPublicId: '_xamxcRG',
+		});
+	}
 
 	$('#closebtn').click(function(){
 		$('.right-recent-item').css('display','none');	
