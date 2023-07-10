@@ -3,6 +3,7 @@ package com.project.dndn.mypage.service;
 import java.util.List;
 import java.util.Map;
 
+import com.project.dndn.lunchdetail.domain.CartDTO;
 import com.project.dndn.mypage.domain.MyPageDTO;
 
 public interface MyPageService {
@@ -20,5 +21,7 @@ public interface MyPageService {
 	int wdlist(Map<String, String> map);
 
 	List<MyPageDTO> orderList(String id);
+
+	List<MyPageDTO> listCart(String id);
 
 }
