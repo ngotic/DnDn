@@ -50,9 +50,9 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
-	
+
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
-   </beans:bean>
+	</beans:bean>
 
 
 </beans:beans>

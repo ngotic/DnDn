@@ -7,10 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/views/include/asset.jsp" %>
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 <style>
 	body {
 		font-family: pretendard;
@@ -49,8 +48,6 @@
 	    width: 550px;
 	}
 	#productDetail .thumb-info .info .tit-prd {
-		font-family : 'Noto Sans KR', sans-serif;
-		font-weight: 700;
 	    font-size: 22px;
 	    color: #1c1c1c;
 	    font-weight: bold;
@@ -159,6 +156,7 @@
 	.order-div-clear {
 		clear: both;
 		padding-top: 20px;
+		padding-bottom: 20px;
 		border-top: 1px solid #f2f2f2;
 		display: flex;
     	justify-content: space-between;
@@ -436,6 +434,48 @@
 		min-height:100px;
 	}
 	
+	.bg-select {
+		background-color:#eee;
+	}
+	.flatpickr-calendar{
+		margin:auto;
+		margin-top:50px;
+	}
+	
+	.calcshipment{
+		border : 1px solid #606060;
+		width: 530px;
+		background-color:white;
+		padding:10px; 
+		border-radius:5px;
+		margin-top: 10px;
+	}
+	.calcshipment:hover {
+		background: #EE8035;
+		color:white !important;
+		border: 1px solid #EE8035;
+	}
+	
+	.flatpickr-calendar {
+		width:500px;
+		height:400px;
+		font-size:20px;
+	}
+	
+	.flatpickr-months {
+		padding-top:40px;
+	  
+	}
+	.flatpickr-current-month{
+		padding-top:0px;
+	}
+	
+	.flatpickr-innerContainer {
+	  padding: 30px 30px 50px 30px;
+	  display:flex;
+	  justify-content:center;
+	}
+
 </style>
 </head>
 <body>
@@ -461,12 +501,15 @@
 							<img src="${ldto.pic}" class="detail_image" alt="상품이미지">
 							<input type="hidden" name="pic" value="${ldto.pic}">
 							<input type="hidden" name="content" value="${ldto.content}">
+							<div style="float:left;width:100%; padding:auto; display:block;">
+								<input type="hidden" class="dateSelector"  />
+							</div>
 						</div>
 					</div> <!-- thumb-wrap -->
-
+					
 					<!--  주문 form ajax list로	-->
 					<div class="info">
-						<h3 class="tit-prd">${ldto.content} </h3>
+						<h3 class="tit-prd"> [ 정기배송 ] ${ldto.content} </h3>
 						<div class="price_div">
 							<div class="price sell_price">
 								<div class="tb-left">
@@ -520,14 +563,14 @@
 															<c:set var="today" value="<%=new java.util.Date(new java.util.Date().getTime()+60*60*24*1000*2)%>" />
 															<c:set var="month"><fmt:formatDate value="${today}" pattern="MM/dd(E)" /></c:set>
 															<span class="month" style="color:#F79646;">&nbsp;<c:out value="${month}" /></span>
-														도착예정
+														도착가능
 														</span>
 													</p>
 												</div>
 												<div class="desc dawn" style="display: flex">
 													<p class="sub-tit">배송비</p>
 													<p class="time">
-														3,000원 <span>(5만원 이상 주문 시 무료배송)</span><br>
+														무료 <span>(정기배송은 5만원이상 주문시에만 가능합니다.)</span><br>
 														<span class="notice">*일/월요일, 공휴일은 수령일에서 제외 <br> *주문량 증가 시 순차발송될 수 있습니다. <br> *샐러드(신선식품)은 배송일자 상이하며, 상세페이지 내 출고일 및 유의사항을 참고바랍니다. </span>
 													</p>
 												</div>
@@ -535,14 +578,68 @@
 											</div>
 										</td>
 									</tr>
+									<!-- 정기배송만 아래에 해당된다. -->
+									<tr>
+										<td>시작날짜 / 끝날짜</td>
+										<td><input id="startdate" name="startship" type="date" style="width:50%; padding:5px;"><input id="enddate" name="endship" type="date"style="width:50%; padding:5px;"></td>
+									</tr>
+									<tr>
+										<td>희망배송일<br>(다중선택)</td>
+										<td style="text-align:left; border:1px solid #333;" >
+											<div style="padding:5px;">
+												<div style="padding:3px;">
+													<label>
+														<input type="checkbox" name="dayperweek" value="1" style="text-align:left;"> 월요일
+													</label>
+												</div>
+												<div style="padding:3px;">
+													<label>
+														<input type="checkbox" name="dayperweek" value="2"style="text-align:left;" > 화요일
+													</label>
+												</div>
+												<div style="padding:3px;">
+													<label>
+														<input type="checkbox" name="dayperweek" value="3" style="text-align:left;"> 수요일
+													</label>
+												</div>
+												<div style="padding:3px;">
+													<label>
+														<input type="checkbox" name="dayperweek" value="4" style="text-align:left;"> 목요일
+													</label>
+												</div>
+												<div style="padding:3px;">
+													<label>
+														<input type="checkbox" name="dayperweek" value="5" style="text-align:left;"> 금요일
+													</label>
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>배송시간</td>
+										<td>
+											<select id="shipmenttime" name="shiptime" >
+												<option value="*" selected>옵션 선택</option>
+												<option value="0">아침배송</option>
+												<option value="1">점심배송</option>
+											</select>
+										</td>
+									</tr>
 									
+									<tr>
+										<td colspan="2">
+											<button class="calcshipment" type="button" > 배송일 계산</button>
+										</td>	
+									</tr>
+									
+								
 									<!-- ajax 처리로 띄울 것 -->
 									<tr>
 										<td colspan="2" id="order">
 
 											<div class="order-sec MK_optAddWrap">
 												<br>
-												<div style="text-align:left;">[ 수량선택 ]</div>
+												<div style="text-align:left;">[ 수량선택(일당) ]</div>
 												<div class="order-div-left align-middle">
 													<input id="cnt" type="text" value=1 class="order-count" name="cnt">
 													<button class="order-btn-plus" type="button"><span class="material-symbols-outlined">add</span></button>
@@ -551,8 +648,15 @@
 												<!--이건 클래스 -->
 												<div class="order-div-right"><fmt:formatNumber value="${ldto.price * (1-(ldto.sale/100))}" pattern="#,###"></fmt:formatNumber>원</div>
 											</div>
-
-
+											
+											<div class="order-div-clear">
+												<span>총 배송일</span>
+												<div style="float:right;">
+													<!--이건 id -->
+													<span id="total_shipment">1</span>일
+												</div>
+											</div>
+											
 											<div class="order-div-clear">
 												<span>총 상품금액</span>
 
@@ -567,6 +671,8 @@
 								</tbody>
 							</table>
 						</div> <!-- .table-opt -->
+						
+						
 						
 						<!-- 찜, 장바구니, 구매하기 버튼 -->
 						<div class="order-btn-div">
@@ -592,6 +698,9 @@
 					</div>
 				</div> <!-- thumb-info 결제 칸까지 -->
 				</form>
+				
+				
+				
 				<!-- 도시락탭 -->
 				<a id="detailGoodsInfo"></a>
 				<div class="detailTab">
@@ -739,7 +848,6 @@
 	                    </div> <!-- .review-list -->
 					</div> <!-- .powerReview -->
 				</div> <!-- 댓글 -->
-
 				<!-- 배송/교환/반품 고지 탭 + 이미지-->
 				<a id="detailRelation"></a>
 				<div class="detailTab">
@@ -760,11 +868,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.8/dayjs.min.js"></script>
+<script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
 
 <script>
-
-
+	
+	
 	function delReviewReply(rrseq, e){
 		  	  
 		  if( confirm("정말로 삭제하시겠습니까?") ){
@@ -802,8 +912,6 @@
 			});
 		  
 		}
-
-
 	
 	function addReviewReply(rseq, e){
 		
@@ -888,12 +996,107 @@
 					});
 				}
 			}
-		});
-	  
+		});	  
 	}
 
-
 	$(document).ready(function(){
+		
+		let DayAfterTomorrow = dayjs().add(2, 'd');
+		let afterOneWeek = DayAfterTomorrow.add(1, 'w');
+		
+		flatpickr.localize(flatpickr.l10ns.ko);
+		
+		flatpickr($(".dateSelector"));
+		
+		let fp = $(".dateSelector").flatpickr({inline:true, local: "ko",
+			mode:"multiple",
+			 dateFormat: "Y-m-d"
+		    });
+		
+		$('.dateSelector').attr('type','hidden');
+		
+		$('.calcshipment').click(function(){
+			
+			let start_date = $('#startdate').val();
+			let end_date = $('#enddate').val();
+			
+			if ( start_date =='' || end_date =='') {
+				alert('시작날짜 혹은 끝날짜를 입력해주세요.');
+				return;
+			} 
+			
+			if ( $('#shipmenttime').val()=='*' ){
+				alert('배송시간을 선택해주세요.');
+				return;
+			}
+			
+			if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
+	            alert("종료일이 시작일보다 먼저입니다.");
+	        	return;
+	        }
+			
+			let selectYoil = [];
+			
+			$('input[name=dayperweek]').each(function(index,item){
+				if( $(item).prop('checked') == true ) {
+					selectYoil.push($(item).val());
+				}
+			});
+			
+			if(selectYoil.length == 0){
+				alert("배송요일을 선택해주세요.");	
+				return;
+			}
+			
+			
+			// 시간 배열로 계산.
+			let startdayjsObj = dayjs(start_date);
+			let enddayjsObj = dayjs(end_date);
+			let curr = dayjs(start_date);
+			let diff = enddayjsObj.diff(startdayjsObj, 'd');
+		
+			let cnt = 0;
+			let dayList= [];
+			
+			for( let i=0; i<= diff ; i++){
+				if( selectYoil.find( n => n == curr.get('d') ) != undefined ){
+					cnt += 1;	
+					dayList.push(curr.format('YYYY-MM-DD'));
+				} 
+				curr = curr.add(1, 'day'); // 하루 증가
+			}
+			
+			// alert('배송일 수 : '+ cnt);
+			
+			if( dayList.length == 0 ){
+				alert('유효한 시작날짜, 끝날짜, 배송일을 선택해주세요.');
+				return;
+			}
+			
+			$('#total_shipment').text(cnt);
+			updatePrice();
+			
+			$(".dateSelector").flatpickr({inline:true, local: "ko",
+				mode:"multiple",
+				 dateFormat: "Y-m-d",
+				 defaultDate: dayList
+			    });
+			$(".dateSelector").css('display','none');
+			
+		});
+		
+		
+		$('#startdate').attr('min', DayAfterTomorrow.format('YYYY-MM-DD'));
+		$('#enddate').attr('min', afterOneWeek.format('YYYY-MM-DD'));
+		
+		
+		$('input[name=dayperweek]').change(function(){
+			if( $(this).prop('checked')==true ){
+				$(this).parent().parent().addClass('bg-select');
+			} else {
+				$(this).parent().parent().removeClass('bg-select');
+			}
+		});
 		
 		
 		$('.review-comment-btn').click(function(){
@@ -1001,26 +1204,57 @@
 	}
 
 	$('.btn-buy').click(function(){
+		
+		if ( convertPriceToNum($('#total_price').text()) < 50000){
+			alert('정기배송은 총 5만원이상 구입시 가능합니다.');
+			return false;	
+		} 
+		
 		if( $("#sellLocation option:checked").val() =='0'){
 			alert('지점을 선택하세요.');
 			return false;
 		}
 		else {
+			
 			$('#form1').submit();
+			
 		}
 	});
 
 
 	$('.btn-cart').click(function(){
-
+		
 		if( $("#sellLocation option:checked").val() =='0'){
 			alert('지점을 선택하세요.');
 			return false;
 		}
+		
+		if ( convertPriceToNum($('#total_price').text()) < 50000){
+			alert('정기배송은 총 5만원이상 구입시 가능합니다.');
+			return false;	
+		}
+		
 
 		let sellboardseq = $('#sellboardseq').val();
 		let cnt = $('#cnt').val();
 		let storeseq = $("#sellLocation option:checked").val();
+		
+		let dayperweek = '';
+		
+		$('input[name=dayperweek]:checked').each(function(index, item){
+			dayperweek = dayperweek + $(item).val();
+		});
+		
+		if(dayperweek==''){
+			alert('희망배송일을 선택해주세요.');
+			return false;
+		}
+		
+		let shiptime = $('#shipmenttime').val();
+		let startship = $('#startdate').val();
+		let endship = $('#enddate').val();
+		
+	
 
 		$.ajax({
 			type: 'POST',
@@ -1033,7 +1267,11 @@
 				id : 'xxxx',
 				sellboardseq : sellboardseq,
 				cnt : cnt,
-				storeseq : storeseq
+				storeseq : storeseq,
+				dayperweek: dayperweek,
+				shiptime :shiptime,
+				startship : startship,
+				endship : endship
 			}),
 			success : function(result) {
 				if(result=='OK')
@@ -1125,6 +1363,9 @@
 		$('.order-div-right').each(function(index,item){
 			sum = sum + convertPriceToNum($(this).text());
 		});
+		
+		sum = parseInt($('#total_shipment').text())*sum;
+		
 		$('#total_price').text(convertNumToPrice(sum));
 	};
 

@@ -2,6 +2,7 @@ package com.project.dndn.lunchdetail.controller;
 
 
 import com.project.dndn.lunchdetail.domain.AddCartDTO;
+import com.project.dndn.lunchdetail.domain.CartDTO;
 import com.project.dndn.lunchdetail.service.LunchDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,14 +28,20 @@ public class CartController {
     @Autowired
     private LunchDetailService service;
 
+    // 장바구니에 직접 추가한다.
     @PreAuthorize("isAuthenticated()") // 막아준다.
     @PostMapping("/addCart")
-    public ResponseEntity<String> addCart(@RequestBody AddCartDTO cartDTO, Principal principal){
+    public ResponseEntity<String> addCart(@RequestBody CartDTO cartDTO, Principal principal){
         try {
-            System.out.println("출력");
-            System.out.println(cartDTO);
             cartDTO.setId(principal.getName());
-            int result = service.addCart(cartDTO);
+            
+            int result;
+            
+            if(cartDTO.getDayperweek()==null)
+            	result = service.addCart(cartDTO);
+            else 
+            	result = service.addCartWithPeriodShip(cartDTO); // 정기배송 로직 
+            
             if(result !=1){
                 throw new Exception("addCart failed");
             }
@@ -49,8 +56,6 @@ public class CartController {
     @DeleteMapping ("/delCart")
     public ResponseEntity<String> delCart(@RequestBody List<String> cartseqList, Principal principal){
         try {
-            System.out.println("출력 >> ");
-            System.out.println(cartseqList);
             int result = service.delCart(cartseqList);
             if(result ==0){
                 throw new Exception("delCart failed");
