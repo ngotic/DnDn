@@ -45,11 +45,11 @@
                     </div>
                     
                     
-                    
-                    
-                    <a href="/dndn/admin/product.do" class="nav-item nav-link" style="font-weight: 700;">
-                    	<i class="fa fa-th me-2"></i>상품 관리
-                    </a>
+
+	                <a href="/dndn/admin/product.do" class="nav-item nav-link" style="font-weight: 700;">
+	                    <i class="fa fa-th me-2"></i>상품 관리
+	                </a>
+
                     
                     
                     
