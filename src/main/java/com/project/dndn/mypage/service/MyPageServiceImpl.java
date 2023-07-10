@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.dndn.lunchdetail.domain.CartDTO;
 import com.project.dndn.mypage.domain.MyPageDTO;
 import com.project.dndn.mypage.mapper.MyPageMapper;
 
@@ -60,5 +61,10 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public List<MyPageDTO> orderList(String id) {
 		return myMapper.orderList(id);
+	}
+
+	@Override
+	public List<MyPageDTO> listCart(String id) {
+		return myMapper.listCart(id);
 	}
 }

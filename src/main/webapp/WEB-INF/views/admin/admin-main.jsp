@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
->>>>>>> sw1111
+
 
 <head>
     <meta charset="utf-8">
@@ -52,6 +52,19 @@
 
         <!-- Content Start -->
         <div class="content">
+<<<<<<< HEAD
+            
+
+
+			<!-- nav -->
+			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
+			
+			
+			<h1>admin main</h1>
+
+
+=======
+>>>>>>> develop
             <!-- Sale & Revenue Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">

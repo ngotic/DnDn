@@ -52,7 +52,7 @@
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
 			
 			
-		<form method="get" height: 100%;">
+		<form method="get"  style="padding: 50px 150px;">
 						<!-- 좌측 메뉴 스크린 -->
 		
 		
@@ -187,34 +187,43 @@
 					</div>
 					 	
 					<table id="datatablesSimple" > 
-					
-						<tr>
-							<th>주문번호</th>
-							<th>상품명</th>
-							<th>결제금액</th>
-							<th>주문날짜</th>
-							<th>배송요일</th>
+						<thead>
+							<tr>
+								<th>주문번호</th>
+								<th>상품명</th>
+								<th>결제금액</th>
+								<th>주문날짜</th>
+			<!-- 					<th>배송요일</th>
+								
+								<th>정기배송여부</th>
+								<th>정기배송기간</th> -->
+			<!-- 					<th>정기배송날짜</th> -->
+								
+							</tr>
+							</thead>
+						<tbody>
+			
+							<c:forEach var="order"  items="${orderlist}">
 							
-							<th>정기배송여부</th>
-							<th>정기배송기간</th>
-							<th>정기배송날짜</th>
+								<tr>
+									<td>${order. orderseq}</td>
+									<td>${order.content}</td>
+									<td>${order.price}</td>
+									<td>${order.orderdate}</td>
+					<%-- 				<td>${order.dayperweek}</td><!-- 요일  -->
+									
+									<td>${order.periodshipseq }</td>
+									<td>${order.startship} ~ ${order.endship}</td> --%>
+			<%-- 						<td>${order.orderdate}</td> --%> <!-- 날짜  -->
+								</tr>
+								
+							</c:forEach>	
 							
-						</tr>
+
+						</tbody>
+			<%-- 	<c:if test= "${!orderlist}">
 						
-					<c:forEach var="order"  items="${orderlist}">
-						<tr>
-							<td>${order. orderseq}</td>
-							<td>${order.name}</td>
-							<td>${order.price}</td>
-							<td>${order.orderdate}</td>
-							<td>${order.shipdate}</td><!-- 요일  -->
-							
-							<td>${order.periodshipseq }</td>
-							<td>${order.shipperiod}</td>
-							<td>${order.shipdate}</td> <!-- 날짜  -->
-						</tr>
-					</c:forEach>	
-						
+						</c:if> --%>
 					</table>
 					
 					 

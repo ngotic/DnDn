@@ -60,7 +60,7 @@
 			<sec:authorize access="!hasRole('ROLE_ADMIN')">
 			<div class="navbar-menu" id="menu" style="padding-left: 220px;">
 			</sec:authorize>
-				<div class="nav-item"><a href = "#" class="nav-link" >고객지원</a></div>
+				<div class="nav-item"><a href = "/dndn/inform/notice.do" class="nav-link" >고객지원</a></div>
 				<sec:authorize access="isAnonymous()">
 				<div class="nav-item"><a href = "/dndn/auth/register.do" class="nav-link" >회원가입</a></div>
 				</sec:authorize>
@@ -91,7 +91,10 @@
                     	<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">로그아웃</button></div></li>
                     	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					</form>	
-						<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">관리자페이지</button></div></li>
+					 <form method="POST" action="/dndn/order/user.do">
+						<li><div class="nav-item"><input type="submit" class="nav-link" style="margin-left:20px;" value= "관리자페이지"></div></li>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                    	</form>
                     </ul>
                      </sec:authorize>
                 </div>

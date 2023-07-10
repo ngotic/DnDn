@@ -37,6 +37,8 @@
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
     
     
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    
     
     <style>
 		
@@ -105,7 +107,92 @@
     <div class="container-fluid position-relative bg-white d-flex p-0">
         
         <!-- 사이드바 -->
-        <%@ include file="/WEB-INF/views/order/admin-sidebar.jsp" %>
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+            
+            	<!-- 로고 -->
+                <a href="/dndn/admin/admin-main.do" class="navbar-brand mx-4 mb-3">
+                    <img src="/dndn/resources/img/logo_long.png" class="mt-1 mb-2" style="height:80px;">
+                </a>
+                
+                <!-- 관리자 프로필 -->
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <img class="rounded-circle" src="/dndn/resources/img/admin/프로필.jpg" alt="" style="width: 40px; height: 40px;">
+                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0">관리자</h6>
+                        <span>Admin</span>
+                    </div>
+                </div>
+                
+                <!-- 메뉴 -->
+                <div class="navbar-nav w-100">
+                
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-weight: 700;"><i class="fa fa-laptop me-2"></i>이용자 관리</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="" class="dropdown-item" style="font-weight: 700;">1. 회원 관리</a>
+                            <a href="" class="dropdown-item" style="font-weight: 700;">2. 점주 관리</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-weight: 700;">
+                        	<i class="fa fa-laptop me-2"></i>가맹점 관리
+                        </a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="" class="dropdown-item" style="font-weight: 700;">1. 가맹점 등록</a>
+                            <a href="" class="dropdown-item" style="font-weight: 700;">2. 가맹점 조회</a>
+                            <a href="" class="dropdown-item" style="font-weight: 700;">3. 가맹점 삭제</a>
+                        </div>
+                    </div>
+                    
+                    
+
+	                <a href="/dndn/admin/product.do" class="nav-item nav-link active" style="font-weight: 700;">
+	                    <i class="fa fa-th me-2"></i>상품 관리
+	                </a>
+
+                    
+                    
+                    
+                    <a href="" class="nav-item nav-link" style="font-weight: 700;">
+                    	<i class="fa fa-keyboard me-2"></i>매출 관리
+                    </a>
+                    
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-weight: 700;">
+                        	<i class="fa fa-laptop me-2"></i>이벤트 관리
+                        </a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="" class="dropdown-item" style="font-weight: 700;">1. 이벤트 조회</a>
+                            <a href="" class="dropdown-item" style="font-weight: 700;">2. 이벤트 수정/삭제</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-weight: 700;">
+                        	<i class="fa fa-laptop me-2"></i>쿠폰 관리
+                        </a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="" class="dropdown-item" style="font-weight: 700;">1. 쿠폰 등록</a>
+                            <a href="" class="dropdown-item" style="font-weight: 700;">2. 쿠폰 수정</a>
+                            <a href="" class="dropdown-item" style="font-weight: 700;">3. 쿠폰 삭제</a>
+                        </div>
+                    </div>
+                    
+                    <a href="/dndn/admin/chart.do" class="nav-item nav-link" style="font-weight: 700;">
+                    	<i class="fa fa-chart-bar me-2"></i>통계
+                    </a>
+                    
+                    
+                   
+                    
+                </div>
+            </nav>
+        </div>
 
 
 
@@ -128,7 +215,8 @@
                             <div class="card-body">
                             
                             <div>
-                            	<button class="add-button">추가</button>
+                            	<button type="button" class="add-button" 
+                            			onclick="location.href='/dndn/admin/product-add.do';">추가</button>
                             </div>
                             
                                 <table id="datatablesSimple">
@@ -147,24 +235,56 @@
                                     
 
                                     <tbody>
-                                    <c:forEach items="${list}" var="dto">
-                                    	<tr>
-                                    		<td>${dto.lunchboxseq}</td>
-                                    		<td>
-                                    			<img alt="도시락" src="${dto.pic}" 
-                                    				 style="width: 50px; height: 50px;">
-                                    		</td>
-                                    		<td>${dto.name}</td>
-                                    		<td>${dto.category}</td>
-                                    		<td>${dto.price}</td>
-                                    		<td>${dto.regdate}</td>
-                                    		<td>${dto.modidate}</td>
-                                    		<td>
-                                    			<button class="edit-button">수정</button>
-                                    			<!-- <button class="del-button">삭제</button> -->
-                                    		</td>
-                                    	</tr>
-  									</c:forEach>
+	                                <c:forEach items="${list}" var="dto">
+	                                   <tr>
+	                                     <td>${dto.lunchboxseq}</td>
+	                                     <td>
+	                                       <img alt="도시락" src="${dto.pic}" style="width: 50px; height: 50px;">
+	                                     </td>
+	                                     <td>
+	                                       <a href="/dndn/admin/product-view.do?lunchboxseq=${dto.lunchboxseq}">
+	                                         ${dto.name}
+	                                       </a>
+	                                     </td>
+	                                     <td>${dto.category}</td>
+	                                     <td>${dto.price}</td>
+	                                     <td>${dto.regdate}</td>
+	                                     <td>${dto.modidate}</td>
+	                                     <td>
+	                                       <button type="button" class="edit-button" onclick="location.href='/dndn/admin/product-edit.do?lunchboxseq=${dto.lunchboxseq}';">수정</button>
+	                                       <button type="button" class="del-button" data-bs-toggle="modal" data-bs-target="#exampleModalDel${dto.lunchboxseq}" onclick="f1(this)">삭제</button>
+	                                     </td>
+	                                 
+	                                     <!-- Modal -->
+	                                     <div class="modal fade" id="exampleModalDel${dto.lunchboxseq}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	                                       <div class="modal-dialog modal-dialog-centered">
+	                                         <div class="modal-content">
+	                                         
+	                                           <div class="modal-header">
+	                                             <h5 class="modal-title" id="exampleModalLabel">상품 삭제</h5>
+	                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+	                                           </div>
+	                                           
+	                                           <div class="modal-body">
+	                                             상품 이름: ${dto.name}<br>
+	                                             상품을 삭제하시겠습니까?
+	                                           </div>
+	                                           
+	                                           <div class="modal-footer">
+	                                             <form method="POST" action="/dndn/admin/product-delok">
+	                                               <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+	                                               <input type="hidden" name="id" value='<sec:authentication property="principal.username"/>'>
+	                                               <input type="hidden" name="lunchboxseq" value="${dto.lunchboxseq}">
+	                                               <button type="submit" class="btn btn-primary">삭제</button>
+	                                             </form>
+	                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='/dndn/admin/product.do';">취소</button>
+	                                           </div>
+	                                           
+	                                         </div>
+	                                       </div>
+	                                     </div>
+	                                   </tr>
+	                                </c:forEach>
                                     </tbody>
 
                                 </table>
@@ -173,17 +293,15 @@
                     </div>
                 </main>
             </div>
+		</section>
         </div>
 		
 		
-	</section>
             
         </div>
         <!-- Content End -->
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -206,6 +324,15 @@
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/scripts.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/datatables-simple-demo.js"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    
+    
+    <script>
+	  function setLunchboxSeq(lunchboxSeq) {
+	    document.getElementById('lunchboxseqInput').value = lunchboxSeq;
+	  }
+	</script>
     
     
 </body>

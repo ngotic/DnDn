@@ -7,10 +7,9 @@
 <title>dndn</title>
 <%@ include file="/WEB-INF/views/include/asset.jsp"%>
 <style>
-.container {
-	background-color: #F7F7F7 !important;
+#side-content > table > tbody > tr:nth-child(2) {
+	background-color: #F1F1F1 !important;
 }
-
 #card {
 	display: grid;
 	grid-template-columns: .2fr 1fr;
@@ -57,10 +56,6 @@ button {
 	width: 100%;
 }
 
-#accordion-body, tr {
-	border: 1px solid;
-}
-
 .detailimg {
 	grid-row: span 4;
 }
@@ -75,7 +70,7 @@ button {
 	<div id="box">
 		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
 		<section class="container">
-			<h1>주문 조회</h1>
+			<div id="pageTitle">주문 조회</div>
 			<c:forEach items="${map.orderList}" var="oNum" varStatus="numStatus">
 				<div id="card">
 					<div id="cimg">
@@ -128,6 +123,8 @@ button {
 	<script>
 		
 	</script>
+		<div></div>
+	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 </body>
 </html>
 

@@ -52,6 +52,13 @@ public interface OrderService {
 
 	void deletecoupon(String coupon_seq);
 
+	void delete_event(String event_seq);
+
+	void editevent(OrderEventDTO dto);
+
+	void addevent(OrderEventDTO dto);
+
+
 	
 
 

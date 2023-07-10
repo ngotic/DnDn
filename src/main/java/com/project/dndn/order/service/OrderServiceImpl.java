@@ -18,10 +18,26 @@ import com.project.dndn.order.mapper.OrderMapper;
 
 @Service("orderService")
 public class OrderServiceImpl implements OrderService{
-	
+	@Override
+	public void delete_event(String event_seq) {
+		orderMapper.delete_event(event_seq);
+		
+		
+	}
+	@Override
+	public void addevent(OrderEventDTO dto) {
+		orderMapper.addevent(dto);
+		
+	}
 	@Autowired
 	@Qualifier("orderMapper")
 	private OrderMapper orderMapper;
+	@Override
+	public void editevent(OrderEventDTO dto) {
+		
+		orderMapper.editevent(dto);
+		
+	}
 	
 	
 	@Override

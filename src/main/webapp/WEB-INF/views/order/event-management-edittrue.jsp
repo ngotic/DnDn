@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
     
     <style>
     	.order-event-image{
@@ -104,8 +105,9 @@ tr td {
 						<%-- onclick="location.href='http://localhost:8092//dndn/resources/img/event/${eventdto.pic}'"  --%>
 						
 					</div>
-					
+	
 					<div >
+					
 					
 						<table>
 
@@ -172,7 +174,30 @@ tr td {
 				
 			</div> 
 
-                
+                		<form method="POST" action="/dndn/order/event-management1.do" enctype="multipart/form-data">
+                		   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
+                		     <sec:authentication property="principal.member.id"/>
+					    <div>
+					        <label for="pic">이벤트이미지</label>
+					        <input type="file" id="pic" name="pic" accept="image/*" required>
+					    </div>
+					    <div>
+					        <label for="pic_board">이벤트이미지 2</label>
+					        <input type="file" id="pic_board" name="pic_board" accept="image/*" required>
+					    </div>
+					    <div>
+					 
+					        <input type="hidden" value= "true" name="edit" required>
+					     
+					         <label for="pic">${_csrf.token}</label>
+					       
+					    </div>
+					    <button type="submit">추가</button>
+					</form>
+					
+					
+					
+					
                     <div class="container-fluid px-4 ">
                         
                         <div class="card mb-4" style="border: none;" id="event-table">
@@ -239,7 +264,7 @@ tr td {
 			setTimeout(function() {
 				$("#datatablesSimple tbody tr").click(function(event1){
 					
-					location.href='http://localhost:8092/dndn/order/event-management.do?event_seq='+$(this).children("td").eq(0).text()+'&edit=';
+					location.href='http://localhost:8092/dndn/order/event-management.do?event_seq='+$(this).children("td").eq(0).text()+'&edit=true';
 				
 				} );
 			}, 300);

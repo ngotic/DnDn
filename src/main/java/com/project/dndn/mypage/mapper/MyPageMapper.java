@@ -23,4 +23,6 @@ public interface MyPageMapper {
 
 	List<MyPageDTO> orderList(String id);
 
+	List<MyPageDTO> listCart(String id);
+
 }
