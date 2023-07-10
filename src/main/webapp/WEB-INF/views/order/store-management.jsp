@@ -53,7 +53,7 @@
 			<!-- nav -->
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
 			
-			
+			<form method="get"  style="padding: 50px 150px;">	
 <div  class= " screen2 screenAll"   >
 		
 					<table class ="table table-hover" >
@@ -158,7 +158,7 @@
 				</table>
 			</div>
 			
-		
+				</form>
 
 						 	
 					<table id="datatablesSimple" > 

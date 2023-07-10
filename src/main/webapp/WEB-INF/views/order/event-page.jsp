@@ -100,7 +100,7 @@
 		
 						<c:forEach var="eventpage" items="${eventpage }">
 						
-						<c:if test="${eventpage.eventseq eq eventdto.eventseq  -1}">
+						<c:if test="${eventpage.rnum eq eventdto.rownum  -1}">
 						<tr onclick="location.href='./event-page.do?event_seq=${eventpage.eventseq }'">
 						
 							<td>이전글   <span style="margin-left: 5px;">▲</span></td>			
@@ -108,10 +108,11 @@
 
 						</tr>
 						</c:if>
+				
 					
 					
 						
-						<c:if test="${eventpage.eventseq eq eventdto.eventseq  +1}">
+						<c:if test="${eventpage.rnum eq eventdto.rownum  +1}">
 						<tr onclick="location.href='./event-page.do?event_seq=${eventpage.eventseq }'">
 							<td>다음글  <span style="margin-left: 5px;">▼</span></td>
 							<td>${eventpage.title}</td>
@@ -121,7 +122,7 @@
 	<%-- 						<% int eventnum = ${eventpage.eventseq};%> --%>
 							
 		
-							<c:if test="${eventdto.eventseq  -1 eq 0}">
+							<c:if test="${eventdto.rownum  -1 eq 0}">
 							<tr style="border: none">
 								<td></td>
 								<td></td>

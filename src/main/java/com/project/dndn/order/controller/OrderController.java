@@ -64,6 +64,7 @@ public class OrderController {
 
 		return "order/event";
 	}
+	
 	@GetMapping("/order/event.do")
 	public String event(Model model, String open_close) {
 		ArrayList<OrderEventDTO> eventlist = null;
@@ -75,7 +76,7 @@ public class OrderController {
 				eventlist = orderService.eventcloselist();
 		} else
 			eventlist = orderService.eventlist();
-
+		System.out.println(eventlist);
 		model.addAttribute("eventlist", eventlist);
 
 		return "order/event";
@@ -89,11 +90,14 @@ public class OrderController {
 		OrderEventDTO eventdto = orderService.eventdto(event_seq);
 
 		List<OrderEventDTO> eventpage = orderService.eventpage(event_seq);
-
+		ArrayList<OrderEventDTO> eventlist= orderService.eventcloselist();
 		model.addAttribute("eventdto", eventdto);
 
 		model.addAttribute("eventpage", eventpage);
-
+		
+		model.addAttribute("eventlist", eventlist);
+		System.out.println(eventdto);
+		System.out.println(eventpage);
 		return "order/event-page";
 	}
 
