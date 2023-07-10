@@ -38,7 +38,7 @@
     <!-- Template Stylesheet -->
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
     
-    
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     
     <style>
 		
