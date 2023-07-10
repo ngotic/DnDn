@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,70 +11,12 @@
     <title>Insert title here</title>
     <%@ include file="/WEB-INF/views/include/asset.jsp" %>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
 
-        }
-        body {
-            font-family: "나눔바른고딕OTF", "돋움";
-        }
         #pdtImg{
             width:100px;
             height: 100px;
         }
-        #logoImg {
-            width: 300px;
-        }
-        #orderHeader {
-            height: 99px;
-            border-bottom: 1px solid #dcdcdc;
-        }
-        #orderHeader .orderHead {
-            position: relative;
-            max-width: 1280px;
-            min-width: 1024px;
-            margin: 0 auto;
-            padding: 20px 0 0;
-        }
-        #orderHeader .logo {
-            height: 80px;
-        }
-        #orderHeader .logo a {
-            display: inline-block;
-            vertical-align: middle;
-        }
-        #orderHeader .logo:after, #orderHeader .helpArea:after {
-            content: "";
-            display: inline-block;
-            height: 100%;
-            vertical-align: middle;
-        }
-        #orderHeader .helpArea {
-            position: absolute;
-            top: 20px;
-            right: 0;
-            bottom: 0;
-            color: #222;
-        }
-        #orderHeader .helpArea strong {
-            display: inline-block;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-        #orderHeader .helpArea .btnType1s {
-            margin: 0 0 0 8px;
-            padding: 0 30px;
-            vertical-align: middle;
-        }
 
-        .btnType1s {
-            height: 32px;
-            line-height: 30px;
-            padding: 0 16px;
-            border-radius: 32px;
-            font-size: 14px;
-        }
         [class*="btnType1"] {
             height: 33px;
             line-height: 33px;
@@ -409,11 +354,7 @@
         .deliveryWriteWrap td {
             padding-top: 20px;
         }
-        .tableTypeWrite td {
-            height: 40px;
-            padding: 4px 0;
-            color: #222;
-        }
+
         .deliveryWriteWrap .row:first-child {
             margin-top: -4px;
         }
@@ -450,6 +391,7 @@
             content: "";
             position: absolute;
             z-index: 2;
+            border-radius: 2px;
         }
         .deliveryWriteWrap .titLabel {
             display: inline-block;
@@ -619,7 +561,7 @@
             right: 0;
             width: 320px;
             height: 100%;
-            z-index: 10;
+            z-index: 0;
         }
 
         .orderContents .totalPayment .inner {
@@ -792,11 +734,6 @@
             text-decoration: underline;
             color: #222;
         }
-        .orderPrice .teenAlert {
-            margin: 0 0 24px;
-            font-family: "나눔바른고딕OTF", "돋움";
-            font-size: 14px;
-        }
         .totalPayment .btnType4xl {
             width: 100%;
             margin: 16px 0 0;
@@ -807,12 +744,18 @@
             font-size: 22px;
         }
         .btnType4xl:hover{
-
             color: #EE8035;
             background-color: #fff;
             border: 2px solid #EE8035;
         }
 
+        #totPurPrcBtnTxt{
+            color:white;
+        }
+
+        .btnType4xl:hover #totPurPrcBtnTxt{
+            color: #EE8035;
+        }
 
         [class*="btnType4"] {
             height: 65px;
@@ -844,7 +787,7 @@
             right: 0;
             width: 320px;
             height: 100%;
-            z-index: 10;
+            z-index: 0;
         }
         .orderContents {
             position: relative;
@@ -887,19 +830,7 @@
         .orderContents .subTitle2 {
             margin-bottom: 15px;
         }
-        .subTitle2 {
-            /*margin: 75px 0 24px;*/
-            font-size: 22px;
-        }
-        .radioTab {
-            padding: 18px 0 22px;
-            border-top: 1px solid #222;
-            border-bottom: 1px solid #dcdcdc;
-            line-height: 1;
-        }
-        .radioTab .inputRadio {
-            margin-right: 72px;
-        }
+
         .inputChk, .inputRadio {
             position: relative;
             display: inline-block;
@@ -909,11 +840,7 @@
             line-height: 1;
             cursor: pointer;
         }
-        .radioTab .inputRadio span {
-            display: inline-block;
-            font: 16px/1 '나눔바른고딕OTF', '돋움';
-            color: #222;
-        }
+
         .tableTypeWrite {
             padding-right:15px;
             border-top: 2px solid #222;
@@ -934,15 +861,15 @@
         .toptitle {
             padding:10px;
             padding-bottom: 10px;
-            font-family: '';
-            font-weight: 900;
+            font-family : 'Noto Sans KR', sans-serif;
+			font-weight: 700;
         }
         .subtitle{
 
             padding:10px;
             padding-bottom: 40px;
-            font-family: '';
-            font-weight: 900;
+            font-family : 'Noto Sans KR', sans-serif;
+			font-weight: 700;
             color:black;
         }
 
@@ -961,6 +888,12 @@
             background-color: #777777;
             border: 1px solid #777777;
         }
+        .cartList ul {
+            padding-left:0px;
+        }
+
+
+
     </style>
 </head>
 <body>
@@ -994,7 +927,7 @@
                                 <th scope="row"><span class="required" aria-required="true">필수입력</span> 주문자</th>
                                 <td>
                                     <div class="row">
-                                        <input type="text" required name="ordNmTxt" id="ordNmTxt" maxlength="10" class="form-control altPosition" title="이름입력" style=" text-align: center;" value="홍길동" readonly>
+                                        <input type="text" id="name" required name="name" maxlength="10" class="form-control mb-2" title="이름입력" style=" text-align: center;" value="<sec:authentication property="principal.member.name"/>" readonly>
                                     </div>
                                 </td>
                             </tr>
@@ -1003,19 +936,8 @@
                                 <th scope="row"><span  class="required" aria-required="true">필수입력</span> 연락처</th>
                                 <td>
                                     <div class="row" style="text-align: center; display: flex; flex-direction: row; justify-content:space-between;">
-                                        <select id="ordMblNo1" class="form-control" style="width:25%; text-align: center;">
-                                            <option value="1" selected>010</option>
-                                            <option value="1" selected>010</option>
-                                            <option value="1" selected>010</option>
-                                            <option value="1" selected>010</option>
-                                        </select>
-                                        <span class="hyphen">-</span>
-                                        <input type="text" class="form-control" style=" width:30%; text-align: center;" required >
-                                        <span class="hyphen">-</span>
-                                        <input type="text" class="form-control" style=" width:30%; text-align: center;" required >
-                                        <p class="inputAlt"></p>
+                                        <input type="text" name="tel"  id="tel" class="form-control " style="text-align:center;" value="<sec:authentication property="principal.member.tel"/>" readonly>
                                     </div>
-
                                 </td>
                             </tr>
 
@@ -1026,8 +948,7 @@
                                 </th>
                                 <td>
                                     <div class="row">
-                                        <input type="text" name="emailTxt" id="emailTxt" class="form-control " title="이메일 입력" value="">
-                                        <p class="inputAlt"></p>
+                                        <input type="text" name="emailTxt" id="email" class="form-control"  style="text-align:center;" value="<sec:authentication property="principal.member.email"/>" readonly>
                                     </div>
                                 </td>
                             </tr>
@@ -1042,38 +963,37 @@
                                     <div class="row deliverySel"  id="chkWrapper" style="display: none">
                                         <label class="inputChk addNewDiv" for="isAddNewChk"> <input type="checkbox"   name="isAddNewChk" id="isAddNewChk"  readonly=""  checked="checked"> <span>배송지 목록에 추가</span></label>
                                         <label class="inputChk" for="isAddDefaultChk"> <input type="checkbox" name="isAddDefaultChk" id="isAddDefaultChk"  > <span>기본 배송지로 등록</span></label>
-                                        <%--                                            <button type="button" class="btnType7s" id="cancelManualAddDlvAddr">입력취소</button>--%>
                                     </div>
 
                                     <!-- 배송지명 -->
                                     <div class="row">
-                                        <label for="dlvNmTxt" class="titLabel"  style="display: block"><span class="required" aria-required="true">필수입력</span> 배송지명</label>
-                                        <input type="text" id="dlvNmTxt" name="dlvNmTxt" maxlength="10" class="inputTxt form-control" style="margin-top:4px;" placeholder="최대 10자 까지 입력 가능" >
-
+                                        <label for="addressname" class="titLabel"  style="display: block"><span class="required" aria-required="true">필수입력</span> 배송지명</label>
+                                        <input type="text" id="addressname" name="dlvNmTxt" maxlength="10" class="inputTxt form-control" style="margin-top:4px; text-align: center;" placeholder="최대 10자 까지 입력 가능" >
                                         <p class="inputAlt"></p>
                                     </div>
 
-
                                     <!-- 받으실 분 -->
                                     <div class="row" >
-                                        <label for="addOrdererInfo" class="titLabel mb-1"><span class="required" aria-required="true" required>필수입력</span> 받으실 분</label>
-                                        <label class="inputChk mb-1" for="addOrdererInfo" style="padding-right: 5px;"><input type="checkbox" id="addOrdererInfo" > <span style="margin-left: 0px;">주문자 정보와 동일</span></label>
+                                        <label class="titLabel mb-1"><span class="required" aria-required="true" required>필수입력</span> 받으실 분</label>
+                                        <label class="mb-1" for="sameaddress" style="padding-right: 5px;"><input id="sameaddress" type="checkbox" style="border-radius: 5px; margin:-5px 0 0 0; vertical-align:middle;" ><span style="margin-left: 0px;">&nbsp;&nbsp;주문자 배송정보와 동일</span></label>
                                         <p class="inputAlt"></p>
                                     </div>
                                     <div class="row">
                                         <!-- 우편 번호 -->
-                                        <label class="control-label" for="address">우편번호</label>
-                                        <input class="form-control mb-2" type="text" id="sample4_postcode" placeholder="우편번호" required>
+                                        <label class="control-label" >우편번호</label>
+                                        <input id = "zipcode" class="form-control mb-2" type="hidden" id="sample4_postcode" placeholder="우편번호" value="12345" required>
                                         <input class="form-control mb-2" id="findaddressnumber" type="button" onclick="sample4_execDaumPostcode();" value="우편번호 찾기" required><br>
 
-
-                                        <label class="control-label" for="address">주소</label>
-                                        <input class="form-control mb-2" type="text" id="sample4_roadAddress" name="address" placeholder="도로명주소" readonly required>
+                                        <label class="control-label" >주소</label>
+                                        <input class="form-control mb-2 address" type="text" id="sample4_roadAddress" name="address" placeholder="도로명주소" value="" readonly required style="text-align: center;">
                                         <span id="guide" style="color:#999;display:none"></span>
 
-                                        <label class="control-label" for="addressdetail">상세주소</label>
-                                        <input class="form-control mb-2" type="text" id="sample4_detailAddress" name="addressdetail" placeholder="상세주소" onchange="nameCheck(this);" required>
-                                        <div class="valid-feedback"></div>
+                                        <label class="control-label" >상세주소</label>
+                                        <input class="form-control mb-2 addressdetail" type="text" id="sample4_detailAddress" name="addressdetail" value="" placeholder="상세주소" required style="text-align: center;">
+
+                                        <input id="myaddress" type="hidden" value="<sec:authentication property='principal.member.address'/>">
+                                        <input id="myaddressdetail" type="hidden" value="<sec:authentication property='principal.member.addressdetail'/>">
+
                                     </div>
                                 </td>
                             </tr>
@@ -1082,14 +1002,15 @@
                                 <td class="shippingMsg">
                                     <div class="row">
 
-                                        <select id="sellLocation" class="form-control">
-                                            <option value="" selected>배송 요청사항을 선택해 주세요.</option>
-                                             <option value="1">부재시 경비(관리)실에 맡겨주세요.</option>
+                                        <select id="sellrequest" class="form-control" style="text-align: center;">
+                                            <option value="0" selected>배송 요청사항을 선택해 주세요.</option>
+                                            <option value="1">부재시 경비(관리)실에 맡겨주세요.</option>
                                             <option value="2">부재시 문앞에 놓아주세요.</option>
                                             <option value="3">파손의 위험이 있는 상품이 있으니, 배송에 주의해주세요.</option>
                                             <option value="4">배송전에 연락주세요.</option>
                                             <option value="5">메시지 직접 입력</option>
                                         </select>
+                                        <input class="form-control mt-2" type="hidden" id="requestmessage" value="없음" style="text-align: center;">
 
                                     </div>
                                     <div class="writeMsg request">
@@ -1102,65 +1023,67 @@
                     </div>
                 </section>
 
-
-
-                <!-- //주문 배송 정보 -->
-
                 <!-- 주문 상품 정보 -->
-                <form id="orderForm" name="orderForm" action="" onsubmit="return false;">
+                
                     <section id="orderChk" style="display: block;">
                         <h4 class="subtitle">주문 상품 정보</h4>
                         <div class="cartList">
+                            <c:forEach items="${clist}" var="cdto">
                             <ul>
-                                    <li>
-                                        <div class="pdtRow">
-                                            <div class="cell pdtImg">
-
-                                                <a href="javascript:void(0);" >
-                                                    <img  id ="pdtImg" src="http://www.slimcook.co.kr/shopimages/slimcook/002000000013.jpg?1679465417" alt="상품이미지">
-                                                </a>
-
-                                            </div>
-                                            <div class="cell pdtInfo">
-                                                <div class="pdtName">
-                                                    <a href="javascript:void(0);">
-                                                            ${orderList.PROD_NM}
-                                                    </a>
-                                                </div>
-
-                                                <div class="pdtOpt">
-
-                                                </div>
-                                            </div>
-                                            <div class="cell pdtCount">${orderList.PROD_INDV_QTY} 개</div>
-                                            <div class="cell pdtPrice">
-                                                            <span class="price">
-                                                                <span id="price" class="num"><fmt:formatNumber pattern="###,###,###" value="${prod_fee}"/></span>원
-                                                            </span>
-                                                <span id="point" class="point">+<fmt:formatNumber pattern="###,###,###" value="${point}"/> P</span>
+                                <li>
+                                    <div class="pdtRow">
+                                        <div class="cell pdtImg">
+                                            <input type="hidden" class="cartseq" value="${cdto.cartseq}">
+                                            <a href="javascript:void(0);" >
+                                                <img  id ="pdtImg" src="${cdto.pic}" alt="상품이미지">
+                                            </a>
+                                        </div>
+                                        <div class="cell pdtInfo">
+                                            <div class="pdtName" style="text-align: center;">
+                                              <c:if test="${cdto.periodshipseq != 0}">
+									       			<span style="font-size:14px; color: #EF6262;">[정기배송] <br> </span>
+									       	  </c:if>
+									       	  
+                                                ${cdto.content}<br>
+                                                
+                                                  <c:if test="${cdto.periodshipseq != 0}">
+										            배송요일 : <span class="dayperweek">${cdto.dayperweek}</span><br>
+										            <c:if test="${cdto.shiptime == 0}">
+										            	<span>배송시간 : 아침배송</span><br>	
+										            </c:if>
+										            <c:if test="${cdto.shiptime == 1}">
+										            	<span>배송시간 : 점심배송</span><br>
+										            </c:if>
+										            <span>배송시작 : ${fn:substring(cdto.startship, 0 , 10)}</span><br>
+										            <span>배송종료 : ${fn:substring(cdto.endship,0 , 10)}</span><br>
+										          </c:if> 
+										      	  <span class="storekind" style="color:#888;">지점 : ${cdto.storename}</span><br>    
                                             </div>
                                         </div>
-
-                                        <div class="usePoint">
-
-                                                        <span class="pointInput" style="display:none;">
-                                                            <input type="text" name="useBtPt" id="useBtPt" class="inputTxt checkNum inputError colorRed" value="0"> P
-                                                        </span>
+                                        <div class="cell pdtCount">${cdto.cnt} 개</div>
+                                        <div class="cell pdtPrice">
+                                        
+                                          <c:if test="${cdto.periodshipseq != 0}">
+								            <input type="hidden" class="shipnum" value="${cdto.dayperweek}/${fn:substring(cdto.startship, 0 , 10)}/${fn:substring(cdto.endship, 0 , 10)}">
+								          </c:if>
+                                            <span class="price">
+                                                <fmt:formatNumber value="${cdto.price * cdto.cnt * (1-(cdto.sale/100))}" pattern="#,###"></fmt:formatNumber>원
+                                            </span>
+                                            <span class="point"><fmt:formatNumber value="${cdto.cnt * cdto.price * 5/100 * (1-(cdto.sale/100))}"></fmt:formatNumber>P</span>
                                         </div>
-
-                                    </li>
+                                    </div>
+                                </li>
                             </ul>
+                            </c:forEach>
                         </div>
                     </section>
-                </form>
+                
 
 
                 <!-- 쿠폰확인 & 포인트적립 -->
                 <section id="cpnPt">
 
                     <h4 class="subtitle">쿠폰/포인트 적용</h4>
-
-
                     <div class="tableTypeWrite typeline basicOrderCoupon">
                         <table style="padding-top:10px;">
                             <caption>쿠폰/포인트 적용</caption>
@@ -1170,16 +1093,21 @@
                             </colgroup>
                             <tbody>
                             <tr id="userCouponList">
-                                <th scope="row">쿠폰 <span class="ftColor3">(사용 가능한 쿠폰 <span class="ftColor7" id="couponAllCnt">3장</span>)</span></th>
+                                <th scope="row">쿠폰 <span class="ftColor3">(사용 가능한 쿠폰
+                                    <span class="ftColor7" id="couponAllCnt">
+                                        <fmt:formatNumber value="${fn:length(coulist)}"  />장</span>)
+                                    </span>
+                                </th>
                                 <td>
-                                    <div class="selectArea">
-                                        <select class="form-control">
-                                            <option value="" selected>쿠폰을 선택하세요.</option>
-                                            <option value="1">[신규]1만원이상 2천원할인</option>
-                                            <option value="2">[신규]2만원이상 5천원할인</option>
-                                            <option value="3">[신규]3만원이상 1만원할인</option>
-                                        </select>
-                                    </div>
+
+                                    <select class="form-control" style="width:100%;" id="sellcoupon">
+                                        <option value="0" selected style="text-align: center;">쿠폰을 선택하세요.</option>
+                                        <c:forEach items="${coulist}" var="coudto">
+                                            <option value="${coudto.couponmemberseq},${coudto.couponseq}/${coudto.sale}">${coudto.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <!-- 쿠폰 셋팅 -->
+
 
                                     <ul class="selCouponList" id="selUserCouponList">
                                         <li style="display:none;">
@@ -1207,34 +1135,37 @@
                                 </td>
                             </tr>
 
-
-
-
-                            <tr class="btPtUseTr" id="btPtUseTr">
-                                <th scope="row">적립금</th>
-                                <td>
-                                    <div class="beautyPoint">
-                                        <div class="mb-1">
-                                            사용가능 <strong><span id="canUseBtPt">0</span></strong> P &nbsp;/&nbsp; 보유 <strong><span id="myBtPtTxt">3000</span></strong> P
+                                <tr class="btPtUseTr" id="btPtUseTr">
+                                    <th scope="row"><span class="required" aria-required="true">필수입력</span> 포인트</th>
+                                    <td>
+                                        <div class="beautyPoint">
+                                            <div class="mb-1">
+                                                사용가능 <strong><span id="canUseBtPt">${point}</span></strong> P &nbsp;/&nbsp; 보유 <strong><span id="myBtPtTxt">${point}</span></strong> P
+                                            </div>
+                                            <div class="display:margin:auto;">
+                                            <input id="pointInput" type="text" class="form-control" name="totalUseBtPt" value="0" style="width:190px;margin-right: 10px; display: inline-block; text-align: center;">
+                                            <button id="allUsePoint" type="button" class="form-control" name="useAllBtPt" id="useAllBtPt" style="display: inline-block; width:170px;">모두사용</button>
+                                            </div>
                                         </div>
-                                        <div class="display:margin:auto;">
-                                        <input type="text" class="form-control" name="totalUseBtPt" value="0" style="width:200px; display: inline-block; text-align: center;">
-                                        <button type="button" class="form-control" name="useAllBtPt" id="useAllBtPt" style="display: inline-block; width:170px;">모두사용</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
 
+<%--                                <tr class="btPtUseTr" >--%>
+<%--                                    <th scope="row" ><span class="required" aria-required="true">필수입력</span> 이벤트</th>--%>
+<%--                                    <td>--%>
+<%--                                        <div class="beautyPoint">--%>
+<%--                                            <div class="display:margin:auto;">--%>
+<%--                                                <input type="text" class="form-control" name="totalUseBtPt" value="머머머이벤트" style="width:190px;margin-right: 10px; display: inline-block; text-align: center;" readonly>--%>
+<%--                                                <button type="button" class="form-control" name="useAllBtPt" style="display: inline-block; width:170px;"> 10%할인 </button>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                </tr>--%>
                             </tbody>
                         </table>
                     </div>
                     <div class="tableTypeWrite typeline abcCampaignChk" style="display:none;">
                         <table>
-                            <caption>쿠폰/포인트 적용</caption>
-                            <colgroup>
-                                <col style="width:214px;">
-                                <col>
-                            </colgroup>
                             <tbody>
                             <tr>
                                 <th scope="row">연계 구매 프로모션</th>
@@ -1257,63 +1188,32 @@
 
 
                 <div id="odGift">
-                    <section id="orderGift" style="display: none;">
-                        <p class="helpWrap">
-                            저희 쇼핑몰은 고객님의 안전한 거래를 위해 무통장입금/계좌이체 거래에 대해 구매안전서비스를 적용하고 있습니다.
-                            <a href="https://pgweb.uplus.co.kr/ms/escrow/s_escrowYn.do?mertid=innisfree" target="_blank" title="새창 열림" class="btnType5">토스페이먼츠 구매안전 서비스 가입확인</a>
-                        </p>
-                    </section>
-
-
 
                     <!-- 결제 수단 선택 -->
-
-                    <!-- 품절 시 환불 방법 -->
                     <section id="refundMethodArea" style="display: block;">
-                        <h4 class="subtitle">품절 시 환불 방법</h4>
+                        <h4 class="subtitle">결제수단</h4>
                         <div class="refundPayMethod radioTabContents">
                             <div id="ACCOUNT" class="radioTabCont">
                                 <div class="tableTypeWrite">
                                     <table>
-                                        <caption>환불 은행 계좌 정보 입력</caption>
-                                        <colgroup>
-                                            <col style="width:210px;">
-                                            <col>
-                                        </colgroup>
                                         <tbody>
                                         <tr>
-                                            <th scope="row">입금은행</th>
+                                            <th scope="row">방법</th>
                                             <td>
-                                                <select  class="form-control">
-                                                    <option value="" selected>배송 요청사항을 선택해 주세요.</option>
-                                                    <option value="1">부재시 경비(관리)실에 맡겨주세요.</option>
-                                                    <option value="2">부재시 문앞에 놓아주세요.</option>
-                                                    <option value="3">파손의 위험이 있는 상품이 있으니, 배송에 주의해주세요.</option>
-                                                    <option value="4">배송전에 연락주세요.</option>
-                                                    <option value="5">메시지 직접 입력</option>
+                                                <select class="form-control" id="sellpaymethod">
+                                                    <option value="1">카카오페이</option>
+                                                    <option value="2">카드</option>
+                                                    <option value="3">계좌이체</option>
                                                 </select>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">계좌번호</th>
-                                            <td>
-                                                <input class="form-control" type="text" name="tempAccNo" id="tempAccNo" class="inputTxt checkNum" title="계좌번호 입력" placeholder="‘-’제외하고 숫자만 입력해주세요." >
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">예금주명</th>
-                                            <td>
-                                                <input class="form-control" type="text" name="tempDpoSiTr" id="tempDpoSiTr" title="예금주명 입력" placeholder="예금주명을 입력해주세요.">
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
+
                                 </div>
                                 <div class="helpWrap">
                                     <ul class="bulListType">
-                                        <li>주문취소나 품절 시 환불 받으실 계좌입니다. 빠르고 편리한 환불서비스를 위해 정확한 계좌정보를 입력해주세요.</li>
-                                        <li>환불계좌는 본인명의 계좌만 등록/변경 가능합니다.</li>
+                                        <li> 저희 쇼핑몰은 고객님의 안전한 거래를 위해 카카오페이/카드결제/계좌이체 거래에 대해 구매안전서비스를 적용하고 있습니다.</li>
                                     </ul>
                                 </div>
                             </div>
@@ -1323,8 +1223,8 @@
                 </div>
                 <!-- //상품 정보 -->
             </form><!--ordForm -->
-
         </div>
+
         <!-- 결제 금액 정보 -->
         <div class="totalPayment">
             <div class="inner">
@@ -1334,16 +1234,16 @@
                     <section class="orderPrice">
                         <dl>
                             <dt>주문금액</dt>
-                            <dd><span class="num" id="totPrdPrcTxt"></span>원</dd>
+                            <dd><span class="num" id="totPrdPrcTxt"></span></dd>
                         </dl>
                         <dl>
                             <dt>할인/차감 금액</dt>
-                            <dd class="totalSale"><span class="num" id="totDcCpnPrcTxt">0</span>원</dd>
+                            <dd class="totalSale"><span class="num" id="totDcCpnPrcTxt">0원</span></dd>
                         </dl>
                         <dl>
                             <dt>배송비</dt>
                             <%--                                <dd id="totPurDlvPrcTxt" $dlvcost="2500"></dd>--%>
-                            <dd id="totalDlvTxt" $dlvcost="2500"><span class="num" id="totPurDlvPrcTxt">- 0</span>원</dd>
+                            <dd id="totalDlvTxt" ><span class="num" id="delveryCost"> 0</span></dd>
                         </dl>
                         <div class="saleBox" id="dlvUseBtPtDiv" style="display: none;">
                             <dl id="dlvUseBtPtDl">
@@ -1353,16 +1253,15 @@
                         </div>
 
                         <dl>
-                            <dt>예정 적립금 <button type="button" class="btnTooltip" onclick="tooltip('btPointInfo3','fixed');">툴팁</button></dt>
+                            <dt>예정 적립 포인트 <button type="button" class="btnTooltip" onclick="tooltip('btPointInfo3','fixed');">툴팁</button></dt>
                             <dd><span class="num" id="totReservePtTxt"></span>P</dd>
                         </dl>
 
                         <dl class="totalPrice">
                             <dt>최종 결제 금액</dt>
-                            <dd><span class="num" id="totPurPrcTxt"></span>원</dd>
+                            <dd><span class="num" id="totPurPrcTxt"></span></dd>
                         </dl>
                         <div class="paymentAgreeWrap">
-
                             <div class="agree">
                                 <label class="inputChk" for="payWayProvision"><input type="checkbox" id="payWayProvision"><span>[필수] 구매 조건 및 결제 진행 동의</span></label>
                                 <p class="txt">주문할 상품의 상품명, 상품가격, 배송정보를 확인하였으며, 구매 진행에 동의 하시겠습니까? (전자상거래법 제8조 제2항)</p>
@@ -1371,23 +1270,318 @@
                                 <label class="inputChk VbankWayProvision" for="VbankWayProvision" style="display: none;"><input type="checkbox" id="VbankWayProvision"><span>[필수] 개인정보 수집/이용동의</span></label>
                                 <button type="button" class="btn VbankWayProvision" onclick="layerOpen('privacyTerms');" style="display: none;">개인정보 수집 자세히 보기</button>
                             </div>
-
                         </div>
                     </section>
                 </div>
-                <button type="button" class="btnType4xl" id="payBtn"><span class="num" id="totPurPrcBtnTxt"></span>10,000 원 결제하기</button>
+                <button type="button" class="btnType4xl" id="payBtn" onclick="payrequest();">
+                    <span class="num" id="totPurPrcBtnTxt">10,000원</span> 결제하기
+                </button>
             </div>
         </div>
         <!-- //결제 금액 정보 -->
     </div>
-    </div>
-    </div>
-
 
 </section>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.8/dayjs.min.js"></script>
 <script>
+
+    let sel_pg = 'kakaopay.TC0ONETIME';
+    let sel_pg_method ='kakaopay';
+    let ordercnt = 0;
+    let delvery_price = 3000;
+    let discountDelivery=0;
+    let pointSum =0;
+
+    let count = $('.price').length;
+    let sum=0;
+
+    let yoilList = ['', '월','화', '수', '목', '금'];
+    
+
+    $('.dayperweek').each(function(index, item){
+    	let str=$(item).text().trim();
+    	$(item).text(str.split('').map(i => yoilList[i]).join().replaceAll(',',''));
+    });
+    
+    $('.shipnum').each(function(index, item){
+    	
+    	let dayperweek = $(item).val().split('/')[0];
+    	let startship = $(item).val().split('/')[1];
+    	let endship = $(item).val().split('/')[2];
+    	
+    	let startdayjsObj = dayjs(startship);
+    	let enddayjsObj = dayjs(endship);
+    	let curr = dayjs(startship);
+    	let diff = enddayjsObj.diff(startdayjsObj, 'd');
+
+    	let cnt = 0;
+    	let dayList= [];
+    	let selectYoil = dayperweek.split('');
+    	
+    	for( let i=0; i<= diff ; i++){
+    		if( selectYoil.find( n => n == curr.get('d') ) != undefined ){
+    			cnt += 1;	
+    		} 
+    		curr = curr.add(1, 'day'); // 하루 증가
+    	}
+    	
+    	if(cnt==0)
+    		$(item).val(1);
+    	else 
+    		$(item).val(cnt);
+    	
+    	let result = cnt * convertPriceToNum($(item).next().text());
+    	$(item).next().text(convertNumToPrice(result));
+    	let point = $(item).parent().find('.point');
+    	point.text(convertPriceToNum(point.text().replace('P',''))*cnt+'P');
+    	
+    });
+    
+    
+    
+    // 주문금액 구하기
+    $('.price').each(function(index,item){
+        sum = sum + convertPriceToNum($(this).text());
+        if(index +1 == count){
+            $('#totPrdPrcTxt').text(convertNumToPrice(sum));
+        }
+    });
+
+    // > 배송비 구하기, 배송비는 주문당 하나로 측정된다. 5만원이상 배송비 무료
+    $('.storekind').each(function (index, item) {
+        let price = $(item).parent().parent().next().next().find('.price').text().trim();
+        if( convertPriceToNum(price) > 50000 )
+            discountDelivery+=1;
+        ordercnt+=1;
+    });
+    $('.storekind').promise().done(function(){
+        ordercnt = ordercnt - discountDelivery;
+        $('#delveryCost').text((ordercnt*delvery_price).toLocaleString()+'원');
+    });
+
+    updateTotalDiscountPrice(); // 가격 셋팅
+
+    function updateTotalDiscountPrice(){
+        //totPrdPrcTxt   >
+        //totDcCpnPrcTxt > - 할인/차감 결과
+        // delveryCost > + 배달비
+        // totPurPrcBtnTxt > 마지막 합산
+        // totPurPrcTxt
+        let discountprice = 0;
+        if($('#sellcoupon').val()!='0')
+            discountprice = parseInt($('#sellcoupon').val().split('/')[1]) /100 * convertPriceToNum($('#totPrdPrcTxt').text());
+        let point = parseInt($('#pointInput').val());
+        $('#totDcCpnPrcTxt').text( convertNumToPrice (discountprice+point));
+        let totPrdPrcTxt= convertPriceToNum($('#totPrdPrcTxt').text());
+        let totDcCpnPrcTxt = discountprice+point;
+        let delveryCost = convertPriceToNum($('#delveryCost').text());
+        // alert(totPrdPrcTxt+'/'+totDcCpnPrcTxt+"/"+delveryCost);
+        $('#totPurPrcTxt').text(convertNumToPrice(totPrdPrcTxt-totDcCpnPrcTxt+delveryCost));
+        $('#totPurPrcBtnTxt').text(convertNumToPrice(totPrdPrcTxt-totDcCpnPrcTxt+delveryCost));
+    }
+
+    $('#pointInput').on('change keyup', function(){
+       if( $(this).val()=='' || parseInt($(this).val())< 0 || parseInt($(this).val()) > parseInt($('#canUseBtPt').text())  )
+         $(this).val(0);
+       updateTotalDiscountPrice();
+    });
+
+    $('#allUsePoint').click(function(){
+        let point = '${point}'
+        $('#pointInput').val(point);
+        updateTotalDiscountPrice();
+    });
+
+    $('#sellcoupon').change(function(){
+       //alert($('#sellcoupon').val().split('/')[0]);
+        updateTotalDiscountPrice();
+    });
+
+    $('.point').each(function (index, item) {
+        pointSum += parseFloat($(item).text().trim().replaceAll('+','').replaceAll('P','').replaceAll(',',''));
+    });
+
+    $('.point').promise().done(function(){
+        $('#totReservePtTxt').text(Math.floor(pointSum));
+    });
+
+    $('#sellpaymethod').change(function(){
+        // 카카오페이
+        if($("#sellpaymethod option:checked").val()=='1'){
+            sel_pg = 'kakaopay.TC0ONETIME';
+            sel_pg_method ='kakaopay';
+        // 카드결제
+        } else if($("#sellpaymethod option:checked").val()=='2'){
+            sel_pg = 'html5_inicis.INIBillTst';
+            sel_pg_method ='card';
+        // 계좌이체
+        } else if($("#sellpaymethod option:checked").val()=='3'){
+            sel_pg = 'html5_inicis.INIBillTst';
+            sel_pg_method ='trans';
+        }
+    });
+
+    var csrfHeaderName = "${_csrf.headerName}";
+    var csrfTokenValue = "${_csrf.token}";
+
+
+    function payrequest(){
+        // 예외처리하기
+        if( $('#payWayProvision').prop('checked')==false){
+            alert('약관에 동의하세요.');
+            return;
+        }
+
+        if( $('.address').val()=='' || $('.addressdetail')=='' ) {
+            alert('주소를 입력해주세요.');
+            return;
+        }
+
+        // 주문금액
+        // 아이디
+        // 전화번호
+        // 우편번호
+        // 배송주소
+        // 배송상세주소
+        // 주문날짜 > sysdate
+        // 결제방식
+        // 적립포인트
+        let cartseqList = [];
+        $('.cartseq').each(function (index, item) {
+            cartseqList.push($(item).val());
+        })
+
+        let price = convertPriceToNum($('#totPurPrcBtnTxt').text());
+        let id = '<sec:authentication property="principal.member.id"/>';
+        let tel = $('#tel').val();
+        let email = $('#email').val(); // x
+        let zipcode = $('#zipcode').val();
+        let address = $('.address').val();
+        let addressdetail = $('.addressdetail').val();
+        let addpoint = $('#totReservePtTxt').text();
+        let usepoint = $('#pointInput').val();
+        let request = $("#requestmessage").val();
+        let payment = sel_pg_method;
+        let couponmemberseq = $('#sellcoupon').val().split('/')[0];// 0번이면 null이 들어간다.
+
+
+
+        let addressname = $('#addressname').val();
+
+        var IMP = window.IMP;
+        IMP.init('imp86112373');
+        IMP.request_pay({
+            pg : sel_pg,
+            pay_method : sel_pg_method,
+            merchant_uid : 'merchant_' + new Date().getTime(),   //주문번호
+            name : id,                                  //상품명
+            amount : price,                                    //가격
+            //customer_uid : buyer_name + new Date().getTime(),  //해당 파라미터값이 있어야 빌링 키 발급 시도
+            buyer_email : email,             //구매자 이메일
+            buyer_name : id,                           //구매자 이름
+            buyer_tel : tel,                                    //전화번호
+            buyer_addr : address,	                             //주소
+            buyer_postcode : zipcode                           //우편번호
+        },function(rsp){
+            if(rsp.success){
+                var msg = "결제 완료";
+                msg += '고유ID : ' + rsp.imp_uid;                //아임포트 uid는 실제 결제 시 결제 고유번호를 서버와 비교해서 결제처리하는데 필요없긴함.
+                msg += '// 상점 거래ID : ' + rsp.merchant_uid;
+                msg += '// 결제 금액 : ' + rsp.paid_amount;
+                msg += '// 카드 승인번호 : ' + rsp.apply_num;
+                $.ajax({
+                    type : 'POST',
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                    },
+                    url : '/dndn/verifyIamport/'+ rsp.imp_uid // 결제금액, 상태에 대한 위변조 때문에 넣는 검증로직
+                }).done(function(data) {
+                    // return값은 xml로 받는다. 그래서 jquery로 xml 파싱
+                    if(rsp.paid_amount == $(data).find('amount').text()){
+                        // alert("결제 및 결제검증완료");
+                        // 비즈니스 로직 추가
+                        // ~> 기록에 쓴다., 포인트 차감시 포인트 감소
+                        // ajax 처리 > 해당 사용자
+                        // 트랜잭션 처리,
+                        $.ajax({
+                            type: 'POST',
+                            url: '/dndn/order/addOrder',
+                            headers: {"content-type" : "application/json"}, // 보내는 데이터
+                            beforeSend: function(xhr) {
+                                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                            },
+                            data : JSON.stringify({
+                                id : id,
+                                price: price,
+                                request : request,
+                                couponmemberseq : couponmemberseq,
+                                payment: payment,
+                                addressname: addressname,
+                                tel : tel,
+                                zipcode: zipcode,
+                                address: address,
+                                addressdetail: addressdetail,
+                                addpoint :addpoint,
+                                usepoint : usepoint,
+                                cartseqList : cartseqList
+                            }),
+                            success : function(result) {
+                                if(result=='OK') {
+                                    new Swal('주문', '주문이 완료되었습니다.', 'success').then(function () {
+                                        location.href = '/dndn/main.do';
+                                    });
+                                }
+                            },
+                            error : function (a, b, c){
+                                console.log(a ,b, c)
+                                if(b == 'error') {
+                                    new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+                                        location.href='/dndn/auth/login.do';
+                                    });
+                                }
+                            }
+                        });
+                    } else {
+                        alert("결제 실패");
+                    }
+                });
+            }else{
+                var msg = "결제 실패"
+                // msg += "에러 내용" + rsp.error_msg;
+            }
+            // alert(msg);
+        });
+    }
+
+    $('#sameaddress').change(function(){
+        //(uri);
+        if($('#sameaddress').prop('checked') ==true) {
+            let address = $('#myaddress').val();
+            let addressdetail = $('#myaddressdetail').val();
+            $('.address').val(address);
+            $('.addressdetail').val(addressdetail);
+        } else {
+            $('.address').val('');
+            $('.addressdetail').val('');
+        }
+    });
+
+    $('#sellrequest').change(function(){
+
+        if($("#sellrequest option:checked").val()=='5'){
+            $("#requestmessage").attr('type','text');
+            $("#requestmessage").val("");
+        } else {
+            $("#requestmessage").val($("#sellrequest option:checked").text());
+            $("#requestmessage").attr('type','hidden');
+        }
+    });
 
     function sample4_execDaumPostcode() {
         new daum.Postcode({
@@ -1417,10 +1611,7 @@
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_postcode").classList.add("is-valid");
                 document.getElementById("sample4_roadAddress").value = roadAddr;
-                document.getElementById("sample4_roadAddress").classList.add("is-valid");
-
 
                 var guideTextBox = document.getElementById("guide");
                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
@@ -1428,7 +1619,6 @@
                     var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
                     guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
                     guideTextBox.style.display = 'block';
-
                 } else if(data.autoJibunAddress) {
                     var expJibunAddr = data.autoJibunAddress;
                     guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
@@ -1441,6 +1631,14 @@
         }).open();
     }
 
+    // 숫자 -> 가격 >
+    function convertPriceToNum(price){
+        return parseInt(String(price).replaceAll('원','').replaceAll(',',''));
+    }
+    // 가격 -> 숫자 >
+    function convertNumToPrice(num){
+        return parseInt(String(num)).toLocaleString()+'원';
+    }
 </script>
 </body>
 </html>

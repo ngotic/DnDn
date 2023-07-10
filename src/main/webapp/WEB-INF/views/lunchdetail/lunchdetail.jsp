@@ -49,6 +49,8 @@
 	    width: 550px;
 	}
 	#productDetail .thumb-info .info .tit-prd {
+		font-family : 'Noto Sans KR', sans-serif;
+		font-weight: 700;
 	    font-size: 22px;
 	    color: #1c1c1c;
 	    font-weight: bold;
@@ -91,7 +93,7 @@
 	}
 	#productDetail .thumb-info .info .table-opt td:nth-child(1) {
 	    float: left;
-	    width: 150px;
+	    width: 130px;
 	    margin-bottom: 8px;
 	    padding-top: 4px;
 	    *padding-bottom: 5px;
@@ -349,7 +351,7 @@
         background: #EE8035;
 	}
 	.review-list-detail{
-		padding: 20px 20px;
+		padding: 20px 20px 40px 20px;
 	    font-size: 16px;
     	font-family: pretendard-regular;
     	border-bottom: 1px solid #dadada;
@@ -411,6 +413,29 @@
 		font-size: 12px;
 		color: #b0b0b0 !important;
 	}
+	
+	.review-del-btn{
+		border: 1px solid #DADADA;	
+		float:right; 
+		transform: translate(-10px, -40px);
+		padding:2px 15px 2px 15px;	
+	}
+	
+	.review-reply-btn{
+		border: 1px solid #DADADA;	
+		float:right; 
+		transform: translate(-10px, 5px);	
+		padding:2px 15px 2px 15px;	
+	}
+	
+	.review-comment-del{
+		background-color:white;
+	}
+	
+	.review_reply{
+		min-height:100px;
+	}
+	
 </style>
 </head>
 <body>
@@ -420,6 +445,11 @@
 	<section class="container">
 		<!-- <h1>시작 페이지<small>없음</small></h1> -->
 	</section>
+	
+	
+	<sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal" var="principal" />
+	</sec:authorize>
 	
 	<div id="content">
 		<div id="productDetail">
@@ -456,6 +486,11 @@
 								<input type="hidden" name="price" value="${ldto.price}">
 							</span>
 							</c:if>
+							<c:if test="${ldto.sale==0}">
+								<input type="hidden" name="sale" value="${ldto.sale}">
+								<input type="hidden" name="price" value="${ldto.price}">
+							</c:if>
+
 						</div>
 						<div class="table-opt">
 							<table>
@@ -476,7 +511,7 @@
 									<tr>
 										<td style="background-color: #F8F8F8; width:100%; padding:20px; margin-top: 10px">
 											<div class="delivery-info">
-												<div class="desc daily">
+												<div class="desc daily" style="display: flex">
 													<p class="sub-tit">일반배송</p>
 													<p class="time">
 														지금 주문 시
@@ -500,49 +535,14 @@
 											</div>
 										</td>
 									</tr>
-									<!-- 정기배송만 아래에 해당된다. -->
-<%--									<tr>--%>
-<%--										<td>기간</td>--%>
-<%--										<td>--%>
-<%--											<select>--%>
-<%--												<option value="" selected>옵션 선택</option>--%>
-<%--												<option value="">2주(10팩)</option>--%>
-<%--												<option value="">4주(20팩)</option>--%>
-<%--												<option value="">8주(40팩)</option>--%>
-<%--											</select>--%>
-<%--										</td>--%>
-<%--									</tr>--%>
-<%--									<tr>--%>
-<%--										<td>희망배송일</td>--%>
-<%--										<td>--%>
-<%--											<select>--%>
-<%--												<option value="" selected>옵션 선택</option>--%>
-<%--												<option value="">월요일</option>--%>
-<%--												<option value="">화요일</option>--%>
-<%--												<option value="">수요일</option>--%>
-<%--												<option value="">목요일</option>--%>
-<%--												<option value="">금요일</option>--%>
-<%--											</select>--%>
-<%--										</td>--%>
-<%--									</tr>--%>
-<%--									<tr>--%>
-<%--										<td>배송방식</td>--%>
-<%--										<td>--%>
-<%--											<select>--%>
-<%--												<option value="" selected>옵션 선택</option>--%>
-<%--												<option value="">아침배송</option>--%>
-<%--												<option value="">점심배송</option>--%>
-<%--											</select>--%>
-<%--										</td>--%>
-<%--									</tr>--%>
 									
 									<!-- ajax 처리로 띄울 것 -->
 									<tr>
 										<td colspan="2" id="order">
 
 											<div class="order-sec MK_optAddWrap">
-												<button class="order-close" type="button"><span class="material-symbols-outlined">close</span></button>
-												<div>[ 수량선택 ]</div>
+												<br>
+												<div style="text-align:left;">[ 수량선택 ]</div>
 												<div class="order-div-left align-middle">
 													<input id="cnt" type="text" value=1 class="order-count" name="cnt">
 													<button class="order-btn-plus" type="button"><span class="material-symbols-outlined">add</span></button>
@@ -584,8 +584,7 @@
 							</c:if>
 							</span></button>
 							<button class="btn-cart" type="button">장바구니</button>
-<%--							<button class="btn-buy" onclick="location.href='<c:url value='/userorder/usercart.do?right=true'/>';">바로 구매하기</button>--%>
-							<button class="btn-buy" type="button" onclick="formcheck();"/>바로 구매하기</button>
+							<button class="btn-buy" type="button">바로 구매하기</button>
 							<input type="hidden" id ="storename" name="storename" value="">
 							<input type="hidden" id="sellboardseq" name="sellboardseq" value="${ldto.sellboardseq}">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
@@ -598,7 +597,7 @@
 				<div class="detailTab">
 					<ul>
 						<li class="first"><a href="detailGoodsInfo" class="active">상품설명</a></li>
-						<li><a href="#detailReview">리뷰(825)</a></li>	
+						<li><a href="#detailReview">리뷰(${rlist.size()})</a></li>	
 						<li><a href="#detailRelation">배송/교환/반품</a></li>				
 					</ul>
 				</div>
@@ -616,7 +615,7 @@
 				<div class="detailTab">
                     <ul>
                         <li ><a href="#detailGoodsInfo">상품설명</a></li>
-                        <li class="first"><a href="#detailReview" class="active">리뷰(825)</a></li>
+                        <li class="first"><a href="#detailReview" class="active">리뷰(${rlist.size()})</a></li>
                         <li><a href="#detailRelation">배송/교환/반품</a></li>
                     </ul>
                 </div>
@@ -631,68 +630,128 @@
 												
 						<!-- 댓글쓰기 -->
 						<div class="write">
-	                        <form name="prw_form" id="prw_form" action="" method="post" autocomplete="off">
+
 		                        <div style="padding-top: 10px;">
 									<select id="review-star">
-										<option value="5"><span style="color:yellow;">★★★★★</span> 아주만족</option>
+										<option value="5">★★★★★ 아주만족</option>
 										<option value="4">★★★★ 만족</option>
 										<option value="3">★★★ 보통</option>
 										<option value="2">★★ 미흡</option>
 										<option value="1">★ 불만족</option>
 									</select>
 								</div>
-		                        <textarea name="content" placeholder="도시락은 어떠셨나요? 평가를 남겨주세요."></textarea>
+		                        <textarea id="review_content" name="review_content" placeholder="도시락은 어떠셨나요? 평가를 남겨주세요."></textarea>
 		                        <div class="pr-file-wrap">
 		                            <div class="file-attach">
 			                            <a class="btn-h38 camera file btn-file" href="#none">
-			                            	<input type="file" id="fileupload" name="file" class="file-trick">
+			                            	<input type="file" id="uploadImg" name="uploadImg" class="file-trick">
 			                            </a>
 		                            </div>                        
 	                            </div>
 	                            <div class="btn-r">
-	                            	<button type="submit" class="btn-h35">리뷰등록</button>
+	                            	<button id="register_review" type="button" class="btn-h35">리뷰등록</button>
 	                            </div>
-	                        </form>
+
 	                    </div>
-	                    
+
 	                    <!-- 리뷰 목록 -->
 	                    <div class="review-list">
+							<c:forEach items="${rlist}" var="rdto">
 	                    	<!-- 반복문 돌리는 부분 -->
 	                    	<div class="review-list-detail">
-								<div class="review-detail-star"><span style="color:#EBC334;">★★★★★</span> <b>아주만족</b></div>
+								<div class="review-detail-star">
+								<span style="color:#EBC334;">
+									<c:forEach  begin="1" end="${rdto.star}">
+										★
+									</c:forEach>
+								</span>
+									<c:if test="${rdto.star==5}">
+									아주만족
+									</c:if>
+									<c:if test="${rdto.star==5}">
+									만족
+									</c:if>
+									<c:if test="${rdto.star==3}">
+									보통
+									</c:if>
+									<c:if test="${rdto.star==2}">
+									미흡
+									</c:if>
+									<c:if test="${rdto.star==1}">
+									불만족
+									</c:if>
+								 </div>
 	                    		<div class="review-detail-info">
-	                    			작성자: 박**<br>
-	                    			등록일: 2023-06-01<br>
+	                    			작성자: ${rdto.id}<br>
+	                    			등록일: ${rdto.regdate}<br>
 	                    		</div>
 	                    		<div class="review-detail-content">
-	                    			안전하게 잘 왔어요.그린샐러드만 먹다가 주문해봤는데 기대되네요.
+	                    			${rdto.content}
 	                    		</div>
-	                    		<div>
-	                    			<a href="/dndn/resources/img/lunchboximg/도시락상세1.jpg" data-fancybox><img src="/dndn/resources/img/lunchboximg/도시락상세1.jpg" alt="리뷰이미지" class="review-detail-img"></a>
+	                    		<div>	
+	                    			<a href="<c:url value='${rdto.image}'/>" data-fancybox><img src="<c:url value='${rdto.image}'/>"  class="review-detail-img" onerror="this.style.display='none'" alt='' ></a>
 	                    		</div>
 	                    		<div class="review-detail-under">
-	                    			<button class="review-comment-btn"><span class="material-symbols-outlined">chat</span> 1</button>
+	                    			<button class="review-comment-btn"><span class="material-symbols-outlined">chat</span>${rdto.replycnt}</button>
 	                    			리뷰가 도움이 되셨나요? <span class="review-like-btn">♡</span>
 	                    		</div>
+	                    		<div>
+	                    		<c:if test="${not empty principal}"> 
+	                    			<c:if test="${rdto.id eq principal.username}">
+			                    		<div class="review-del-btn" >
+			                    			<button class="review-comment-del" onclick="delReview(${rdto.reviewseq}, ${rdto.replycnt});"><span class="material-symbols-outlined" >delete</span>삭제</button>
+			                    		</div>
+	                    			</c:if> 
+	                    		</c:if>
+	                    		</div>
+	                    		<div class="review_reply_list" style="display:none;">
+	                    			<span class="material-symbols-outlined" style="color:black; font-size:20px;">
+										subdirectory_arrow_right
+									</span>
+									<c:forEach items="${rdto.reviewreplylist}" var="rrdto">
+		                    		<div class="review_reply">
+		                    				<sec:authorize access="hasRole('ROLE_ADMIN')">
+		                    					<button onclick="delReviewReply(${rrdto.reviewreplyseq}, this);" style="float:right; background-color:white;"><span class="material-symbols-outlined" >delete_forever</span>삭제</button>
+		                    				</sec:authorize>
+			                    			<div class="review-detail-info">
+			                    			작성자: ${rrdto.id}<br>
+			                    			등록일: ${rrdto.regdate}<br>
+			                    			</div>
+			                    			
+			                    			<div class="review-detail-content" style="padding-left:40px;">
+			                    				${rrdto.content}
+			                    			</div>
+			                    			<hr>
+		                    		</div>
+		                    		</c:forEach>
+	                    		</div>
+	                    		<sec:authorize access="hasRole('ROLE_ADMIN')"> 
+	                    		<div>
+	                    				<textarea class="form-control" id="review_reply_content" name="review_reply_content" placeholder="리뷰에 답변을 달아주세요."></textarea>
+	                    				<div class="review-reply-btn" >
+	                    					<button class="review-comment-del" onclick="addReviewReply(${rdto.reviewseq}, this);"><span class="material-symbols-outlined" >add_circle</span>등록</button>
+	                    				</div>
+	                    		</div>
+	                    		</sec:authorize> 
+	                    		
 	                    	</div>
+							</c:forEach>
 	                    </div> <!-- .review-list -->
 					</div> <!-- .powerReview -->
 				</div> <!-- 댓글 -->
-				
-				
+
 				<!-- 배송/교환/반품 고지 탭 + 이미지-->
 				<a id="detailRelation"></a>
 				<div class="detailTab">
                     <ul>
                         <li ><a href="#detailGoodsInfo">상품설명</a></li>
-                        <li><a href="#detailReview" class="active">리뷰(825)</a></li>
+                        <li><a href="#detailReview" class="active">리뷰(${rlist.size()})</a></li>
                         <li class="first"><a href="#detailRelation">배송/교환/반품</a></li>
                     </ul>
                 </div>
                 <div style="text-align:center;">
                 	<img src="/dndn/resources/img/lunchboximg/배송교환반품.png" alt="배송,교환,반품" style="width: 960px;">
                 </div>
-                
 			</div> <!-- .page-body -->
 		</div> <!-- #productDetail -->
 	</div> <!-- #content -->
@@ -702,8 +761,201 @@
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 
+
 <script>
+
+
+	function delReviewReply(rrseq, e){
+		  	  
+		  if( confirm("정말로 삭제하시겠습니까?") ){
+
+		  } else {
+		    return false;
+		  }	
+		  
+		    var csrfHeaderName = "${_csrf.headerName}";
+			var csrfTokenValue = "${_csrf.token}";
+			
+			$.ajax({
+				type: 'DELETE',
+				url: '/dndn/lunchdetail/reviewreply/'+rrseq,
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+				success : function(result) {
+					if(result=='OK'){
+						new Swal('대댓글', '대댓글이 삭제되었습니다.','success').then(function() {
+							location.reload();
+						});
+					}else new Swal('대댓글', '대댓글 삭제 실패하였습니다.','error').then(function() {
+						location.reload();
+					});
+				} ,
+				error : function (a, b, c){
+					console.log(a ,b, c)
+					if(b == 'error') {
+						new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+							location.reload();
+						});
+					}
+				}
+			});
+		  
+		}
+
+
+	
+	function addReviewReply(rseq, e){
+		
+		let content=$(e).parent().prev();
+		
+		if(content.val()=='') {
+			alert('내용을 입력해주세요.');
+			return false;
+		}
+		
+		var csrfHeaderName = "${_csrf.headerName}";
+		var csrfTokenValue = "${_csrf.token}";
+		
+		$.ajax({
+			type: 'POST',
+			url: '/dndn/lunchdetail/reviewreply/'+rseq,
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			data :{
+				content:content.val()
+			},
+			success : function(result) {
+				if(result=='OK'){
+					new Swal('리뷰', '리뷰에 댓글이 등록되었습니다.','success').then(function() {
+						location.reload();
+					});
+				}else new Swal('리뷰', '리뷰에 댓글 등록을 실패하였습니다.','error').then(function() {
+					location.reload();
+				});
+			} ,
+			error : function (a, b, c){
+				console.log(a ,b, c)
+				if(b == 'error') {
+					new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+						location.reload();
+					});
+				}
+			}
+		});
+			
+	}
+	
+	
+	function delReview(seq, rcnt){
+	  
+	  if( parseInt(rcnt) > 0 ) {
+		  alert('대댓글이 달리면 삭제할 수 없습니다.');
+		  return false;
+	  }
+	  	  
+	  if( confirm("정말로 삭제하시겠습니까?") ){
+
+	  } else {
+	    return false;
+	  }	
+	  
+	  
+	    var csrfHeaderName = "${_csrf.headerName}";
+		var csrfTokenValue = "${_csrf.token}";
+		
+		$.ajax({
+			type: 'DELETE',
+			url: '/dndn/lunchdetail/review/'+seq,
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			success : function(result) {
+				if(result=='OK'){
+					new Swal('리뷰', '리뷰가 삭제되었습니다.','success').then(function() {
+						location.reload();
+					});
+				}else new Swal('리뷰', '리뷰 삭제 실패하였습니다.','error').then(function() {
+					location.reload();
+				});
+			} ,
+			error : function (a, b, c){
+				console.log(a ,b, c)
+				if(b == 'error') {
+					new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+						location.reload();
+					});
+				}
+			}
+		});
+	  
+	}
+
+
 	$(document).ready(function(){
+		
+		
+		$('.review-comment-btn').click(function(){
+			//$(this).parent().next().next().css('display','none');
+			if( $(this).parent().next().next().css('display')=='none'){
+				$(this).parent().next().next().css('display','block');
+			} else {
+				$(this).parent().next().next().css('display','none');
+			}
+			
+		});
+		
+
+		var csrfHeaderName = "${_csrf.headerName}";
+		var csrfTokenValue = "${_csrf.token}";
+			
+		// 리뷰 등록해야함
+		$('#register_review').click(function(){
+
+			let sellboard = '${ldto.sellboardseq}';
+			let star = $('#review-star').val();
+			let review_content = $('#review_content').val();
+			const formData = new FormData();
+			let img = $('#uploadImg')[0].files[0];
+			formData.append("sellboardseq", sellboard);
+			formData.append("star", star);
+			formData.append("content", review_content);
+			if(img != undefined) {
+				formData.append("uploadImg", img);
+			}
+
+			$.ajax({
+				type: 'POST',
+				url: '/dndn/lunchdetail/review',
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+				enctype: 'multipart/form-data',
+				processData: false,
+				contentType: false,
+				data : formData,
+				//dataType뺴야 한다...
+				success : function(result) {
+					if(result=='OK'){
+						new Swal('댓글', '댓글이 등록되었습니다.','success').then(function() {
+							location.reload();
+						});
+					}else new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+						location.reload();
+					});
+				} ,
+				error : function (a, b, c){
+					console.log(a ,b, c)
+					if(b == 'error') {
+						new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
+							location.reload();
+						});
+					}
+				}
+			});
+		});
+
 
 
 		$("#sellLocation").on("change", function(){
@@ -758,26 +1010,6 @@
 		}
 	});
 
-	// function formcheck(){
-	//
-	// 	alert($("#sellLocation option:checked").text());
-	//
-	// 	if( $("#sellLocation option:checked").val() =='0')
-	// 		return false;
-	// 	else
-	// 		return true;
-	// }
-    //
-	<%--$('.btn-buy').click(function(){--%>
-
-	<%--	let sellboardseq ='${ldto.sellboardseq}';--%>
-
-	<%--	alert('여기는 직구 ');--%>
-	<%--	e.preventDefault();--%>
-	<%--	return false;--%>
-
-	<%--});--%>
-
 
 	$('.btn-cart').click(function(){
 
@@ -809,8 +1041,6 @@
 				else new Swal('서비스이용 실패', '로그인 해주세요. 로그인 페이지로 이동합니다.','error').then(function() {
 					location.href='/dndn/auth/login.do';
 				});
-
-
 			} ,
 			error : function (a, b, c){
 				console.log(a ,b, c)
@@ -824,16 +1054,16 @@
 	});
 	
 	//좋아요 버튼 토클
-	const likeButton = document.querySelector('.review-like-btn');
+	const likeButton = $('.review-like-btn') 
 	
-	function toggleHeart2() {
-	  if (likeButton.textContent === '♡') {
-	    likeButton.textContent = '♥';
-	  } else {
-	    likeButton.textContent = '♡';
-	  }
-	}
-	likeButton.addEventListener('click', toggleHeart2);
+	likeButton.click(function(){
+		
+		  if ($(this).text().trim() === '♡') {
+			  $(this).text('♥');
+		  } else {
+			  $(this).text('♡');
+		  }
+	});
 
 	let ordercnt = $('.order-count');
 

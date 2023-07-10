@@ -19,4 +19,10 @@ public interface MyPageMapper {
 
 	int wdlist(Map<String, String> map);
 
+	int wIlist(Map<String, String> map);
+
+	List<MyPageDTO> orderList(String id);
+
+	List<MyPageDTO> listCart(String id);
+
 }

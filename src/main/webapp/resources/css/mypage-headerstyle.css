@@ -7,6 +7,7 @@
 	margin-bottom: 100px;
 	float: left;
 	width: 80%;
+	padding: 40px;
 }
 
 .container::after {
@@ -17,6 +18,15 @@ html, body {
 	width: 100%;
 	height: 100%;
 }
+#pageTitle {
+	/* display: inline-block; */
+	color: #555 !important;
+	font-weight: 900 !important;
+	border-bottom: 1px solid #C1C1C1;
+	font-family: '' !important;
+	font-size: 30px !important;
+	padding-bottom: 20px;
+}
 
 #sidebar {
 	margin-top: 30px;
@@ -25,8 +35,8 @@ html, body {
 	padding-top: 20px;
 	float: left;
 	width: 15%;
-	margin-right: 5%;
-	margin-left: 15%;
+	margin-right: 0;
+	margin-left: 20%;
 }
 
 #sidebar::after {
@@ -34,8 +44,8 @@ html, body {
 }
 
 #circle {
-	width: 260px;
-	height: 260px;
+	width: 210px;
+	height: 210px;
 	border-radius: 100%;
 	background-color: #FAF9D0;
 	margin: 0 auto;
@@ -44,8 +54,8 @@ html, body {
 }
 
 #in_circle {
-	width: 220px;
-	height: 220px;
+	width: 180px;
+	height: 180px;
 	border: 2px solid #E98D3E;
 	border-radius: 100%;
 	margin: auto 0;
@@ -55,7 +65,7 @@ html, body {
 }
 
 #dlogo {
-	width: 180px;
+	width: 150px;
 }
 
 #side-content {
@@ -68,32 +78,47 @@ html, body {
 	font-weight: bold !important;
 }
 
-#side-content >button,
-#side-content >form>button{
+.material-symbols-outlined{
+	color: black !important;
+	font-weight: bold;
+	font-size: 1.8rem;
+}
+
+#side-content > table{
+	width: 160px !important;	
+}
+
+#side-content > table > tbody > tr > td :nth-child(2n-1){
+	padding-left: 10px;
+}
+
+#side-content > table > tbody > tr > td > button,
+#side-content > table > tbody > tr > td > form > button{
 	font-weight: bold !important;
 	color: #888 !important;
-}
-
-#side-content>div:first-child {
-	font-size: 30px;
-	color: black;
-}
-
-#side-content>button:not(:first-child),
-#side-content>form>button {
-	margin: 20px auto;
-	width: 80%;
-	box-shadow: 0px 8px 8px -8px #384568;
+	margin: 10px auto;
+	padding: 10px;
+	width: 100%;
 	border: none;
 	background-color: unset;
 	font-size: 20px;
 }
-
-#side-content>div:not(:first-child):hover {
-	cursor: pointer;
+#side-content > table > tbody > tr{
+	width: 200px;
+}
+#side-content > table{
+	margin: 0 auto;
+}
+#side-content > table > tbody{
+	border: none;
+	
+}
+#side-content > table > tbody > tr:hover {
+	background-color: #F1F1F1 !important;
 }
 #box {
 	width: 1556px;
+	height: 100vh;
 }
 .main_logo,
 .mb-0{

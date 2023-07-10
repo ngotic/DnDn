@@ -9,14 +9,16 @@
 <title>dndn</title>
 <%@ include file="/WEB-INF/views/include/asset.jsp"%>
 <style>
-.container {
-	background-color: #F7F7F7 !important;
-}
 
+#side-content > table > tbody > tr:nth-child(4) {
+	background-color: #F1F1F1 !important;
+}
 #cardbox {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
 	margin-bottom: 10px;
+	margin: 20px;
+	padding: 10px;
 }
 
 #card {
@@ -45,10 +47,6 @@
 #fimg {
 	width: 200px;
 }
-
-#heart {
-	
-}
 .name{
 	font-weight: bold;
 	font-size: 1.3rem;
@@ -64,14 +62,14 @@
 	<div id="box">
 		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
 		<section class="container">
-			<h1>찜</h1>
+		<div id="pageTitle">찜</div>
 				<div id="cardbox">
 			<c:forEach items="${wlist }" var="dto">
 					<div id="card">
 						<div id="cimg">
 							<img id="fimg" src="${dto.lunchpic }">
 							<div id="heart">
-								<img src="/dndn/resources/img/mypage/heart.png" id="himg" onclick="hate('${dto.wishlistseq}')">
+								<img src="/dndn/resources/img/mypage/heart.png" id="himg" onclick="hate('${dto.wishlistseq}','${dto.sellboardseq }');">
 							</div>
 						</div>
 						<div class="name">${dto.lunchname }</div>
@@ -81,6 +79,7 @@
 				</div>
 		</section>
 	</div>
+	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 	<script
@@ -89,29 +88,67 @@
 	
 	var header = $("meta[name='_csrf_header']").attr('content');
 	var token = $("meta[name='_csrf']").attr('content');
+	var num = '0';
 	
-		function hate(wishlistseq){
-			alert(wishlistseq);
+		function hate(wishlistseq,wishsellboardseq){
 			
+			let temp = event.target;
+
+			if($(event.target).attr("src")=='/dndn/resources/img/mypage/heart.png'){
+				num='1';
+			console.log(num);
+				$.ajax({
+					url: '/dndn/mypage/fav/'+wishlistseq+'/'+wishsellboardseq+'/'+num,
+					type : 'post',
+		            contentType : 'application/json; charset=utf-8',
+		            dataType : 'json',
+		            
+		            data : JSON.stringify({
+		            		'wishlistseq': wishlistseq,
+		            		'wishsellboardseq': wishsellboardseq
+		            		}),
+		            beforeSend: function(xhr){
+		                xhr.setRequestHeader(header, token);
+		            },
+		            success : function (result) {
+		                console.log('hi');
+		                $(temp).attr("src","/dndn/resources/img/mypage/blackheart.png")
+		            },
+		            error: function(a,b,c){
+						console.log(a,b,c); 
+					}
+				})
+			}else{
+			num='0';
+			console.log(num);
 			$.ajax({
-				url: '/dndn/mypage/fav/'+wishlistseq,
+				url: '/dndn/mypage/fav/'+wishlistseq+'/'+wishsellboardseq+'/'+num,
 				type : 'post',
 	            contentType : 'application/json; charset=utf-8',
 	            dataType : 'json',
 	            
-	            data : JSON.stringify(wishlistseq),
+	            data : JSON.stringify({
+            		'wishlistseq': wishlistseq,
+            		'wishsellboardseq': wishsellboardseq
+            		}),
 	            beforeSend: function(xhr){
 	                xhr.setRequestHeader(header, token);
 	            },
 	            success : function (result) {
 	                console.log(result);
-	                $('#himg').attr("src","/dndn/resources/img/mypage/blackheart.png")
+	                $(temp).attr("src","/dndn/resources/img/mypage/heart.png")
 	            },
 	            error: function(a,b,c){
 					console.log(a,b,c); 
 				}
 			})
+				
+			}
+			
 		};
+		
+		
+		
 	</script>
 </body>
 </html>

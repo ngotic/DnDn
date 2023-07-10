@@ -14,38 +14,111 @@
 <script
 	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
 <style>
+#side-content > table > tbody > tr:nth-child(3) {
+	background-color: #F1F1F1 !important;
+}
+#box{
+	height: 1800px !important;
+}
+
 #contentbox {
-	margin-top: 20px;
-	width: 1000px;
+	width: 200px;
 	height: 600px;
+	margin: 20px;
+	padding: 10px;
 }
 
 #caldetail {
 	width: 500px;
 	padding: 30px;
 	background-color: #fdfde0c5;
-	float: right;
-	height: 100%;
+	height: 800px;
+	margin-bottom: 30px;
 }
 
-#cal::after, #caledetail::after {
+#cal::after {
 	clear: right;
 }
 
-#morning, #lunch, #dinner {
-	height: 30%;
+#morning, #lunch{
+	margin: 20px 0;
 }
 
 #cal {
-	width: 500px;
+	width: 900px;
 	height: 100%;
 	margin-right: 0px;
 	float: left;
 }
 
 #calendar {
-	width: 100%;
+	position: sticky;
 	height: 100%;
+	z-index: 3;
+	background-color: white;
+}
+
+#caldetail {
+	/* position: sticky;
+	transform: translate(0px, 0px);
+	transition: 2s all; */
+	width: 900px;
+	border-radius: 20px;
+	margin-top: 30px;
+	display: inline-block;
+}
+
+#caldetail>div {
+	display: inline-block;
+}
+
+.fc-event-title {
+	width: 100%;
+	padding: 0 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: black;
+}
+
+.material-symbols-outlined {
+	font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 200, 'opsz' 20
+}
+
+.material-symbols-outlined {
+	vertical-align: middle;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.fc-event-title-container {
+	width: 5px !important;
+}
+
+.fimg {
+	width: 120px;
+	margin: 10px;
+}
+.inner{
+	width: 100%;
+	padding: 20px;
+	display: grid;
+	grid-template-columns: 200px 400px 200px;
+	grid-template-rows: 1fr;
+	color: black !important;
+	font-size: 1.5rem;
+	align-items: center;
+}
+.inner :not(:first-child){
+	margin-top: 15px;
+}
+.btn{
+	border: 0px;
+	float: right;
+}
+.name{
+	margin: 0;
 }
 </style>
 </head>
@@ -54,58 +127,171 @@
 	<div id="box">
 		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
 		<section class="container">
-			<h1>식단 관리</h1>
+			<div id="pageTitle">식단 관리</div>
 			<div id="contentbox">
 				<div id="cal">
-				<%-- <c:forEach items="" var="dto"> --%>
-					<%-- <c:if test="${dto.shipdate!=null && dto.shipdate ==data-date}"> --%>
 					<div id='calendar'></div>
-				<%-- </c:forEach> --%>
 				</div>
 				<div id="caldetail">
-					<div id="morning">아침</div>
+					<div id="morning"></div>
 					<hr>
-					<div id="lunch">점심</div>
-					<hr>
-					<div id="dinner">
-						저녁
-						<p>아직 배달예정인 내역이 없습니다.</p>
-						<p onclick="location.href='/dndn/mypage/order.do';"
-							style="cursor: pointer;">주문하러 가보실까요?</p>
-					</div>
+					<div id="lunch"></div>
+					<!-- <p onclick="location.href='/dndn/mypage/order.do';"
+						style="cursor: pointer;">주문하러 가보실까요?</p> -->
 				</div>
 			</div>
 		</section>
 	</div>
+	<div></div>
+<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 	<script>
-
-	
-		document.addEventListener('DOMContentLoaded', function() {
-			var calendarEl = document.getElementById('calendar');
-			var calendar = new FullCalendar.Calendar(calendarEl, {
-				initialView : 'dayGridMonth',
-					 events: [
-				          {
-				            title: '♣',
-				            start: '2023-07-01',
-				            end: '2023-07-01',
-				            backgroundColor: 'white',
-			            	borderColor: 'white'
-				          } 
-				          ],
-				            
-		      });
-			calendar.render();
+		/* document.addEventListener('click', function(event) {
 			
+			$('#caldetail').css({
+
+				//'transform' : 'translate(800px, 0px)'
+				
+		   });
+			
+		});
+ */		
+ 
+ 
+ function detailfood(check){
+	$('#morning').text('새벽배송');
+	$('#lunch').text('오전배송');
+	 
+ var currentDate = new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' });
+ var dateObject = new Date(currentDate);
+ var year = dateObject.getFullYear();
+ var month = ('0' + (dateObject.getMonth() + 1)).slice(-2);
+ var day = ('0' + dateObject.getDate()).slice(-2);
+ var formattedCurrentDate = year + '-' + month + '-' + day;
+
+if(check == null){	 
+
+ <c:forEach items="${Flist}" var="dto">
+   <c:forEach items="${dto.resultShip}" var="ship">
+     var shipDate = "${ship}";
+
+     shipDate = shipDate.toString();
+
+     console.log("정기배송 날짜: " + shipDate);
+     console.log("현재날짜: " + formattedCurrentDate);
+
+     if (formattedCurrentDate === shipDate) {
+       var shiptime = "${dto.shiptime}";
+
+	       if (shiptime === "0") {
+	        
+	         $('#morning').append('<div class="inner"><div class="images"><img class="fimg" src="${dto.lunchpic }"></div><div class="name">${dto.lunchname}</div><button class="btn">[상세보기]</button></div>');
+	         
+	       } else if (shiptime === "1") {
+	         $('#lunch').append('<div class="inner"><div class="images"><img class="fimg" src="${dto.lunchpic }"></div><div class="name">${dto.lunchname}</div><button class="btn">[상세보기]</button></div>');
+	    	}
+     }/* else if(shipDate == null){
+    	 $('#morning').append('아직 주문내역이 없네요. 주문하시러 가볼까요??');
+     } */
+   </c:forEach>
+ </c:forEach>
+}else{
+	<c:forEach items="${Flist}" var="dto">
+   <c:forEach items="${dto.resultShip}" var="ship">
+     var shipDate = "${ship}";
+
+     shipDate = shipDate.toString();
+
+     console.log("정기배송 날짜: " + shipDate);
+     console.log("Current date: " + formattedCurrentDate);
+
+     if (check === shipDate) {
+       var shiptime = "${dto.shiptime}";
+
+	       if (shiptime === "0") {
+	         $('#morning').append('<div class="inner"><div class="images"><img class="fimg" src="${dto.lunchpic }"></div><div class="name">${dto.lunchname}</div><button class="btn">[상세보기]</button></div>');
+	         
+	       } else if (shiptime === "1") {
+	         $('#lunch').append('<div class="inner"><div class="images"><img class="fimg" src="${dto.lunchpic }"></div><div class="name">${dto.lunchname}</div><button class="btn">[상세보기]</button></div>');
+	    	}/* else if (shiptime != "1" && shiptime === "0"){
+	    		 $('#morning').append('아직 주문내역이 없네요. 주문하시러 가볼까요??');
+
+	    	}else if (shiptime != "0" && shiptime === "1"){
+	    		 $('#lunch').append('<div>아직 주문내역이 없네요. 주문하시러 가볼까요??</div>');
+
+	    	} */
+     }/* else if(check != shipDate){
+	 $('#morning').append('아직 주문내역이 없네요. 주문하시러 가볼까요??');
+ } */
+   </c:forEach>
+ </c:forEach>
+ console.log("나 아직 살아있따아ㅏㅏ아아아아아아: "+shipDate);
+	
+}
+ }
+
+
+		document.addEventListener('DOMContentLoaded', function() {
+	        var calendarEl = document.getElementById('calendar');
+	        var calendar = new FullCalendar.Calendar(calendarEl, {
+				initialView : 'dayGridMonth',
+				 selectable: true,
+				 dateClick: function(info) {
+				      detailfood(info.dateStr);
+				    },
+				events : [ 
+					<c:forEach items="${Flist}" var="dto">
+					<c:forEach items="${dto.resultShip}" var="ship">
+					{
+						<%--/* <c:if test="${dto.lunchcategory.equals("일반식")}">
+					title : '<span class="material-symbols-outlined" style="color: #F86F03;">nutrition</span>${dto.lunchname}',
+						</c:if>
+						<c:if test="${dto.lunchcategory.equals("건강식")}">
+					title : '<span class="material-symbols-outlined" style="color: #F86F03;">psychiatry</span>${dto.lunchname}',
+						</c:if>
+						<c:if test="${dto.lunchcategory.equals("프리미엄식")}">
+					title : '<span class="material-symbols-outlined" style="color: #F86F03;">brunch_dining</span>${dto.lunchname}',
+						</c:if> */--%>
+					title : '${dto.lunchname}',
+					start : '${ship}',
+					//end : '${dto.endship}',
+					backgroundColor : 'transparent',
+					borderColor : 'white',
+					allDay: true
+					},
+					</c:forEach>
+					</c:forEach>
+				],
+
 			});
-	</script>
+	        detailfood();
+			calendar.render();
+
+		});
+		<%--/* document.addEventListener('DOMContentLoaded', function() {
+		<c:forEach items="${Flist}" var="cate" varStatus="status">
+		
+		if(${cate.lunchcategory.equals("일반식")}){
+$('.fc-event-title').eq(${status.index}).prepend('<span class="material-symbols-outlined" style="color: #F86F03;">nutrition</span>');
+			
+		}else if(${cate.lunchcategory.equals("건강식")}){
+$('.fc-event-title').eq(${status.index}).prepend('<span class="material-symbols-outlined" style="color: #38E54D;">psychiatry</span>');
+			
+		}else if(${cate.lunchcategory.equals("프리미엄식")}){
+			
+$('.fc-event-title').eq(${status.index}).prepend('<span class="material-symbols-outlined" style="color: #068FFF;">brunch_dining</span>');
+		}
+		
+		</c:forEach>
+
+ }); */--%>
+ 
+ 
+
+ </script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script>
-		
-	</script>
 </body>
 </html>
 

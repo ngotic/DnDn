@@ -18,10 +18,10 @@
 	
 	
 	<select id="Flist" resultType="com.project.dndn.mypage.domain.MyPageDTO">
-		select 
+		       select 
 			o.orderseq, o.orderdate,
 			b.name as Lunchname, b.pic as Lunchpic, b.category as LunchCategory,
-			p.periodshipseq, p.shipdate, p.shiptime, p.shipperiod, p.dayperweek
+			p.periodshipseq, p.dayperweek, p.shiptime, p.startship, p.endship
 		from tblOrder o
 			inner join tblOrderCart t
 				on o.orderseq = t.orderseq
@@ -40,30 +40,35 @@
 			 
 	</select>
 	
+	<select id="orderList" resultType="com.project.dndn.mypage.domain.MyPageDTO">
+		select * from tblorder where id = #{id} order by orderseq desc
+	</select>
+	
 	<!-- 회원의 주문 조회 -->
 	<select id="Olist" resultType="com.project.dndn.mypage.domain.MyPageDTO">
-select 
-			o.orderseq, o.orderdate, o.couponseq,
-			b.name as Lunchname, b.pic as Lunchpic, b.category as LunchCategory, b.price,
-			p.periodshipseq, p.shipdate, p.shiptime, p.shipperiod, p.dayperweek,
-			c.sale
-		from tblOrder o
-			inner join tblOrderCart t
-				on o.orderseq = t.orderseq
-					inner join tblCart c
-						on t.cartseq = c.cartseq
-							inner join tblPeriodShip p
-								on c.periodshipseq = p.periodshipseq
-									inner join tblSellBoard s
-										on c.sellboardseq = s.sellboardseq
-											inner join tblLunchboxSet l
-												on s.sellboardseq = l.sellboardseq
-													inner join tblLunchBox b
-														on l.lunchboxseq = b.lunchboxseq
-															inner join tblCoupon c
-																on o.couponseq = c.couponseq
-																	where o.id = #{id}
+select
+    o.orderseq, o.orderdate, o.price as orderPrice, o.couponseq,
+    t.cnt,
+    a.*,
+    s.sale, s.pic,
+    l.name, l.category, l.price, l.pic
+from tblOrder o
+    inner join tblOrderCart c
+        on o.orderseq = c.orderseq
+            inner join tblCart t
+                on c.cartseq = t.cartseq
+                    inner join tblAddress a
+                        on o.addressseq = a.addressseq
+                            inner join tblSellBoard s
+                                on s.sellboardseq = t.sellboardseq
+                                    inner join tblLunchboxSet x
+                                        on x.sellboardseq = s.sellboardseq
+                                            inner join tblLunchbox l
+                                                on x.lunchboxseq = l.lunchboxseq
+        where o.id=#{id} order by o.orderseq desc
 	</select>
+	
+	<!-- 찜 조회 -->
 	<select id="wlist" resultType="com.project.dndn.mypage.domain.MyPageDTO">
 		select
 			w.*,
@@ -78,10 +83,14 @@ select
 																				on x.lunchboxseq = t.lunchboxseq					
 					where w.id = #{id}
 	</select>
-	
+	<!-- 찜 삭제 -->
 	<delete id="wdlist">
 		delete from tblWishList where wishlistseq = #{wishlistseq} and id=#{id}
 	</delete>
+	<!-- 찜 선택 -->
+	<insert id="wIlist">
+	insert into tblWishList values(wishlistseq.nextVal, #{id}, #{wishsellboardseq}, sysdate)
+	</insert>
 
 	<select id="">
 		select
@@ -99,4 +108,8 @@ select
 		</if>
 			where o.id = #{id}
 	</select>
+	
+	<select id="listCart" resultType="com.project.dndn.mypage.domain.MyPageDTO">
+        select c.*, (select name from tblStore where storeseq=c.storeseq) as storename, (select pic from tblSellBoard where sellboardseq = c.sellboardseq) as pic, (select content from tblSellBoard where sellboardseq = c.sellboardseq) as content, (select sale from tblSellBoard where sellboardseq = c.sellboardseq) as sale, (select price from v_sellboard where sellboardseq = c.sellboardseq) as price  from tblCart c where status = 'F' and id = #{id}
+    </select>
 </mapper>

@@ -49,8 +49,8 @@
 				</a>
 			</div>
 			<div class="navbar-menu">
-				<div class="nav-item"><a href = "#" class="nav-link" >메뉴소개</a></div>
-				<div class="nav-item"><a href = "#" class="nav-link" >매장찾기</a></div>
+				<div class="nav-item"><a href = "/dndn/list.do?page=1&category=0&sort=1" class="nav-link" >메뉴소개</a></div>
+				<div class="nav-item"><a href = "/dndn/storemap/storehome.do" class="nav-link" >매장찾기</a></div>
 				<div class="nav-item"><a href = "/dndn/order/event.do" class="nav-link" >이벤트</a></div>
 			</div>
 			<a class="navbar-toggler" id="toggleBtn"><i class="fa fa-bars"></i></a>
@@ -91,7 +91,10 @@
                     	<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">로그아웃</button></div></li>
                     	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					</form>	
-						<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">관리자페이지</button></div></li>
+					 <form method="POST" action="/dndn/order/user.do">
+						<li><div class="nav-item"><input type="submit" class="nav-link" style="margin-left:20px;" value= "관리자페이지"></div></li>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                    	</form>
                     </ul>
                      </sec:authorize>
                 </div>
@@ -102,7 +105,7 @@
 <div class="main_logo">
 	<img src="/dndn/resources/img/logo_long.png" class="mt-3 mb-4" style="height:130px;">
 </div>
-<hr class="mb-0">
+<hr class="mb-0" style="color:#A8A8A8;">
 
 
 

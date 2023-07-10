@@ -1,6 +1,6 @@
 /* COMMON */
 
-  @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&family=Noto+Sans+KR:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&family=Noto+Sans+KR:wght@700&display=swap');
 
 
 @font-face {
@@ -22,6 +22,7 @@
     font-display: swap;
 }
 
+
 @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -34,7 +35,7 @@
     /* --main-font-family : 'Nanum Gothic', sans-serif; */
     --main-font-family : 'Pretendard';
     --main-content-font-family : Pretendard-Regular;
-    --main-font-color : #FCBA03;
+    --main-font-color : #EC7C30;
 }
 
 
@@ -58,7 +59,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 2;
+    z-index: 100;
     background-color: white;
     border-bottom: 2px solid #eee;
 }
@@ -231,3 +232,9 @@ body {
     font-family: var(--main-content-font-family);
     margin-bottom: 100px;
 } 
+
+.accordion-button {
+	
+	z-index: 1;
+	
+}
