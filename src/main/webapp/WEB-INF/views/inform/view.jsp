@@ -4,7 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <%@ include file="/WEB-INF/views/include/asset.jsp" %>
+<%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 <link rel="stylesheet" href="/dndn/resources/css/notice_ahyun.css">
 <style>
 	.notice-box {
@@ -34,6 +36,38 @@
 		margin-top: 20px;
 		margin-bottom: 20px;
 		
+	}
+	
+	
+	.btn-accept {
+		margin-right:10px;
+		margin-bottom:10px;
+		padding: 7px;
+		padding-left:10px;
+		padding-right:10px;
+		border:none;
+		border-radius: 15px;
+		background-color: #1BC060;
+		color: white;
+		font-size: 13pt;
+		
+		
+	
+	}
+	
+	.btn-accept-quit {
+		margin-left:10px;
+		margin-bottom:10px;
+		padding: 7px;
+		padding-left:10px;
+		padding-right:10px;
+		border:none;
+		border-radius: 15px;
+		background-color: gray;
+		color: white;
+		font-size: 13pt;
+		
+	
 	}
 	
 
@@ -76,8 +110,12 @@
 			</div>
 		</div>
 		
+		
+		
 		<div class="mainbar">
 			<h2 class="th-bold" style="font-size: 20pt; color:#F27C2A; margin-bottom:20px; margin-top:20px;">공지사항</h2>
+			
+			<form method="post" action="/dndn/inform/main">
 			<div class="notice-box">
 				<div class="notice-list notice-title">
 					<span>${dto.title }</span>
@@ -94,15 +132,31 @@
 			<div class="notice-btn-side">
 				<input type="button" class="btn notice-btn" value="목록" onclick="location.href='/dndn/inform/notice.do';">
 				
+			<sec:authorize
+         access="hasRole('ROLE_ADMIN') or (isAuthenticated() and principal.username == #dto.id)">
 				<button type="button" class="btn notice-btn"
             onclick="location.href='/dndn/inform/notice_edit.do?noticeseq=${dto.noticeseq}&id=${dto.id}';">수정하기</button>
          		<button type="button" class="btn notice-btn"
-            onclick="location.href=/dndn/inform/view.do?noticeseq=${dto.noticeseq}&id=${dto.id}';" data-bs-toggle="modal" data-bs-target="#exampleModalDel">삭제하기</button>
-				
-				
+             data-bs-toggle="modal" data-bs-target="#exampleModalDel">삭제하기</button>
+             	
+             	<c:if test="${dto.mainnotice =='F'}">
+             	<button type="submit" class="btn notice-btn" id="main-notice-btn">메인 지정</button>
+             	</c:if>	
+             	<c:if test="${dto.mainnotice =='T'}">
+             	<button type="submit" class="btn notice-btn" id="main-notice-btn">메인 취소</button>	
+             	</c:if>	
+             	
+              </sec:authorize> 
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				<input type="hidden" name="noticeseq" value="${dto.noticeseq}">
+				<input type="hidden" name="mainnotice" value="${dto.mainnotice}">
 			</div>
+			</form>
 		
-		
+
+<sec:authorize
+         access="hasRole('ROLE_ADMIN') or (isAuthenticated() and principal.username == #dto.id)">	
+<form method="POST" action="/dndn/inform/delok">
 		<div class="modal fade" id="exampleModalDel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="border:none;">
@@ -114,14 +168,22 @@
         삭제하시겠습니까?
       </div>
       <div class="modal-footer" style="border:none; display:flex; justify-content: space-between;">
-        <button type="button" class="btn-accept-quit" data-bs-dismiss="modal">취소</button>
-        <button type="button" class="btn-accept" onclick="">삭제</button>
+        <button type="button" class="btn-accept-quit" data-bs-dismiss="modal" onclick="location.href='/dndn/inform/view.do?noticeseq=${dto.noticeseq}';">취소</button>
+        <button type="submit" class="btn-accept" onclick="location.href='/dndn/inform/notice.do';">삭제</button>
+    
+    
+
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+	<input type="hidden" name="id" value='<sec:authentication property="principal.username"/>'>
+	<input type="hidden" name="noticeseq" value="${dto.noticeseq }">
       </div>
     </div>
   </div>
+  
 </div>
-		
-		
+
+</form>		
+</sec:authorize>		
 		
 		
 		
@@ -131,6 +193,38 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
 <script>
+
+/* 
+$('#main-notice-btn').on('click',function() {
+	
+	
+	
+    $.ajax({
+        type: 'GET',
+        url: '/dndn/inform/notice.do',
+        data: {
+        	
+        	
+        	
+        },
+        dataType: 'json',//밑에 추가될 10개 데이터 돌려받
+        success: (result)=>{
+        	
+        	   $(result).each((index,item)=>{
+
+            	
+        		   
+        		   
+        		   
+        	   }
+        	   
+            },
+            error: (a,b,c)=>console.log(a,b,c)
+         });
+        	
+        }
+ */
+
 </script>
 </body>
 </html>

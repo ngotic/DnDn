@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="org.springframework.web.multipart.MultipartException" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -125,7 +126,7 @@
 			<div class="add-side">
 				
 				
-			<form method="POST" action="/dndn/inform/addok.do">
+			<form method="POST" action="/dndn/inform/addok.do" enctype="multipart/form-data">
 				
 				
 				
@@ -143,7 +144,7 @@
 			</div>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		<input type="hidden" name="id" value='<sec:authentication property="principal.username"/>'>
-		<input type="hidden" name="seq" value="${dto.noticeseq }">
+		<input type="hidden" name="noticeseq" value="${dto.noticeseq }">
 			
 			</form>
 			
@@ -167,209 +168,11 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"
 ></script>	
 <script>
-/* 
-$(document).ready(function() {
-	//여기 아래 부분
-	$('#summernote').summernote({
-		
-		width:800,
-		minHeight: 300,
-		lang: "ko-KR",
-         //콜백 함수
-         callbacks : { 
-         	onImageUpload : function(files, editor, welEditable) {
-         // 파일 업로드(다중업로드를 위해 반복문 사용)
-         for (var i = files.length - 1; i >= 0; i--) {
-	         uploadSummernoteImageFile(files[i],
-	         this);
-         		}
-         	}
-         }
-	
-      });
 
-});
-	
-     function uploadSummernoteImageFile(file, el) {
-			data = new FormData();
-			data.append("file", file);
-			$.ajax({
-				data : data,
-				type : "POST",
-				url : "uploadSummernoteImageFile",
-				contentType : false,
-				enctype : 'multipart/form-data',
-				processData : false,
-				success : function(data) {
-					$(el).summernote('editor.insertImage', data.url);
-				}
-			});
-		}
-
- */
- 
- 
- 
- 
- /*
- 
- 
-	$(document).ready(function() {
-		  $('#summernote').summernote({
-	 	    	placeholder: '게시글을 작성해주세요.',
-		        minHeight: 370,
-		        maxHeight: null,
-		        focus: true, 
-		        lang : 'ko-KR',
-		        toolbar: [
-	              ["style", ["style"]],
-	              ["font", ["bold", "underline", "clear"]],
-	              ["fontname", ["fontname"]],
-	              ["para", ["ul", "ol", "paragraph"]],
-	              ["table", ["table"]],
-	              ["insert", ["link", "picture", "video"]],
-	              ["view", ["fullscreen", "codeview"]],
-	              ['highlight', ['highlight']]
-	            ],
-	            callbacks: {	//여기 부분이 이미지를 첨부하는 부분
-					onImageUpload : function(files) {
-						uploadSummernoteImageFile(files[0],this);
-					}
-				}
-		  });
-	});
-	
-	function uploadSummernoteImageFile(file, editor) {
-		var data = new FormData();
-		data.append("file", file);
-		$.ajax({
-			data : data,
-			type : "POST",
-			url : "/uploadSummernoteImageFile",
-			contentType : false,
-			processData : false,
-			success : function(data) {
-          	            //항상 업로드된 파일의 url이 있어야 한다.
-          	            $(editor).summernote('insertImage', data.url);
-          	                alert("Success");
-			 }
-			,error:function(request,status,error, data){
-          	            alert("Error");
-       	        }
-		});
-	}
-	$(function() { 
-		$("#commentForm").validate();
-		$.extend( $.validator.messages, { 
-			required: "필수 항목입니다."
-		} ); 
-	});
- 
- 
- 
-*/
-
-
-
-/*
-$(document).ready(function() {
-	$('#summernote').summernote({                                        
-		height : 300,
-		minHeight : null,
-		maxHeight : null,
-		focus : true,
-		callbacks : {                                                    
-			onImageUpload : function(files, editor, welEditable) {       
-				for (var i = 0; i < files.length; i++) {
-					sendFile(files[i], this);
-				}
-			}
-		}
-	});
-});
-
-function sendFile(file, el) {
-	var form_data = new FormData();
-	form_data.append('file', file);
-	$.ajax({                                                              
-		data : form_data,
-		type : "POST",
-		url : '/dndn/resources/fileupload',
-		cache : false,
-		contentType : false,
-		enctype : 'multipart/form-data',                                  
-		processData : false,
-		success : function(url) {                                         
-			$(el).summernote('insertImage', url, function($image) {
-				$image.css('width', "25%");
-			});
-		}
-	});
-}
- */
- 
- /*
- $(document).ready(function() {
-		$('#summernote').summernote({                                        
-			height : 300,
-			minHeight : null,
-			maxHeight : null,
-			focus : true,
-			callbacks : {                                                    
-				onImageUpload : function(files, editor, welEditable) {       
-					sendFile(files[0],this);
-				}
-			}
-		});
-	});
- 
- function sendFile(file,editor) {
-	    data = new FormData();
-	    data.append("file", file);
-	    $.ajax({
-	        data: data,
-	        type: "POST",
-	        url: "/dndn/resources/fileupload",
-	        enctype: 'multipart/form-data',
-	        cache: false,
-	        contentType: false,
-	        processData: false,
-	        success: function(response) {
-	            if (response.error){
-	                alert('에러가 발생했습니다. ' + response.error);
-	            } else {
-	                $('#summernote').summernote('insertImage', response.url);
-	            }
-	        }
-	    });
-	}
- 
- router.post('/imageUpload',multipartMiddleware,function(req,res){
-	    f = fs.readFileSync(req.files.file.path);
-	    base64 = Buffer.from(f).toString('base64');
-	    
-	    var imgbbAPI = require('../imgbbAPIkey.json'); // API KEY
-	    const options = {
-	        uri:'https://api.imgbb.com/1/upload?expiration=600&key='+imgbbAPI.key, 
-	        method: 'POST',
-	        form: {
-	          image:base64, // 이미지 첨부
-	        },
-	        json: true // json 형식으로 응답
-	    }
-	    request.post(options, function(error,httpResponse,body){
-	        if(error){
-	            res.send({error: error});
-	        } else{
-	            res.send({url: body.data.display_url});
-	        }
-	    });
-	});
- */
  
  var a = $('#summernote');
 
- /*
+/*
  var insertText = function () { // 이거 실행시 
      // 현재 커서 위치에 'hello world'라는 텍스트 생성 할수 있음  
      a.summernote('editor.insertText', 'hello world');
@@ -399,7 +202,7 @@ function sendFile(file, el) {
  // width은정하면 글 커지면 오른쪼긍로 터짐;; 
  $(document).ready(function() {
      $('#summernote').summernote({
-           width:600,
+           width:800,
            minHeight: 300,
            lang: "ko-KR",
            codeviewFilter: false,

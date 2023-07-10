@@ -17,10 +17,7 @@
 				<a href="/dndn/inform/notice.do" class="inform-item active menu-font">공지사항</a>
 			</li>
 			<li>
-				<a href="/dndn/inform/suggest.do" class="inform-item menu-font">1:1 문의</a>
-			</li>
-			<li>
-				<a href="#" class="inform-item menu-font">FAQ</a>
+				<a href="/dndn/inform/faq.do" class="inform-item menu-font">FAQ</a>
 			</li>
 		</ul>
 	</div>

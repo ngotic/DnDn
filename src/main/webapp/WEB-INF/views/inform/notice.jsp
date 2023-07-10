@@ -7,242 +7,69 @@
 <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 <link rel="stylesheet" href="/dndn/resources/css/notice_ahyun.css">
 <style>
-/* 
-	.container {
-		width: 1000px;
-	}
+.board-pagination {
+      margin-top: 20px;
+      text-align: center;
+    }
 
-	.side-container {
-		margin-top: 30px;
-	
-		float: left;
+    .board-pagination .pagination-table {
+      display: inline-block;
+      margin-top: 5px;
+    }
 
-		width: 200px;
-	
-	}
-	
-	.side-container .inform-menu-box {
-	
-		min-height: 250px;
-		padding: 0px 50px 0; 
-		padding-left:0px;
-	
-	}
-	
-	.side-container .inform-menu-box h2 {
-		
-		color: #333;
-		padding:0 0 50px 0px; 
-		border-bottom:1px solid #ececec; 
-		font-size:24px; line-height:24px; 
-		letter-spacing:-0.02em; 
-		font-weight: bolder; 
-	
-	}
-	
-	.h2-bold {
-		font-size: 24pt;
-		font-family: 'Pretendard';
-		font-weight: 700;
-		color: #333;
-	}
-	
-	
-	.side-container .inform-menu-box .inform-menu {
-	
-		margin:0px 0 0 0;
-				
-	
-	
-	}
-	
-	
-	.side-container .inform-menu-box .inform-menu{
-	
-		padding-left: 0px;
-		
-	}
-	
+    .board-pagination .pagination-table td {
+      padding: 5px 10px;
+      background-color: #f5f5f5;
+      color: #333;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+      font-size: 16px;
+      border-radius: 3px;
+    }
 
-	.side-container .inform-menu-box .inform-menu  li{
-	
-		padding:10px;
+    .board-pagination .pagination-table td.active {
+      background-color: #333;
+      color: #fff;
+    }
+    
+    .notice-under {
 
-		list-style-type: none;
-		
-
-		width: 150px;
-		
-		
-	}
-
-	.side-container .inform-menu-box .inform-menu  a{
-	
-		text-decoration: none;
-		display:block; 
-		font-size:16px;
-		color: #555;
-		font-weight:bolder; 
-		
-	}
-	
-	
-	.side-container .inform-menu-box .inform-menu li:hover,
-.side-container .inform-menu-box .inform-menu .inform-item:hover{
-		font-weight:bolder; 
-		background:#f8f8f8; 
-		color:#F27C2A;
-	}
-
-	
-	.side-container .inform-menu-box .inform-menu .active{
-		font-weight:bolder; 
-		background:#f8f8f8; 
-		color:#F27C2A;
-	}
-	
-	
-	
-	.info-box > * {
-		
-		color: #333;
-		
-	}
-	
-	.info-box:before {
-		border-bottom: 1px solid #F27C2A;
-	}
-	
-	
-	.mainbar {
-	 	float: left;
-		
-		width: 770px;
-		height: 800px;
-		
-	}
-	
-	
-	.question-section {
-		
-		border: 1px solid black;
-	
-	}
-	
-	.notice {
-		font-size: 26pt;
-		font-weight: 700;
-	}
-	
-	.notice-header {
-		text-align: center;
-		margin-top:20px;
-	}
-	
-	.bold {
-		font-size: 24pt;
-		font-family: 'Pretendard';
-		font-weight: 800;
-		color: #333;
-	}
-	
-	.search-btn {
-		background-color: white;
-		border: 1.5px solid #ccc;
-		width: 50px;
-
-	}
-	
-	.search-btn:hover {
-		border: 1.5px solid #F27C2A;
-		background-color:#F27C2A;
-		color: white;
-		width: 50px;
-	}
-	
-	.search-bar{
-	
-		float:right;
-		display: flex;
-		justify-content: flex-end;
-		margin-top: 40px;
-		margin-bottom: 30px;
-	}
-	
-	.notice-side {
-		
-		align-items:center;
-		width: 770px;
-		justify-content: center;
-		font-size: 12pt;
-	
-	}
-	
-	.notice-table {
-
-		
-		width: 750px;
-		text-align: center;
-		
-		margin-top:20px;
-		margin-left: 10px;
-	}
-	
-	.notice-table td, .notice-table th {
-		padding: 7px;
-	}
-	
-	.notice-table tr {
-		border-bottom: 1px solid #ccc;
-	}
-	
-	.table-head {
-		border-top:1.5px solid #aaa;
-		border-bottom: 1.5px solid #aaa;
-	}
-	
-	.th-bold {
-		font-size: 13pt;
-		font-family: 'Pretendard';
-		font-weight: 700;
-		color: #333;
-	}
-	
-	.notice-title {
-		text-align: left;
-		padding-left: 10px;
-	}
-	
-	.notice-title a {
-		text-decoration: none;
-		color: #333;
-	}
-
-	.notice-title a:hover {
-		text-decoration: none;
-		color: #F27C2A;
-	}
-	
-	.menu-font {
-		font-size: 13pt;
-		font-family: 'Pretendard';
-		color: #333;
-	}
-	
-	
-	
-	
-
-
-		
-.pagination-container {
+    }
+    
+ 
+    .add-side {
+       float:left;
+       margin-top: 40px;
+       margin-bottom: 30px;
+       margin-left: 10px;
+    }
+    
+    .add-btn {
+       font-size: 12px;
+       background-color: #F27C2A;
+       color: white;
+       
+       transition: all 0.1s linear;
+    }
+    
+    .add-btn:hover {
+    
+        font-size: 12px;
+       background-color: #F27C2A;
+       color: white;
+       
+       transform: scale(1.1);
+       
+    }
+    
+    .pagination-container {
   margin: 50px auto;
   text-align: center;
 }
 .pagination {
   position: relative;
 }
-.pagination a {
+.pagination td {
   position: relative;
   display: inline-block;
   color: #2c3e50;
@@ -250,7 +77,7 @@
   font-size: 1rem;
   padding: 8px 16px 10px;
 }
-.pagination a:before {
+.pagination td:before {
   z-index: -1;
   position: absolute;
   height: 100%;
@@ -263,12 +90,18 @@
   transform: scale(0);
   transition: all 0.2s;
 }
-.pagination a:hover,
-.pagination a .pagination-active {
+/* 
+.pagination tr:nth-child(n):hover, {
+.pagination tr:nth-child(n) .pagination-active {
   color: #fff;
 }
-.pagination a:hover:before,
-.pagination a .pagination-active:before {
+ */
+.pagination td:hover,
+.pagination td .pagination-active {
+  color: #fff;
+}
+.pagination td:hover:before,
+.pagination td .pagination-active:before {
   transform: scale(1);
 }
 .pagination .pagination-active {
@@ -290,271 +123,239 @@
 	align-items:center;
 }
 
-	
- */
- 	
- 	
- 	.notice-under {
 
- 	}
- 	
- 
- 	.add-side {
- 		float:left;
- 		margin-top: 40px;
-    	margin-bottom: 30px;
-    	margin-left: 10px;
- 	}
- 	
- 	.add-btn {
- 		font-size: 12px;
- 		background-color: #F27C2A;
- 		color: white;
- 		
- 		transition: all 0.1s linear;
- 	}
- 	
- 	.add-btn:hover {
- 	
- 	 	font-size: 12px;
- 		background-color: #F27C2A;
- 		color: white;
- 		
- 		transform: scale(1.1);
- 		
- 	}
- 	
+a {
+	
+	text-decoration:none;
+	color: #333;
+
+}
+
+.main-list {
+	
+	background-color: #eee;
+
+}
+
+.main-list notice-title{
+	
+	color: tomato;
+	
+}
+    
 
 
 </style>
 </head>
 <body>
-	<!-- template.jsp -->
-	<%@ include file="/WEB-INF/views/include/header.jsp" %>
-	<section class="container">
-		
-		<%@ include file="/WEB-INF/views/inform/inform_sidebar.jsp" %>
-		
-		<!-- <div class="side-container">
-			<div class="inform-menu-box">
-				<h2 class="h2-bold ">고객센터</h2>
-				<ul class="inform-menu">
-					<li class="active">
-						<a href="/dndn/inform/notice.do" class="inform-item active menu-font">공지사항</a>
-					</li>
-					<li>
-						<a href="/dndn/inform/suggest.do" class="inform-item menu-font">1:1 문의</a>
-					</li>
-					<li>
-						<a href="#" class="inform-item menu-font">FAQ</a>
-					</li>
-				</ul>
-			</div>
-			<div class="info-box">
-				<dl>
-					<dt>고객상담센터</dt>
-					<dd>
-						<strong class="info-num">02-3482-4632</strong>
-						<br>
-						<p>
-							평일 : 오전 9시 ~ 오후 6시
-							<br>
-							점심 : 오후 1시 ~ 오후 2시
-							<br>
-							휴무 : 주말, 공휴일
-						</p>
-					</dd>
-				</dl>
-			</div>
-		</div> -->
-		
-		<div class="mainbar">
-			
-			<div class="notice-header">
-				<span class="bold">공지사항</span>
-			</div>
-			
-			<div class="notice-under">
-				<div class="add-side">
-					<input type="button" class="btn add-btn" value="글쓰기" onclick="location.href='/dndn/inform/notice_add.do';">
-				</div>
-				
-				<div class="search-bar">
-					<select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 100px;">
-					  <option selected>선택</option>
-					  <option value="1">제목</option>
-					  <option value="2">내용</option>
-					  <option value="3">작성자</option>
-					</select>
-					<input class="form-control form-control-sm" type="text" placeholder="검색어를 입력" style="width:200px;margin-left:10px;">
-					<input class="search-btn btn btn-sm" type="submit" value="검색" style="margin-left:10px;">
-				</div>
-			</div>
-			
-			
-			<div class="notice-side">
-				<table class="notice-table">
-					<tr class="table-head">
-						<th class="th-bold">번호</th>
-						<th class="th-bold">제목</th>
-						<th class="th-bold">날짜</th>
-						<th class="th-bold">작성자</th>
-						<th class="th-bold">조회수</th>
-					</tr>
-					
-					
-					<c:forEach items="${noticelist}" var="dto">
-					<tr>
-						<td>${dto.noticeseq}</td>
-						<td class="notice-title"><a href="/dndn/inform/view.do?noticeseq=${dto.noticeseq }">${dto.title} </a></td>
-						<td>${dto.regdate} </td>
-						<td>${dto.id} </td>
-						<td>${dto.views }</td>
-					</tr>
-					</c:forEach>
-					
-					
-					
-					<!-- 
-					<tr>
-						<td>1</td>
-						<td class="notice-title"><a href="/dndn/inform/view.do">포켓샐러드 새벽 배송 </a></td>
-						<td>2021.12.27</td>
-						<td>관리자</td>
-						<td>200</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td class="notice-title">포켓샐러드 새벽 배송 안내</td>
-						<td>2021.12.27</td>
-						<td>관리자</td>
-						<td>200</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td class="notice-title">포켓샐러드 새벽 배송 안내</td>
-						<td>2021.12.27</td>
-						<td>관리자</td>
-						<td>200</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td class="notice-title">포켓샐러드 새벽 배송 안내</td>
-						<td>2021.12.27</td>
-						<td>관리자</td>
-						<td>200</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td class="notice-title">포켓샐러드 새벽 배송 안내</td>
-						<td>2021.12.27</td>
-						<td>관리자</td>
-						<td>200</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td class="notice-title">포켓샐러드 새벽 배송 안내</td>
-						<td>2021.12.27</td>
-						<td>관리자</td>
-						<td>200</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td class="notice-title">포켓샐러드 새벽 배송 안내</td>
-						<td>2021.12.27</td>
-						<td>관리자</td>
-						<td>200</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td class="notice-title">포켓샐러드 새벽 배송 안내</td>
-						<td>2021.12.27</td>
-						<td>관리자</td>
-						<td>200</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td class="notice-title">포켓샐러드 새벽 배송 안내</td>
-						<td>2021.12.27</td>
-						<td>관리자</td>
-						<td>200</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>포켓샐러드 새벽 배송 안내</td>
-						<td>2021.12.27</td>
-						<td>관리자</td>
-						<td>200</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>포켓샐러드 새벽 배송 안내</td>
-						<td>2021.12.27</td>
-						<td>관리자</td>
-						<td>200</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>포켓샐러드 새벽 배송 안내</td>
-						<td>2021.12.27</td>
-						<td>관리자</td>
-						<td>200</td>
-					</tr>
-				 -->
-				</table>
-			</div>	
-			
-		
-		<div class="page-side">
-			<nav class="pagination-container">
-				<div class="pagination">
-						<a class="pagination-newer" href="#">PREV</a>
-						<span class="pagination-inner">
-							<a href="#">1</a>
-							<a class="pagination-active" href="#">2</a>
-							<a href="#">3</a>
-							<a href="#">4</a>
-							<a href="#">5</a>
-							<a href="#">6</a>
-						</span>
-						<a class="pagination-older" href="#">NEXT</a>
-				</div>
-			</nav>
-		</div>
-			
-			
-			
-			
-			
-			
-		</div>	<!-- mainbar -->
-		
-		
-	</section>	
+   <!-- template.jsp -->
+   <%@ include file="/WEB-INF/views/include/header.jsp" %>
+   <section class="container">
+      
+      <%@ include file="/WEB-INF/views/inform/inform_sidebar.jsp" %>
+      <div class="mainbar">
+         <div class="notice-header">
+            <span class="bold">공지사항</span>
+         </div>
+         <div class="notice-under">
+            <div class="add-side">
+               <input type="button" class="btn add-btn" value="글쓰기" onclick="location.href='/dndn/inform/notice_add.do';">
+            </div>
+            
+            <div class="board-search search-bar">
+               <input type="text" id="search-input" class="form-control form-control-sm" placeholder="검색어를 입력하세요">
+          	   <button id="search-button" class="search-btn btn btn-sm" style="margin-left: 10px;">검색</button>
+          </div>
+         </div>
+        
+         <div class="notice-side">
+            <table class="notice-table" id="board-posts" style="width:100%;">
+
+            	
+            </table>
+         </div> 
+         
+<!--           
+         <div class="board-pagination">
+            <table class="pagination-table">
+                 <tr>
+                 <td class="arrow previous-arrow" id="previous">&lt;</td>
+                   <td id="page-numbers"></td>
+                   <td class="arrow next-arrow" id="next">&gt;</td>
+                 </tr>
+               </table>
+         </div>
+       -->
+          
+         <div class="pagination-container">
+            <table class="pagination">
+                 <tr>
+                 <td class="pagination-active .pagination-newer" id="previous">&lt;</td>
+                   <td id="page-numbers"></td>
+                   <td class="pagination-active pagination-older" id="next">&gt;</td>
+                 </tr>
+               </table>
+         </div>
+      
+      </div>   <!-- mainbar -->
+   </section>   
+   
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>    
 <script>
+var noticelist = [
+    // noticelist 배열에 데이터를 추가해주세요
+    <c:forEach items="${noticelist}" var="dto" varStatus="status">
+      {
+        noticeseq: '${dto.noticeseq}',
+        title: '${dto.title}',
+        regdate: '${dto.regdate}',
+        id: '${dto.id}',
+        views: '${dto.views}'
+      }${!status.last ? ',' : ''}
+    </c:forEach>
+  ];
 
-$('.pagination-inner a').on('click', function() {
-	$(this).siblings().removeClass('pagination-active');
-	$(this).addClass('pagination-active');
-})
 
 
+var originalNoticelist = noticelist.slice();
+var itemsPerPage = 10;
+var totalPages = Math.ceil(noticelist.length / itemsPerPage);
+var currentPage = 1;
+
+function renderPosts() {
+  var startIndex = (currentPage - 1) * itemsPerPage;
+  var endIndex = startIndex + itemsPerPage;
+
+  var searchInput = document.getElementById('search-input');
+  var searchQuery = searchInput.value.toLowerCase();
+
+  var filteredNoticelist = originalNoticelist.filter(function (item) {
+    return item.title.toLowerCase().includes(searchQuery);
+  });
+
+  totalPages = Math.ceil(filteredNoticelist.length / itemsPerPage);
+
+  var boardPosts = document.getElementById('board-posts');
+  boardPosts.innerHTML = `
+    <tr class="table-head">
+      <th class="th-bold" style="width:10%;">번호</th>
+      <th class="th-bold" style="width:45%;">제목</th>
+      <th class="th-bold" style="width:20%;">날짜</th>
+      <th class="th-bold" style="width:15%;">작성자</th>
+      <th class="th-bold" style="width:10%;">조회수</th>
+    </tr>
+   	<c:forEach items="${mainlist}" var="dto">
+    <tr class="main-list">
+       <td>${dto.noticeseq}</td>
+       <td class="notice-title"><a href="/dndn/inform/view.do?noticeseq=${dto.noticeseq }">${dto.title} </a></td>
+       <td>${dto.regdate} </td>
+       <td>${dto.id} </td>
+       <td>${dto.views }</td>
+    </tr>
+    </c:forEach>
+  `;
+
+/*   
+  var mainPosts = document.getElementById('board-posts');
+  mainPosts.innerHTML = `
+   	<c:forEach items="${mainlist}" var="dto">
+      <tr class="main-list">
+         <td>${dto.noticeseq}</td>
+         <td class="notice-title"><a href="/dndn/inform/view.do?noticeseq=${dto.noticeseq }&pageNo=${page.pageNo}">${dto.title} </a></td>
+         <td>${dto.regdate} </td>
+         <td>${dto.id} </td>
+         <td>${dto.views }</td>
+      </tr>
+      </c:forEach>
+  `;
+ */
+  
+  for (var i = startIndex; i < endIndex; i++) {
+    if (filteredNoticelist[i]) {
+      var tr = document.createElement('tr');
+      tr.className = 'boards';
+
+      var td1 = document.createElement('td');
+      td1.textContent = filteredNoticelist[i].noticeseq;
+      tr.appendChild(td1);
+
+      var td2 = document.createElement('td');
+      var link = document.createElement('a');
+      link.href = '/dndn/inform/view.do?noticeseq=' + filteredNoticelist[i].noticeseq;
+      link.textContent = filteredNoticelist[i].title;
+      td2.appendChild(link);
+      tr.appendChild(td2);
+
+      var td3 = document.createElement('td');
+      td3.textContent = filteredNoticelist[i].regdate;
+      tr.appendChild(td3);
+
+      var td4 = document.createElement('td');
+      td4.textContent = filteredNoticelist[i].id;
+      tr.appendChild(td4);
+
+      var td5 = document.createElement('td');
+      td5.textContent = filteredNoticelist[i].views;
+      tr.appendChild(td5);
+
+      boardPosts.appendChild(tr);
+    }
+  }
+}
+
+function renderPagination() {
+  var pageNumbers = document.getElementById('page-numbers');
+  pageNumbers.innerHTML = '';
+
+  for (var i = 1; i <= totalPages; i++) {
+    var td = document.createElement('td');
+    td.textContent = i;
+
+    if (i === currentPage) {
+      td.classList.add('pagination-active');
+    }
+
+    td.addEventListener('click', function () {
+      currentPage = parseInt(this.textContent);
+      renderPosts();
+      renderPagination();
+    });
+
+    pageNumbers.appendChild(td);
+  }
+}
+
+var searchButton = document.getElementById('search-button');
+searchButton.addEventListener('click', function () {
+  currentPage = 1;
+  renderPosts();
+  renderPagination();
+});
+
+var previousArrow = document.getElementById('previous');
+previousArrow.addEventListener('click', function () {
+  if (currentPage > 1) {
+    currentPage--;
+    renderPosts();
+    renderPagination();
+  }
+});
+
+var nextArrow = document.getElementById('next');
+nextArrow.addEventListener('click', function () {
+  if (currentPage < totalPages) {
+    currentPage++;
+    renderPosts();
+    renderPagination();
+  }
+});
+
+renderPosts();
+renderPagination();
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
