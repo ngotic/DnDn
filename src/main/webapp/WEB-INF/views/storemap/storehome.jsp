@@ -67,7 +67,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
 <script>
-
+var prevOverlay =null;
 var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션
 		center: new kakao.maps.LatLng(${37.4992}, ${127.033}), //지도의 중심좌표.
@@ -93,43 +93,62 @@ var container = document.getElementById('map'); //지도를 담을 영역의 DOM
 		var placeList = $('#placelist');
 
 		// 각 장소에 대한 정보를 가져와 목록에 추가하는 함수
-		  function addPlaceToList(name, address, tel, lat, lng) {
-			
-			
-		    var placeItem = $('<div style="border-bottom:1px solid #F1F3F4; width:250px;"></div>').addClass('place-item');
-		    placeItem.attr('data-lat', lat); // 해당 장소의 위도를 data-lat 속성에 추가
-		    placeItem.attr('data-lng', lng); // 해당 장소의 경도를 data-lng 속성에 추가
-		    var nameElement = $('<div style="font-size:22px;"></div>').text(name);
-		    var addressElement = $('<div></div>').text(address);
-		    var telElement = $('<div></div>').text(tel);
-		    
-		    placeItem.append(nameElement,addressElement, telElement);
-		    placeList.append(placeItem);
-		    
-		 	// 테이블 클릭 이벤트 등록
-		    placeItem.on('click', (function(lat, lng) {
-		      return function() {
-		        // 해당 장소의 좌표로 이동
-		        var position = new kakao.maps.LatLng(lat, lng);
-		        map.panTo(position); // 부드럽게 이동
-		        
-		        for (var i = 0; i < ms.length; i++) {
-		          if (ms[i].getPosition().getLat() === lat && ms[i].getPosition().getLng() === lng) {
-		            ms[i].setMap(map); // 해당 장소 마커 표시
-		            break;
-		          }
-		        }
-		        $('.place-item').css('background-color', 'transparent'); // 모든 장소 초기화
-		        $(this).css('background-color', '#F1F3F4'); // 선택된 장소에 배경색 적용
-		      };
-		    })(lat, lng));
-		  }
-		
+		  function addPlaceToList(name, address, tel, lat, lng, customOverlay) {
+	        var placeItem = $('<div style="border-bottom:1px solid #F1F3F4; width:250px;"></div>').addClass('place-item');
+	        placeItem.attr('data-lat', lat);
+	        placeItem.attr('data-lng', lng);
+	        var nameElement = $('<div style="font-size:22px;"></div>').text(name);
+	        var addressElement = $('<div></div>').text(address);
+	        var telElement = $('<div></div>').text(tel);
+	
+	        placeItem.append(nameElement, addressElement, telElement);
+	        placeList.append(placeItem);
+	
+	        placeItem.on('click', function() {
+	            var position = new kakao.maps.LatLng(lat, lng);
+	            map.panTo(position);
+	            for (var i = 0; i < ms.length; i++) {
+	                if (ms[i].getPosition().getLat() === lat && ms[i].getPosition().getLng() === lng) {
+	                    ms[i].setMap(map);
+	                    break;
+	                }
+	            }
+	            $('.place-item').css('background-color', 'transparent');
+	            $(this).css('background-color', '#F1F3F4');
+	            if (prevOverlay) {
+	                prevOverlay.setMap(null);
+	            }
+	            customOverlay.setMap(map);
+	            prevOverlay = customOverlay;
+
+	            // 마우스오버 이벤트 핸들러 제거
+	            $('.place-item').not(this).off('mouseover');
+	            
+	        });
+	        placeItem.on('mouseover',function(){
+	        	var position = new kakao.maps.LatLng(lat, lng);
+	        	 map.panTo(position);
+	        	 for (var i = 0; i < ms.length; i++) {
+		                if (ms[i].getPosition().getLat() === lat && ms[i].getPosition().getLng() === lng) {
+		                    ms[i].setMap(map);
+		                    break;
+		                }
+		            }
+	            $('.place-item').css('background-color', 'transparent');
+	            $(this).css('background-color', '#F1F3F4');
+	            if (prevOverlay) {
+	                prevOverlay.setMap(null);
+	            }
+	            customOverlay.setMap(map);
+	            prevOverlay = customOverlay;
+	        });
+	    }
+	  
 		
 		<c:forEach items="${blist}" var="dto" varStatus="status">
-		content${status.count}='<div class="overlaybox" style="background-color:white;">' +
-	    '    <div class="first" style="background: url(\'/dndn/resources/img/logo_short.png\') no-repeat center;position:relative;width:157px;height:160px;margin-left:5px;margin-bottom:8px;background-size: cover;" >' +
-	    '    </div>' +
+		content${status.count}='<div class="overlaybox" style="background-color:white; width:240px; height:70px;border-radius:10px;">' +
+	    '    <table class="first" style="padding: auto auto;"><tr><td><img src="/dndn/resources/img/logo_short.png" style="margin-left:7px;margin-right:7px;margin-top:5px;width:50px; height:50px;"></td>' +
+	    '<td style="padding-top:5px;"><span>${dto.name}</span><br><span>${dto.address}</span><br><span>tel: ${dto.tel}</span></td></tr></table>' +
 	    '</div>'; 
 		let p${status.count} = new kakao.maps.LatLng(${dto.lat},${dto.lng});
 		
@@ -140,8 +159,8 @@ var container = document.getElementById('map'); //지도를 담을 영역의 DOM
 		var customOverlay${status.count}=new kakao.maps.CustomOverlay({
 		    position : p${status.count},
 		    content : content${status.count},
-		    xAnchor: 0.35,
-		    yAnchor: 1.15
+		    xAnchor: 0.47,
+		    yAnchor: 1.59
 		});
 		
 		  kakao.maps.event.addListener(m${status.count}, 'click', function(mouseEvent) {
@@ -151,13 +170,20 @@ var container = document.getElementById('map'); //지도를 담을 영역의 DOM
 			  $('.place-item').css('background-color', 'transparent'); // 모든 장소 초기화
 			  $('.place-item[data-lat="${dto.lat}"][data-lng="${dto.lng}"]').css('background-color', '#F1F3F4'); // 선택된 장소에 배경색 적용
 			  
+			  if (prevOverlay) {
+		          prevOverlay.setMap(null); // 이전 customOverlay를 지도에서 제거
+		        }
+			  customOverlay${status.count}.setMap(map);
+			  prevOverlay = customOverlay${status.count}; 
 		});  
-		/* kakao.maps.event.addListener(m${status.count}, 'mouseover', function() {   
+		 kakao.maps.event.addListener(m${status.count}, 'mouseover', function() {   
 			customOverlay${status.count}.setMap(map);
 		});
 		kakao.maps.event.addListener(m${status.count}, 'mouseout', function() {      
-			customOverlay${status.count}.setMap(null);     
-		}); */
+			if (prevOverlay !== customOverlay${status.count}) {
+		        customOverlay${status.count}.setMap(null);
+		    } 
+		}); 
 		
 		m${status.count}.setMap(map);
 		
@@ -166,7 +192,7 @@ var container = document.getElementById('map'); //지도를 담을 영역의 DOM
 		$(this).css('background-color','gold');
 		
 		
-		addPlaceToList('${dto.name}', '${dto.address}', '${dto.tel}', ${dto.lat}, ${dto.lng});
+		addPlaceToList('${dto.name}', '${dto.address}', '${dto.tel}', ${dto.lat}, ${dto.lng},customOverlay${status.count});
 		</c:forEach>
 	});
 	function showBuildingInfo(name, address,tel) {
@@ -189,8 +215,8 @@ var container = document.getElementById('map'); //지도를 담을 영역의 DOM
 	    storeInfoDiv.appendChild(nameElement);
 	    storeInfoDiv.appendChild(addressElement);
 	    storeInfoDiv.appendChild(telElement);
+	    
 	}
-	
 
 </script>
 </body>
