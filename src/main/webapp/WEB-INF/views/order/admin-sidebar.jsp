@@ -6,7 +6,7 @@
             <nav class="navbar bg-light navbar-light">
             
             	<!-- 로고 -->
-                <a href="/dndn/admin/admin-main.do" class="navbar-brand mx-4 mb-3">
+                <a href="/dndn/admin/chart.do" class="navbar-brand mx-4 mb-3">
                     <img src="/dndn/resources/img/logo_long.png" class="mt-1 mb-2" style="height:80px;">
                 </a>
                 
