@@ -13,18 +13,57 @@
 			</div>
 		</div>
 		<div id="side-content">
-			<div>유저명</div>
-			<button onclick="location.href='/dndn/mypage/edit.do';">내 정보</button>
-			<button onclick="location.href='/dndn/mypage/order.do';">주문조회</button>
-			<button onclick="location.href='/dndn/mypage/food.do';">식단관리</button>
-			<button onclick="location.href='/dndn/mypage/fav.do';">찜</button>
-			<button onclick="location.href='/dndn/mypage/buylist.do';">장바구니</button>
-			
-			<form method="POST" action="/dndn/auth/logout.do">
+ 		<%-- <div title="사용자 아이디">
+     		 <sec:authentication property="principal.username"/>
+   		</div> --%>
+   		<table>
+   		<tr>
+   		<td><span class="material-symbols-outlined">
+person_search
+</span></td>
+   		<td><button onclick="location.href='/dndn/mypage/edit.do';">내 정보</button></td>
+   		</tr>
+			<tr>
+   		<td><span class="material-symbols-outlined">
+inventory</span>
+   		<td><button onclick="location.href='/dndn/mypage/order.do';">주문조회</button></td>
+</td>
+   		</tr>
+   		<tr>
+   		<td><span class="material-symbols-outlined">
+local_shipping</span>
+   		<td><button onclick="location.href='/dndn/mypage/food.do';">식단관리</button></td>
+</td>
+   		</tr>
+   		<tr>
+   		<td><span class="material-symbols-outlined">
+heart_plus
+</span></td>
+   		<td><button onclick="location.href='/dndn/mypage/fav.do';">찜</button></td>
+   		</tr>
+   		<tr>
+   		<td><span class="material-symbols-outlined">
+shopping_bag
+</span></td>
+   		<td><button onclick="location.href='/dndn/mypage/buylist.do';">장바구니</button></td>
+   		</tr>
+   		<tr>
+   		<td><span class="material-symbols-outlined">
+logout
+</span></td>
+   		<td><form method="POST" action="/dndn/auth/logout.do">
 			<button>LOGOUT</button>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-			</form>	
-               <button type="submit" id="memberout">회원탈퇴</button>
+			</form></td>
+   		</tr>
+			
+   		<tr>
+   		<td><span class="material-symbols-outlined">
+person_remove
+</span></td>
+   		<td><button type="submit" id="memberout">회원탈퇴</button></td>
+   		</tr>
+</table>
 	            <input type="hidden" name="id" id="id" value='<sec:authentication property="principal.username"/>'>
 	         <script>
 	         $('#memberout').click(function(){

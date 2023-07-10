@@ -9,14 +9,16 @@
 <title>dndn</title>
 <%@ include file="/WEB-INF/views/include/asset.jsp"%>
 <style>
-.container {
-	background-color: #F7F7F7 !important;
-}
 
+#side-content > table > tbody > tr:nth-child(4) {
+	background-color: #F1F1F1 !important;
+}
 #cardbox {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
 	margin-bottom: 10px;
+	margin: 20px;
+	padding: 10px;
 }
 
 #card {
@@ -60,7 +62,7 @@
 	<div id="box">
 		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
 		<section class="container">
-			<h1>찜</h1>
+		<div id="pageTitle">찜</div>
 				<div id="cardbox">
 			<c:forEach items="${wlist }" var="dto">
 					<div id="card">
@@ -77,6 +79,7 @@
 				</div>
 		</section>
 	</div>
+	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 	<script

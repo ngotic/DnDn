@@ -7,8 +7,8 @@
 <title>dndn</title>
 <%@ include file="/WEB-INF/views/include/asset.jsp"%>
 <style>
-#mypage {
-	color: black;
+#side-content > table > tbody > tr:nth-child(1) {
+	background-color: #F1F1F1 !important;
 }
 
 .dash {
@@ -39,6 +39,10 @@ input,
 .input-group{
 	margin-top: 20px;
 }
+#editForm{
+	margin: 20px;
+	padding: 10px;
+}
 </style>
 </head>
 <body>
@@ -46,8 +50,8 @@ input,
 	<div id="box">
 		<%@ include file="/WEB-INF/views/include/mypage-header.jsp" %>
 		<section class="container">
-			<h1 id="mypage">My Page</h1>
-			<form method="POST" action="/dndn/mypage/editok.do">
+			<div id="pageTitle">내 정보</div>
+			<form method="POST" action="/dndn/mypage/editok.do" id="editForm">
 			<c:forEach var="user" items="${list }">
 				<div class="input-group mb-3">
 					<span class="input-group-text">아이디</span> <input
@@ -113,6 +117,7 @@ input,
 			</form>
 		</section>
 	</div>
+	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 	<script

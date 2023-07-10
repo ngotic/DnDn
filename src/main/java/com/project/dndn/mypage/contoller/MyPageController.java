@@ -1,5 +1,7 @@
 package com.project.dndn.mypage.contoller;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.dndn.lunchdetail.domain.AddCartDTO;
+import com.project.dndn.lunchdetail.domain.CartDTO;
 import com.project.dndn.mypage.domain.MyPageDTO;
 import com.project.dndn.mypage.mapper.MyPageMapper;
 import com.project.dndn.mypage.service.MyPageService;
@@ -84,13 +88,97 @@ public class MyPageController {
 		
 		for(int i=0; i < Flist.size(); i++) {
 			
-			String temp = Flist.get(i).getLunchname().substring(0, 3)+"...";
-			Flist.get(i).setLunchname(temp);
-			System.out.println(Flist.get(i).getLunchname());
-			Calendar cal = Calendar.getInstance();
+			//Flist.get(i).setLunchname(("<span class=\"material-symbols-outlined\" style=\"color: #F86F03;\">nutrition</span>"+Flist.get(i).getLunchname()));
 			
-		}
+			//System.out.println(Flist.get(i).getLunchname());
+			//String temp = Flist.get(i).getLunchname().substring(0, 3)+"...";
+			//Flist.get(i).setLunchname(temp);
+			//System.out.println(Flist.get(i).getLunchname());
+			
+
+			//System.out.println(			"ㄴㄴㄴㄴ"+Flist.get(i).getStartship());
+			//System.out.println(			"ㅇ월"+Flist.get(i).getStartship().substring(5,7));//월
+			
+			//System.out.println(			"ㅇ일"+Flist.get(i).getStartship().substring(8,10));//일
 		
+			Calendar startDate = Calendar.getInstance();
+		
+			Calendar endDate = Calendar.getInstance();
+			startDate.set(Calendar.MONTH,Integer.parseInt(Flist.get(i).getStartship().substring(5,7))-1);
+			startDate.set(Calendar.DATE,Integer.parseInt(Flist.get(i).getStartship().substring(8,10)));
+			
+			//System.out.println("시작 요일"+startDate.get(Calendar.DAY_OF_WEEK));
+			
+			endDate.set(Calendar.MONTH,Integer.parseInt(Flist.get(i).getEndship().substring(5,7))-1);
+			endDate.set(Calendar.DATE,Integer.parseInt(Flist.get(i).getEndship().substring(8,10)));
+			//System.out.printf("전부우우우"+"%tF",endDate);
+			
+			//System.out.printf("전부우우우"+"%tF",startDate);
+			//System.out.println("요일"+Flist.get(i).getDayperweek());
+			String[] tempArray = (Flist.get(i).getDayperweek()).split("");
+			
+			int nowDay = (startDate.get(Calendar.DAY_OF_WEEK));
+			//System.out.println("시작날짜 요일"+nowDay);
+			//System.out.println("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"+startDate.get(Calendar.DATE));;
+			
+			ArrayList<String> time = new ArrayList<String>();
+			int week = 7;
+			Calendar foodDate = Calendar.getInstance();
+			foodDate.set(Calendar.MONTH,Integer.parseInt(Flist.get(i).getStartship().substring(5,7))-1);
+			for(String day : tempArray) {
+				
+				
+				int selectDay = Integer.parseInt(day);
+				int serviceDay = 0;
+				
+				//System.out.println("선택 요일: "+selectDay);
+				int mdate= (int)(((endDate.getTimeInMillis()-startDate.getTimeInMillis())/1000)/(24*60*60))+1;
+				
+				//System.out.println("바퀴 수: "+mdate);
+				for(int j=1; j<=mdate/7; j++){
+				
+					if(nowDay < selectDay) {
+
+				serviceDay = Integer.parseInt(Flist.get(i).getStartship().substring(8,10))+(selectDay - nowDay);
+					
+				}else if(nowDay == selectDay) {
+					
+					serviceDay = nowDay;
+
+				}else if(nowDay > selectDay) {
+					
+					serviceDay = Integer.parseInt(Flist.get(i).getStartship().substring(8,10))+((week+selectDay) - nowDay);
+//System.out.println(serviceDay);
+//System.out.println(nowDay);
+//System.out.println(selectDay);
+				}
+
+						serviceDay=serviceDay+((j-1)*week);
+						
+						//System.out.println("이제 변화된 요일계산: "+serviceDay);
+				
+						Calendar tempDate = Calendar.getInstance();
+						tempDate.set(Calendar.MONTH,Integer.parseInt(Flist.get(i).getStartship().substring(5,7))-1);
+						tempDate.set(Calendar.DATE,serviceDay);
+						
+						if(tempDate.getTimeInMillis()<=endDate.getTimeInMillis()) {
+							
+							foodDate.set(Calendar.DATE,serviceDay);
+						};
+						//System.out.println("최종 중에 최종: "+String.format("%tF", foodDate));
+						
+						time.add(String.format("%tF", foodDate));
+						//System.out.println("안에안에안!!!: "+time.toString());
+						
+			}
+		}
+			Flist.get(i).setResultShip(time);      
+			System.out.println(Flist.get(i).getShiptime()+Flist.get(i).getLunchname()+time.toString());
+			//System.out.println("\n =========================================");
+		}
+		//System.out.println("--------------------------------------------------");
+		//System.out.println("전부전부전분우ㅜ우우우우웅: "+time.toString());
+		//System.out.println(time.toString().contains("6:"));
 		model.addAttribute("Flist",Flist);
 		
 		return "/mypage/food";
@@ -150,10 +238,20 @@ public class MyPageController {
 
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/mypage/buylist.do")
-	public String buylist(Authentication a) {
+	public String buylistGet(CartDTO cartDTO, Model model, Principal principal){
 
-		String id = a.getName();
-
+       // 장바구니에 있는거 다 보낸다. > 장바구니 보기
+            List<MyPageDTO> list = myService.listCart(principal.getName());
+            model.addAttribute("list",list);
+        
 		return "/mypage/buylist";
 	}
+	
+	// 실제론 여기로 와야 한다.
+    @PreAuthorize("isAuthenticated()") // 막아준다.
+    @PostMapping("/mypage/buylist.do")
+    public String buylistPost(CartDTO cartDTO, Principal principal, Model model){
+        
+        return "/mypage/buylist";
+    }
 }

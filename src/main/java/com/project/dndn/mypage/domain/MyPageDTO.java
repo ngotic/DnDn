@@ -1,8 +1,6 @@
 package com.project.dndn.mypage.domain;
 
-import java.util.List;
-
-import org.springframework.security.core.Authentication;
+import java.util.ArrayList;
 
 import lombok.Data;
 
@@ -48,6 +46,7 @@ public class MyPageDTO {
 	private String dayperweek;
 	private String endship;
 	private String startship;
+	private ArrayList<String> resultShip;
 	
 	//쿠폰 정보
 	private String sale;
@@ -62,4 +61,11 @@ public class MyPageDTO {
 	private String totalPrice;
 	private String pic;
 	private String category;
+	
+	private String test;
+	
+	//장바구니
+    private String cartseq;
+    private String storename;
+    private String content;
 }
