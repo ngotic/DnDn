@@ -28,16 +28,13 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-weight: 700;"><i class="fa fa-laptop me-2"></i>이용자 관리</a>
                         <div class="dropdown-menu bg-transparent border-0">
-<<<<<<< HEAD
+
                             <a href="/dndn/order/user.do" class="dropdown-item">1. 회원 관리</a>
                             <a href="/dndn/order/store-user.do" class="dropdown-item">2. 점주 관리</a>
-=======
-                            <a href="" class="dropdown-item" style="font-weight: 700;">1. 회원 관리</a>
-                            <a href="" class="dropdown-item" style="font-weight: 700;">2. 점주 관리</a>
->>>>>>> feature/admin2
+
                         </div>
                     </div>
-                    
+<!--                     
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-weight: 700;">
                         	<i class="fa fa-laptop me-2"></i>가맹점 관리
@@ -48,7 +45,7 @@
                             <a href="" class="dropdown-item" style="font-weight: 700;">3. 가맹점 삭제</a>
                         </div>
                     </div>
-                    
+                     -->
                     
 
 	                <a href="/dndn/admin/product.do" class="nav-item nav-link" style="font-weight: 700;">
@@ -67,17 +64,14 @@
                         	<i class="fa fa-laptop me-2"></i>이벤트 관리
                         </a>
                         <div class="dropdown-menu bg-transparent border-0">
-<<<<<<< HEAD
+
                             	<a href="/dndn/order/event-management.do?" class="dropdown-item">1. 이벤트 조회</a>
   
 			              
                             	<a href="/dndn/order/event-management.do?add=true" class="dropdown-item">2. 이벤트 추가</a>
 			                    <a href="/dndn/order/event-management.do?edit=true" class="dropdown-item">3. 이벤트 수정</a>
 			                    <a href="/dndn/order/event-management.do?delete=true" class="dropdown-item">4. 이벤트 삭제</a>
-=======
-                            <a href="" class="dropdown-item" style="font-weight: 700;">1. 이벤트 조회</a>
-                            <a href="" class="dropdown-item" style="font-weight: 700;">2. 이벤트 수정/삭제</a>
->>>>>>> feature/admin2
+
                         </div>
                     </div>
                     
@@ -86,17 +80,13 @@
                         	<i class="fa fa-laptop me-2"></i>쿠폰 관리
                         </a>
                         <div class="dropdown-menu bg-transparent border-0">
-<<<<<<< HEAD
+
                             
                             <a href="/dndn/order/coupon.do?add=true" class="dropdown-item">1. 쿠폰 추가</a>
                             <a href="/dndn/order/coupon.do?edit=true" class="dropdown-item">2. 쿠폰 수정</a>
                             <a href="/dndn/order/coupon.do?delete=true" class="dropdown-item">3. 쿠폰 삭제</a>
                             
-=======
-                            <a href="" class="dropdown-item" style="font-weight: 700;">1. 쿠폰 등록</a>
-                            <a href="" class="dropdown-item" style="font-weight: 700;">2. 쿠폰 수정</a>
-                            <a href="" class="dropdown-item" style="font-weight: 700;">3. 쿠폰 삭제</a>
->>>>>>> feature/admin2
+
                         </div>
                     </div>
                     
