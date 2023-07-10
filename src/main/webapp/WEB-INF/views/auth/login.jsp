@@ -103,7 +103,10 @@
        #socialLoginWrapper{
        		position: absolute;
        		bottom:70px;
-       		left: 130px;
+       		left: 85px;
+       }
+       #kakaoLogin{
+       width:200px;
        }
        
 </style>
@@ -168,7 +171,7 @@
         <div id="socialLoginWrapper">
         	<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3e25d1471c8b89b2e37d2bc1eb786e27&redirect_uri=	
 http://localhost:8091/dndn/kakao&response_type=code">
-			    <img alt="kakaoLogin" src="/dndn/resources/img/kakao_login_medium_narrow.png">
+			    <img alt="kakaoLogin" id="kakaoLogin" src="/dndn/resources/img/kakao_login_medium_narrow.png">
 			    <!-- ///dndn/resources/img/logo_edit.png -->
 			</a>
         </div>
