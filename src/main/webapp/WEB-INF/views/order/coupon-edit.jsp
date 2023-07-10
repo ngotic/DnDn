@@ -85,7 +85,7 @@
                                 <input type="hidden"  value="true" name = "add">
                                 <button type="submit" class="btn btn-primary">추가</button>
                                 </c:if>
-                                <c:if test="${edit}">
+ <%--                                <c:if test="${edit}">
                                 <input type="hidden"  value="true" name = "edit">
                                 <button type="submit" class="btn btn-primary">수정</button>
                                 </c:if>
@@ -93,7 +93,7 @@
                                 <input type="hidden"  value="true" name = "delete">
                                 <button type="submit" class="btn btn-primary">삭제</button>
                                 </c:if>
-                                
+                                 --%>
                                 
                                 
                             </form>

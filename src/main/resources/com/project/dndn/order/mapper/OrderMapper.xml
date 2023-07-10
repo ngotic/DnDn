@@ -33,22 +33,22 @@
 	</select>	
 	<select id="order" resultType ="com.project.dndn.order.domain.OrderDTO">
 	
-<!-- 	
-	미완성
-select 
-	tblOrder.id , shipdate , shiptime , shipperiod , dayperweek , tblLunchBox.price , orderdate , payment ,orderseq ,tblLunchBox.name, tblPeriodShip.periodshipseq
-		from tblOrder 
-			inner join tblCart 
-				on tblCart.cartseq = tblOrder.cartseq 
-					inner join tblPeriodShip
-						on tblCart.periodshipseq = tblPeriodShip.periodshipseq 
-                            inner join tblSellBoard
-                                on tblCart.sellboardseq = tblSellBoard.sellboardseq 
-                                    inner join tblLunchboxSet
-                                        on  tblSellBoard.sellboardseq =tblLunchboxSet.sellboardseq  
-                                            inner join tblLunchBox
-                                                on tblLunchBox.lunchboxseq = tblLunchBox.lunchboxseq
-                                                     where tblOrder.id =  #{user_id} -->
+
+
+    select tblOrder.id, tblOrder.orderseq ,tblPeriodShip.shiptime ,tblPeriodShip.dayperweek, tblOrder.price,tblOrder.orderdate, tblOrder.payment, tblOrder.orderseq , tblLunchBox.name ,tblPeriodShip.periodshipseq ,tblPeriodShip.startship,tblPeriodShip.endship from tblOrder 
+        inner join tblReview
+            on tblReview.id = tblOrder.id
+                inner join tblSellBoard
+                    on tblSellBoard.sellboardseq = tblReview.sellboardseq
+                        inner join tblLunchboxSet
+                            on tblLunchboxSet.sellboardseq = tblSellBoard.sellboardseq
+                                inner join tblLunchBox
+                                    on tblLunchBox.lunchboxseq = tblLunchboxSet.lunchboxseq
+                                        inner join tblCart
+                                            on tblCart.id = tblOrder.id
+                                                left join tblPeriodShip
+                                                    on tblCart.periodshipseq = tblPeriodShip.periodshipseq
+                                                        where tblOrder.id = #{user_id}
                                                      
 	</select>	
 	
@@ -59,8 +59,8 @@ select
 		        from tblmember  
 		         inner join tblAuth
 		          on tblmember.id = tblAuth.id
-		            inner join tblStoreManager
-		             on tblStoreManager.id = tblmember.id
+		    <!--         inner join tblStoreManager
+		             on tblStoreManager.id = tblmember.id -->
 		                where tblAuth.AUTH = 'ROLE_ADMIN'
 	</select>
 
@@ -70,8 +70,8 @@ select
 				from tblmember
 				    inner join tblAuth
 				        on tblmember.id = tblAuth.id
-				            inner join tblStoreManager
-				             on tblStoreManager.id = tblmember.id
+	<!-- 			            inner join tblStoreManager
+				             on tblStoreManager.id = tblmember.id -->
 				                where tblmember.id= #{user_id}
 	</select>	
 	
@@ -164,15 +164,45 @@ select
 			
 			</insert>
 			
-			<update id="updatecoupon">
+
+						<insert id="addevent" parameterType="com.project.dndn.order.domain.OrderEventDTO" >
 			
-				update tblcoupon set name = #{name}, sale = #{sale},period = sysdate + #{period} where couponseq = #{coupon_seq}
+		       	insert into tblevent (eventseq ,title , startdate , enddate, sale,pic_board,pic,regdate,count)
+						values (eventseq.nextVal,#{title},#{startdate},#{enddate},#{sale},#{pic},#{pic_board},sysdate,0 )               
+                        
 			
+			</insert>
+				<update id="updatecoupon" parameterType="com.project.dndn.order.domain.OrderCouponDTO" >
+					    UPDATE tblcoupon
+						    SET name = #{name},
+						        sale = #{sale},
+						    <!--            <if test="isDateTimeFormat(period)"> -->
+								            period = TO_DATE(#{period}, 'YYYY-MM-DD HH24:MI:SS')
+							<!-- 	        </if> -->
+								     <!--    <if test="isDateFormat(period)">
+								            period = TO_DATE(#{period}, 'YYYY-MM-DD')
+								        </if> -->
+						   		 WHERE couponseq = #{couponseq}
+				</update>
 			
-			</update>
+		
+					
+				<update id="editevent" parameterType="com.project.dndn.order.domain.OrderEventDTO" >
+				    UPDATE tblevent
+						    SET Title = #{title},
+                                startdate = TO_DATE(#{startdate}, 'YYYY-MM-DD HH24:MI:SS'),
+                                enddate = TO_DATE(#{enddate}, 'YYYY-MM-DD HH24:MI:SS'),
+                                sale = #{sale},
+                                pic_board=#{pic_board},
+                                pic = #{pic}
+						   		 WHERE eventseq = #{eventseq}
+				</update>
 			
 			<delete id="deletecoupon">
 				delete from tblcoupon where couponseq =  #{coupon_seq}
 			</delete>
 			
+			<delete id="delete_event">
+				delete from tblevent where  eventseq =  #{event_seq}
+			</delete>
 </mapper>

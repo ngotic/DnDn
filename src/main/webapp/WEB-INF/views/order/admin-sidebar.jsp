@@ -59,8 +59,12 @@
                         	<i class="fa fa-laptop me-2"></i>이벤트 관리
                         </a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="/dndn/order/event-management.do?edit=false" class="dropdown-item">1. 이벤트 조회</a>
-                            <a href="/dndn/order/event-management.do?edit=true" class="dropdown-item">2. 이벤트 추가/수정/삭제</a>
+                            	<a href="/dndn/order/event-management.do?" class="dropdown-item">1. 이벤트 조회</a>
+  
+			              
+                            	<a href="/dndn/order/event-management.do?add=true" class="dropdown-item">2. 이벤트 추가</a>
+			                    <a href="/dndn/order/event-management.do?edit=true" class="dropdown-item">3. 이벤트 수정</a>
+			                    <a href="/dndn/order/event-management.do?delete=true" class="dropdown-item">4. 이벤트 삭제</a>
                         </div>
                     </div>
                     
@@ -69,10 +73,10 @@
                         	<i class="fa fa-laptop me-2"></i>쿠폰 관리
                         </a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="/dndn/order/coupon.do" class="dropdown-item">1. 쿠폰 등록</a>
-                            <a href="/dndn/order/coupon.do?add=true" class="dropdown-item">2. 쿠폰 추가</a>
-                            <a href="/dndn/order/coupon.do?edit=true" class="dropdown-item">3. 쿠폰 수정</a>
-                            <a href="/dndn/order/coupon.do?delete=true" class="dropdown-item">4. 쿠폰 삭제</a>
+                            
+                            <a href="/dndn/order/coupon.do?add=true" class="dropdown-item">1. 쿠폰 추가</a>
+                            <a href="/dndn/order/coupon.do?edit=true" class="dropdown-item">2. 쿠폰 수정</a>
+                            <a href="/dndn/order/coupon.do?delete=true" class="dropdown-item">3. 쿠폰 삭제</a>
                             
                         </div>
                     </div>

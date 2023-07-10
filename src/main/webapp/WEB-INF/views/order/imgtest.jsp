@@ -117,7 +117,7 @@
    <!-- template.jsp -->
    <%@ include file="/WEB-INF/views/include/header.jsp" %>
    <section class="container">
-      <%@ include file="/WEB-INF/views/inform/inform_sidebar.jsp" %>
+      <%@ include file="/WEB-INF/views/order/admin-sidebar.jsp" %>
       
       <div class="mainbar">
          <h2 class="th-bold" style="font-size: 18pt; color:#333; margin-bottom:20px; margin-top:20px;">글쓰기</h2>

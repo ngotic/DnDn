@@ -23,6 +23,7 @@ tr td {
 	font-size: 15px;
 	}
     </style>
+
 	<div  class= " screen3 screen-width-88 event-screen3" >
 				
 				<div class="screen6" >
@@ -115,6 +116,7 @@ tr td {
 				
 				
 			</div> 
+			
 
                 
                     <div class="container-fluid px-4 ">
@@ -139,6 +141,9 @@ tr td {
                               <th>할인률</th>
                               
                               <th>이벤트 사진</th>
+                              <c:if>
+                              
+                              </c:if>
                                     </thead>
                                     
 
@@ -168,13 +173,6 @@ tr td {
 <script>
 		
 
-			
-			setTimeout(function() {
-				$("#datatablesSimple tbody tr").click(function(event1){
-					
-					location.href='http://localhost:8092/dndn/order/event-management.do?event_seq='+$(this).children("td").eq(0).text()+'&edit=true';
-				
-				} );
-			}, 300);
+
 			
 </script>			

@@ -37,7 +37,8 @@ public class OrderDTO {
 	private String shiptime;
 	private String shipperiod;
 	private String dayperweek;
-	
+	private String startship;
+	private String endship;
 	private String auth;
 
 }

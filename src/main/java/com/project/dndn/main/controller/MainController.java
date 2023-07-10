@@ -33,6 +33,7 @@ public class MainController {
 		
 		return "main";
 	}
+	
 	@GetMapping("/template.do")
 	public String template() {
 		return "template";

@@ -12,5 +12,13 @@ public class OrderCouponDTO {
 	private int sale;
 	private String period;
 	private int period2;
-	
+    
+    public void isDateTimeFormat(String period) {
+       
+    }
+
+    public void isDateFormat(String period) {
+       
+    }
+
 }
