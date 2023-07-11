@@ -21,4 +21,12 @@ public class AdminOrderController {
 		return "admin/orderlist";
 	}
 	
+	@GetMapping("/admin/admin-main.do")
+	public String main(Model model) {
+		
+		model.addAttribute("orderlist", adminOrderService.orderlist());
+
+		return "admin/admin-main";
+	}
+	
 }

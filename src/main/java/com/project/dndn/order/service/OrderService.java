@@ -46,7 +46,7 @@ public interface OrderService {
 
 	ArrayList<OrderCouponDTO> couponlist();
 
-	void insertcoupon(OrderCouponDTO dto);
+	int insertcoupon(OrderCouponDTO dto);
 
 	void updatecoupon(OrderCouponDTO dto);
 

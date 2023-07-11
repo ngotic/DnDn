@@ -51,9 +51,9 @@
 			</div>
 			<div class="event-btn-box"  >
 
-					<input type="button"  id="evt-btn1"  class="event-btn"  value="진행 이벤트"  onclick="location.href='./event.do?open_close=open'">
+					<input type="button"  id="evt-btn1"  class="event-btn"  value="진행 이벤트"  style= "height: 65px;" onclick="location.href='./event.do?open_close=open'">
 	
-					<input type="button"   id="evt-btn2" class="event-btn"  value= "종료 이벤트" onclick="location.href='./event.do?open_close=close'">
+					<input type="button"   id="evt-btn2" class="event-btn"  value= "종료 이벤트" style= "height: 65px;"onclick="location.href='./event.do?open_close=close'">
 
 				
 			</div>

@@ -15,7 +15,7 @@
     <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="/dndn/resources/startbootstrap-sb-admin-gh-pages/css/styles.css" rel="stylesheet" />
-	<!-- <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> -->
+	<!-- <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"></script> -->
 	
     <!-- Favicon -->
     <link href="/dndn/resources/bootstrap-admin-template-free/img/favicon.ico" rel="icon">
@@ -72,6 +72,34 @@
     		float: right;
     	}
     	
+    	
+    	.order-table > thead > tr > th {
+    		font-weight: 500;
+    		text-align: center;
+    		color: #009CFF;
+    	}
+    	
+    	.order-table > tbody > tr > td {
+    		text-align: center;
+    	}
+    	
+    	
+    	
+    	.title-rank {
+    		font-weight: 900;
+    		font-size: 1.3rem;
+    		color: #333;
+    		font-family: 'Noto Sans KR';
+    		padding-bottom: 30px;
+    	}
+    	
+    	.content-rank {
+    		font-size: 1rem;
+    		color: #333;
+    		font-family: 'Noto Sans KR';
+    		padding-bottom: 10px;
+    	}
+    	
     </style>
     
     
@@ -113,7 +141,7 @@
                             <i class="fa fa-cart-shopping fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">
-                                	<a href="#">NEW ORDER</a>
+                                	<a href="/dndn/admin/orderlist.do">NEW ORDER</a>
                                 </p>
                                 <h6 class="count mb-0">11</h6>
                             </div>
@@ -176,70 +204,39 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Recent Salse</h6>
-                        <a href="">Show All</a>
+                        <h6 class="title mb-0">최근 주문 정보</h6>
+                        <a href="/dndn/admin/orderlist.do" class="show-all">Show All</a>
                     </div>
                     <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-dark">
-                                    <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Invoice</th>
-                                    <th scope="col">Customer</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    			<table class="order-table table text-start align-middle table-bordered table-hover mb-0" style="font-family: 'Noto Sans KR';">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>아이디</th>
+                                            <th>결제금액</th>
+                                            <th>주문날짜</th>
+                                            <th>처리상태</th>
+                                            <th>결제방법</th>
+                                        </tr>
+                                    </thead>
+                                    
+
+                                    <tbody>
+	                                <c:forEach items="${orderlist}" var="dto" varStatus="status">
+									<c:if test="${status.index < 5}">
+	                                   <tr>
+	                                     <td>${dto.orderseq}</td>
+	                                     <td>${dto.id}</td>
+	                                     <td>${dto.price}</td>
+	                                     <td>${dto.orderdate}</td>
+	                                     <td>결제완료</td>
+	                                     <td>${dto.payment}</td>
+	                                   </tr>
+	                                </c:if>
+	                                </c:forEach>
+                                    </tbody>
+
+                                </table>
                     </div>
                 </div>
             </div>
@@ -250,13 +247,121 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     
-                    <div class="col-sm-12 col-md-6 col-xl-4">
+                    <!-- <div class="col-sm-12 col-md-6 col-xl-4" style="width: 30%;">
                         <div class="h-100 bg-light rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="title mb-0">Calender</h6>
                             </div>
                             <div id="calender"></div>
                         </div>
+                    </div> -->
+                    
+                    <div class="col-sm-12 col-md-6 col-xl-4" style="width: 25%;">
+                    	<div class="h-100 bg-light rounded p-4">
+                    		<h6 class="title-rank mb-0">일반식 Top 5</h6>
+                    		
+                    		<div class="content-rank">
+                    			<i class="fas fa-medal fa-lg me-2" style="color: #ffd60a;"></i>
+                    			빠에야 볶음밥 and 핫스테이크
+                    		</div>
+                    		<div class="content-rank">
+                    			<i class="fas fa-medal fa-lg me-2" style="color: #c2c2c2;"></i>
+                    			미니컵밥 유부초
+                    		</div>
+                    		<div class="content-rank">
+                    			<i class="fas fa-medal fa-lg me-2" style="color: #c49c48;"></i>
+                    			야채 볶음밥 and 햄에그롤
+                    		</div>
+                    		<div class="content-rank" style="display: flex;">
+                    			<span class="material-symbols-outlined me-2" style="color: #666;">counter_4</span>
+                    			<span>미니컵밥 돼지고기 고추장비빔</span>
+                    		</div>
+                    		<div class="content-rank" style="display: flex;">
+                    			<span class="material-symbols-outlined me-2" style="color: #666;">counter_5</span>
+                    			<span>두부파스타 마라소스 and 방울소시지</span>
+                    		</div>
+                    	</div>
+                    </div>
+                    
+                    <div class="col-sm-12 col-md-6 col-xl-4" style="width: 25%;">
+                    	<div class="h-100 bg-light rounded p-4">
+                    		<h6 class="title-rank mb-0">건강식 Top 5</h6>
+                    		
+                    		<div class="content-rank">
+                    			<i class="fas fa-medal fa-lg me-2" style="color: #ffd60a;"></i>
+                    			두부파스타 레드커리 and 닭가슴살볼
+                    		</div>
+                    		<div class="content-rank">
+                    			<i class="fas fa-medal fa-lg me-2" style="color: #c2c2c2;"></i>
+                    			파스타 샐러드
+                    		</div>
+                    		<div class="content-rank">
+                    			<i class="fas fa-medal fa-lg me-2" style="color: #c49c48;"></i>
+                    			닭가슴살볼 깻잎가득 샐러드
+                    		</div>
+                    		<div class="content-rank" style="display: flex;">
+                    			<span class="material-symbols-outlined me-2" style="color: #666;">counter_4</span>
+                    			<span>닭가슴살볼 숯불갈비맛 샐러드</span>
+                    		</div>
+                    		<div class="content-rank" style="display: flex;">
+                    			<span class="material-symbols-outlined me-2" style="color: #666;">counter_5</span>
+                    			<span>닭가슴살 샐러드</span>
+                    		</div>
+                    	</div>
+                    </div>
+                    
+                    <div class="col-sm-12 col-md-6 col-xl-4" style="width: 25%;">
+                    	<div class="h-100 bg-light rounded p-4">
+                    		<h6 class="title-rank mb-0">프리미엄식 Top 5</h6>
+                    		
+                    		<div class="content-rank">
+                    			<i class="fas fa-medal fa-lg me-2" style="color: #ffd60a;"></i>
+                    			로제쉬림프치킨+두루치기 도시락
+                    		</div>
+                    		<div class="content-rank">
+                    			<i class="fas fa-medal fa-lg me-2" style="color: #c2c2c2;"></i>
+                    			명품 연잎밥 도시락
+                    		</div>
+                    		<div class="content-rank">
+                    			<i class="fas fa-medal fa-lg me-2" style="color: #c49c48;"></i>
+                    			뜨끈뜨끈 두루치기 도시락
+                    		</div>
+                    		<div class="content-rank" style="display: flex;">
+                    			<span class="material-symbols-outlined me-2" style="color: #666;">counter_4</span>
+                    			<span>VIP 도시락</span>
+                    		</div>
+                    		<div class="content-rank" style="display: flex;">
+                    			<span class="material-symbols-outlined me-2" style="color: #666;">counter_5</span>
+                    			<span>뜨끈뜨끈 소불고기 도시락</span>
+                    		</div>
+                    	</div>
+                    </div>
+                    
+                    <div class="col-sm-12 col-md-6 col-xl-4" style="width: 25%;">
+                    	<div class="h-100 bg-light rounded p-4">
+                    		<h6 class="title-rank mb-0">지점 매출 Top 5</h6>
+                    		
+                    		<div class="content-rank">
+                    			<i class="fas fa-medal fa-lg me-2" style="color: #ffd60a;"></i>
+                    			역삼동 한독빌딩점
+                    		</div>
+                    		<div class="content-rank">
+                    			<i class="fas fa-medal fa-lg me-2" style="color: #c2c2c2;"></i>
+                    			삼성동 트레이드타워점
+                    		</div>
+                    		<div class="content-rank">
+                    			<i class="fas fa-medal fa-lg me-2" style="color: #c49c48;"></i>
+                    			신사동 강남빌딩점
+                    		</div>
+                    		<div class="content-rank" style="display: flex;">
+                    			<span class="material-symbols-outlined me-2" style="color: #666;">counter_4</span>
+                    			<span>논현동 하림타워점</span>
+                    		</div>
+                    		<div class="content-rank" style="display: flex;">
+                    			<span class="material-symbols-outlined me-2" style="color: #666;">counter_5</span>
+                    			<span>대치동 동일타워점</span>
+                    		</div>
+                    	</div>
                     </div>
                     
                 </div>
