@@ -32,40 +32,62 @@
 		 	padding-left: 10px;
 		 	}
 		  .event-page-table-box{
+		  	border: 1px solid #999;
 		    text-align: left;
+		    border-bottom: 0px;
 		    }
 		    
 		      .event-page-table tr  th:nth-child(2) {
 			padding-left: 10px;
 			}
-		        .event-page-img > img{
-		        width: 80%;
-		        }
-		    
+			.event-page-img {
+				border: 1px solid #999;
+			}
+	        .event-page-img > img{
+	        	padding: 60px 0 60px 0;
+	        	width: 80%;
+	        }
+	        .event-page_padding{
+	        	border: 1px solid #999;
+	        }
+	        
+.event-page-title{
+font-family : 'Noto Sans KR', sans-serif;
+font-weight: 700;
+margin : 40px 0 40px 0;
+font-size: 28px;
+text-align:center;
+}
+.listbtn{
+	background: white;
+	border : 0px;
+	
+}		    
 </style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>
 	
-	<section class="order-container">
+	<section class="container">
 	
 	
 		<div>
 			<div class="event-page-title">
 				<span class="">EVENT</span>
-				<span class="evt-page-sp">이벤트</span>
+				<span class="evt-page-sp">이벤트 상세</span>
 			</div>
 			<div class= "event-page-table-box">
 				<table class="event-page-table">
 						<tr>
-							<td>제목</td>
+							<td>제&nbsp;&nbsp;목</td>
 							<td colspan="3">${eventdto.title}</td>
 						</tr>
+						
 						<tr>
 							<td>이벤트 기간</td>
 							<td>${eventdto.startdate.substring(0,10)} ~ ${eventdto.enddate.substring(0,10)}</td>
 							<td>조회수</td>
-							<td>${eventdto.count } </td>
+							<td style="width:100px;">${eventdto.count } </td>
 						</tr>		
 				</table>
 			</div> 
@@ -74,8 +96,8 @@
 				<img alt="" src="/dndn/resources/img/event/${eventdto.pic }">
 			</div>
 			<div>
-				<div class="event-page_padding">
-					<h2>유의사항</h2>
+				<div class="event-page_padding" style="border-top:0px;">
+					<h2 class="event-page-title">유의사항</h2>
 					<ul>
                         <li>- 첫 결제 즉시 캐시백은 토스 전체 가맹점에서 결제 이력이 없는 경우 적용됩니다. (토스 ID당 1회)</li>
                         <li>- 캐시백 선택사항에 생애 첫 결제 혜택이 보이지 않을 경우 대상이 아닙니다.</li>
@@ -143,8 +165,8 @@
 					</table>
 			</div>
 			
-			<div class="event-page_padding">
-				<input type="button" value="목록으로"  onclick="location.href='http://localhost:8092/dndn/order/event.do'">
+			<div class="event-page_padding" style="margin-top:30px;">
+				<input class="listbtn" type="button" value="목록으로"  onclick="location.href='/dndn/order/event.do'">
 			</div>
 			
 		</div>

@@ -29,11 +29,16 @@
 		color:black;
 	}
 	.place-item{
-		padding:20px 10px;
+		padding:20px 20px;
 	}	
 	.place-item:hover{
 		cursor:pointer;
 		background-color:#F1F3F4;
+	}
+	#main_title{
+		font-family : 'Noto Sans KR', sans-serif;
+		font-weight: 700;
+		margin : 20px 0 20px 0;
 	}
 </style>
 </head>
@@ -41,7 +46,7 @@
 	<!-- template.jsp -->
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>
 	<section class="container">
-		<h1>든든 지점</h1>
+		<h2 id="main_title">든든 지점</h2>
 		
 		<div id="mapcontainer">
 			<div id="map" style="width:800px;height:600px;"></div>
@@ -96,7 +101,7 @@ let m = null;
 	        var placeItem = $('<div style="border-bottom:1px solid #F1F3F4; width:250px;"></div>').addClass('place-item');
 	        placeItem.attr('data-lat', lat);
 	        placeItem.attr('data-lng', lng);
-	        var nameElement = $('<div style="font-size:22px;"></div>').text(name);
+	        var nameElement = $('<div style="font-size:22px; font-weight:500px; font-family : Noto Sans KR, sans-serif; "></div>').text(name);
 	        var addressElement = $('<div></div>').text(address);
 	        var telElement = $('<div></div>').text(tel);
 	

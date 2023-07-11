@@ -30,6 +30,11 @@
 		display:inline;
 		margin-top:15px;
 	}
+	.main_title{
+		font-family : 'Noto Sans KR', sans-serif;
+		font-weight: 700;
+		margin : 20px 0 20px 0;
+	}
 </style>
 
 </head>
@@ -37,7 +42,7 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>	
 	<sec:authorize access="isAnonymous()">
     <div class="container mt-3">
-		<h3><strong>회원가입</strong></h3>
+		<h3 class="main_title">회원가입</h3>
 		<form action="/dndn/auth/registerok.do" method="post" id="signupForm" >
 			<div>
 			    <label class="control-label" for="name">이름</label>
@@ -136,6 +141,7 @@
 	</div>
 	
 	</sec:authorize>
+	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 <script>
 

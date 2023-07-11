@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>오늘은 든든</title>
 <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 <link
   rel="stylesheet"
