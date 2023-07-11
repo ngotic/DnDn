@@ -24,7 +24,7 @@
 	pointer:cursor;
 	opacity:0.7;
 }
-table{
+.footer-area{
 	text-align:center;
 }
 </style>

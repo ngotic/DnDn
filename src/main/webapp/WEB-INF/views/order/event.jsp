@@ -12,9 +12,27 @@
 <link rel="stylesheet" href="/dndn/resources/css/order.css">
 <style>
 
-			
-				    
+.event-box  a img{
+	margin-bottom: 15px;
 
+}
+.order-container{
+	font-size:23px;
+}
+
+.event-btn {
+	font-family : 'Noto Sans KR', sans-serif;
+	font-weight: 600;
+	height: 65px;
+	font-size: 20px;
+	border : 2px solid #999;
+}
+.event-btn-box{
+    font-family : 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+	margin : 40px 0 20px 0;
+	font-size: 28px;
+}
 
 </style>
 </head>
@@ -23,7 +41,7 @@
 	<!-- template.jsp -->
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>
 
-	<section class="order-container">
+	<section class="container" style="max-width:100%;">
 		<div>
 			<div class="event-btn-box">
 				<div class="event-page-title">
@@ -33,9 +51,9 @@
 			</div>
 			<div class="event-btn-box"  >
 
-					<input type="button"  id="evt-btn1"  class="event-btn"  value="진행 이벤트"  onclick="location.href='./event.do?open_close=open'">
+					<input type="button"  id="evt-btn1"  class="event-btn"  value="진행 이벤트"  style= "height: 65px;" onclick="location.href='./event.do?open_close=open'">
 	
-					<input type="button"   id="evt-btn2" class="event-btn"  value= "종료 이벤트" onclick="location.href='./event.do?open_close=close'">
+					<input type="button"   id="evt-btn2" class="event-btn"  value= "종료 이벤트" style= "height: 65px;"onclick="location.href='./event.do?open_close=close'">
 
 				
 			</div>
@@ -61,14 +79,9 @@
 	
 						
 	</ul>
-
-
-
-
-
-	
 	</section>
-
+	
+<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
 <script>

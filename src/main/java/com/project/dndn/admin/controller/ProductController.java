@@ -16,18 +16,22 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
+	/*
 	@GetMapping("/admin/admin-main.do")
 	public String main(Model model) {
 
 		return "admin/admin-main";
 	}
-	
-	@GetMapping("/admin/test.do")
-	public String test(Model model) {
+	*/
 
-		return "admin/test";
+	
+	@PostMapping("/admin/admin-main.do")
+	public String homeToMain(Model model) {
+
+		return "admin/admin-main";
 	}
 
+	
 	@GetMapping("/admin/product.do")
 	public String list(Model model) {
 
@@ -99,7 +103,6 @@ public class ProductController {
 			
 		}
 	}
-	
 	
 
 }

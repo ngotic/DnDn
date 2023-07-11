@@ -80,7 +80,7 @@
     margin-top: 30px;
     font-family: var(--main-content-font-family);
     text-align: center;
-      
+	border: 1px solid #999;
     
     }
 	.event-content{
@@ -138,9 +138,11 @@
 		}
 		
 		.event-btn{	
-			width: 372px;
+			width: 250px;
 			    height: 40px;
 	  padding: 10px 25px;
+	  margin-top:40px;
+	  margin-bottom:40px;
 	      margin: 0px 0px;	
 	  border: 1mm ridge rgb(255 225 226 / 60%);
 	  font-family: 'Lato', sans-serif;
@@ -185,18 +187,18 @@
 	.evt-page-sp:before{
 			display: inline-block;
 	    width: 3px;
-	    height: 30px;
+	    height: 20px;
 	    background: #1a4e99;
 	    content: '';
 	    margin-right: 12px;
 	    margin-left: 12px;
 	}
 	.event-page-title{
-		font-size: 40px;
+		font-size: 28px;
 	}
 	.event-page-table{
 		height: 80px;
-		    text-align: left;
+		text-align: left;
 		width: 100%;
 		font-size: 15px;
 	}
@@ -236,8 +238,8 @@
     }
     
     .event-page_padding{
-    padding: 0px 70px;
-    margin-top: 25px;
+	    padding: 10px 70px;
+	    text-align: center;
     }
     
     .event-Slider{

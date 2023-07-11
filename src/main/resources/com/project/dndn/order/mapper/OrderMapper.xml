@@ -187,18 +187,25 @@ where tblorder.id = #{user_id}
 		</select>
 			
 			
-			<insert id="insertcoupon" parameterType="com.project.dndn.order.domain.OrderCouponDTO" >
+			<insert id="insertcoupon" parameterType="com.project.dndn.order.domain.OrderCouponDTO" useGeneratedKeys="true" keyProperty="couponseq">
 			
 			insert into tblcoupon (couponseq , name , sale, period)
 						values (couponseq.nextVal , #{name},#{sale}, sysdate+ ${period2})
+		
+			
 			
 			</insert>
 			
+			<insert id="coupon" parameterType="com.project.dndn.order.domain.OrderCouponDTO">
+			
+				
+			
+			</insert>
 
 						<insert id="addevent" parameterType="com.project.dndn.order.domain.OrderEventDTO" >
 			
 		       	insert into tblevent (eventseq ,title , startdate , enddate, sale,pic_board,pic,regdate,count)
-						values (eventseq.nextVal,#{title},#{startdate},#{enddate},#{sale},#{pic},#{pic_board},sysdate,0 )               
+						values (eventseq.nextVal,#{title},#{startdate},#{enddate},#{sale},#{pic_board},#{pic},sysdate,0 )               
                         
 			
 			</insert>
@@ -219,12 +226,13 @@ where tblorder.id = #{user_id}
 					
 				<update id="editevent" parameterType="com.project.dndn.order.domain.OrderEventDTO" >
 				    UPDATE tblevent
-						    SET Title = #{title},
-                                startdate = TO_DATE(#{startdate}, 'YYYY-MM-DD HH24:MI:SS'),
+				  
+						    SET    Title = #{title},
+                              startdate = TO_DATE(#{startdate}, 'YYYY-MM-DD HH24:MI:SS'),
                                 enddate = TO_DATE(#{enddate}, 'YYYY-MM-DD HH24:MI:SS'),
-                                sale = #{sale},
-                                pic_board=#{pic_board},
-                                pic = #{pic}
+                                sale = #{sale}
+                                <if test="#{pic_board} != null">,pic_board=#{pic_board}</if>
+                                <if test='#{pic} != null'>,pic = #{pic}</if>
 						   		 WHERE eventseq = #{eventseq}
 				</update>
 			

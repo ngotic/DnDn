@@ -2,6 +2,45 @@
 <!DOCTYPE html>
 
 <head>
+
+<style>
+	#form_1{
+	   margin: 30px;
+    padding: 0px;
+
+    border-radius: 10px;
+    margin-bottom: 20px;
+   
+    }
+    .screen2{
+	    padding: 50px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+        border:1px solid #00000029;
+    margin-bottom:30px;
+    }
+    	.screen4{
+	    padding: 50px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+    
+    margin-bottom:30px;
+    }
+    	#store_tbl1{
+    border:1px solid #00000029;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+        
+    padding: 50px;
+    }
+    .datatable-wrapper{
+       margin: 33px;
+    padding: 50px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+        border:1px solid #00000029;
+    }
+</style>
     <meta charset="utf-8">
     <title>든든</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -12,7 +51,7 @@
     <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="/dndn/resources/startbootstrap-sb-admin-gh-pages/css/styles.css" rel="stylesheet" />
-	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+	<!-- <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> -->
 	
 
     <!-- Favicon -->
@@ -37,12 +76,12 @@
     <!-- Template Stylesheet -->
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
 </head>
-
 <body>
     <div class="container-fluid position-relative bg-white d-flex p-0">
+<%@ include file="/WEB-INF/views/order/admin-sidebar.jsp" %>
         
         <!-- 사이드바 -->
-        <%@ include file="/WEB-INF/views/order/admin-sidebar.jsp" %>
+        
 
 
 
@@ -53,7 +92,7 @@
 			<!-- nav -->
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
 			
-			<form method="get"  style="padding: 50px 150px;">	
+			<form method="get"  id="form_1">	
 <div  class= " screen2 screenAll"   >
 		
 					<table class ="table table-hover" >
@@ -90,7 +129,7 @@
 					</table>
 
 				</div>
-			<div>
+			<div id="store_tbl1">
 				<table  class ="table table-hover" >
 						<tr>
 							<th>회원명</th>
@@ -244,10 +283,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/datatables-simple-demo.js"></script>
     
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
-
     
     
 </body>

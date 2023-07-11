@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dndn.admin.mapper.AdminStoreMapper">
+
+	<select id="storelist" resultType="com.project.dndn.admin.domain.AdminStoreDTO">
+		select storeseq, name, address, tel, lat, lng from tblstore order by storeseq asc
+	</select>
+
+</mapper>

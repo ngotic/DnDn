@@ -4,37 +4,18 @@
 <!DOCTYPE html>
 
 <head>
-<style>
 
-	.datatablesSimple tbody tr td:nth-child(3) input{
-	width: 100%;
-    height: 43px;
-    border: 0px;
-}
-#coupon_form div label {
-    text-align: left;
-}
-#coupon_form{
-display: block;
-    text-align: right;
-}
-
-
-
-
-</style>
     <title>든든</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+ <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    
-    <!--  -->
+	<link rel="stylesheet" href="/dndn/resources/css/order.css">
+	<!--  -->
     <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="/dndn/resources/startbootstrap-sb-admin-gh-pages/css/styles.css" rel="stylesheet" />
-	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+	<!-- <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> -->
 	
-
     <!-- Favicon -->
     <link href="/dndn/resources/bootstrap-admin-template-free/img/favicon.ico" rel="icon">
 
@@ -56,9 +37,52 @@ display: block;
 
     <!-- Template Stylesheet -->
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
+    
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
+    
+
+<style>
+
+	.datatablesSimple tbody tr td:nth-child(3) input{
+	width: 100%;
+    height: 43px;
+    border: 0px;
+}
+#coupon_form div label {
+    text-align: left;
+}
+#coupon_form{
+display: block;
+    text-align: right;
+}
+
+	#form_132{
+	    padding: 50px;
+	    width: 100%;
+    margin: 30px;
+    margin-left: 0px;
+    border:1px solid #00000029;
+    border-radius: 10px;
+    margin-bottom: 20px;
+   background-color: #f8f9fa !important;
+    }    
+    .datatable-wrapper{
+        padding: 50px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+    border:1px solid #00000029;
+
+ 
+    }
+    
+
+
+</style>
 </head>
 
-<body>
+<body><main>
+<%@ include file="/WEB-INF/views/include/asset.jsp" %>
+    
     <div class="container-fluid position-relative bg-white d-flex p-0">
         
         <!-- 사이드바 -->
@@ -72,12 +96,13 @@ display: block;
 
 			<!-- nav -->
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
+			
 			    <div style="padding: 50px 150px;">
 			                 <c:set var="addBoolean" value="${not empty param.add}" />
 	                            <c:set var="editBoolean" value="${not empty param.edit}" />
 	                            <c:set var="deleteBoolean" value="${not empty param.delete}" />
 		<c:if test="${ addBoolean}">
-		<form method="GET"  action="./coupon-add.do">            
+		<form method="GET"  action="./coupon-add.do" id="form_132">            
 			</c:if>
 			<c:if test="${editBoolean}">
 		<!-- <form   action="./coupon-edit.do" id="coupon_edit_form">         -->    
@@ -172,7 +197,7 @@ display: block;
                         </div>
                     </div>
                
-
+</main>
 					 	
 					
 					
@@ -181,7 +206,9 @@ display: block;
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <!-- <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a> -->
+    <!-- JavaScript Libraries -->
+    
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

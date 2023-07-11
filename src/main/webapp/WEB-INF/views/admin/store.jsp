@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<html>
+
 
 <head>
     <meta charset="utf-8">
@@ -8,8 +10,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
-	<!--  -->
+    
+    <!--  -->
     <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="/dndn/resources/startbootstrap-sb-admin-gh-pages/css/styles.css" rel="stylesheet" />
@@ -39,12 +41,12 @@
     
     
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
-   
+    
     
     
     <style>
-		
-		/* 추가 버튼 */
+    
+    	/* 추가 버튼 */
 		.add-button {
 			float: right;
     		width: 60px;
@@ -79,31 +81,59 @@
 			font-weight: 500;
 		}
 		
-		tbody > tr > td:nth-child(1), td:nth-child(2), 
-					 td:nth-child(3), td:nth-child(4), 
-					 td:nth-child(6), td:nth-child(7), td:nth-child(8) {
+		tbody > tr > td {
 			text-align: center;
 		}
-		
-		tbody > tr > td:nth-child(5) {
-			padding-right: 15px;
-			text-align: right;
-		}
-		
-		
-		/* 검색창 */
-		.datatable-input {
-			position: absolute;
-    		width: 550px;
-    		left: 290px;
-		}
-		
 		
 		label {
 			color: white;
 		}
-	
-	</style>
+		
+		.datatable-top {
+			display: flex;
+		}
+		
+		.datatable-search {
+			width: 60%;
+		}
+		
+		
+		
+		
+		#mapcontainer{
+			position: relative;
+			/* width:100%; */
+			height:700px;
+			margin-bottom:50px;
+		}
+		
+		#map{
+			position: absolute;
+			left:-20px;
+		}
+		
+		#storeinfo{
+			position: absolute;
+			left:780px;
+			transition:2s all;
+			padding-left:10px;
+			font-size:15px;
+			font-weight:bold;
+			color:black;
+		}
+		
+		.place-item{
+			padding:20px 10px;
+		}	
+		
+		.place-item:hover{
+			cursor:pointer;
+			background-color:#F1F3F4;
+		}
+    	
+    </style>
+    
+    
 </head>
 
 <body>
@@ -144,13 +174,13 @@
                     </div>
                     
                    
-                    <a href="/dndn/admin/store.do" class="nav-item nav-link" style="font-family: 'Noto Sans KR';">
+                    <a href="/dndn/admin/store.do" class="nav-item nav-link active" style="font-family: 'Noto Sans KR';">
                         <i class="fa fa-store me-2"></i>가맹점 관리
                     </a>
                                        
                     
 
-	                <a href="/dndn/admin/product.do" class="nav-item nav-link active" style="font-family: 'Noto Sans KR';">
+	                <a href="/dndn/admin/product.do" class="nav-item nav-link" style="font-family: 'Noto Sans KR';">
 	                    <i class="fa fa-bag-shopping me-2"></i>상품 관리
 	                </a>
 
@@ -198,60 +228,61 @@
 			<!-- nav -->
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
 			
-			
-			<section class="container">
 
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        
-                        <div class="card mb-4" style="border: none;">
+			<div class="container-fluid px-4" style="display: flex; justify-content: space-between; margin-top: 100px;">
+			
+			<div id="mapcontainer">
+							<div id="map" style="width:800px; height:600px; margin-left: 20px;"></div>
+							<!-- <div id="storeinfo" style="width:300px;height:500px;">
+								<div id="placelist">
+								</div>
+							</div> -->
+						</div>
+						<!-- <div>
+							<div id="placelist">
+							</div>
+						</div> -->
+			
+				<div class="card mb-4" style="border: none; width: 50%; margin-top: 100px;">
                             
                             <div class="card-body">
                             
                             <div>
                             	<button type="button" class="add-button" 
-                            			onclick="location.href='/dndn/admin/product-add.do';">추가</button>
+                            			onclick="location.href='/dndn/admin/store-add.do';">추가</button>
                             </div>
+                            
                             
                                 <table id="datatablesSimple" style="font-family: 'Noto Sans KR';">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>이미지</th>
                                             <th>이름</th>
-                                            <th>분류</th>
-                                            <th>가격</th>
-                                            <th>등록일</th>
-                                            <th>수정일</th>
+                                            <th>주소</th>
+                                            <th>번호</th>
+                                            <th>위도</th>
+                                            <th>경도</th>
                                             <th>관리</th>
                                         </tr>
                                     </thead>
                                     
 
                                     <tbody>
-	                                <c:forEach items="${list}" var="dto">
-	                                   <tr>
-	                                     <td>${dto.lunchboxseq}</td>
+	                                <c:forEach items="${storelist}" var="dto">
+	                                   <tr class="store-list">
+	                                     <td>${dto.storeseq}</td>
+	                                     <td>${dto.name}</td>
+	                                     <td>${dto.address}</td>
+	                                     <td>${dto.tel}</td>
+	                                     <td>${dto.lat}</td>
+	                                     <td>${dto.lng}</td>
 	                                     <td>
-	                                       <img alt="도시락" src="${dto.pic}" style="width: 50px; height: 50px;">
-	                                     </td>
-	                                     <td>
-	                                       <a href="/dndn/admin/product-view.do?lunchboxseq=${dto.lunchboxseq}">
-	                                         ${dto.name}
-	                                       </a>
-	                                     </td>
-	                                     <td>${dto.category}</td>
-	                                     <td>${dto.price}</td>
-	                                     <td>${dto.regdate}</td>
-	                                     <td>${dto.modidate}</td>
-	                                     <td>
-	                                       <button type="button" class="edit-button" onclick="location.href='/dndn/admin/product-edit.do?lunchboxseq=${dto.lunchboxseq}';">수정</button>
-	                                       <button type="button" class="del-button" data-bs-toggle="modal" data-bs-target="#exampleModalDel${dto.lunchboxseq}" onclick="f1(this)">삭제</button>
+	                                       <button type="button" class="edit-button" onclick="location.href='/dndn/admin/store-edit.do?storeseq=${dto.storeseq}';">수정</button>
+	                                       <button type="button" class="del-button" data-bs-toggle="modal" data-bs-target="#exampleModalDel${dto.storeseq}" onclick="f1(this)">삭제</button>
 	                                     </td>
 	                                 
-	                                     <!-- Modal -->
-	                                     <div class="modal fade" id="exampleModalDel${dto.lunchboxseq}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	                                     <%-- <!-- Modal -->
+	                                     <div class="modal fade" id="exampleModalDel${dto.storeseq}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	                                       <div class="modal-dialog modal-dialog-centered">
 	                                         <div class="modal-content">
 	                                         
@@ -261,45 +292,42 @@
 	                                           </div>
 	                                           
 	                                           <div class="modal-body">
-	                                             상품 이름: ${dto.name}<br>
-	                                             상품을 삭제하시겠습니까?
+	                                             가맹점 이름: #{dto.name}<br>
+	                                             가맹점을 삭제하시겠습니까?
 	                                           </div>
 	                                           
 	                                           <div class="modal-footer">
-	                                             <form method="POST" action="/dndn/admin/product-delok">
+	                                             <form method="POST" action="/dndn/admin/store-delok">
 	                                               <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	                                               <input type="hidden" name="id" value='<sec:authentication property="principal.username"/>'>
-	                                               <input type="hidden" name="lunchboxseq" value="${dto.lunchboxseq}">
+	                                               <input type="hidden" name="storeseq" value="${dto.storeseq}">
 	                                               <button type="submit" class="btn btn-primary">삭제</button>
 	                                             </form>
-	                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='/dndn/admin/product.do';">취소</button>
+	                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='/dndn/admin/store.do';">취소</button>
 	                                           </div>
 	                                           
 	                                         </div>
 	                                       </div>
-	                                     </div>
+	                                     </div> --%>
 	                                   </tr>
 	                                </c:forEach>
                                     </tbody>
 
                                 </table>
+                                
+							
                             </div>
                         </div>
+                        
                     </div>
-                </main>
-            </div>
-		</section>
-        </div>
-		
-		
             
         </div>
         <!-- Content End -->
 
-
     </div>
 
-    <!-- JavaScript Libraries -->
+
+	<!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/dndn/resources/bootstrap-admin-template-free/lib/chart/chart.min.js"></script>
@@ -319,16 +347,144 @@
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/scripts.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/datatables-simple-demo.js"></script>
-    
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
-    
-    
-    <script>
-	  function setLunchboxSeq(lunchboxSeq) {
-	    document.getElementById('lunchboxseqInput').value = lunchboxSeq;
+	
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	
+	
+	<script>
+	  function setstoreSeq(storeSeq) {
+	    document.getElementById('storeseqInput').value = storeSeq;
 	  }
 	</script>
-    
+	
+	<script type="	text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c837c78add7b31e526a1b98c5a9910f"></script>	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
+<script>
+var prevOverlay = null;
+var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+var options = { //지도를 생성할 때 필요한 기본 옵션
+	center: new kakao.maps.LatLng(${37.4992}, ${127.033}), //지도의 중심좌표.
+    level: 6 //지도의 레벨(확대, 축소 정도),
+};
+
+var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+let m = null;
+
+
+	// 마커가 표시될 위치입니다 
+	var markerPosition  = new kakao.maps.LatLng(${37.4992}, ${127.033}); 
+	var imageSrc = '/dndn/resources/img/pngwing.com.png'; // 마커이미지의 주소입니다 
+	var imageSize = new kakao.maps.Size(65, 65); // 마커이미지의 크기입니다
+	var imageOption = {offset: new kakao.maps.Point(25, 50)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+	  
+	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);	
+	const ms=[];
+	$(document).ready(function(){
+			
+
+		// 각 장소에 대한 정보를 가져와 목록에 추가하는 함수
+		  function addPlaceToList(name, address, tel, lat, lng, customOverlay) {
+	
+	        placeItem.on('click', function() {
+	        	
+	            var position = new kakao.maps.LatLng(lat, lng);
+	            map.panTo(position);
+	            for (var i = 0; i < ms.length; i++) {
+	                if (ms[i].getPosition().getLat() === lat && ms[i].getPosition().getLng() === lng) {
+	                    ms[i].setMap(map);
+	                    break;
+	                }
+	            }
+	            $('.store-list').css('background-color', 'transparent');
+	            $(this).css('background-color', '#F1F3F4');
+	            if (prevOverlay) {
+	                prevOverlay.setMap(null);
+	            }
+	            customOverlay.setMap(map);
+	            prevOverlay = customOverlay;
+
+	            // 마우스오버 이벤트 핸들러 제거
+	            $('.place-item').not(this).off('mouseover');
+	            
+	        });
+	        placeItem.on('mouseover',function(){
+	        	var position = new kakao.maps.LatLng(lat, lng);
+	        	 map.panTo(position);
+	        	 for (var i = 0; i < ms.length; i++) {
+		                if (ms[i].getPosition().getLat() === lat && ms[i].getPosition().getLng() === lng) {
+		                    ms[i].setMap(map);
+		                    break;
+		                }
+		            }
+	            $('.place-item').css('background-color', 'transparent');
+	            $(this).css('background-color', '#F1F3F4');
+	            if (prevOverlay) {
+	                prevOverlay.setMap(null);
+	            }
+	            customOverlay.setMap(map);
+	            prevOverlay = customOverlay;
+	        });
+	    }
+	  
+		
+		<c:forEach items="${storelist}" var="dto" varStatus="status">
+		content${status.count}='<div class="overlaybox" style="background-color:white; width:240px; height:70px;border-radius:10px;">' +
+	    '    <table class="first" style="padding: auto auto;"><tr><td><img src="/dndn/resources/img/logo_short.png" style="margin-left:7px;margin-right:7px;margin-top:5px;width:50px; height:50px;"></td>' +
+	    '<td style="padding-top:5px;"><span>${dto.name}</span><br><span>${dto.address}</span><br><span>tel: ${dto.tel}</span></td></tr></table>' +
+	    '</div>'; 
+		let p${status.count} = new kakao.maps.LatLng(${dto.lat},${dto.lng});
+		
+		let m${status.count} = new kakao.maps.Marker({
+			position: p${status.count},
+			image: markerImage
+		});
+		var customOverlay${status.count}=new kakao.maps.CustomOverlay({
+		    position : p${status.count},
+		    content : content${status.count},
+		    xAnchor: 0.47,
+		    yAnchor: 1.65
+		});
+		
+		  /* kakao.maps.event.addListener(m${status.count}, 'click', function(mouseEvent) {
+			  var position = new kakao.maps.LatLng(${dto.lat}, ${dto.lng});
+			  map.panTo(p${status.count}); // 부드럽게 이동
+			  // 선택된 장소에 배경색 적용
+			  $('.place-item').css('background-color', 'transparent'); // 모든 장소 초기화
+			  $('.place-item[data-lat="${dto.lat}"][data-lng="${dto.lng}"]').css('background-color', '#F1F3F4'); // 선택된 장소에 배경색 적용
+			  
+			  if (prevOverlay) {
+		          prevOverlay.setMap(null); // 이전 cusstomOverlay를 지도에서 제거
+		        }
+			  customOverlay${status.count}.setMap(map);
+			  prevOverlay = customOverlay${status.count}; 
+		});  
+		 kakao.maps.event.addListener(m${status.count}, 'mouseover', function() {   
+			customOverlay${status.count}.setMap(map);
+		});
+		kakao.maps.event.addListener(m${status.count}, 'mouseout', function() {      
+			if (prevOverlay !== customOverlay${status.count}) {
+		        customOverlay${status.count}.setMap(null);
+		    } 
+		});  */
+		
+		m${status.count}.setMap(map);
+		
+		ms.push(m${status.count});
+		/* $('#list td').css('background-color','transparent');
+		$(this).css('background-color','gold');
+		
+		
+		addPlaceToList('${dto.name}', '${dto.address}', '${dto.tel}', ${dto.lat}, ${dto.lng},customOverlay${status.count}); */
+		</c:forEach>
+	});
+	
+	
+	
+
+</script>
+
     
 </body>
 

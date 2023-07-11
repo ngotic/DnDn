@@ -4,12 +4,15 @@
 <!DOCTYPE html>
   
 <head>
+
+
+
     <meta charset="utf-8">
     <title>든든</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-<link rel="stylesheet" href="/dndn/resources/css/order.css">
+	<link rel="stylesheet" href="/dndn/resources/css/order.css">
 	<!--  -->
     <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
@@ -38,7 +41,7 @@
     <!-- Template Stylesheet -->
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
     
-    
+<!--      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
     
     <style>
 		
@@ -290,11 +293,29 @@ tr td {
 	font-size: 15px;
 	}
   
+
+    .screen6{
+	   
+    background-color: #f8f9fa !important;
+
+    
+    margin-bottom:30px;
+    }
+.card-body{
+	    padding: 50px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+    
+    margin-bottom:30px;
+}
+.card-body{
+width: 88%;
+}
 </style>
-    <%@ include file="/WEB-INF/views/include/asset.jsp" %>
+    
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="/dndn/resources/startbootstrap-sb-admin-gh-pages/css/styles.css" rel="stylesheet" />
-	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+	<!-- <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> -->
 	
 
     <!-- Favicon -->
@@ -319,10 +340,10 @@ tr td {
     <!-- Template Stylesheet -->
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
 </head>
-
-
+<main>
 
 <body style=" height: 100%;">
+<%@ include file="/WEB-INF/views/include/asset.jsp" %>
     <div class="container-fluid position-relative bg-white d-flex p-0">
         
         <!-- 사이드바 -->
@@ -336,7 +357,7 @@ tr td {
 
 			<!-- nav -->
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
-<main>
+
 		<div>
 			<section class=" admin-page" style="    margin-left: 145px;">
 		
@@ -560,12 +581,12 @@ tr td {
 					</div>
 					
 					<div >
-				<form method="POST" action="/dndn/order/event-management1.do" enctype="multipart/form-data"  style="margin-top: 0px;
+				<form method="POST" action="/dndn/order/event-management2.do" enctype="multipart/form-data"  style="margin-top: 0px;
     height: 100%;'">  
 				 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
                 		     <%-- <sec:authentication property="principal.member.id"/> --%>
 				<input type="hidden" name="edit" value="ture">
-					<input type="hidden" name="event_seq" value="${event_seq }">
+					<input type="hidden" name="event_seq" value="${eventdto.eventseq }">
 	 					<table id="table_2">
 			
 						<tr>
@@ -598,9 +619,9 @@ tr td {
 						</tr>
 
 						<tr>
-								<td colspan="3"><input type="file"  id = "event_pic1" name="pic"  value="${eventdto.pic}" onchange="readURL(this);" style="padding-top: 8px;"></td>
-								<td colspan="2"><input type="file"  id = "event_pic2"  name="pic_board" value="${eventdto.pic_board}" onchange="readURL2(this);"  style="padding-top: 8px;"></td>
-								 <td style="padding: 0px;"><input type="submit"  id="event_add_btn"  value="추가" style="height: 100%;"></td>
+								<td colspan="3"><input type="file"  id = "event_pic1" name="pic"  value= "${eventdto.pic}"onchange="readURL(this);" style="padding-top: 8px;"></td>
+								<td colspan="2"><input type="file"  id = "event_pic2"  name="pic_board" value= "${eventdto.pic_board}" onchange="readURL2(this);"  style="padding-top: 8px;"></td>
+								 <td style="padding: 0px;"><input type="submit"  id="event_add_btn"  value="수정" style="height: 100%;"></td>
 						</tr>
 
 					 </table>
@@ -621,9 +642,9 @@ tr td {
                 
                     <div class="container-fluid px-4 ">
                         
-                        <div class="card mb-4" style="border: none;" id="event-table">
+                        <div class="card mb-4" style="border: none; width:104%; margin-left: -25px; " id="event-table">
                             
-                            <div class="card-body">
+                            <div class="card-body" style=" border:1px solid #00000029;">
                                <span>이벤트 리스트</span> 
                                
                                <div>
@@ -639,7 +660,7 @@ tr td {
                               <th>등록일</th>
                               <th>시작날짜</th>
                               <th>종료날짜</th>
-                              <th>할인률</th>
+                              <th>할인율</th>
                               
                               <th>이벤트 사진</th>
                                     		</tr>
@@ -771,7 +792,7 @@ tr td {
 			</div>
 
 		</div>
-		                </main>
+		              
 		</div>
         <!-- Content End -->
 
@@ -779,7 +800,7 @@ tr td {
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
-
+  </main>
 
 
 

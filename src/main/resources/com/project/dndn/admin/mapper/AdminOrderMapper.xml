@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dndn.admin.mapper.AdminOrderMapper">
+
+	<select id="orderlist" resultType="com.project.dndn.admin.domain.AdminOrderDTO">
+		select orderseq, id, price, orderdate, payment from tblorder where ispay = 'T' order by orderseq desc
+	</select>
+
+</mapper>

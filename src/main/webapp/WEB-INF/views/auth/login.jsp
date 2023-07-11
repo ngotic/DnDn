@@ -25,13 +25,17 @@
             align-items: center;
         }
         #pagename{
-        width: 60%;
-        margin: auto;
+         font-family : 'Noto Sans KR', sans-serif;
+         
+         
+         width: 60%;
+         margin: auto;
          margin-top:30px;
          font-weight:bold;
          color:black;
         }
         #loginWrapper{
+        	font-family: 'Pretendard-Regular';
             margin: AUTO;
             display: flex;
             position:relative;
@@ -41,6 +45,7 @@
             text-align: left;
             border: 1px solid #EEEEEE;
             border-top: 1px solid black;
+            margin-bottom: 50px;
         }
 
         #loginProcess{
@@ -103,14 +108,22 @@
        #socialLoginWrapper{
        		position: absolute;
        		bottom:70px;
-       		left: 130px;
+       		left: 85px;
        }
-       
+       #kakaoLogin{
+       width:200px;
+       }
+       .main_title{
+		font-family : 'Noto Sans KR', sans-serif;
+		font-weight: 700;
+		margin : 20px 0 20px 0;
+		color: #777;
+	  }
 </style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>	
-	<div id="pagename"> <h2>로그인</h2></div>
+	<div id="pagename"> <h2 class="main_title">로그인</h2></div>
 	<%
 	    String errorParam = request.getParameter("error");
 	    String passwordClass = "";
@@ -168,11 +181,12 @@
         <div id="socialLoginWrapper">
         	<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3e25d1471c8b89b2e37d2bc1eb786e27&redirect_uri=	
 http://localhost:8091/dndn/kakao&response_type=code">
-			    <img alt="kakaoLogin" src="/dndn/resources/img/kakao_login_medium_narrow.png">
+			    <img alt="kakaoLogin" id="kakaoLogin" src="/dndn/resources/img/kakao_login_medium_narrow.png">
 			    <!-- ///dndn/resources/img/logo_edit.png -->
 			</a>
         </div>
     </fieldset>
+    <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
 </script>

@@ -30,6 +30,11 @@
 		display:inline;
 		margin-top:15px;
 	}
+	.main_title{
+		font-family : 'Noto Sans KR', sans-serif;
+		font-weight: 700;
+		margin : 20px 0 20px 0;
+	}
 </style>
 
 </head>
@@ -37,7 +42,7 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>	
 	<sec:authorize access="isAnonymous()">
     <div class="container mt-3">
-		<h3><strong>회원가입</strong></h3>
+		<h3 class="main_title">회원가입</h3>
 		<form action="/dndn/auth/registerok.do" method="post" id="signupForm" >
 			<div>
 			    <label class="control-label" for="name">이름</label>
@@ -48,13 +53,13 @@
 			
 			<div>
 				<label class="control-label" for="id">아이디</label>
-				<input class="form-control" type="text" name="id" id="id" onchange="characterCheck(this);" required/>
+				<input class="form-control" type="text" name="id" id="id" maxlength="12" placeholder="6자-12자 입력" onchange="characterCheck(this);" required/>
 				<div class="valid-feedback">사용 가능한 아이디 입니다.</div>
 				<div class="invalid-feedback">사용 불가능한 아이디입니다.</div>
 			</div>
 			<div>
 				<label class="control-label" for="pw">비밀번호</label>
-				<input class="form-control" type="password" name="pw" id="pw" required/>
+				<input class="form-control" type="password" name="pw" id="pw" placeholder="6자-12자 입력" maxlength="12" required/>
 				<div class="valid-feedback">사용 가능합니다</div>
 				<div class="invalid-feedback">비밀번호를 확인해주세요</div>
 			</div>
@@ -136,8 +141,17 @@
 	</div>
 	
 	</sec:authorize>
+	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 <script>
+
+var inputElement = document.getElementById('pw');
+inputElement.addEventListener('pw', function() {
+  if (this.value.length < 6) {d
+    // 최소 길이 조건을 충족하지 않을 때의 처리
+    // 예: 경고 메시지 표시, 유효성 검사 등
+  }
+});
 
 $("#signupForm").submit(function(event) {
     event.preventDefault();
@@ -175,7 +189,7 @@ $("#signupForm").submit(function(event) {
         	});
         },
         error: function(xhr, status, error) {
-        	new Swal('가입 실패', 'error');
+        	new Swal('Error','가입 실패', 'error');
         }
     });
 });
@@ -202,11 +216,17 @@ function characterCheck(obj) {
             xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}'); // CSRF 토큰 헤더에 추가
         },
         success:function(data){
-        	
         	if(data==null||data===''){
-	        	$('#id').addClass("is-valid");
-	        	$('#id').removeClass("is-invalid");
+        		if($('#id').val().length>=6){
+        			$('#id').addClass("is-valid");
+		        	$('#id').removeClass("is-invalid");
+        		}
+        		else{
+		        	$('#id').addClass("is-invalid");
+		        	$('#id').removeClass("is-valid");
+        		}
 	        }else{
+	        	console.log(data);
 	        	$('#id').removeClass("is-valid");
 	        	$('#id').addClass("is-invalid");
 	        }
@@ -336,7 +356,7 @@ $('#email').on("focusout", function() {
     }
 });
 $('#pw').on("focusout", function() {
-	if($('#pw').val().length===0){
+	if($('#pw').val().length<6){
 		$('#pw').removeClass("is-valid");
 		$('#pw').addClass("is-invalid");
 	}

@@ -47,7 +47,7 @@ public interface OrderMapper {
 
 	ArrayList<OrderCouponDTO> couponlist();
 
-	void insertcoupon(OrderCouponDTO dto);
+	int insertcoupon(OrderCouponDTO dto);
 
 	void updatecoupon(OrderCouponDTO dto);
 
@@ -60,6 +60,8 @@ public interface OrderMapper {
 	void editevent(OrderEventDTO dto);
 
 	void addevent(OrderEventDTO dto);
+
+	void coupon(OrderCouponDTO dto);
 		
 	
 	
