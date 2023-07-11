@@ -102,7 +102,7 @@
 		
 		#mapcontainer{
 			position: relative;
-			/* width:100%; */
+			width:70%;
 			height:700px;
 			margin-bottom:50px;
 		}
@@ -232,7 +232,7 @@
 			<div class="container-fluid px-4" style="display: flex; justify-content: space-between; margin-top: 100px;">
 			
 			<div id="mapcontainer">
-							<div id="map" style="width:800px; height:600px; margin-left: 20px;"></div>
+							<div id="map" style="width:100%; height:80%; margin-top:60px;" ></div>
 							<!-- <div id="storeinfo" style="width:300px;height:500px;">
 								<div id="placelist">
 								</div>

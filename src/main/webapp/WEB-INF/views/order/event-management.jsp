@@ -349,8 +349,6 @@ width: 88%;
         <!-- 사이드바 -->
         <%@ include file="/WEB-INF/views/order/admin-sidebar.jsp" %>
 
-
-
         <!-- Content Start -->
         <div class="content">
             
@@ -370,7 +368,7 @@ width: 88%;
 	                            <c:set var="deleteBoolean" value="${not empty param.delete}" />
 
 				<!-- 이벤트 조회 메뉴 스크린 -->
-			<div  class= " screen3 screen-width-88 event-screen3" >
+			<div  class= " screen3 screen-width-88 event-screen3" style="margin-top:60px;">
 					<c:if test="${!addBoolean && !editBoolean}">
 				<div class="screen6" >
 				
