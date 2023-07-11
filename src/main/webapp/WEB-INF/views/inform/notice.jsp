@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/views/include/asset.jsp" %>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="/dndn/resources/css/notice_ahyun.css">
 <style>
 .board-pagination {
@@ -62,7 +63,10 @@
        
     }
     
-    .pagination-container {
+.pagination-container {
+	display:flex;
+	justify-content: center;
+
   margin: 50px auto;
   text-align: center;
 }
@@ -77,6 +81,7 @@
   font-size: 1rem;
   padding: 8px 16px 10px;
 }
+
 .pagination td:before {
   z-index: -1;
   position: absolute;
@@ -90,32 +95,32 @@
   transform: scale(0);
   transition: all 0.2s;
 }
-/* 
-.pagination tr:nth-child(n):hover, {
-.pagination tr:nth-child(n) .pagination-active {
-  color: #fff;
-}
- */
+
+
 .pagination td:hover,
-.pagination td .pagination-active {
+ .pagination-active {
   color: #fff;
 }
-.pagination td:hover:before,
-.pagination td .pagination-active:before {
+ 
+ 
+.pagination td .pagination-active {
   transform: scale(1);
 }
+
 .pagination .pagination-active {
   color: #fff;
 }
+
+
 .pagination .pagination-active:before {
   transform: scale(1);
 }
+ 
 .pagination-newer {
   margin-right: 50px;
 }
 .pagination-older {
-  margin-left: 50px;
-}
+} 
 
 .page-side {
 	display:flex;
@@ -133,7 +138,7 @@ a {
 
 .main-list {
 	
-	background-color: #eee;
+	background-color: #F6F6F6;
 
 }
 
@@ -142,6 +147,10 @@ a {
 	color: tomato;
 	
 }
+
+	.footer-area {
+		transform: translateY(250%);
+	}
     
 
 
@@ -151,22 +160,26 @@ a {
    <!-- template.jsp -->
    <%@ include file="/WEB-INF/views/include/header.jsp" %>
    <section class="container">
-      
+      <fieldset>
       <%@ include file="/WEB-INF/views/inform/inform_sidebar.jsp" %>
       <div class="mainbar">
          <div class="notice-header">
             <span class="bold">공지사항</span>
          </div>
          <div class="notice-under">
-            <div class="add-side">
-               <input type="button" class="btn add-btn" value="글쓰기" onclick="location.href='/dndn/inform/notice_add.do';">
-            </div>
-            
-            <div class="board-search search-bar">
-               <input type="text" id="search-input" class="form-control form-control-sm" placeholder="검색어를 입력하세요">
-          	   <button id="search-button" class="search-btn btn btn-sm" style="margin-left: 10px;">검색</button>
-          </div>
-         </div>
+            <div style="display: flex; justify-content: space-between">
+					<div class="add-side">
+						<input type="button" class="btn add-btn" value="글쓰기"
+							onclick="location.href='/dndn/inform/notice_add.do';">
+					</div>
+
+					<div class="board-search search-bar">
+						<input type="text" id="search-input"
+							class="form-control form-control-sm" placeholder="검색어를 입력하세요">
+						<button id="search-button" class="search-btn btn btn-sm"
+							style="margin-left: 10px;">검색</button>
+					</div>
+				</div>
         
          <div class="notice-side">
             <table class="notice-table" id="board-posts" style="width:100%;">
@@ -190,7 +203,7 @@ a {
          <div class="pagination-container">
             <table class="pagination">
                  <tr>
-                 <td class="pagination-active .pagination-newer" id="previous">&lt;</td>
+                 	<td class="pagination-active .pagination-newer" id="previous">&lt;</td>
                    <td id="page-numbers"></td>
                    <td class="pagination-active pagination-older" id="next">&gt;</td>
                  </tr>
@@ -198,7 +211,9 @@ a {
          </div>
       
       </div>   <!-- mainbar -->
+     </fieldset>
    </section>   
+    <%@ include file="/WEB-INF/views/include/footer.jsp" %>
    
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>    
@@ -207,6 +222,7 @@ var noticelist = [
     // noticelist 배열에 데이터를 추가해주세요
     <c:forEach items="${noticelist}" var="dto" varStatus="status">
       {
+    	rnum: '${dto.rnum}',
         noticeseq: '${dto.noticeseq}',
         title: '${dto.title}',
         regdate: '${dto.regdate}',
@@ -240,14 +256,16 @@ function renderPosts() {
   boardPosts.innerHTML = `
     <tr class="table-head">
       <th class="th-bold" style="width:10%;">번호</th>
-      <th class="th-bold" style="width:45%;">제목</th>
-      <th class="th-bold" style="width:20%;">날짜</th>
+      <th class="th-bold" style="width:50%;">제목</th>
+      <th class="th-bold" style="width:15%;">날짜</th>
       <th class="th-bold" style="width:15%;">작성자</th>
       <th class="th-bold" style="width:10%;">조회수</th>
     </tr>
    	<c:forEach items="${mainlist}" var="dto">
     <tr class="main-list">
-       <td>${dto.noticeseq}</td>
+       <td><span class="material-symbols-outlined">
+       priority_high
+       </span></td>
        <td class="notice-title"><a href="/dndn/inform/view.do?noticeseq=${dto.noticeseq }">${dto.title} </a></td>
        <td>${dto.regdate} </td>
        <td>${dto.id} </td>
@@ -256,20 +274,6 @@ function renderPosts() {
     </c:forEach>
   `;
 
-/*   
-  var mainPosts = document.getElementById('board-posts');
-  mainPosts.innerHTML = `
-   	<c:forEach items="${mainlist}" var="dto">
-      <tr class="main-list">
-         <td>${dto.noticeseq}</td>
-         <td class="notice-title"><a href="/dndn/inform/view.do?noticeseq=${dto.noticeseq }&pageNo=${page.pageNo}">${dto.title} </a></td>
-         <td>${dto.regdate} </td>
-         <td>${dto.id} </td>
-         <td>${dto.views }</td>
-      </tr>
-      </c:forEach>
-  `;
- */
   
   for (var i = startIndex; i < endIndex; i++) {
     if (filteredNoticelist[i]) {
@@ -277,7 +281,7 @@ function renderPosts() {
       tr.className = 'boards';
 
       var td1 = document.createElement('td');
-      td1.textContent = filteredNoticelist[i].noticeseq;
+      td1.textContent = filteredNoticelist[i].rnum;
       tr.appendChild(td1);
 
       var td2 = document.createElement('td');
@@ -285,6 +289,7 @@ function renderPosts() {
       link.href = '/dndn/inform/view.do?noticeseq=' + filteredNoticelist[i].noticeseq;
       link.textContent = filteredNoticelist[i].title;
       td2.appendChild(link);
+      td2.classList.add('notice-title');
       tr.appendChild(td2);
 
       var td3 = document.createElement('td');
@@ -304,6 +309,8 @@ function renderPosts() {
   }
 }
 
+
+/*
 function renderPagination() {
   var pageNumbers = document.getElementById('page-numbers');
   pageNumbers.innerHTML = '';
@@ -325,6 +332,139 @@ function renderPagination() {
     pageNumbers.appendChild(td);
   }
 }
+*/
+
+
+/*
+function renderPagination() {
+	  var pageNumbers = document.getElementById('page-numbers');
+	  pageNumbers.innerHTML = '';
+
+
+	  for (var i = 1; i <= totalPages; i++) {
+	    var td = document.createElement('td');
+	    td.textContent = i;
+
+	    if (i == currentPage) {
+	      td.classList.add('pagination-active');
+	    }
+	    
+	    
+	    td.addEventListener('mouseover', function () {
+	    		
+		      currentPage = parseInt(this.textContent);
+
+		      var tdList = document.querySelectorAll('.pagination td');
+		      tdList.forEach(function (item) {
+		        item.classList.remove('pagination-active');
+		      });
+		      this.classList.add('pagination-active');
+	    });
+
+	    td.addEventListener('click', function () {
+	      currentPage = parseInt(this.textContent);
+	      renderPosts();
+	      renderPagination();
+
+	      // 개별 td에 CSS 클래스 추가
+	      var tdList = document.querySelectorAll('.pagination td');
+	      tdList.forEach(function (item) {
+	        item.classList.remove('pagination-active');
+	      });
+	      this.classList.add('pagination-active');
+	    });
+
+	    pageNumbers.appendChild(td);
+	  }
+
+	}
+*/
+
+/*
+function renderPagination() {
+	  var pageNumbers = document.getElementById('page-numbers');
+	  pageNumbers.innerHTML = '';
+
+	  for (var i = 1; i <= totalPages; i++) {
+	    var td = document.createElement('td');
+	    td.textContent = i;
+
+	    if (i === currentPage) {
+	      td.classList.add('pagination-active');
+	    }
+
+	    td.addEventListener('mouseover', function () {
+	      var tdList = document.querySelectorAll('.pagination td');
+	      tdList.forEach(function (item) {
+	        item.classList.remove('pagination-active');
+	      });
+	      this.classList.add('pagination-active');
+	    });
+
+	    td.addEventListener('click', function () {
+	      currentPage = parseInt(this.textContent);
+	      renderPosts();
+	      renderPagination();
+
+	      var tdList = document.querySelectorAll('.pagination td');
+	      tdList.forEach(function (item) {
+	        item.classList.remove('pagination-active');
+	      });
+	      this.classList.add('pagination-active');
+	    });
+
+	    pageNumbers.appendChild(td);
+	  }
+	}
+*/
+
+function renderPagination() {
+	  var pageNumbers = document.getElementById('page-numbers');
+	  pageNumbers.innerHTML = '';
+
+	  for (var i = 1; i <= totalPages; i++) {
+	    var td = document.createElement('td');
+	    td.textContent = i;
+
+	    
+	    
+	    if (i === currentPage) {
+	      td.classList.add('pagination-active');
+	    }
+	    
+
+	    td.addEventListener('mouseover', function () {
+	      var tdList = document.querySelectorAll('#page-numbers td');
+	      tdList.forEach(function (item) {
+	        item.classList.remove('pagination-active');
+	      });
+	      this.classList.add('pagination-active');
+	    });
+
+	    
+	    td.addEventListener('click', function () {
+	      currentPage = parseInt(this.textContent);
+	      renderPosts();
+	      renderPagination();
+
+	      var tdList = document.querySelectorAll('page-numbers td');
+	      tdList.forEach(function (item) {
+	        item.classList.remove('pagination-active');
+	      });
+	      this.classList.add('pagination-active');
+	    });
+
+	    pageNumbers.appendChild(td);
+	  }
+	}
+
+
+
+
+
+
+
+
 
 var searchButton = document.getElementById('search-button');
 searchButton.addEventListener('click', function () {
@@ -353,6 +493,10 @@ nextArrow.addEventListener('click', function () {
 
 renderPosts();
 renderPagination();
+
+
+
+
 </script>
 </body>
 </html>

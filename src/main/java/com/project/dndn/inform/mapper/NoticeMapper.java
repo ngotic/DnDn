@@ -38,6 +38,8 @@ public interface NoticeMapper {
 	int mainquit(NoticeDTO dto);
 
 	List<NoticeDTO> faqlist(FaqDTO dto);
+
+	List<FaqDTO> categorylist(String category);
 	
 	
 	

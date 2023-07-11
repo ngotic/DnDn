@@ -43,6 +43,8 @@ public interface NoticeService {
 
 	List<NoticeDTO> faqlist(FaqDTO dto);
 
+	List<FaqDTO> categorylist(String category);
+
 
 
 

@@ -202,12 +202,13 @@
 	
 	.notice-title {
 		text-align: left;
-		padding-left: 10px;
+		padding-left: 20px;
 	}
 	
 	.notice-title a {
 		text-decoration: none;
 		color: #333;
+		padding-left: 10px;
 	}
 
 	.notice-title a:hover {
