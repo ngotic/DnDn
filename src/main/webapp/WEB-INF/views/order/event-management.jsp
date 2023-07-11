@@ -38,7 +38,7 @@
     <!-- Template Stylesheet -->
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
     
-    
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     
     <style>
 		
@@ -336,7 +336,7 @@ tr td {
 
 			<!-- nav -->
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
-
+<main>
 		<div>
 			<section class=" admin-page" style="    margin-left: 145px;">
 		
@@ -450,9 +450,9 @@ tr td {
 				 
 					<div>
 						<p>이벤트 썸네일</p>
-						<%-- <input class= "order-event-image" type="image"  src="/dndn/resources/img/event/${eventdto.pic_board} "  > --%>
+						 <%-- <input class= "order-event-image" type="image"  src="/dndn/resources/img/event/${eventdto.pic_board} "  > --%>
 						
-						<img class="order-event-image"  id ="modal_img1" src=""  >
+						<img class="order-event-image"  id ="modal_img1" src="/dndn/resources/img/event/${eventdto.pic_board}"  >
 					
 				
 							<div class="modal" id="event_modal1">
@@ -464,7 +464,7 @@ tr td {
 					</div>
 					<div>
 						<p>이벤트 콘텐츠</p>
-						<img class="order-event-image"  id ="modal_img2" src=""  >
+						<img class="order-event-image"  id ="modal_img2" src="/dndn/resources/img/event/${eventdto.pic}"  >
 						<div class="modal" id="event_modal2" >
 							  <span class="close">&times;</span>
 							  <img class="modal_content" id="img02">
@@ -537,7 +537,7 @@ tr td {
 						<p>이벤트 썸네일</p>
 						<%-- <input class= "order-event-image" type="image"  src="/dndn/resources/img/event/${eventdto.pic_board} "  > --%>
 						
-						<img class="order-event-image"  id ="modal_img1" src=""  >
+						<img class="order-event-image"  id ="modal_img1" src="/dndn/resources/img/event/${eventdto.pic_board}"  >
 					
 				
 							<div class="modal" id="event_modal1">
@@ -549,7 +549,7 @@ tr td {
 					</div>
 					<div>
 						<p>이벤트 콘텐츠</p>
-						<img class="order-event-image"  id ="modal_img2" src=""  >
+						<img class="order-event-image"  id ="modal_img2" src="/dndn/resources/img/event/${eventdto.pic}"  >
 						<div class="modal" id="event_modal2" >
 							  <span class="close">&times;</span>
 							  <img class="modal_content" id="img02">
@@ -633,6 +633,7 @@ tr td {
                          
                                 <table id="datatablesSimple">
                                     <thead>
+                                    <tr>
                               <th>이벤트번호</th>
                               <th>이벤트이름</th>
                               <th>등록일</th>
@@ -641,6 +642,7 @@ tr td {
                               <th>할인률</th>
                               
                               <th>이벤트 사진</th>
+                                    		</tr>
                                     		
 							 <c:if test="${deleteBoolean}">
 							<th></th>
@@ -716,7 +718,7 @@ tr td {
 					    <button type="submit">추가</button>
 					</form> --%>
                     
-                </main>
+
 
 				
 			</div>
@@ -764,15 +766,12 @@ tr td {
 		
 		
 			<div id="event_modal">
-				test
+
 					<a class="event_modal_close" >닫기</a>
 			</div>
-			
-			<button id = "event_modal_open">미리보기</button>
-		
-			
+
 		</div>
-		
+		                </main>
 		</div>
         <!-- Content End -->
 
@@ -785,7 +784,7 @@ tr td {
 
 
 
-    JavaScript Libraries
+
     
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -799,7 +798,7 @@ tr td {
     <script src="/dndn/resources/bootstrap-admin-template-free/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="/dndn/resources/bootstrap-admin-template-free/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-    Template Javascript
+  
     <!-- <script src="/dndn/resources/bootstrap-admin-template-free/js/main.js"></script> -->
      
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

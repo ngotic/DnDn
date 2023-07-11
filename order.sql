@@ -197,19 +197,104 @@ select * from tblevent where eventseq = 2+1 or eventseq = 2-1;
 				            where tblAuth.AUTH = 'ROLE_MEMBER';
                             
 select *  from tblCART;
+select * from tblorder;
+select * from tblReview;
+select * from tblsellboard;
+select * from tblLunchboxSet;
+
+SELECT tblSellBoard.content, tblOrder.id, tblOrder.orderdate, tblOrder.price, tblOrder.orderseq
+FROM tblCart
+INNER JOIN tblOrder ON tblCart.id = tblOrder.id
+INNER JOIN tblSellBoard ON tblCart.sellboardseq = tblSellBoard.sellboardseq
+where tblorder.id = 'tkddn';
 
 
-	select 
-	tblOrder.id , shipdate , shiptime , shipperiod , dayperweek , tblLunchBox.price , orderdate , payment ,orderseq ,tblLunchBox.name, tblPeriodShip.periodshipseq
-		from tblOrder 
-			inner join tblCart 
-				on tblCart.cartseq = tblOrder.cartseq 
-					inner join tblPeriodShip
-						on tblCart.periodshipseq = tblPeriodShip.periodshipseq 
-                            inner join tblSellBoard
-                                on tblCart.sellboardseq = tblSellBoard.sellboardseq 
-                                    inner join tblLunchboxSet
-                                        on  tblSellBoard.sellboardseq =tblLunchboxSet.sellboardseq  
-                                            inner join tblLunchBox
-                                                on tblLunchBox.lunchboxseq = tblLunchBox.lunchboxseq
-                                                     where tblOrder.id =  'Test';
+    select tblOrder.id, tblOrder.orderseq ,tblPeriodShip.shiptime ,tblPeriodShip.dayperweek, tblOrder.price,tblOrder.orderdate, tblOrder.payment, tblOrder.orderseq , tblLunchBox.name ,tblPeriodShip.periodshipseq ,tblPeriodShip.startship,tblPeriodShip.endship from tblOrder 
+        inner join tblReview
+            on tblReview.id = tblOrder.id
+                inner join tblSellBoard
+                    on tblSellBoard.sellboardseq = tblReview.sellboardseq
+                        inner join tblLunchboxSet
+                            on tblLunchboxSet.sellboardseq = tblSellBoard.sellboardseq
+                                inner join tblLunchBox
+                                    on tblLunchBox.lunchboxseq = tblLunchboxSet.lunchboxseq
+                                        right join tblCart
+                                            on tblCart.id = tblOrder.id
+                                                right join tblPeriodShip    
+                                                    on tblCart.periodshipseq = tblPeriodShip.periodshipseq
+                                                        where tblOrder.id = 'Test'
+                                                            GROUP BY tblOrder.id, tblOrder.orderseq, tblPeriodShip.shiptime, tblPeriodShip.dayperweek, tblOrder.price, tblOrder.orderdate, tblOrder.payment, tblLunchBox.name, tblPeriodShip.periodshipseq, tblPeriodShip.startship, tblPeriodShip.endship;
+                                                            
+                                                            
+    select tblOrder.id, tblOrder.orderseq ,tblPeriodShip.shiptime ,tblPeriodShip.dayperweek, tblOrder.price,tblOrder.orderdate, tblOrder.payment, tblOrder.orderseq , tblLunchBox.name ,tblPeriodShip.periodshipseq ,tblPeriodShip.startship,tblPeriodShip.endship from tblOrder 
+        inner join tblReview
+            on tblReview.id = tblOrder.id
+                inner join tblSellBoard
+                    on tblSellBoard.sellboardseq = tblReview.sellboardseq
+                        inner join tblLunchboxSet
+                            on tblLunchboxSet.sellboardseq = tblSellBoard.sellboardseq
+                                inner join tblLunchBox
+                                    on tblLunchBox.lunchboxseq = tblLunchboxSet.lunchboxseq
+                                        right join tblCart
+                                            on tblCart.id = tblOrder.id
+                                                right join tblPeriodShip
+                                                    on tblCart.periodshipseq = tblPeriodShip.periodshipseq
+                                                        where tblOrder.id = 'tkddn';
+                       
+                                                     select * from tblcart;
+                                                     
+                                                     
+
+
+SELECT ROWNUM      
+     , x.*   
+  FROM ( SELECT a.*            
+           FROM tblevent a           
+          ORDER BY a.enddate  desc      
+        ) x   ; 
+        
+       (select rnum from (SELECT ROWNUM as rnum
+     , x.*   
+  FROM ( SELECT a.*            
+           FROM tblevent a           
+          ORDER BY a.enddate  desc      
+        ) x ) c where eventseq =25);    
+        
+        	select * from tblevent where eventseq = #{event_seq}+1 or eventseq = #{event_seq}-1;
+            
+ (select * from (SELECT ROWNUM as rnum
+     , x.*   
+  FROM ( SELECT a.*            
+           FROM tblevent a           
+          ORDER BY a.enddate  desc      
+        ) x ) c where eventseq =25);
+        
+     (select * from (SELECT ROWNUM as rnum
+     , x.*   
+  FROM ( SELECT a.*            
+           FROM tblevent a           
+          ORDER BY a.enddate  desc      
+        ) x ) c where rnum = (select rnum+1 from (SELECT ROWNUM as rnum
+     , x.*   
+  FROM ( SELECT a.*            
+           FROM tblevent a           
+          ORDER BY a.enddate  desc      
+        ) x ) c where eventseq =25) or  (select rnum -1 from (SELECT ROWNUM as rnum
+     , x.*   
+  FROM ( SELECT a.*            
+           FROM tblevent a           
+          ORDER BY a.enddate  desc      
+        ) x ) c where eventseq =25));  
+            
+             select * from (SELECT ROWNUM      
+     , x.*   
+  FROM ( SELECT a.*            
+           FROM tblevent a           
+          ORDER BY a.enddate  desc      
+        ) x ) where rownum = ( select rownum rownum from (SELECT ROWNUM      
+     , x.*   
+  FROM ( SELECT a.*            
+           FROM tblevent a           
+          ORDER BY a.enddate  desc      
+        ) x ) where eventseq =25); 
+  select * from tblevent where eventseq = #{event_seq}   

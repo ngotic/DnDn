@@ -18,5 +18,7 @@ public class OrderEventDTO {
 	private String pic_board;
 	private int count;
 	private int rownum;
+	private int rnum;
 	private boolean edit;
+	
 }

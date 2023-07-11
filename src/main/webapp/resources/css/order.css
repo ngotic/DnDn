@@ -142,7 +142,7 @@
 			    height: 40px;
 	  padding: 10px 25px;
 	      margin: 0px 0px;	
-	  border: 2px solid #000;
+	  border: 1mm ridge rgb(255 225 226 / 60%);
 	  font-family: 'Lato', sans-serif;
 	  font-weight: 500;
 	  background: transparent;
@@ -160,7 +160,13 @@
    7px 7px 20px 0px #0002,
    4px 4px 5px 0px #0001;
 }
-	  
+	  .event-box:hover {
+   box-shadow:
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+}	  
 		#evt-btn1{
 	
 		border-right: 0px;

@@ -13,7 +13,7 @@
     <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="/dndn/resources/startbootstrap-sb-admin-gh-pages/css/styles.css" rel="stylesheet" />
-	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+	<!-- <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> -->
 	
 
     <!-- Favicon -->
@@ -52,7 +52,7 @@
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
 			
 			
-		<form method="get" height: 100%;">
+		<form method="get"  style="padding: 50px 150px;">
 						<!-- 좌측 메뉴 스크린 -->
 		
 		
@@ -207,7 +207,7 @@
 							
 								<tr>
 									<td>${order. orderseq}</td>
-									<td>${order.name}</td>
+									<td>${order.content}</td>
 									<td>${order.price}</td>
 									<td>${order.orderdate}</td>
 					<%-- 				<td>${order.dayperweek}</td><!-- 요일  -->

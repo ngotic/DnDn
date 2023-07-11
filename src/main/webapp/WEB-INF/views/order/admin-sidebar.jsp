@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-		<!-- 사이드바 -->
-        <div class="sidebar pe-4 pb-3">
+      <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
             
             	<!-- 로고 -->
-                <a href="/dndn/admin/admin-main.do" class="navbar-brand mx-4 mb-3">
+                <a href="/dndn/admin/chart.do" class="navbar-brand mx-4 mb-3">
                     <img src="/dndn/resources/img/logo_long.png" class="mt-1 mb-2" style="height:80px;">
                 </a>
                 
@@ -28,16 +27,11 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-weight: 700;"><i class="fa fa-laptop me-2"></i>이용자 관리</a>
                         <div class="dropdown-menu bg-transparent border-0">
-<<<<<<< HEAD
-                            <a href="/dndn/order/user.do" class="dropdown-item">1. 회원 관리</a>
-                            <a href="/dndn/order/store-user.do" class="dropdown-item">2. 점주 관리</a>
-=======
-                            <a href="" class="dropdown-item" style="font-weight: 700;">1. 회원 관리</a>
-                            <a href="" class="dropdown-item" style="font-weight: 700;">2. 점주 관리</a>
->>>>>>> feature/admin2
+                            <a href="/dndn/order/user.do" class="dropdown-item" style="font-weight: 700;">1. 회원 관리</a>
+                            <a href="/dndn/order/store-user.do" class="dropdown-item" style="font-weight: 700;">2. 점주 관리</a>
                         </div>
                     </div>
-                    
+        
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-weight: 700;">
                         	<i class="fa fa-laptop me-2"></i>가맹점 관리
@@ -49,7 +43,7 @@
                         </div>
                     </div>
                     
-                    
+               
 
 	                <a href="/dndn/admin/product.do" class="nav-item nav-link" style="font-weight: 700;">
 	                    <i class="fa fa-th me-2"></i>상품 관리
@@ -63,44 +57,30 @@
                     </a>
                     
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-weight: 700;">
+                        <a href="/dndn/order/event-management.do" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-weight: 700;">
                         	<i class="fa fa-laptop me-2"></i>이벤트 관리
                         </a>
                         <div class="dropdown-menu bg-transparent border-0">
-<<<<<<< HEAD
-                            	<a href="/dndn/order/event-management.do?" class="dropdown-item">1. 이벤트 조회</a>
-  
-			              
-                            	<a href="/dndn/order/event-management.do?add=true" class="dropdown-item">2. 이벤트 추가</a>
-			                    <a href="/dndn/order/event-management.do?edit=true" class="dropdown-item">3. 이벤트 수정</a>
-			                    <a href="/dndn/order/event-management.do?delete=true" class="dropdown-item">4. 이벤트 삭제</a>
-=======
-                            <a href="" class="dropdown-item" style="font-weight: 700;">1. 이벤트 조회</a>
-                            <a href="" class="dropdown-item" style="font-weight: 700;">2. 이벤트 수정/삭제</a>
->>>>>>> feature/admin2
+                       		 <a href="/dndn/order/event-management.do" class="dropdown-item" style="font-weight: 700;">1. 이벤트 조회</a>
+                            <a href="/dndn/order/event-management.do?add=true" class="dropdown-item" style="font-weight: 700;">2. 이벤트 추가</a>
+                            <a href="/dndn/order/event-management.do?edit=true" class="dropdown-item" style="font-weight: 700;">3. 이벤트 수정</a>
+                             <a href="/dndn/order/event-management.do?delete=true" class="dropdown-item" style="font-weight: 700;">4. 이벤트 삭제</a>
                         </div>
                     </div>
-                    
+                  
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-weight: 700;">
                         	<i class="fa fa-laptop me-2"></i>쿠폰 관리
                         </a>
                         <div class="dropdown-menu bg-transparent border-0">
-<<<<<<< HEAD
-                            
-                            <a href="/dndn/order/coupon.do?add=true" class="dropdown-item">1. 쿠폰 추가</a>
-                            <a href="/dndn/order/coupon.do?edit=true" class="dropdown-item">2. 쿠폰 수정</a>
-                            <a href="/dndn/order/coupon.do?delete=true" class="dropdown-item">3. 쿠폰 삭제</a>
-                            
-=======
-                            <a href="" class="dropdown-item" style="font-weight: 700;">1. 쿠폰 등록</a>
-                            <a href="" class="dropdown-item" style="font-weight: 700;">2. 쿠폰 수정</a>
-                            <a href="" class="dropdown-item" style="font-weight: 700;">3. 쿠폰 삭제</a>
->>>>>>> feature/admin2
+                            <a href="/dndn/order/coupon.do?add=true" class="dropdown-item" style="font-weight: 700;">1. 쿠폰 등록</a>
+                            <a href="/dndn/order/coupon.do?edit=true" class="dropdown-item" style="font-weight: 700;">2. 쿠폰 수정</a>
+                            <a href="/dndn/order/coupon.do?delete=true" class="dropdown-item" style="font-weight: 700;">3. 쿠폰 삭제</a>
                         </div>
                     </div>
-                    
-                    <a href="/dndn/admin/chart.do" class="nav-item nav-link" style="font-weight: 700;">
+                           
+ 	
+                    <a href="/dndn/admin/chart.do" class="nav-item nav-link active" style="font-weight: 700;">
                     	<i class="fa fa-chart-bar me-2"></i>통계
                     </a>
                     

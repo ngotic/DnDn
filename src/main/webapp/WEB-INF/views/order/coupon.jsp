@@ -11,6 +11,16 @@
     height: 43px;
     border: 0px;
 }
+#coupon_form div label {
+    text-align: left;
+}
+#coupon_form{
+display: block;
+    text-align: right;
+}
+
+
+
 
 </style>
     <title>든든</title>
@@ -58,10 +68,11 @@
 
         <!-- Content Start -->
         <div class="content">
-            
+        
 
 			<!-- nav -->
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
+			    <div style="padding: 50px 150px;">
 			                 <c:set var="addBoolean" value="${not empty param.add}" />
 	                            <c:set var="editBoolean" value="${not empty param.edit}" />
 	                            <c:set var="deleteBoolean" value="${not empty param.delete}" />
@@ -72,7 +83,8 @@
 		<!-- <form   action="./coupon-edit.do" id="coupon_edit_form">         -->    
 			</c:if>
 			<c:if test="${deleteBoolean }">
-		<form method="GET"  action="./coupon-delete.do">            
+			
+		<form  id = "coupon_form"method="GET"  action="./coupon-delete.do">            
 			</c:if>
 
 	                            <c:if test="${addBoolean}">  
@@ -107,16 +119,7 @@
 	                                <button type="submit" class="btn btn-primary">추가</button>
                                 </c:if>
                                 
-                                <c:if test="${editBoolean}">
-                                <input type="hidden"  value="${editBoolean}" name = "edit">
-                                <button type="submit" class="btn btn-primary" id="coupon_submit">수정</button>
-                                </c:if>
                                 
-                                <c:if test="${deleteBoolean}">
-                                <input type="hidden"  value="${deleteBoolean}" name = "delete">
-                                <button type="submit" class="btn btn-primary">삭제</button>                            	
-                            </c:if>
-                            
                             <!-- 수정페이지 아닐시 폼종료위치 -->
                             <c:if test="${!editBoolean}"> 
                             	</form>
@@ -164,8 +167,8 @@
 					 <c:if test="${editBoolean}"> 
                         </form>
                      </c:if>          
-                            <input type="button" value="Test" id="testbtn"> 
-                            <input type="button" value="Test2" id="testbtn2"> 
+              
+                        </div>
                         </div>
                     </div>
                

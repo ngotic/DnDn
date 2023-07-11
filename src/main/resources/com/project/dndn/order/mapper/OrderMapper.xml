@@ -33,7 +33,12 @@
 	</select>	
 	<select id="order" resultType ="com.project.dndn.order.domain.OrderDTO">
 	
-
+	SELECT tblSellBoard.content, tblOrder.id, tblOrder.orderdate, tblOrder.price, tblOrder.orderseq
+FROM tblCart
+INNER JOIN tblOrder ON tblCart.id = tblOrder.id
+INNER JOIN tblSellBoard ON tblCart.sellboardseq = tblSellBoard.sellboardseq
+where tblorder.id = #{user_id}
+<!-- 
 
     select tblOrder.id, tblOrder.orderseq ,tblPeriodShip.shiptime ,tblPeriodShip.dayperweek, tblOrder.price,tblOrder.orderdate, tblOrder.payment, tblOrder.orderseq , tblLunchBox.name ,tblPeriodShip.periodshipseq ,tblPeriodShip.startship,tblPeriodShip.endship from tblOrder 
         inner join tblReview
@@ -49,7 +54,7 @@
                                                 left join tblPeriodShip
                                                     on tblCart.periodshipseq = tblPeriodShip.periodshipseq
                                                         where tblOrder.id = #{user_id}
-                                                     
+                                                      -->
 	</select>	
 	
 	
@@ -96,7 +101,12 @@
 			<select id="eventlist" resultType ="com.project.dndn.order.domain.OrderEventDTO">
 			
 			
-			select * from tblevent order by ENDDATE DESC
+			SELECT ROWNUM      
+				     , x.*   
+				  FROM ( SELECT a.*            
+				           FROM tblevent a           
+				          ORDER BY a.enddate desc    
+				        ) x
 					
 				
 			</select>
@@ -119,8 +129,13 @@
 			
 
 			<select id="eventdto" resultType ="com.project.dndn.order.domain.OrderEventDTO">
-			
-				select * from tblevent where eventseq = #{event_seq}
+			select * from (SELECT ROWNUM      
+			     , x.*   
+			  FROM ( SELECT a.*            
+			           FROM tblevent a           
+			          ORDER BY a.enddate  desc      
+			        ) x ) where eventseq =#{event_seq}  
+				
 
 			</select>
 			
@@ -145,8 +160,23 @@
 				
 			<select id="eventpage" resultType ="com.project.dndn.order.domain.OrderEventDTO">
 			
-					select * from tblevent where eventseq = #{event_seq}+1 or eventseq = #{event_seq}-1
 				
+				     (select * from (SELECT ROWNUM as rnum
+					     , x.*   
+					  FROM ( SELECT a.*            
+					           FROM tblevent a           
+					          ORDER BY a.enddate  desc      
+					        ) x ) c where rnum = (select rnum+1 from (SELECT ROWNUM as rnum
+					     , x.*   
+					  FROM ( SELECT a.*            
+					           FROM tblevent a           
+					          ORDER BY a.enddate  desc      
+					        ) x ) c where eventseq = #{event_seq}) or rnum= (select rnum -1 from (SELECT ROWNUM as rnum
+					     , x.*   
+					  FROM ( SELECT a.*            
+					           FROM tblevent a           
+					          ORDER BY a.enddate  desc      
+					        ) x ) c where eventseq = #{event_seq}))
 			</select>
 			
 			

@@ -365,6 +365,7 @@
 	 	var id = $('#idInput').val();
 		console.log(pw);
 	 	var postData = {'id':id ,'pw' : pw , '${_csrf.parameterName}': '${_csrf.token}' };
+	 	if(pw.length>=6){
 		$.ajax({
 	        url:'/dndn/updatepw',
 	        type:'POST',
@@ -384,9 +385,13 @@
 		        	});
 	        },
 	        error: function (XMLHttpRequest, textStatus, errorThrown){
-	        	new Swal('변경 실패', 'error');
+	        	new Swal('Error','변경 실패', 'error');
 	        }
 	    });
+	 	}
+	 	else{
+	 		new Swal('변경할 비밀번호를 확인해주세요', 'error');
+	 	}
 	});
 	
 	

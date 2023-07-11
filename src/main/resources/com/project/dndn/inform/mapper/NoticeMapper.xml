@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dndn.inform.mapper.NoticeMapper">
+	
+	<insert id="add">
+		insert into tblNotice values (noticeseq.nextVal, #{title}, #{content}, default, default, #{id}, default)
+	</insert>
+	
+	<select id="noticelist"	resultType="com.project.dndn.inform.domain.NoticeDTO">
+		<!-- select n.*,to_date(regdate,'YYYY/MM/DD') from tblnotice n order by noticeseq desc -->
+		select r as noticeseq, title, content, to_char(regdate, 'yyyy-mm-dd') as regdate,
+views, case id when 'cah124' then '관리자' end as id,
+mainnotice from ( select rownum as r, n.* from (select * from tblnotice order by noticeseq asc) n ) order by r desc
+	</select>	
+
+	<select id="noticeget"	resultType="com.project.dndn.inform.domain.NoticeDTO">
+		select * from tblnotice where noticeseq= #{noticeseq}
+	</select>	
+	
+	<update id="noticeedit">
+		update tblnotice set title = #{title}, content=#{content} where noticeseq = #{noticeseq}
+	</update>
+	
+	<delete id="noticedel">
+		delete from tblnotice where noticeseq = #{noticeseq}
+	</delete>
+	
+	<update id="views">
+		update tblnotice set views = views + 1 where noticeseq = #{noticeseq}
+	</update>
+	
+	
+<!-- 
+	<select id="getSearchPageList" parameterType="Map" resultType="com.project.dndn.inform.domain.NoticeDTO">
+		select * from (
+    select rownum as r, n.* from
+        (select * from tblnotice order by noticeseq desc) n )
+            where (r between ${startNo} AND ${endNo})
+            
+            <if test='column.equals("title")'>
+            and title like '%' || #{word} || '%'
+            </if>
+            
+            <if test='column.equals("content")'>
+            and content like '%' || #{word} || '%'
+            </if>
+            
+            <if test='column.equals("id")'>
+            and id like '%' || #{word} || '%'
+			</if>
+	</select>
+	 -->
+	
+	<!-- 
+	<select id="getSearchPageList" parameterType="Map" resultType="com.project.dndn.inform.domain.NoticeDTO">
+		select * from (
+    select rownum as r, n.* from
+        (select * from tblnotice order by noticeseq desc) n)
+        	where (r between ${startNo} AND ${endNo})
+            
+            <if test='column.equals("title")'>
+            and title like '%' || #{word} || '%'
+            </if>
+            
+            <if test='column.equals("content")'>
+            and content like '%' || #{word} || '%'
+            </if>
+            
+            <if test='column.equals("id")'>
+            and id like '%' || #{word} || '%'
+			</if>
+	</select>
+	 -->
+	<!-- 
+	<select id="getSearchPageList" parameterType="Map" resultType="com.project.dndn.inform.domain.NoticeDTO">
+		select * from (select rownum as rs, he.* from (select * from ( select n.* from (select * from tblnotice order by noticeseq desc) 
+n ) 
+            
+            <if test='column.equals("title")'>
+            where title like '%' || #{word} || '%') he)
+            </if>
+            
+            <if test='column.equals("content")'>
+            where content like '%' || #{word} || '%') he)
+            </if>
+            
+            <if test='column.equals("id")'>
+            where id like '%' || #{word} || '%') he)
+			</if>
+			
+			where rs between ${startNo} and ${endNo}
+			
+	</select>
+	 -->
+	
+	
+	<select id="getPageList" parameterType="Map" resultType="com.project.dndn.inform.domain.NoticeDTO">
+		select * from (
+    select rownum as r, n.* from
+        (select * from tblnotice order by noticeseq desc) n )
+            where r between #{startNo} AND #{endNo}
+	</select>
+	
+	
+
+	<select id="getSearchPageList" parameterType="Map" resultType="com.project.dndn.inform.domain.NoticeDTO">
+		select * from (select rownum as rs, he.* from (select * from ( select n.* from (select * from tblnotice order by noticeseq desc) 
+n ) 
+            
+            <if test='column.equals("title")'>
+            where title like '%' || #{word} || '%') he)
+            </if>
+            
+            <if test='column.equals("content")'>
+            where content like '%' || #{word} || '%') he)
+            </if>
+            
+            <if test='column.equals("id")'>
+            where id like '%' || #{word} || '%') he)
+			</if>
+			
+			where rs between ${startNo} and ${endNo}
+			
+	</select>
+
+	
+	
+	<select id="getCount" parameterType="Map" resultType="int">
+		select count(*) from tblnotice
+		
+		<if test='column.equals("title")'>	
+		where title like '%' || #{word} || '%'
+		</if>
+
+		<if test='column.equals("content")'>	
+		where content like '%' || #{word} || '%'
+		</if>
+
+		<if test='column.equals("id")'>	
+		where id like '%' || #{word} || '%'
+		</if>
+	</select>
+
+	<select id="mainlist" resultType="com.project.dndn.inform.domain.NoticeDTO">
+		select r as noticeseq, title, content, to_char(regdate, 'yyyy-mm-dd') as regdate,
+views, case id when 'cah124' then '관리자' end as id,
+mainnotice from ( select rownum as r, n.* from (select * from tblnotice order by noticeseq asc) n )where mainnotice='T' order by r desc 
+	</select>
+	
+	<update id="main">
+		update tblnotice set mainnotice = 'T' where noticeseq = #{noticeseq}
+	</update>
+
+	<update id="mainquit">
+		update tblnotice set mainnotice = 'F' where noticeseq = #{noticeseq}
+	</update>
+	
+	<select id="faqlist" resultType="com.project.dndn.inform.domain.FaqDTO">
+		select * from tblfaq
+	</select>
+	 
+	
+	
+	
+
+
+</mapper>

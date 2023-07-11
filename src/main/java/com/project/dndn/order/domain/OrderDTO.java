@@ -29,6 +29,7 @@ public class OrderDTO {
 	private String payment; // 결제방식
 	private String ispay; // 결제유무
 	private String addressseq; // 배송주소번호
+	private String content;
 
 	
 	// 정기배송
