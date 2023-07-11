@@ -7,14 +7,13 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    
-    <!--  -->
+
+	<!--  -->
     <%@ include file="/WEB-INF/views/include/asset.jsp" %>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="/dndn/resources/startbootstrap-sb-admin-gh-pages/css/styles.css" rel="stylesheet" />
 	<!-- <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> -->
 	
-
     <!-- Favicon -->
     <link href="/dndn/resources/bootstrap-admin-template-free/img/favicon.ico" rel="icon">
 
@@ -37,81 +36,66 @@
     <!-- Template Stylesheet -->
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
     
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
     
-</head>
-
-
-	<style>
-
-		.button-frame {
-			padding-top: 20px;
-			padding-bottom: 20px;
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
+   
+    
+    
+    <style>
+		
+		/* 추가 버튼 */
+		.add-button {
 			float: right;
+    		width: 60px;
+    		height: 35px;
+    		border: none;
+    		background-color: #636363;
+			color: white;
+    		margin-top: 2.5px;
+    		margin-right: 5px;
+		}
+	
+		/* 수정 버튼 */
+		.edit-button {
+			width: 45px; height: 30px;
+			border: none;
+			/* background-color: #2e75b6; */
+			background-color: #1f79e0;
+			color: white;
 		}
 		
-		/* 목록 버튼 */
-		.list-button {
-			border: #f2f2f2;
+		/* 삭제 버튼 */
+		.del-button {
+			width: 45px; height: 30px;
+			border: none;
 			background-color: #f2f2f2;
 			color: #3b3b3b;
 		}
 		
-		.pic-button {
+		
+		thead > tr > th {
+			text-align: center;
+			font-weight: 500;
+		}
+		
+		tbody > tr > td {
+			text-align: center;
+		}
+		
+		/* 검색창 */
+		.datatable-input {
 			position: absolute;
-			margin-top: 20px;
-		}				
-		
-		
-		.add-box {
-			border: 1px solid #ced4da;
+    		width: 550px;
+    		left: 290px;
 		}
 		
 		
-		.category-price {
-			display: flex;
-			justify-content: space-between;
+		label {
+			color: white;
 		}
-		
-		.image, .name {
-			width: 800px;
-		}
-		
-		
-		.product-frame {
-			display: flex;
-    		align-items: center;
-		}
-		
-		.pic {
-			float: left;
-    		padding-right: 30px;
-		}
-		
-		
-		.title {
-			font-weight: 500;
-			font-size: 1.5rem;
-			color: #EE8035;
-			font-family: 'Noto Sans KR';
-		}
-		
-		
-		.name1, .category1, .price1 {
-			font-weight: 500;
-			color: #EE8035;
-			font-family: 'Noto Sans KR';
-		}
-		
-		.name2, .category2, .price2 {
-			font-weight: 500;
-			color: #555;
-			font-family: 'Noto Sans KR';
-		}
-
-
+	
 	</style>
-
+</head>
 
 <body>
     <div class="container-fluid position-relative bg-white d-flex p-0">
@@ -157,12 +141,12 @@
                                        
                     
 
-	                <a href="/dndn/admin/product.do" class="nav-item nav-link active" style="font-family: 'Noto Sans KR';">
+	                <a href="/dndn/admin/product.do" class="nav-item nav-link" style="font-family: 'Noto Sans KR';">
 	                    <i class="fa fa-bag-shopping me-2"></i>상품 관리
 	                </a>
 
                     
-                    <a href="/dndn/admin/orderlist.do" class="nav-item nav-link" style="font-family: 'Noto Sans KR';">
+                    <a href="/dndn/admin/orderlist.do" class="nav-item nav-link active" style="font-family: 'Noto Sans KR';">
                     	<i class="fa fa-cart-shopping me-2"></i>주문 관리
                     </a>
                     
@@ -206,80 +190,60 @@
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
 			
 			
-			<section class="container" style="margin-top: 50px; font-family: 'Noto Sans KR';">
-				
-				<div style="display: flex;">
-					
-					<div class="col-sm-12 col-xl-6">
-                        <div class="add-box rounded h-100 p-4" style="width: 1000px;">
-                        <h6 class="title mb-4">[상품 수정]</h6>
-                            
-                        <div class="product-frame">
-                        
-                            <div class="pic" style="margin-bottom: 40px; width: 100%;">
-								
-							
-                            <form method="POST" action="/dndn/admin/product-editok.do">
-                            
-							    <img id="preview" src="${dto.pic}" alt="" style="margin-bottom: 10px; width: 500px;">
-							    <br>
-	                            <input class="form-control" name="pic"
-	                            	   type="text" id="urlInput" placeholder="이미지 URL을 입력하세요." required
-	                            	   value="${dto.pic}">
-                            </div>
-                            
-                           
-                            	
-                            <div  style="width: 100%;">
+			<section class="container">
 
-                                <div class="mb-3">
-                                    <label class="name1 form-label">이름</label>
-                                    <input class="name2 form-control" name="name" style="width: 100%" required
-                                    	   value="${dto.name}">
-                                </div>
-                                
-                                <label class="category1 form-label">분류</label>
-                                <select class="category2 form-select mb-3" aria-label="Default select example" aria-hidden="true"
-                                		name="category" required>
-	                                <option value=""></option>
-	                                <option value="일반식" ${dto.category.equals("일반식") ? "selected" : ""}>일반식</option>
-	                                <option value="건강식" ${dto.category.equals("건강식") ? "selected" : ""}>건강식</option>
-	                                <option value="프리미엄식" ${dto.category.equals("프리미엄식") ? "selected" : ""}>프리미엄식</option>
-                            	</select>
-                            	
-                            	<div>
-                            		<label class="price1 form-label">가격</label>
-                            		<input class="price2 form-control" type="number" min="0" 
-                            			   name="price" required value="${dto.price}">
-                            	</div>
-                            	</div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        
+                        <div class="card mb-4" style="border: none; margin-top: 50px;">
+                            
+                            <div class="card-body">
+                            
+                            <table id="datatablesSimple" style="font-family: 'Noto Sans KR';">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>아이디</th>
+                                            <th>결제금액</th>
+                                            <th>주문날짜</th>
+                                            <th>처리상태</th>
+                                            <th>결제방법</th>
+                                        </tr>
+                                    </thead>
+                                    
+
+                                    <tbody>
+	                                <c:forEach items="${orderlist}" var="dto">
+	                                   <tr>
+	                                     <td>
+	                                       <a href="/dndn/admin/orderview.do?orderseq=${dto.orderseq}">
+	                                         ${dto.orderseq}
+	                                       </a>
+	                                     </td>
+	                                     <td>${dto.id}</td>
+	                                     <td>${dto.price}</td>
+	                                     <td>${dto.orderdate}</td>
+	                                     <td>결제완료</td>
+	                                     <td>${dto.payment}</td>
+	                                   </tr>
+	                                </c:forEach>
+                                    </tbody>
+
+                                </table>
                             </div>
-                            	
-                            	<!-- 버튼 -->
-                            	<div class="button-frame">
-                                	<button type="submit" class="edit-button btn btn-primary">수정</button>
-	                                <button type="button" class="list-button btn"
-	                                		onclick="location.href='/dndn/admin/product.do';">목록</button>
-                                </div>
-                                
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-								<input type="hidden" name="id" value='<sec:authentication property="principal.username"/>'>
-								<input type="hidden" name="lunchboxseq" value="${dto.lunchboxseq}">
-	
-                                
-                            </form>
-                            
-                            <button class="pic-button btn btn-primary" onclick="previewImage()">이미지 미리보기</button>
-                            
                         </div>
                     </div>
-	
-				</div>
-				
-			</section>
+                </main>
+            </div>
+		</section>
+        </div>
+		
+		
             
         </div>
         <!-- Content End -->
+
 
     </div>
 
@@ -304,18 +268,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/datatables-simple-demo.js"></script>
     
-    
-    <script>
-		function previewImage() {
-		    var urlInput = document.getElementById('urlInput');
-		    var preview = document.getElementById('preview');
-		    
-		    var imageUrl = urlInput.value;
-		    preview.src = imageUrl;
-		  }
-	</script>
-    
-    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
