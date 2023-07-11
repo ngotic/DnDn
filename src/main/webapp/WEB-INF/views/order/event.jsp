@@ -15,6 +15,13 @@
 			
 				    
 
+.event-box  a img{
+	margin-bottom: 15px;
+
+}
+.order-container{
+	font-size:23px;
+}
 
 </style>
 </head>

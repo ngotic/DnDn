@@ -219,12 +219,13 @@ where tblorder.id = #{user_id}
 					
 				<update id="editevent" parameterType="com.project.dndn.order.domain.OrderEventDTO" >
 				    UPDATE tblevent
-						    SET Title = #{title},
-                                startdate = TO_DATE(#{startdate}, 'YYYY-MM-DD HH24:MI:SS'),
+				  
+						    SET    Title = #{title},
+                              startdate = TO_DATE(#{startdate}, 'YYYY-MM-DD HH24:MI:SS'),
                                 enddate = TO_DATE(#{enddate}, 'YYYY-MM-DD HH24:MI:SS'),
-                                sale = #{sale},
-                                pic_board=#{pic_board},
-                                pic = #{pic}
+                                sale = #{sale}
+                                <if test="#{pic_board} != null">,pic_board=#{pic_board}</if>
+                                <if test='#{pic} != null'>,pic = #{pic}</if>
 						   		 WHERE eventseq = #{eventseq}
 				</update>
 			

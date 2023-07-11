@@ -328,13 +328,14 @@ public class OrderController {
 
         // 업로드된 파일의 원본 이름 가져오기
         String picimg = pic.getOriginalFilename();
+        String filePathpic = uploadPath + picimg;
+
         String pic_boardimg = pic_board.getOriginalFilename();
         
         System.out.println(picimg);
    	 	System.out.println(pic_boardimg);
    	 
         // 저장할 파일 경로와 이름 설정
-        String filePathpic = uploadPath + picimg;
         System.out.println("확인 @@@@ 111");
         String filePathpic_board = uploadPath + pic_boardimg;
         System.out.println("확인 @@@@ 222");
@@ -403,7 +404,9 @@ public class OrderController {
 	 System.out.println(startdate);
 	 System.out.println(enddate);
 	 System.out.println(sale);
-	
+	 System.out.println(pic.getOriginalFilename());
+	 System.out.println(pic_board.getOriginalFilename());
+	 System.out.println(event_seq);
 		/*
 		 * if (pic.isEmpty()) { return "No file uploaded"; }
 		 */
@@ -416,35 +419,43 @@ public class OrderController {
         		//절대경로  "C:\\class\\code\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\dndn\\resources\\img\\event\\";
 
         // 업로드된 파일의 원본 이름 가져오기
-        String picimg = pic.getOriginalFilename();
-        String pic_boardimg = pic_board.getOriginalFilename();
+      
+       
         
-        System.out.println(picimg);
-   	 	System.out.println(pic_boardimg);
+        //System.out.println(picimg);
+   	 	//System.out.println(pic_boardimg);
    	 
         // 저장할 파일 경로와 이름 설정
-        String filePathpic = uploadPath + picimg;
-        System.out.println("확인 @@@@ 111");
-        String filePathpic_board = uploadPath + pic_boardimg;
-        System.out.println("확인 @@@@ 222");
+        
+
+        OrderEventDTO dto = new OrderEventDTO();
         // 이미지 파일 저장
-        if(pic!=null) {
+        if(!pic.getOriginalFilename().equals("")) {
+        	  String picimg = pic.getOriginalFilename();
+        	  String filePathpic = uploadPath + picimg;
         pic.transferTo(new File(filePathpic));
+        dto.setPic(picimg);
+        }else {
+        	dto.setPic(null);
         }
         System.out.println("확인 @@@@ 333");
-        if(pic_board !=null) {
+        if(!pic_board.getOriginalFilename().equals("")) {
+        	 String pic_boardimg = pic_board.getOriginalFilename();
+        	 String filePathpic_board = uploadPath + pic_boardimg;
         pic_board.transferTo(new File(filePathpic_board));
+        dto.setPic_board(pic_boardimg);
+        }else {
+        	dto.setPic_board(null);
         }
         System.out.println("확인 @@@@ 444");
 
-        OrderEventDTO dto = new OrderEventDTO();
         
         dto.setTitle(title);
         dto.setStartdate(startdate);
         dto.setEnddate(enddate);
         dto.setSale(Integer.parseInt(sale));
-        dto.setPic(picimg);
-        dto.setPic_board(pic_boardimg);
+       
+        
  
         dto.setEventseq(event_seq);	
        

@@ -37,12 +37,12 @@
     <!-- Template Stylesheet -->
     <link href="/dndn/resources/bootstrap-admin-template-free/css/style.css" rel="stylesheet">
 </head>
-
 <body>
     <div class="container-fluid position-relative bg-white d-flex p-0">
+<%@ include file="/WEB-INF/views/order/admin-sidebar.jsp" %>
         
         <!-- 사이드바 -->
-        <%@ include file="/WEB-INF/views/order/admin-sidebar.jsp" %>
+        
 
 
 
@@ -244,10 +244,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 	<script src="/dndn/resources/startbootstrap-sb-admin-gh-pages/js/datatables-simple-demo.js"></script>
     
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
-
     
     
 </body>
