@@ -31,4 +31,7 @@
       </security:authentication-provider>
    </security:authentication-manager>
 
+	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+   </bean>
+   
 </beans>

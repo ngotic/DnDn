@@ -29,7 +29,7 @@
 		<load-on-startup>1</load-on-startup>
 		<multipart-config>
          <!-- 임시 폴더 지정(C:\class\code\spring\temp) -->
-         <location>C:\\class\\code\\spring\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\DNDN\\resources\\fileupload\\</location>
+         <location>C:\\class\\code\\spring\\temp</location>
          <!-- 파일 최대 크기 10MB 요거때문에 에런데... -->
          <max-file-size>10485760</max-file-size>
          <!-- 한번에 업로드 파일들의 총 크기 50MB-->

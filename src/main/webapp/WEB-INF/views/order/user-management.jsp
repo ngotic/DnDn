@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 
 <head>
-	<!-- <link rel="stylesheet" href="/dndn/resources/css/order.css"> -->
     <meta charset="utf-8">
     <title>든든</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
