@@ -77,10 +77,7 @@
                     <a href="/dndn/admin/chart.do" class="nav-item nav-link" style="font-family: 'Noto Sans KR';">
                     	<i class="fa fa-chart-simple me-2"></i>통계
                     </a>
-                    
-                    
-                   
-                    
+         
                 </div>
             </nav>
         </div>
