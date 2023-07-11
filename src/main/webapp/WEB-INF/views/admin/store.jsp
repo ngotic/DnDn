@@ -96,6 +96,40 @@
 		.datatable-search {
 			width: 60%;
 		}
+		
+		
+		
+		
+		#mapcontainer{
+			position: relative;
+			/* width:100%; */
+			height:700px;
+			margin-bottom:50px;
+		}
+		
+		#map{
+			position: absolute;
+			left:-20px;
+		}
+		
+		#storeinfo{
+			position: absolute;
+			left:780px;
+			transition:2s all;
+			padding-left:10px;
+			font-size:15px;
+			font-weight:bold;
+			color:black;
+		}
+		
+		.place-item{
+			padding:20px 10px;
+		}	
+		
+		.place-item:hover{
+			cursor:pointer;
+			background-color:#F1F3F4;
+		}
     	
     </style>
     
@@ -118,13 +152,23 @@
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
 			
 
-			<div class="container-fluid px-4" style="display: flex; justify-content: space-between; margin-top: 30px;">
+			<div class="container-fluid px-4" style="display: flex; justify-content: space-between; margin-top: 100px;">
 			
-				<div style="border: 1px solid red; width: 40%; height: 600px; margin-top: 50px;">
-					지도
+				<div id="mapcontainer">
+					<div id="map" style="width:800px; height:600px; margin-left: 20px;"></div>
+					<div id="storeinfo" style="width:300px;height:500px;">
+						<div id="placelist">
+						</div>
+					</div>
 				</div>
+				<div>
+					<div id="placelist">
+					</div>
+				</div>
+				
+					
                         
-                        <div class="card mb-4" style="border: none; width: 60%; margin-top: 100px;">
+                        <div class="card mb-4" style="border: none; width: 800px; margin-top: 100px;">
                             
                             <div class="card-body">
                             
@@ -132,6 +176,7 @@
                             	<button type="button" class="add-button" 
                             			onclick="location.href='/dndn/admin/store-add.do';">추가</button>
                             </div>
+                            
                             
                                 <table id="datatablesSimple" style="font-family: 'Noto Sans KR';">
                                     <thead>
@@ -149,13 +194,9 @@
 
                                     <tbody>
 	                                <c:forEach items="${storelist}" var="dto">
-	                                   <tr>
+	                                   <tr class="store-list">
 	                                     <td>${dto.storeseq}</td>
-	                                     <td>
-	                                       <a href="">
-	                                         ${dto.name}
-	                                       </a>
-	                                     </td>
+	                                     <td>${dto.name}</td>
 	                                     <td>${dto.address}</td>
 	                                     <td>${dto.tel}</td>
 	                                     <td>${dto.lat}</td>
@@ -198,6 +239,8 @@
                                     </tbody>
 
                                 </table>
+                                
+							
                             </div>
                         </div>
                     </div>
@@ -237,6 +280,134 @@
 	    document.getElementById('storeseqInput').value = storeSeq;
 	  }
 	</script>
+	
+	<script type="	text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c837c78add7b31e526a1b98c5a9910f"></script>	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
+<script>
+var prevOverlay = null;
+var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+var options = { //지도를 생성할 때 필요한 기본 옵션
+	center: new kakao.maps.LatLng(${37.4992}, ${127.033}), //지도의 중심좌표.
+    level: 6 //지도의 레벨(확대, 축소 정도),
+};
+
+var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+let m = null;
+
+
+	// 마커가 표시될 위치입니다 
+	var markerPosition  = new kakao.maps.LatLng(${37.4992}, ${127.033}); 
+	var imageSrc = '/dndn/resources/img/pngwing.com.png'; // 마커이미지의 주소입니다 
+	var imageSize = new kakao.maps.Size(65, 65); // 마커이미지의 크기입니다
+	var imageOption = {offset: new kakao.maps.Point(25, 50)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+	  
+	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);	
+	const ms=[];
+	$(document).ready(function(){
+			
+
+		// 각 장소에 대한 정보를 가져와 목록에 추가하는 함수
+		  function addPlaceToList(name, address, tel, lat, lng, customOverlay) {
+	
+	        placeItem.on('click', function() {
+	        	
+	            var position = new kakao.maps.LatLng(lat, lng);
+	            map.panTo(position);
+	            for (var i = 0; i < ms.length; i++) {
+	                if (ms[i].getPosition().getLat() === lat && ms[i].getPosition().getLng() === lng) {
+	                    ms[i].setMap(map);
+	                    break;
+	                }
+	            }
+	            $('.store-list').css('background-color', 'transparent');
+	            $(this).css('background-color', '#F1F3F4');
+	            if (prevOverlay) {
+	                prevOverlay.setMap(null);
+	            }
+	            customOverlay.setMap(map);
+	            prevOverlay = customOverlay;
+
+	            // 마우스오버 이벤트 핸들러 제거
+	            $('.place-item').not(this).off('mouseover');
+	            
+	        });
+	        placeItem.on('mouseover',function(){
+	        	var position = new kakao.maps.LatLng(lat, lng);
+	        	 map.panTo(position);
+	        	 for (var i = 0; i < ms.length; i++) {
+		                if (ms[i].getPosition().getLat() === lat && ms[i].getPosition().getLng() === lng) {
+		                    ms[i].setMap(map);
+		                    break;
+		                }
+		            }
+	            $('.place-item').css('background-color', 'transparent');
+	            $(this).css('background-color', '#F1F3F4');
+	            if (prevOverlay) {
+	                prevOverlay.setMap(null);
+	            }
+	            customOverlay.setMap(map);
+	            prevOverlay = customOverlay;
+	        });
+	    }
+	  
+		
+		<c:forEach items="${storelist}" var="dto" varStatus="status">
+		content${status.count}='<div class="overlaybox" style="background-color:white; width:240px; height:70px;border-radius:10px;">' +
+	    '    <table class="first" style="padding: auto auto;"><tr><td><img src="/dndn/resources/img/logo_short.png" style="margin-left:7px;margin-right:7px;margin-top:5px;width:50px; height:50px;"></td>' +
+	    '<td style="padding-top:5px;"><span>${dto.name}</span><br><span>${dto.address}</span><br><span>tel: ${dto.tel}</span></td></tr></table>' +
+	    '</div>'; 
+		let p${status.count} = new kakao.maps.LatLng(${dto.lat},${dto.lng});
+		
+		let m${status.count} = new kakao.maps.Marker({
+			position: p${status.count},
+			image: markerImage
+		});
+		var customOverlay${status.count}=new kakao.maps.CustomOverlay({
+		    position : p${status.count},
+		    content : content${status.count},
+		    xAnchor: 0.47,
+		    yAnchor: 1.65
+		});
+		
+		  /* kakao.maps.event.addListener(m${status.count}, 'click', function(mouseEvent) {
+			  var position = new kakao.maps.LatLng(${dto.lat}, ${dto.lng});
+			  map.panTo(p${status.count}); // 부드럽게 이동
+			  // 선택된 장소에 배경색 적용
+			  $('.place-item').css('background-color', 'transparent'); // 모든 장소 초기화
+			  $('.place-item[data-lat="${dto.lat}"][data-lng="${dto.lng}"]').css('background-color', '#F1F3F4'); // 선택된 장소에 배경색 적용
+			  
+			  if (prevOverlay) {
+		          prevOverlay.setMap(null); // 이전 cusstomOverlay를 지도에서 제거
+		        }
+			  customOverlay${status.count}.setMap(map);
+			  prevOverlay = customOverlay${status.count}; 
+		});  
+		 kakao.maps.event.addListener(m${status.count}, 'mouseover', function() {   
+			customOverlay${status.count}.setMap(map);
+		});
+		kakao.maps.event.addListener(m${status.count}, 'mouseout', function() {      
+			if (prevOverlay !== customOverlay${status.count}) {
+		        customOverlay${status.count}.setMap(null);
+		    } 
+		});  */
+		
+		m${status.count}.setMap(map);
+		
+		ms.push(m${status.count});
+		/* $('#list td').css('background-color','transparent');
+		$(this).css('background-color','gold');
+		
+		
+		addPlaceToList('${dto.name}', '${dto.address}', '${dto.tel}', ${dto.lat}, ${dto.lng},customOverlay${status.count}); */
+		</c:forEach>
+	});
+	
+	
+	
+
+</script>
 
     
 </body>

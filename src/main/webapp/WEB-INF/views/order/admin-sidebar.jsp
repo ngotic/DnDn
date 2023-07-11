@@ -47,7 +47,7 @@
 	                </a>
 
                     
-                    <a href="" class="nav-item nav-link" style="font-family: 'Noto Sans KR';">
+                    <a href="/dndn/admin/orderlist.do" class="nav-item nav-link" style="font-family: 'Noto Sans KR';">
                     	<i class="fa fa-cart-shopping me-2"></i>주문 관리
                     </a>
                     
