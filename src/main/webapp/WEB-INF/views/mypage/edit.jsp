@@ -43,13 +43,26 @@ input,
 	margin: 20px;
 	padding: 10px;
 }
+#btn{
+	float: right;
+	background-color: #FF9E2C;
+	border: 0px;
+	width: 100px;
+	color: white;
+	height: 50px;
+	font-size: 20px;
+	border-radius: 10%;
+}
+#btn::after{
+	clear: right;
+	content: " ";
+}
 </style>
 </head>
 <body>
 		<%@ include file="/WEB-INF/views/include/header.jsp" %>
-	<div id="box">
-		<%@ include file="/WEB-INF/views/include/mypage-header.jsp" %>
 		<section class="container">
+		<%@ include file="/WEB-INF/views/include/mypage-header.jsp" %>
 			<div id="pageTitle">내 정보</div>
 			<form method="POST" action="/dndn/mypage/editok.do" id="editForm">
 			<c:forEach var="user" items="${list }">
@@ -111,12 +124,11 @@ input,
 						 disabled>
 					<span style="font-size: 24px;">&nbsp;점</span>
 				</div>
-				<div><input type="submit" value="변경하기"></div>
+				<div><input type="submit" value="변경하기" id="btn"></div>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
 				</c:forEach>
 			</form>
 		</section>
-	</div>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

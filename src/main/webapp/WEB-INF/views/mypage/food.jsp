@@ -14,58 +14,33 @@
 <script
 	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
 <style>
+
 #side-content > table > tbody > tr:nth-child(3) {
 	background-color: #F1F1F1 !important;
 }
-#box{
-	height: 1800px !important;
-}
 
 #contentbox {
-	width: 200px;
+	width: 900px;
 	height: 600px;
 	margin: 20px;
 	padding: 10px;
 }
 
-#caldetail {
-	width: 500px;
+#calendar > table {
+	background-color: white;
+}
+ #caldetail {
+	width: 880px;
 	padding: 30px;
 	background-color: #fdfde0c5;
-	height: 800px;
 	margin-bottom: 30px;
-}
-
-#cal::after {
-	clear: right;
+	border-radius: 20px;
+	margin-top: 120px;
+	margin-left: 28px;
 }
 
 #morning, #lunch{
 	margin: 20px 0;
-}
-
-#cal {
-	width: 900px;
-	height: 100%;
-	margin-right: 0px;
-	float: left;
-}
-
-#calendar {
-	position: sticky;
-	height: 100%;
-	z-index: 3;
-	background-color: white;
-}
-
-#caldetail {
-	/* position: sticky;
-	transform: translate(0px, 0px);
-	transition: 2s all; */
-	width: 900px;
-	border-radius: 20px;
-	margin-top: 30px;
-	display: inline-block;
 }
 
 #caldetail>div {
@@ -86,13 +61,13 @@
 }
 
 .material-symbols-outlined {
-	vertical-align: middle;
 	font-size: 20px;
 	font-weight: bold;
 	text-align: center;
 }
 
 .fc-event-title-container {
+	text-align: left !important;
 	width: 5px !important;
 }
 
@@ -124,25 +99,20 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-	<div id="box">
-		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
 		<section class="container">
+		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
 			<div id="pageTitle">식단 관리</div>
 			<div id="contentbox">
 				<div id="cal">
 					<div id='calendar'></div>
 				</div>
-				<div id="caldetail">
+			</div>
+		<div id="caldetail">
 					<div id="morning"></div>
 					<hr>
 					<div id="lunch"></div>
-					<!-- <p onclick="location.href='/dndn/mypage/order.do';"
-						style="cursor: pointer;">주문하러 가보실까요?</p> -->
 				</div>
-			</div>
 		</section>
-	</div>
-	<div></div>
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 	<script>
 		/* document.addEventListener('click', function(event) {
@@ -166,7 +136,7 @@
  var year = dateObject.getFullYear();
  var month = ('0' + (dateObject.getMonth() + 1)).slice(-2);
  var day = ('0' + dateObject.getDate()).slice(-2);
- var formattedCurrentDate = year + '-' + month + '-' + day;
+ var today = year + '-' + month + '-' + day;
 
 if(check == null){	 
 
@@ -177,17 +147,17 @@ if(check == null){
      shipDate = shipDate.toString();
 
      console.log("정기배송 날짜: " + shipDate);
-     console.log("현재날짜: " + formattedCurrentDate);
+     console.log("현재날짜: " + today);
 
-     if (formattedCurrentDate === shipDate) {
+     if (today === shipDate) {
        var shiptime = "${dto.shiptime}";
 
 	       if (shiptime === "0") {
 	        
-	         $('#morning').append('<div class="inner"><div class="images"><img class="fimg" src="${dto.lunchpic }"></div><div class="name">${dto.lunchname}</div><button class="btn">[상세보기]</button></div>');
+	         $('#morning').append('<div class="inner" style="height:180px;"><div class="images"><img class="fimg" src="${dto.lunchpic }"></div><div class="name">${dto.lunchname}</div><button class="btn">[상세보기]</button></div>');
 	         
 	       } else if (shiptime === "1") {
-	         $('#lunch').append('<div class="inner"><div class="images"><img class="fimg" src="${dto.lunchpic }"></div><div class="name">${dto.lunchname}</div><button class="btn">[상세보기]</button></div>');
+	         $('#lunch').append('<div class="inner" style="height:180px;"><div class="images"><img class="fimg" src="${dto.lunchpic }"></div><div class="name">${dto.lunchname}</div><button class="btn">[상세보기]</button></div>');
 	    	}
      }/* else if(shipDate == null){
     	 $('#morning').append('아직 주문내역이 없네요. 주문하시러 가볼까요??');
@@ -202,17 +172,20 @@ if(check == null){
      shipDate = shipDate.toString();
 
      console.log("정기배송 날짜: " + shipDate);
-     console.log("Current date: " + formattedCurrentDate);
+     console.log("Current date: " + today);
 
      if (check === shipDate) {
        var shiptime = "${dto.shiptime}";
 
 	       if (shiptime === "0") {
-	         $('#morning').append('<div class="inner"><div class="images"><img class="fimg" src="${dto.lunchpic }"></div><div class="name">${dto.lunchname}</div><button class="btn">[상세보기]</button></div>');
+	         $('#morning').append('<div class="inner" style="height:180px;"><div class="images"><img class="fimg" src="${dto.lunchpic }"></div><div class="name">${dto.lunchname}</div><button class="btn">[상세보기]</button></div>');
 	         
 	       } else if (shiptime === "1") {
-	         $('#lunch').append('<div class="inner"><div class="images"><img class="fimg" src="${dto.lunchpic }"></div><div class="name">${dto.lunchname}</div><button class="btn">[상세보기]</button></div>');
-	    	}/* else if (shiptime != "1" && shiptime === "0"){
+	         $('#lunch').append('<div class="inner" style="height:180px;"><div class="images"><img class="fimg" src="${dto.lunchpic }"></div><div class="name">${dto.lunchname}</div><button class="btn">[상세보기]</button></div>');
+	    	}
+	       
+	       
+	       /* else if (shiptime != "1" && shiptime === "0"){
 	    		 $('#morning').append('아직 주문내역이 없네요. 주문하시러 가볼까요??');
 
 	    	}else if (shiptime != "0" && shiptime === "1"){
@@ -224,10 +197,15 @@ if(check == null){
  } */
    </c:forEach>
  </c:forEach>
+	       $('.btn').click(function() {
+	    	   $(location).attr('href', 'http://localhost:8091/dndn/list.do?page=1&category=4&sort=0')
+	    		  //alert($(this).prev().text());
+	    		});
  console.log("나 아직 살아있따아ㅏㅏ아아아아아아: "+shipDate);
 	
 }
  }
+ 
 
 
 		document.addEventListener('DOMContentLoaded', function() {
