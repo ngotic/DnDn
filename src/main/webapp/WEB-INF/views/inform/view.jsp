@@ -36,6 +36,23 @@
 		margin-top: 20px;
 		margin-bottom: 20px;
 		
+		transition: all 0.2s;
+	}
+
+	.notice-btn:hover {
+		border: 1.5px solid #F27C2A;
+		background-color:#F27C2A;
+		color: white;
+		width: 50px;
+		
+		float:right;
+		
+		padding: 5px;
+		margin: 5px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		
+		transform: scale(1.1);
 	}
 	
 	
@@ -70,6 +87,25 @@
 	
 	}
 	
+/* 	
+	.container {
+	
+		min-height: 1200px;
+		
+	}
+	 */
+	/*  
+	.mainbar {
+		min-height: 1000px;
+	}
+	  */
+	  
+	.footer-area {
+		transform: translateY(250%);
+	}
+	  
+
+	 
 
 </style>
 </head>
@@ -77,7 +113,8 @@
 	<!-- template.jsp -->
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>
 	<section class="container">
-				<div class="side-container">
+	<fieldset>
+		<div class="side-container">
 			<div class="inform-menu-box">
 				<h2 class="h2-bold ">고객센터</h2>
 				<ul class="inform-menu">
@@ -85,10 +122,7 @@
 						<a href="/dndn/inform/notice.do" class="inform-item active menu-font">공지사항</a>
 					</li>
 					<li>
-						<a href="#" class="inform-item menu-font">1:1 문의</a>
-					</li>
-					<li>
-						<a href="#" class="inform-item menu-font">FAQ</a>
+						<a href="/dndn/inform/faq.do" class="inform-item menu-font">FAQ</a>
 					</li>
 				</ul>
 			</div>
@@ -119,10 +153,11 @@
 			<div class="notice-box">
 				<div class="notice-list notice-title">
 					<span>${dto.title }</span>
+					<span style="display:inline-block; float:right">${dto.regdate }</span>				
 				</div>
 				<div class="notice-list notice-writer">
 					<span>관리자</span>
-					<span>${dto.regdate }</span>
+
 					<span style="display:inline-block; float:right">조회수 | ${dto.views }</span>
 				</div>
 				<div class="notice-list notice-content">
@@ -130,20 +165,20 @@
 				</div>
 			</div>
 			<div class="notice-btn-side">
-				<input type="button" class="btn notice-btn" value="목록" onclick="location.href='/dndn/inform/notice.do';">
+				<input type="button" class="btn notice-btn" value="목록" onclick="location.href='/dndn/inform/notice.do';" style="background-color: #2E75B6; border: #2E75B6">
 				
 			<sec:authorize
-         access="hasRole('ROLE_ADMIN') or (isAuthenticated() and principal.username == #dto.id)">
+         access="hasRole('ROLE_ADMIN') or isAuthenticated() ">
 				<button type="button" class="btn notice-btn"
             onclick="location.href='/dndn/inform/notice_edit.do?noticeseq=${dto.noticeseq}&id=${dto.id}';">수정하기</button>
          		<button type="button" class="btn notice-btn"
              data-bs-toggle="modal" data-bs-target="#exampleModalDel">삭제하기</button>
              	
              	<c:if test="${dto.mainnotice =='F'}">
-             	<button type="submit" class="btn notice-btn" id="main-notice-btn">메인 지정</button>
+             	<button type="submit" class="btn notice-btn" id="main-notice-btn" style="float:left; background-color: tomato;">메인 지정</button>
              	</c:if>	
              	<c:if test="${dto.mainnotice =='T'}">
-             	<button type="submit" class="btn notice-btn" id="main-notice-btn">메인 취소</button>	
+             	<button type="submit" class="btn notice-btn" id="main-notice-btn" style="float:left; background-color: tomato;" >메인 취소</button>	
              	</c:if>	
              	
               </sec:authorize> 
@@ -152,10 +187,13 @@
 				<input type="hidden" name="mainnotice" value="${dto.mainnotice}">
 			</div>
 			</form>
+			
+
+			
 		
 
 <sec:authorize
-         access="hasRole('ROLE_ADMIN') or (isAuthenticated() and principal.username == #dto.id)">	
+         access="hasRole('ROLE_ADMIN') or isAuthenticated()">	
 <form method="POST" action="/dndn/inform/delok">
 		<div class="modal fade" id="exampleModalDel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -189,10 +227,18 @@
 		
 		
 		</div>
+		
+	</fieldset>		 
 	</section>
+	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+	
+	 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 	
 <script>
+
+
+	console.log()
 
 /* 
 $('#main-notice-btn').on('click',function() {

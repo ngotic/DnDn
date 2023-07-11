@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class NoticeDTO {
+	
+	private String rnum;
 
 	private String noticeseq;
 	private String title;

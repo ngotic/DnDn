@@ -127,6 +127,12 @@ public class NoticeServiceImpl implements NoticeService{
 		return noticeMapper.faqlist(dto);
 	}
 
+	@Override
+	public List<FaqDTO> categorylist(String category) {
+		
+		return noticeMapper.categorylist(category);
+	}
+
 
 	
 

@@ -4,12 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.dndn.inform.domain.FaqDTO;
 import com.project.dndn.inform.domain.NoticeDTO;
@@ -49,6 +53,8 @@ public class InformController {
 	      
 	      return "inform/notice";
 	   }
+
+
 	
 	
 	
@@ -234,24 +240,60 @@ public class InformController {
 	}
 
 
-	
+
+	 
 	@GetMapping("/inform/faq.do")
-	   public String faq(Model model, FaqDTO dto) {
-	      
-	     model.addAttribute("faqlist", noticeService.faqlist(dto));
-	      
-	      
-	      return "inform/faq";
-	   }
+   public String faq(Model model, FaqDTO dto) {
+      
+     model.addAttribute("faqlist", noticeService.faqlist(dto));
+      
+      
+      return "inform/faq";
+   }
 	
 	  
+	@PostMapping("/inform/faq.do")
+	@ResponseBody
+	public List<FaqDTO> category(Model model,@RequestParam(required=false, defaultValue="상품") String category) {
 		
-
-
-
+		
+		
+		
+		  System.out.println("카테고리: "+ category);
+		  
+		  
+		  List<FaqDTO> categorylist = noticeService.categorylist(category);
+		  
+		  return categorylist;
+		 
+		
+		/*
+		 * JSONArray arr = new JSONArray();
+		 * 
+		 * for (FaqDTO fdto : categorylist) {
+		 * 
+		 * JSONObject obj = new JSONObject(); obj.put("title", fdto.getTitle());
+		 * obj.put("faqseq", fdto.getFaqseq()); obj.put("category", fdto.getCategory());
+		 * obj.put("regdate", fdto.getRegdate()); obj.put("content", fdto.getContent());
+		 * obj.put("id", fdto.getId());
+		 * 
+		 * 
+		 * //arr.add(obj);
+		 * 
+		 * arr.put(obj);
+		 * 
+		 * 
+		 * }
+		 * 
+		 * 
+		 * model.addAttribute("categorylist",noticeService.categorylist(category));
+		 * model.addAttribute("arr", arr);
+		 * 
+		 * return "inform/faq";
+		 */
+	}
 	
-	
-	
+
 	
 	
 	

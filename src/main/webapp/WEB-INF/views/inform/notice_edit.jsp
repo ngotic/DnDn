@@ -200,7 +200,7 @@
  // width은정하면 글 커지면 오른쪼긍로 터짐;; 
  $(document).ready(function() {
      $('#summernote').summernote({
-           width:600,
+           width:800,
            minHeight: 300,
            lang: "ko-KR",
            codeviewFilter: false,

@@ -10,9 +10,9 @@
 	
 	<select id="noticelist"	resultType="com.project.dndn.inform.domain.NoticeDTO">
 		<!-- select n.*,to_date(regdate,'YYYY/MM/DD') from tblnotice n order by noticeseq desc -->
-		select r as noticeseq, title, content, to_char(regdate, 'yyyy-mm-dd') as regdate,
+		select r as rnum, title, content, to_char(regdate, 'yyyy-mm-dd') as regdate,
 views, case id when 'cah124' then '관리자' end as id,
-mainnotice from ( select rownum as r, n.* from (select * from tblnotice order by noticeseq asc) n ) order by r desc
+mainnotice, noticeseq from ( select rownum as r, n.* from (select * from tblnotice order by noticeseq asc) n ) order by r desc
 	</select>	
 
 	<select id="noticeget"	resultType="com.project.dndn.inform.domain.NoticeDTO">
@@ -144,9 +144,9 @@ n )
 	</select>
 
 	<select id="mainlist" resultType="com.project.dndn.inform.domain.NoticeDTO">
-		select r as noticeseq, title, content, to_char(regdate, 'yyyy-mm-dd') as regdate,
+		select r as rnum , title, content, to_char(regdate, 'yyyy-mm-dd') as regdate,
 views, case id when 'cah124' then '관리자' end as id,
-mainnotice from ( select rownum as r, n.* from (select * from tblnotice order by noticeseq asc) n )where mainnotice='T' order by r desc 
+mainnotice, noticeseq from ( select rownum as r, n.* from (select * from tblnotice order by noticeseq asc) n )where mainnotice='T' order by r desc 
 	</select>
 	
 	<update id="main">
@@ -158,9 +158,25 @@ mainnotice from ( select rownum as r, n.* from (select * from tblnotice order by
 	</update>
 	
 	<select id="faqlist" resultType="com.project.dndn.inform.domain.FaqDTO">
-		select * from tblfaq
+		select f.faqseq as faqseq,
+    f.title as title,
+    f.content as content,
+    f.regdate as regdate,
+    case f.id when 'cah124' then '관리자' end as id,
+    fc.category as category 
+        from tblfaq f inner join tblfaqcategory fc on f.category = fc.categoryseq order by f.faqseq desc
 	</select>
 	 
+	 
+	<select id="categorylist" resultType="com.project.dndn.inform.domain.FaqDTO">
+		select f.faqseq as faqseq,
+    f.title as title,
+    f.content as content,
+    f.regdate as regdate,
+    case f.id when 'cah124' then '관리자' end as id,
+    fc.category as category 
+        from tblfaq f inner join tblfaqcategory fc on f.category = fc.categoryseq where fc.category = #{category} order by f.faqseq desc
+	</select>
 	
 	
 	

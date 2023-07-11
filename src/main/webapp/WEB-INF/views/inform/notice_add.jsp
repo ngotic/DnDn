@@ -37,8 +37,9 @@
 		margin: 5px;
 		margin-top: 20px;
 		margin-bottom: 20px;
-		
 	}
+	
+
 	
 	.add-side {
 		width: 800px;
@@ -106,9 +107,13 @@
  		margin-left: 10px;
  		display:flex;
  		justify-content: space-between;
- 		
- 	
+
  	}
+ 	
+ 	
+ 	.footer-area {
+		transform: translateY(250%);
+	}
 	
 	
 
@@ -118,6 +123,7 @@
 	<!-- template.jsp -->
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>
 	<section class="container">
+	<fieldset>
 		<%@ include file="/WEB-INF/views/inform/inform_sidebar.jsp" %>
 		
 		<div class="mainbar">
@@ -155,8 +161,9 @@
 			
 		
 		</div>
+	</fieldset>
 	</section>
-	
+	 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 
 
 
