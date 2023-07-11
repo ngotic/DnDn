@@ -56,7 +56,25 @@ display: block;
     text-align: right;
 }
 
+	#form_132{
+	    padding: 50px;
+	    width: 100%;
+    margin: 30px;
+    margin-left: 0px;
+    border:1px solid #00000029;
+    border-radius: 10px;
+    margin-bottom: 20px;
+   background-color: #f8f9fa !important;
+    }    
+    .datatable-wrapper{
+        padding: 50px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+    border:1px solid #00000029;
 
+ 
+    }
+    
 
 
 </style>
@@ -84,7 +102,7 @@ display: block;
 	                            <c:set var="editBoolean" value="${not empty param.edit}" />
 	                            <c:set var="deleteBoolean" value="${not empty param.delete}" />
 		<c:if test="${ addBoolean}">
-		<form method="GET"  action="./coupon-add.do">            
+		<form method="GET"  action="./coupon-add.do" id="form_132">            
 			</c:if>
 			<c:if test="${editBoolean}">
 		<!-- <form   action="./coupon-edit.do" id="coupon_edit_form">         -->    

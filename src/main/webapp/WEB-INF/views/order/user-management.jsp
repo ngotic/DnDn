@@ -2,6 +2,53 @@
 <!DOCTYPE html>
 
 <head>
+
+<style>
+
+	#form_1{
+	   margin: 30px;
+    padding: 0px;
+ 
+    border-radius: 10px;
+    margin-bottom: 20px;
+   
+    }
+    .screen2{
+	    padding: 50px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+     border:1px solid #00000029;
+    margin-bottom:30px;
+    }
+    	.screen4{
+	    padding: 50px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+    border:1px solid #00000029;
+    margin-bottom:30px;
+    }
+    	.screen5{
+	    padding-left: 50px;
+	    padding-top:10px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+    border:1px solid #00000029;
+    border-bottom: 0px;
+      border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    }
+    .datatable-wrapper{
+        padding: 50px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+    border:1px solid #00000029;
+    border-top: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    }
+    
+    
+    </style>
     <meta charset="utf-8">
     <title>든든</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -51,7 +98,7 @@
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
 			
 			
-		<form method="get"  style="padding: 50px 150px;">
+		<form id="form_1" method="get"  >
 						<!-- 좌측 메뉴 스크린 -->
 		
 		

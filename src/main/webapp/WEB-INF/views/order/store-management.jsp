@@ -2,6 +2,45 @@
 <!DOCTYPE html>
 
 <head>
+
+<style>
+	#form_1{
+	   margin: 30px;
+    padding: 0px;
+
+    border-radius: 10px;
+    margin-bottom: 20px;
+   
+    }
+    .screen2{
+	    padding: 50px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+        border:1px solid #00000029;
+    margin-bottom:30px;
+    }
+    	.screen4{
+	    padding: 50px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+    
+    margin-bottom:30px;
+    }
+    	#store_tbl1{
+    border:1px solid #00000029;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+        
+    padding: 50px;
+    }
+    .datatable-wrapper{
+       margin: 33px;
+    padding: 50px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+        border:1px solid #00000029;
+    }
+</style>
     <meta charset="utf-8">
     <title>든든</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -53,7 +92,7 @@
 			<!-- nav -->
 			<%@ include file="/WEB-INF/views/order/admin-nav.jsp" %>
 			
-			<form method="get"  style="padding: 50px 150px;">	
+			<form method="get"  id="form_1">	
 <div  class= " screen2 screenAll"   >
 		
 					<table class ="table table-hover" >
@@ -90,7 +129,7 @@
 					</table>
 
 				</div>
-			<div>
+			<div id="store_tbl1">
 				<table  class ="table table-hover" >
 						<tr>
 							<th>회원명</th>

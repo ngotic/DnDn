@@ -678,9 +678,9 @@ public class OrderController {
 			dto.setSale(sale);
 			dto.setPeriod2(period2);
 			
-			
-			orderService.insertcoupon(dto);
-			
+			int couponseq= orderService.insertcoupon(dto);
+			System.out.println("쿠폰 seq = "+couponseq);
+			/* orderService.coupon(couponseq); */
 		}
 		
 		

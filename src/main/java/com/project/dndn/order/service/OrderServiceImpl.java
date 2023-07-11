@@ -18,6 +18,9 @@ import com.project.dndn.order.mapper.OrderMapper;
 
 @Service("orderService")
 public class OrderServiceImpl implements OrderService{
+	
+	
+	
 	@Override
 	public void delete_event(String event_seq) {
 		orderMapper.delete_event(event_seq);
@@ -164,10 +167,10 @@ public class OrderServiceImpl implements OrderService{
 	}
 	
 	@Override
-	public void insertcoupon(OrderCouponDTO dto) {
+	public int insertcoupon(OrderCouponDTO dto) {
 	
-		orderMapper.insertcoupon(dto);
-		
+		int result= orderMapper.insertcoupon(dto);
+		return result;
 	}
 	
 	@Override

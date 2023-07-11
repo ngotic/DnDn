@@ -4,6 +4,9 @@
 <!DOCTYPE html>
   
 <head>
+
+
+
     <meta charset="utf-8">
     <title>든든</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -290,6 +293,24 @@ tr td {
 	font-size: 15px;
 	}
   
+
+    .screen6{
+	   
+    background-color: #f8f9fa !important;
+
+    
+    margin-bottom:30px;
+    }
+.card-body{
+	    padding: 50px;
+    background-color: #f8f9fa !important;
+    border-radius: 10px;
+    
+    margin-bottom:30px;
+}
+.card-body{
+width: 88%;
+}
 </style>
     
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
@@ -621,9 +642,9 @@ tr td {
                 
                     <div class="container-fluid px-4 ">
                         
-                        <div class="card mb-4" style="border: none;" id="event-table">
+                        <div class="card mb-4" style="border: none; width:104%; margin-left: -25px; " id="event-table">
                             
-                            <div class="card-body">
+                            <div class="card-body" style=" border:1px solid #00000029;">
                                <span>이벤트 리스트</span> 
                                
                                <div>
