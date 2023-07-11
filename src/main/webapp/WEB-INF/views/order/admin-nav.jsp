@@ -28,12 +28,15 @@
                 	
                   	<div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="/dndn/resources/img/admin/프로필.jpg" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="/dndn/resources/img/admin/pro.png" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">관리자</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Log Out</a>
+	                        <form method="POST" action="/dndn/auth/logout.do">
+	                    		<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">로그아웃</button></div></li>
+	                    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         </div>
+					</form>
                     </div>
                 </div>
                 

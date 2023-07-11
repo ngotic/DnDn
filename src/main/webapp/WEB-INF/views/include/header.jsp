@@ -91,7 +91,7 @@
                     	<li><div class="nav-item"><button class="nav-link" style="margin-left:20px;">로그아웃</button></div></li>
                     	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					</form>	
-					 <form method="POST" action="/dndn/order/user.do">
+					 <form method="POST" action="/dndn/admin/admin-main.do">
 						<li><div class="nav-item"><input type="submit" class="nav-link" style="margin-left:20px;" value= "관리자페이지"></div></li>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                     	</form>

@@ -59,9 +59,8 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-	<div id="box">
-		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
 		<section class="container">
+		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
 		<div id="pageTitle">찜</div>
 				<div id="cardbox">
 			<c:forEach items="${wlist }" var="dto">
@@ -78,7 +77,6 @@
 			</c:forEach>
 				</div>
 		</section>
-	</div>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

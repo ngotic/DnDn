@@ -7,6 +7,7 @@
 <title>dndn</title>
 <%@ include file="/WEB-INF/views/include/asset.jsp"%>
 <style>
+
 #side-content > table > tbody > tr:nth-child(2) {
 	background-color: #F1F1F1 !important;
 }
@@ -67,9 +68,8 @@ button {
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
-	<div id="box">
-		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
 		<section class="container">
+		<%@ include file="/WEB-INF/views/include/mypage-header.jsp"%>
 			<div id="pageTitle">주문 조회</div>
 			<c:forEach items="${map.orderList}" var="oNum" varStatus="numStatus">
 				<div id="card">
@@ -115,7 +115,8 @@ button {
 				</div>
 			</c:forEach>
 		</section>
-	</div>
+		<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 	<script
@@ -123,8 +124,6 @@ button {
 	<script>
 		
 	</script>
-		<div></div>
-	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 </body>
 </html>
 

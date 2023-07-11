@@ -156,9 +156,8 @@
 </head>
 <body>
 		<%@ include file="/WEB-INF/views/include/header.jsp" %>
-	<div id="box">
-		<%@ include file="/WEB-INF/views/include/mypage-header.jsp" %>
 		<section class="container">
+		<%@ include file="/WEB-INF/views/include/mypage-header.jsp" %>
   <div id="pageTitle">
           장바구니
   </div>
@@ -247,7 +246,6 @@
   
 </section>
 
-        </div>
         <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
