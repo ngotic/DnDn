@@ -13,9 +13,6 @@
 			</div>
 		</div>
 		<div id="side-content">
- 		<%-- <div title="사용자 아이디">
-     		 <sec:authentication property="principal.username"/>
-   		</div> --%>
    		<table>
    		<tr>
    		<td><span class="material-symbols-outlined">
@@ -27,13 +24,11 @@ person_search
    		<td><span class="material-symbols-outlined">
 inventory</span>
    		<td><button onclick="location.href='/dndn/mypage/order.do';">주문조회</button></td>
-</td>
    		</tr>
    		<tr>
    		<td><span class="material-symbols-outlined">
 local_shipping</span>
    		<td><button onclick="location.href='/dndn/mypage/food.do';">식단관리</button></td>
-</td>
    		</tr>
    		<tr>
    		<td><span class="material-symbols-outlined">
