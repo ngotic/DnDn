@@ -22,10 +22,16 @@ public class ProductController {
 		return "admin/admin-main";
 	}
 	
-	@GetMapping("/admin/test.do")
-	public String test(Model model) {
+	@GetMapping("/admin/admin-main2.do")
+	public String main2(Model model) {
 
-		return "admin/test";
+		return "admin/admin-main2";
+	}
+	
+	@PostMapping("/admin/admin-main.do")
+	public String homeToMain(Model model) {
+
+		return "admin/admin-main";
 	}
 
 	@GetMapping("/admin/product.do")
@@ -99,7 +105,6 @@ public class ProductController {
 			
 		}
 	}
-	
 	
 
 }
