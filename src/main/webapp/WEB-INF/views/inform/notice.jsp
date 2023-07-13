@@ -149,7 +149,7 @@ a {
 }
 
 	.footer-area {
-		transform: translateY(250%);
+		transform: translateY(50%);
 	}
     
 

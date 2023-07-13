@@ -218,7 +218,7 @@ body {
 	<div id="mainBannerCarousel" class="carousel slide" data-bs-ride="carousel">
 	  <div class="carousel-inner">
 	    <div class="carousel-item active">
-	      <img src="https://www.slimcook.co.kr/design/slimcook/product/2%2B1/6meal_2%2B1_eventbanner_w.jpg" class="d-block w-100" alt="...">
+	      <img src="https://www.slimcook.co.kr/design/slimcook/renewal/benefit/benefits_main_pc.png" class="d-block w-100" alt="...">
 	    </div>
 	    <div class="carousel-item">
 	      <img src="https://ftp.xexymix.jpg3.kr/3carekorea/pocket/event/2023/07/230706_weekend/1300x200_top_banner.jpg" class="d-block w-100" alt="...">

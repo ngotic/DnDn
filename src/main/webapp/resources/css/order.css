@@ -87,10 +87,11 @@
 	display: flex;
     flex-wrap: wrap;
 	margin: 0 24px;
+	justify-content: center;
 	}
 	
 	.event-box{
-	width:  400px;
+		width:  350px;
 		height: 500px;
 		 padding: 50px;
 		    text-align: center;

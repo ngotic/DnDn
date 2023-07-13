@@ -440,22 +440,15 @@ a {
 		<!-- mainbar -->
 	</fieldset>
 	</section>
-	 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script>
-		
+	<%-- <%@ include file="/WEB-INF/views/include/footer.jsp" %> --%>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
 		var header = $("meta[name='_csrf_header']").attr('content');
 	   var token = $("meta[name='_csrf']").attr('content');
 	   
-	   
-
-
-	
-
 function tablist(category){
 	
 	
@@ -553,9 +546,6 @@ $('.suggest-title').on('click', function() {
 
 });
 
-
-
-
 $('.suggest-tab').on('click', function() {
 	
 
@@ -563,13 +553,8 @@ $('.suggest-tab').on('click', function() {
 
 });
 	
-	
-	
-	
-	
 </script>
-</body>
-</html>
+
 
 
 

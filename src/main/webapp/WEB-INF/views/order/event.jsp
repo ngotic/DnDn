@@ -41,8 +41,8 @@
 	<!-- template.jsp -->
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>
 
-	<section class="container" style="max-width:100%;">
-		<div>
+	<section class="container" style="max-width:1400px;">
+		<div class="row"> 
 			<div class="event-btn-box">
 				<div class="event-page-title">
 				<span class="">EVENT</span>
@@ -59,12 +59,11 @@
 			</div>
 		</div>
 		
+	<div class="row"> 	
 	<ul class="event-content"><!-- 이벤트 콘텐츠    -->
-	
-
 	<c:forEach var="event"  items="${eventlist}">
-			<li class="event-content">
-				<div class="event-box ">
+			<li class="event-content col-md-3">
+				<div class="event-box">
 
 						<a href="/dndn/order/event-page.do?event_seq=${event.eventseq }" style="text-decoration: none"><img src="/dndn/resources/img/event/${event.pic_board }">
 							<span class="event-title event-text-box"  >${event.title }</span>
@@ -73,12 +72,12 @@
 									<span class="event-txt " >${event.startdate.substring(0,10) }  ~  ${event.enddate.substring(0,10) }</span>
 								</div>	 
 						</a>
-					</div>   	
+				</div>   	
 			</li>
 	</c:forEach>
-	
-						
 	</ul>
+	</div>
+		
 	</section>
 	
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
