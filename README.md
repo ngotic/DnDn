@@ -1,6 +1,6 @@
 # 🍱<b> 정기배송형 도시락 판매 사이트 '든든'입니다.</b>
 # ✅<b> 사이트 로고</b>
-<img src="./imgs/logo_long.png" style="margin:auto;" width=50%>
+<p align="center"><img src="./imgs/logo_long.png" style="margin:auto; width:40%"></p>
 <br>
 
 # <b>📖 프로젝트 소개</b>
@@ -70,7 +70,7 @@
 <img src="./imgs/메뉴소개.PNG">
 
 ### 3️⃣ 도시락 상세페이지
-<img src="./imgs/주문상세.png">
+<img src="./imgs/주문상세.PNG">
 
 ### 4️⃣ 로그인(+소셜 로그인), 비밀번호 찾기
 <img src="./imgs/로그인.png">
